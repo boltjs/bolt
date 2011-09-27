@@ -2,7 +2,7 @@ NAME = loader
 SRC = src
 LIB = lib
 TEST = test
-DIST = dist
+DIST = gen
 RELEASE = ${DIST}/${NAME}.js
 PRELUDE = ${LIB}/framework/prelude.js 
 
