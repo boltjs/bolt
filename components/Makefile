@@ -24,5 +24,5 @@ ${PRELUDE}:
 	dent -clean
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE}
-	(echo "(function(scope) {" && cat ${PRELUDE} ${MODULES} && echo "})(this);") > ${RELEASE}
+	(echo "(function(scope) {" && cat ${PRELUDE} ${MODULES} && echo "})(this.window || global);") > ${RELEASE}
 
