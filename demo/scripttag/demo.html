@@ -1,0 +1,15 @@
+<html>
+<head>
+<script type="text/javascript" src="../../gen/loader.js"></script>
+<script type="text/javascript">
+    ephox.bolt.loader.core.scripttag("demo.js", function () {
+        var result = document.getElementById("result");
+        result.innerHTML = "hello, callback ran!";
+    });
+</script>
+</head>
+<body>
+<div id="blob">demo.js did not run</div>
+<div id="result">callback did not run</div>
+</body>
+</html>
