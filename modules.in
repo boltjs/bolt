@@ -1,3 +1,4 @@
+NAME = loader
 MODULES = \
 	${SRC}/prelude.js \
 	${SRC}/transport/xhr.js \
