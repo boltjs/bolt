@@ -1,0 +1,4 @@
+*~
+/dist
+*.iws
+.idea/workspace.xml
