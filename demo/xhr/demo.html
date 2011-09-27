@@ -1,0 +1,28 @@
+<html>
+<head>
+<script type="text/javascript" src="../../gen/loader.js"></script>
+</head>
+<body>
+
+<div id="positive">positive case did not run</div>
+<div id="negative">negative case did not run</div>
+
+<script type="text/javascript">
+    var positive = document.getElementById("positive");
+    var negative = document.getElementById("negative");
+
+    ephox.bolt.loader.transporter.xhr("demo.txt", function (data) {
+        positive.innerHTML = "[passed] " + data;
+    }, function (message) {
+        positive.innerHTML = "[failed] " + message;
+    });
+
+    ephox.bolt.loader.transporter.xhr("missing.txt", function (data) {
+        negative.innerHTML = "[failed] somehow we got - " + data;
+    }, function (message) {
+        negative.innerHTML = "[passed] failed in an expected way - " + message
+    });
+</script>
+
+</body>
+</html>
