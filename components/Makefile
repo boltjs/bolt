@@ -22,7 +22,7 @@ ${DIST}:
 	mkdir -p $@
 
 ${PRELUDE}:
-  dent -clean
+	dent -clean
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE}
 	(echo "(function(global) {" && cat ${PRELUDE} ${MODULES} && echo "})(this);") > ${RELEASE}
