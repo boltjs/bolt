@@ -1,12 +1,11 @@
-NAME = loader
+include modules.in
+
 SRC = src
 LIB = lib
 TEST = test
 DIST = gen
 RELEASE = ${DIST}/${NAME}.js
 PRELUDE = ${LIB}/framework/prelude.js 
-
-include modules.in
 
 .PHONY: default clean test
 
