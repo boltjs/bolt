@@ -14,7 +14,7 @@ default: ${RELEASE} test
 clean:
 	rm -rf ./${DIST}
 
-test:
+test: ${RELEASE}
 	find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 node
 
 ${DIST}:
@@ -24,5 +24,5 @@ ${PRELUDE}:
 	dent -clean
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE}
-	(echo "(function(global) {" && cat ${PRELUDE} ${MODULES} && echo "})(this);") > ${RELEASE}
+	(echo "(function(scope) {" && cat ${PRELUDE} ${MODULES} && echo "})(this);") > ${RELEASE}
 
