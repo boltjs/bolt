@@ -1,4 +1,4 @@
-var p = Ent.Project.create('bolt-loader', 'external');
+var p = Ent.Project.create('bolt-kernel', 'external');
 p.setVersion(1, 0, 0);
 p.setConfig({
     command: ["make"],
