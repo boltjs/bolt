@@ -4,6 +4,6 @@ MODULES = \
 	${SRC}/transport/xhr.js \
 	${SRC}/executor/eval.js \
 	${SRC}/executor/injector.js \
-	${SRC}/loader/script.js \
-	${SRC}/loader/xhreval.js \
-	${SRC}/loader/xhrinjector.js
+	${SRC}/loader/script_tag.js \
+	${SRC}/loader/xhr_eval.js \
+	${SRC}/loader/xhr_injector.js
