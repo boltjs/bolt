@@ -1,16 +1,12 @@
 NAME = loader
 SRC = src
+LIB = lib
 TEST = test
-MODULES = \
-	${SRC}/prelude.js \
-	${SRC}/transport/xhr.js \
-	${SRC}/execution/eval.js \
-	${SRC}/execution/injector.js \
-	${SRC}/loader/script.js \
-	${SRC}/loader/xhreval.js \
-	${SRC}/loader/xhrinjector.js
 DIST = dist
 RELEASE = ${DIST}/${NAME}.js
+PRELUDE = ${LIB}/framework/prelude.js 
+
+include modules.in
 
 .PHONY: default clean test
 
@@ -25,5 +21,9 @@ test:
 ${DIST}:
 	mkdir -p $@
 
-${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY}
-	(echo "(function(global) {" && cat ${MODULES} && echo "})(this);") > ${RELEASE}
+${PRELUDE}:
+  dent -clean
+
+${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE}
+	(echo "(function(global) {" && cat ${PRELUDE} ${MODULES} && echo "})(this);") > ${RELEASE}
+
