@@ -1,4 +1,5 @@
 var loader = bolt.loader = bolt.loader || {};
 loader.executor = loader.executor || {};
-loader.core = loader.core || {};
+loader.api = loader.api || {};
 loader.transporter = loader.transporter || {};
+loader.tag = loader.tag || {};

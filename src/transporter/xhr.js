@@ -3,20 +3,21 @@ loader.transporter.xhr = def(
   ],
 
   function () {
-    var XMLHttpFactories = [
-      function () {return new XMLHttpRequest()},
-      function () {return new ActiveXObject("Msxml2.XMLHTTP")},
-      function () {return new ActiveXObject("Msxml3.XMLHTTP")},
-      function () {return new ActiveXObject("Microsoft.XMLHTTP")}
-    ];
+    var request = function() {
+        // FIX is there really a need to look at all these MS impls?
+        var factories = [
+            function () {return new XMLHttpRequest()},
+            function () {return new ActiveXObject("Msxml2.XMLHTTP")},
+            function () {return new ActiveXObject("Msxml3.XMLHTTP")},
+            function () {return new ActiveXObject("Microsoft.XMLHTTP")}
+        ];
   
-    var createXMLHTTPObject = function() {
-      for (var i = 0; i < XMLHttpFactories.length; i++) {
-        try {
-          return XMLHttpFactories[i]();
-        } catch (e) {
+        for (var i = 0; i < factories.length; ++i) {
+            try {
+                return factories[i]();
+            } catch (e) {
+            }
         }
-      }
     };
 
     var handler = function (req, url, success, error) {
@@ -40,7 +41,7 @@ loader.transporter.xhr = def(
     };
 
     return function(url, success, error) {
-      var req = createXMLHTTPObject();
+      var req = request();
       if (req)
         ajax(req, url, success, error);
       else

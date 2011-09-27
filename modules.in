@@ -1,9 +1,10 @@
 NAME = loader
 MODULES = \
 	${SRC}/prelude/namespace.js \
+	${SRC}/tag/script.js \
 	${SRC}/transporter/xhr.js \
 	${SRC}/executor/eval.js \
 	${SRC}/executor/injector.js \
-	${SRC}/core/script_tag.js \
-	${SRC}/core/xhr_eval.js \
-	${SRC}/core/xhr_injector.js
+	${SRC}/api/script_tag.js \
+	${SRC}/api/xhr_eval.js \
+	${SRC}/api/xhr_injector.js

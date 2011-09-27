@@ -4,22 +4,20 @@ loader.executor.eval = def(
   ],
 
   function (kernel) {
-    var execute = function(data, success, fail) {
+    var execute = function(data, onsuccess, onfailure) {
       // Expose define function to script
       var define = kernel.define;
 
       try {
         eval(data);
       } catch(e) {
-        fail(e);
+        onfailure(e);
         return;
       }
   
-      success();
+      onsuccess();
     };
 
-    return {
-      execute: execute
-    };
+    return {execute: execute};
   }
 );

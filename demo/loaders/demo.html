@@ -1,0 +1,32 @@
+<html>
+<head>
+<script type="text/javascript">
+  ephox = {bolt: {kernel: {define: function () {}}}};
+</script>
+<script type="text/javascript" src="../../gen/loader.js"></script>
+<script type="text/javascript">
+    ephox.bolt.loader.api.scripttag.load("scripttag.js", function () {
+        var result = document.getElementById("scripttag.callback");
+        result.innerHTML = "[passed] scripttag callback ran @ " + new Date().getTime();
+    });
+    ephox.bolt.loader.api.xhreval.load("xhreval.js", function () {
+        var result = document.getElementById("xhreval.callback");
+        result.innerHTML = "[passed] xhreval callback ran @ " + new Date().getTime();
+    });
+    ephox.bolt.loader.api.xhrinjector.load("xhrinjector.js", function () {
+        var result = document.getElementById("xhrinjector.callback");
+        result.innerHTML = "[passed] xhrinjector callback ran @ " + new Date().getTime();
+    });
+</script>
+</head>
+<body>
+<div id="scripttag.file">[failed] scripttag.js did not run</div>
+<div id="scripttag.callback">[failed] scripttag callback did not run</div>
+
+<div id="xhreval.file">[failed] xhreval.js did not run</div>
+<div id="xhreval.callback">[failed] xhreval callback did not run</div>
+
+<div id="xhrinjector.file">[failed] xhrinjector.js did not run</div>
+<div id="xhrinjector.callback">[failed] xhrinjector callback did not run</div>
+</body>
+</html>
