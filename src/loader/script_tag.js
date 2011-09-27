@@ -1,3 +1,3 @@
-loader.script = def([], function () {
+loader.loader.script = def([], function () {
 
 });

@@ -1,3 +1,3 @@
-loader.xhrinjectpr = def([], function () {
+loader.loader.xhrinjector = def([], function () {
 
 });

@@ -1,3 +1,3 @@
-loader.xhreval = def([], function () {
+loader.loader.xhreval = def([], function () {
 
 });
