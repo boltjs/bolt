@@ -1,0 +1,4 @@
+NAME = kernel
+MODULES = \
+	${SRC}/prelude.js 
+
