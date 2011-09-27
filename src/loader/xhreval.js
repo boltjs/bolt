@@ -1,0 +1,3 @@
+loader.xhreval = def([], function () {
+
+});

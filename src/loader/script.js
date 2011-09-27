@@ -1,0 +1,3 @@
+loader.script = def([], function () {
+
+});

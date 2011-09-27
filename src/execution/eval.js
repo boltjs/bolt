@@ -1,0 +1,2 @@
+loader.eval = def([], function () {
+});
