@@ -10,7 +10,7 @@ include modules.in
 
 .PHONY: default clean test
 
-default: ${RELEASE}
+default: ${RELEASE} test
 
 clean:
 	rm -rf ./${DIST}
