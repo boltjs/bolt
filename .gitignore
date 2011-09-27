@@ -2,3 +2,8 @@
 /dist
 *.iws
 .idea/workspace.xml
+/lib
+/gen
+/dependency
+/scratch
+Makefile
