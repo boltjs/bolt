@@ -1,8 +1,7 @@
 NAME = kernel
 SRC = src
 MODULES = \
-	${SRC}/header.js \
-	${SRC}/footer.js
+	${SRC}/prelude.js
 DIST = dist
 RELEASE = ${DIST}/${NAME}.js
 .PHONY = default clean
@@ -16,4 +15,4 @@ ${DIST}:
 	mkdir -p $@
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY}
-	cat ${MODULES} > ${RELEASE}
+	(echo "(function(global) {" && cat ${MODULES} && echo "})(this);") > ${RELEASE}
