@@ -2,36 +2,57 @@
     <head>
         <title>Executor Demo Page</title>
         <script type="text/javascript">
-            ephox = {bolt: {kernel: {define: function () {}}}};
+            blueprints = [];
+            ephox = {bolt: {kernel: {define: function (id, deps, definition) {
+                blueprints.push({ id: id, deps: deps });
+            }}}};
         </script>
         <script type="text/javascript" src="../../gen/loader.js"></script>
     </head>
     <body>
-
-        <div id="evaller"><span style="color: red;">[failed]</span> evaller test did not run</div>
-        <div id="injector"><span style="color: red;">[failed]</span> injector test did not run</div>
+        <div id="evaller"></div>
+        <div id="injector"></div>
 
         <script type="text/javascript">
             var evaller = document.getElementById("evaller");
             var injector = document.getElementById("injector");
 
+            var pass = function(element, message) {
+                element.innerHTML = '<span style="color: green;">[passed]</span> ' + message;
+            };
+
+            var fail = function(element, message) {
+                element.innerHTML = '<span style="color: red;">[failed]</span> ' + message;
+            };
+
+            fail(evaller, "evaller test did not run");
+            fail(injector, "injector test did not run");
+
             ephox.bolt.loader.executor.evaller.execute(
-                "var evaller = document.getElementById('evaller');" +
-                "evaller.innerHTML = '<span style=\"color: green;\">[passed]</span> content inserted from evaller execution';",
+                "define('evaller_test', ['some_dep'], function() {});",
                 function () {
+                    if (blueprints[0].id === 'evaller_test' && blueprints[0].deps[0] === 'some_dep')
+                        pass(evaller, 'define was called from evaller');
+                    else
+                        fail(evaller, 'define was not called from evaller');
                 },
                 function (message) {
-                    evaller.innerHTML = '<span style="color: red;">[failed]</span> ' + message;
+                    fail(evaller, message);
                 }
             );
 
+            blueprints = [];
+
             ephox.bolt.loader.executor.injector.execute(
-                "var injector = document.getElementById('injector');" +
-                "injector.innerHTML = '<span style=\"color: green;\">[passed]</span> content inserted from injector execution';",
+                "define('injector_test', ['some_dep'], function() {});",
                 function () {
+                    if (blueprints[0].id === 'injector_test' && blueprints[0].deps[0] === 'some_dep')
+                        pass(injector, 'define was called from injector');
+                    else
+                        fail(injector, 'define was not called from injector');
                 },
                 function (message) {
-                    injector.innerHTML = '<span style="color: red;">[failed]</span> ' + message;
+                    fail(injector, message);
                 }
             );
         </script>

@@ -1,6 +1,6 @@
 loader.executor.evaller = def(
   [
-    bolt.kernel  // FIX
+    ephox.bolt.kernel  // FIX
   ],
 
   function (kernel) {

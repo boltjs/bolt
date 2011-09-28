@@ -1,12 +1,21 @@
 loader.executor.injector = def(
   [
-    bolt.kernel,  // FIX
+    ephox.bolt.kernel,  // FIX
     loader.tag.script
   ],
 
   function (kernel, script) {
     var execute = function(data, onsuccess, onfailure) {
-      var wrappedData = data;
+      var wrappedData =
+        "(function () {" +
+          "var define = ephox.bolt.kernel.define;" +
+          "try {" +
+            data +
+            // TODO: globalize onsuccess?
+          "} catch (e) {" +
+            // TODO: globalize onfailure
+          "}" +
+        "})();";
 
       var inject = function (tag) {
         tag.text = wrappedData;
