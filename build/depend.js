@@ -13,5 +13,16 @@ var dependencies = [
       { name: "Makefile", path: "." }
     ]
   },
+
+  // Only used by demo.html
+  {
+    name: "jquery",
+    repository: "thirdpartyrepo",
+    source: "jquery.zip",
+    version: "1.4.2/1.4.2.0",
+    targets: [
+      { name: "jquery-1.4.2.js", path: lib }
+    ]
+  }
 ];
 
