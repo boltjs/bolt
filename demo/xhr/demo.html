@@ -1,28 +1,28 @@
 <html>
-<head>
-<script type="text/javascript" src="../../gen/loader.js"></script>
-</head>
-<body>
+    <head>
+        <script type="text/javascript" src="../../gen/loader.js"></script>
+    </head>
+    <body>
 
-<div id="positive">positive case did not run</div>
-<div id="negative">negative case did not run</div>
+        <div id="positive"><span style="color: red;">[failed]</span> positive case did not run</div>
+        <div id="negative"><span style="color: red;">[failed]</span> negative case did not run</div>
 
-<script type="text/javascript">
-    var positive = document.getElementById("positive");
-    var negative = document.getElementById("negative");
+        <script type="text/javascript">
+            var positive = document.getElementById("positive");
+            var negative = document.getElementById("negative");
 
-    ephox.bolt.loader.transporter.xhr("demo.txt", function (data) {
-        positive.innerHTML = "[passed] " + data;
-    }, function (message) {
-        positive.innerHTML = "[failed] " + message;
-    });
+            ephox.bolt.loader.transporter.xhr.request("demo.txt", function (data) {
+                positive.innerHTML = '<span style="color: green;">[passed]</span> ' + data;
+            }, function (message) {
+                positive.innerHTML = '<span style="color: red;">[failed]</span> ' + message;
+            });
 
-    ephox.bolt.loader.transporter.xhr("missing.txt", function (data) {
-        negative.innerHTML = "[failed] somehow we got - " + data;
-    }, function (message) {
-        negative.innerHTML = "[passed] failed in an expected way - " + message
-    });
-</script>
+            ephox.bolt.loader.transporter.xhr.request("missing.txt", function (data) {
+                negative.innerHTML = '<span style="color: red;">[failed]</span> somehow we got: ' + data;
+            }, function (message) {
+                negative.innerHTML = '<span style="color: green;">[passed]</span> failed in an expected way: ' + message;
+            });
+        </script>
 
-</body>
+    </body>
 </html>
