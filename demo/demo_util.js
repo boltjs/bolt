@@ -16,9 +16,10 @@ var runDemo = function(name, fn) {
   });
 };
 
-var createOutputElement = function() {
+var createOutputElement = function(message) {
   var div = $('<div />');
   $('body').append(div);
+  fail(div, message);
   return div;
 };
 

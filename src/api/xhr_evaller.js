@@ -1,13 +1,13 @@
-loader.api.xhrinjector = def(
+loader.api.xhrevaller = def(
   [
     loader.transporter.xhr,
-    loader.executor.injector
+    loader.executor.evaller
   ],
 
-  function (xhr, injector) {
+  function (xhr, evaller) {
     var load = function (url, onsuccess, onfailure) {
       var inject = function (data) {
-        injector.execute(data, onsuccess);
+        evaller.execute(data, onsuccess, onfailure);
       };
 
       xhr.request(url, inject, onfailure);

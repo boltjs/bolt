@@ -1,7 +1,5 @@
 runDemo('Executor - Evaller', function() {
-  var evaller = createOutputElement();
-
-  fail(evaller, "evaller test did not run");
+  var evaller = createOutputElement('evaller test did not run');
 
   ephox.bolt.loader.executor.evaller.execute(
     "define('evaller_test', ['some_dep'], function() {});",

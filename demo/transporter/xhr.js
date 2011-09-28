@@ -1,9 +1,6 @@
 runDemo('Transporter - XHR', function() {
-  var positive = createOutputElement();
-  var negative = createOutputElement();
-
-  fail(positive, 'positive case did not run');
-  fail(negative, 'negative case did not run');
+  var positive = createOutputElement('positive case did not run');
+  var negative = createOutputElement('negative case did not run');
 
   ephox.bolt.loader.transporter.xhr.request("transporter/demo.txt", function (data) {
     pass(positive, data);

@@ -9,7 +9,7 @@ loader.api.scripttag = def(
         tag.src = url;
       };
 
-      script.bindtag(sourcer, onsuccess);
+      script.insert(sourcer, onsuccess);
     };
 
     return {

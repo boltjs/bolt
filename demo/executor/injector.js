@@ -1,7 +1,5 @@
 runDemo('Executor - Injector', function() {
-  var injector = createOutputElement();
-
-  fail(injector, "injector test did not run");
+  var injector = createOutputElement('injector test did not run');
 
   ephox.bolt.loader.executor.injector.execute(
     "define('injector_test', ['some_dep'], function() {});",
