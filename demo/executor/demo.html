@@ -8,6 +8,7 @@
             }}}};
         </script>
         <script type="text/javascript" src="../../gen/loader.js"></script>
+        <script type="text/javascript" src="../demo_util.js"></script>
     </head>
     <body>
         <div id="evaller"></div>
@@ -16,14 +17,6 @@
         <script type="text/javascript">
             var evaller = document.getElementById("evaller");
             var injector = document.getElementById("injector");
-
-            var pass = function(element, message) {
-                element.innerHTML = '<span style="color: green;">[passed]</span> ' + message;
-            };
-
-            var fail = function(element, message) {
-                element.innerHTML = '<span style="color: red;">[failed]</span> ' + message;
-            };
 
             fail(evaller, "evaller test did not run");
             fail(injector, "injector test did not run");

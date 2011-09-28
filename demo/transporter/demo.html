@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Transporter Demo Page</title>
+        <script type="text/javascript" src="../../gen/loader.js"></script>
+        <script type="text/javascript" src="../demo_util.js"></script>
+    </head>
+    <body>
+        <div id="positive"></div>
+        <div id="negative"></div>
+
+        <script type="text/javascript">
+            var positive = document.getElementById("positive");
+            var negative = document.getElementById("negative");
+
+            fail(positive, 'positive case did not run');
+            fail(negative, 'negative case did not run');
+
+            ephox.bolt.loader.transporter.xhr.request("demo.txt", function (data) {
+                pass(positive, data);
+            }, function (message) {
+                fail(positive, message);
+            });
+
+            ephox.bolt.loader.transporter.xhr.request("missing.txt", function (data) {
+                fail(negative, 'somehow we got: ' + data);
+            }, function (message) {
+                pass(negative, 'failed in an expected way: ' + message);
+            });
+        </script>
+
+    </body>
+</html>
