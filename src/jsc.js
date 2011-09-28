@@ -5,7 +5,7 @@ var args = process.argv.slice(2) // argv[0] = node, argv[1] = compile.js
 
 var usage = [
     "usage:",
-    "    node compile.js [-l|--load FILE] [-d|--dir DIR] ROOT MODULE",
+    "    node compile.js [-l|--load FILE] [-d|--dir DIR] ROOT CONFIG MODULE",
     " or node compile.js [-h|--help]",
     "",
     "options:",
@@ -55,12 +55,13 @@ while (args.length > 0 && args[0].substring(0, 1) == '-') {
     }
 }
 
-if (args.length != 2) {
-    die(10, "Incorrect number of arguments. Must specify root directory and single module entry point.");
+if (args.length != 3) {
+    die(10, "Incorrect number of arguments. Must specify root directory, config and module entry point.");
 }
 
 var root = args[0];
-var module = args[1];
+var config = args[1];
+var module = args[2];
 
-compiler.compile(root, module, libraries);
+compiler.compile(root, config, module, libraries);
 

@@ -1,5 +1,21 @@
+var initialise = function (libraries) {
+    libraries.forEach(require);
+};
+
+var blueprints = [];
+
+global['define'] = function (id, dependencies, definition) {
+    blueprints.push({id: id, dependencies: dependencies, definition: definition});
+};
 
 
-exports.compile = function (root, module, libraries) {
-    console.log("hello compiler");
+global['config'] = function () {
+
+};
+
+
+
+
+exports.compile = function (root, config, module, libraries) {
+    initialise(libraries);
 };
