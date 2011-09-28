@@ -1,5 +1,5 @@
 var fs = require('fs');
-
+var compiler = require('./compiler');
 
 var args = process.argv.slice(2) // argv[0] = node, argv[1] = compile.js
 
@@ -16,7 +16,8 @@ var usage = [
     "examples:",
     "    node compile.js src/main/js main.js",
     "    node compile.js -l module.js  main.js src/main/js main.js",
-    "    node compile.js -l module.js -l i18n.js src/main/js main.js"
+    "    node compile.js -l module.js -l i18n.js src/main/js main.js",
+    "    node compile.js -d lib/compile src/main/js main.js"
 ].join("\n")
 
 var die = function (code, message) {
@@ -25,21 +26,25 @@ var die = function (code, message) {
     process.exit(code);
 };
 
-var requireall(dir) {
-};
+var libraries = [];
 
 while (args.length > 0 && args[0].substring(0, 1) == '-') {
     switch (args[0]) {
     case "-l": case "--load":
         if (args.length < 2)
             die(1, "-l|--load requires an argument specifying the file to load");
-        require(args[1]);
+        if (!fs.statSync().isFile())
+            die(1, "-d|--dir argument must specify an existing file");
+        libraries.push(args[1]);
         args = args.slice(2);
         break;
     case "-d": case "--dir":
         if (args.length < 2)
-            die(2, "-d|--dir requires an argument specifying the directory to load from");
-        requireall(args[1]);
+            die(1, "-d|--dir requires an argument specifying the directory to load from");
+        if (!fs.statSync().isDirectory())
+            die(1, "-d|--dir argument must specify an existing directory");
+        var files = fs.readdirSync(args[1])
+        libraries = libraries.concat(files);
         args = args.slice(2);
     case "-h": case "--help":
         console.log(usage);
@@ -53,3 +58,9 @@ while (args.length > 0 && args[0].substring(0, 1) == '-') {
 if (args.length != 2) {
     die(10, "Incorrect number of arguments. Must specify root directory and single module entry point.");
 }
+
+var root = args[0];
+var module = args[1];
+
+compiler.compile(root, module, libraries);
+
