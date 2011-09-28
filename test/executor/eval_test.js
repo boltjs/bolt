@@ -13,21 +13,21 @@ global.ephox = {
 require("../include/include.js");
 
 
-var module = ephox.bolt.loader.executor.eval;
+var evaller = ephox.bolt.loader.executor.evaller;
 
-module.execute(
+evaller.execute(
   "true",
   function() { assert(true, "successful eval"); },
   function(error) { assert(false, "successful eval: " + error); }
 );
 
-module.execute(
+evaller.execute(
   "mth is wrong",
   function() { assert(false, "failed eval"); },
   function() { assert(true, "failed eval"); }
 );
 
-module.execute(
+evaller.execute(
   "define('mth', ['marli'], function() {});",
   function() { assert(blueprints.length === 1 && blueprints[0].id === "mth", "define is called"); },
   function(error) { assert(false, "define is called: " + error); }

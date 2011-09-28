@@ -28,13 +28,15 @@ loader.tag.script = def(
       return el;
     };
 
-    var bindtag = function (tagger, callback) {
+    var insert = function (decorator, callback) {
       var el = createtag(callback);
-      tagger(el);
-      head = document.getElementsByTagName("head")[0];
+      decorator(el);
+      var head = document.getElementsByTagName("head")[0];
       head.appendChild(el);
     };
 
-    return {bindtag: bindtag};
+    return {
+      insert: insert
+    };
   }
 );

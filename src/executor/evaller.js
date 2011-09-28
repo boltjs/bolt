@@ -1,6 +1,6 @@
-loader.executor.eval = def(
+loader.executor.evaller = def(
   [
-    ephox.bolt.kernel  // FIX
+    bolt.kernel  // FIX
   ],
 
   function (kernel) {
@@ -14,10 +14,12 @@ loader.executor.eval = def(
         onfailure(e);
         return;
       }
-  
+
       onsuccess();
     };
 
-    return {execute: execute};
+    return {
+      execute: execute
+    };
   }
 );

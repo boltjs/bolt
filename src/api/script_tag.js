@@ -5,9 +5,15 @@ loader.api.scripttag = def(
 
   function (script) {
     var load = function (url, onsuccess, onfailure) {
-      var sourcer = function (tag) { tag.src = url; };
+      var sourcer = function (tag) {
+        tag.src = url;
+      };
+
       script.bindtag(sourcer, onsuccess);
-    };  
-    return {load: load};
+    };
+
+    return {
+      load: load
+    };
   }
 );

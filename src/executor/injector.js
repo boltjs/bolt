@@ -1,16 +1,26 @@
 loader.executor.injector = def(
   [
+    bolt.kernel,  // FIX
     loader.tag.script
   ],
-    
-  function (script) {
+
+  function (kernel, script) {
     var execute = function(data, onsuccess, onfailure) {
-      var inject = function (tag) { tag.text = data; };
+      var wrappedData = data;
+
+      var inject = function (tag) {
+        tag.text = wrappedData;
+      };
+
       var noop = function () {};
-      // injection does not fire events, but happens in sync, so make explicit callback.
-      script.bindtag(inject, noop);
+      // Injection does not fire events, but execution happens synchronously,
+      // so we just make an explicit callback
+      script.insert(inject, noop);
       onsuccess(); 
     };
-    return {execute: execute};
+
+    return {
+      execute: execute
+    };
   }
 );
