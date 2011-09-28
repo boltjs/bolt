@@ -3,9 +3,9 @@ loader.tag.script = def(
   ],
 
   function () {
-    var guard = function (callback) {
+    var guard = function (callback, el) {
       return function (evt) {
-        if (this.readyState === "loaded" || this.readyState === "complete")
+        if (el.readyState === "loaded" || el.readyState === "complete")
           callback();
       };
     };
@@ -16,7 +16,7 @@ loader.tag.script = def(
 
     var onload = function (el, callback) {
       if (ie(el))
-        el.attachEvent("onreadystatechange", guard(callback));
+        el.attachEvent("onreadystatechange", guard(callback, el));
       else
         el.addEventListener("load", callback, false);
     };
