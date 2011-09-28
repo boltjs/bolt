@@ -13,6 +13,7 @@ loader.executor.injector = def(
       };
 
       var noop = function () {};
+
       // Injection does not fire events, but execution happens synchronously,
       // so we just make an explicit callback
       script.insert(inject, noop);
