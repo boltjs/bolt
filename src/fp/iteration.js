@@ -12,8 +12,16 @@ kernel.fp.iteration = def(
       return true;
     };
 
+    var map = function (a, f) {
+      var r = [];
+      for (var i = 0; i < a.length; ++i)
+        r.push(f(a[i]));
+      return r;
+    };
+    
     return {
-      arrayeq: arrayeq
+      arrayeq: arrayeq,
+      map: map
     };
   }
 );
