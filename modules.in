@@ -1,5 +1,8 @@
 NAME = kernel
 MODULES = \
 	${SRC}/prelude/namespace.js \
-	${SRC}/modulator/amd.js
+	${SRC}/fp/iteration.js \
+	${SRC}/modulator/amd.js \
+	${SRC}/module/manager.js \
+	${SRC}/api/config.js
 
