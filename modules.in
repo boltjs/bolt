@@ -1,4 +1,5 @@
 NAME = kernel
 MODULES = \
-	${SRC}/prelude.js 
+	${SRC}/prelude/namespace.js \
+	${SRC}/modulator/amd.js
 
