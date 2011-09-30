@@ -13,7 +13,9 @@ kernel.fp.array = def(
     };
 
     var forall = function (a, f) {
-      var fn = f || function (x) { return x === true; };
+      var fn = f || function (x) {
+        return x === true;
+      };
       for (var i = 0; i < a.length; ++i)
         if (fn(a[i]) !== true)
           return false;
@@ -39,14 +41,14 @@ kernel.fp.array = def(
 
     var contains = function (a, x) {
       return !forall(a, function (v) {
-	return v !== x;
+        return v !== x;
       });
     };
 
     var indexof = function (a, x) {
       for (var i = 0; i < a.length; ++i)
-	if (a[i] === x)
-	  return i;
+        if (a[i] === x)
+          return i;
       return -1;
     };
 
