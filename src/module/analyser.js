@@ -7,13 +7,9 @@ kernel.module.analyser = def(
   function (array, object) {
 
     var collect = function (path, name) {
-      var p = path.slice();
-      var c = [name];
-      do  {
-	var n = p.pop();
-	c.unshift(n);
-      } while (n !== name);
-      return c;
+      var i = array.indexof(path, name);
+      var p = path.slice(i);
+      return p.concat([name]);
     };
 
     //
