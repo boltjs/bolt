@@ -23,6 +23,6 @@ ${DIST}:
 ${PRELUDE}:
 	dent -clean
 
-${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE}
+${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
 	(echo "(function(scope) {" && cat ${PRELUDE} ${MODULES} && echo "})(this.window || global);") > ${RELEASE}
 
