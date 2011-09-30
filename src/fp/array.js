@@ -29,11 +29,18 @@ kernel.fp.array = def(
     
     var each = map;
 
+    var contains = function (a, x) {
+      return !forall(a, function (v) {
+	return v !== x;
+      });
+    };
+
     return {
       equals: equals,
       map: map,
       each: each,
-      forall: forall
+      forall: forall,
+      contains: contains
     };
   }
 );

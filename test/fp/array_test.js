@@ -22,3 +22,7 @@ assert(ar.forall([true, true, true]), "forall default works for true case");
 assert(!ar.forall([true, false, true]), "forall default works for false case");
 assert(ar.forall([1, 1, 1], isone), "forall explicit works for true case");
 assert(!ar.forall([1, 2, 1], isone), "forall explicit works for false case");
+
+assert(ar.contains(['a', 'b', 'c'], 'a'), "contains works for first element");
+assert(ar.contains(['a', 'b', 'c'], 'c'), "contains works for last element");
+assert(!ar.contains(['a', 'b', 'c'], 'd'), "contains works for missing element");
