@@ -29,6 +29,12 @@ assert(!ar.forall([1, 2, 1], isone), "forall explicit works for false case");
 
 assert(ar.equals(ar.filter([1, 5, 0, 4, 2, 7, 192, -1], lt5), [1, 0, 4, 2, -1]), "filter filters");
 
-assert(ar.contains(['a', 'b', 'c'], 'a'), "contains works for first element");
-assert(ar.contains(['a', 'b', 'c'], 'c'), "contains works for last element");
-assert(!ar.contains(['a', 'b', 'c'], 'd'), "contains works for missing element");
+var abc = ['a', 'b', 'c'];
+
+assert(ar.contains(abc, 'a'), "contains works for first element");
+assert(ar.contains(abc, 'c'), "contains works for last element");
+assert(!ar.contains(abc, 'd'), "contains works for missing element");
+
+assert(ar.indexof(abc, 'a') === 0, "indexof works for first element");
+assert(ar.indexof(abc, 'c') === 2, "indexof works for last element");
+assert(ar.indexof(abc, 'd') === -1, "indexof works for missing element");

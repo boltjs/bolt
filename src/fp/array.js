@@ -43,6 +43,13 @@ kernel.fp.array = def(
       });
     };
 
+    var indexof = function (a, x) {
+      for (var i = 0; i < a.length; ++i)
+	if (a[i] === x)
+	  return i;
+      return -1;
+    };
+
     return {
       equals: equals,
       forall: forall,
@@ -50,7 +57,8 @@ kernel.fp.array = def(
       each: each,
       forall: forall,
       filter: filter,
-      contains: contains
+      contains: contains,
+      indexof: indexof
     };
   }
 );
