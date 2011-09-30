@@ -23,7 +23,7 @@ kernel.fp.array = def(
     var map = function (a, f) {
       var r = [];
       for (var i = 0; i < a.length; ++i)
-        r.push(f(a[i]));
+        r.push(f(a[i], i));
       return r;
     };
 
