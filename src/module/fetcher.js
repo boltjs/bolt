@@ -1,16 +1,16 @@
 kernel.module.fetcher = def(
   [
+    kernel.fp.array
   ],
 
-  function () {
+  function (ar) {
     var create = function (modulator) {
       var queue = {};  // url -> [callbacks]
 
 
       var fetch = function (ids, onsuccess, onerror) {
-        var can = ar.map(ids, modulator.can);
-        if (!forall(can))
-          onerror("don't know how to fetch, ?");
+        if (!ar.forall(ids, modulator.can))
+          onerror("don't know how to fetch");
         else {
           var triples = ar.map(ids, modulator.modulate);
           var triplestodofirst = first(triple);

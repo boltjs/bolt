@@ -8,6 +8,10 @@ var isone = function (i) {
   return i === 1;
 };
 
+var lt5 = function (i) {
+  return i < 5;
+};
+
 var ar = ephox.bolt.kernel.fp.array;
 
 assert(ar.equals([1, 2, 3], [1, 2, 3]), "arrays are equal.");
@@ -22,6 +26,8 @@ assert(ar.forall([true, true, true]), "forall default works for true case");
 assert(!ar.forall([true, false, true]), "forall default works for false case");
 assert(ar.forall([1, 1, 1], isone), "forall explicit works for true case");
 assert(!ar.forall([1, 2, 1], isone), "forall explicit works for false case");
+
+assert(ar.equals(ar.filter([1, 5, 0, 4, 2, 7, 192, -1], lt5), [1, 0, 4, 2, -1]), "filter filters");
 
 assert(ar.contains(['a', 'b', 'c'], 'a'), "contains works for first element");
 assert(ar.contains(['a', 'b', 'c'], 'c'), "contains works for last element");
