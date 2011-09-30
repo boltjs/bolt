@@ -22,34 +22,34 @@ kernel.module.analyser = def(
       var cycle;
 
       var children = function (name) {
-	array.each(modules[name], attempt);
+        array.each(modules[name], attempt);
       };
 
       var examine = function (name) {
-	if (modules[name])
-	  children(name);
-	else
-	  missing.push(name);
+        if (modules[name])
+          children(name);
+        else
+          missing.push(name);
       };
 
       var descend = function (name) {
-	path.push(name);
-	examine(name);
-	path.pop();
+        path.push(name);
+        examine(name);
+        path.pop();
       };
 
       var decycle = function (name) {
-	if (array.contains(path, name))
-	  cycle = collect(path, name);
-	else
-	  descend(name);
+        if (array.contains(path, name))
+          cycle = collect(path, name);
+        else
+          descend(name);
       };
 
       var attempt = function (name) {
-	if (!done[name]) {
-	  decycle(name);
-	  done[name] = true;
-	}
+        if (!done[name]) {
+          decycle(name);
+          done[name] = true;
+        }
       };
 
       object.each(modules, attempt);
