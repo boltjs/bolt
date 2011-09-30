@@ -12,6 +12,14 @@ kernel.fp.array = def(
       return true;
     };
 
+    var forall = function (a, f) {
+      var fn = f || function (x) { return x === true; };
+      for (var i = 0; i < a.length; ++i)
+        if (fn(a[i]) !== true)
+          return false;
+      return true;
+    };
+
     var map = function (a, f) {
       var r = [];
       for (var i = 0; i < a.length; ++i)
@@ -24,7 +32,8 @@ kernel.fp.array = def(
     return {
       equals: equals,
       map: map,
-      each: each
+      each: each,
+      forall: forall
     };
   }
 );
