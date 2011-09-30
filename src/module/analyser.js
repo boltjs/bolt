@@ -4,66 +4,61 @@ kernel.module.analyser = def(
     kernel.fp.object
   ],
 
-  function (ar, obj) {
-    var UNVISITED = 0;  // Node states
-    var INPROGRESS = 1;
-    var VISITED = 2;
+  function (array, object) {
 
-    var analyse = function(nameToDeps) {
-      var graph = {};
-
-      obj.each(nameToDeps, function(name) {
-        graph[name] = UNVISITED;
-      });
-
-      var load = [];
-
-      try {  // Catch cycles
-        obj.each(nameToDeps, function(name) {
-          var depLoad = analyseNode(name, nameToDeps, graph);
-          load = load.concat(depLoad);
-        });
-      } catch (e) {
-        if (e.cycle) return { cycle : e.cycle };
-        throw e;
-      }
-
-      return { load : load };
+    var collect = function (path, name) {
+      var p = path.slice();
+      var c = [name];
+      do  {
+	var n = p.pop();
+	c.unshift(n);
+      } while (n !== name);
+      return c;
     };
 
-    var analyseNode = function(name, nameToDeps, graph) {
-      if (graph[name] === INPROGRESS) {
-        throw { cycle : [ name ] };
-      }
-      graph[name] = INPROGRESS;
+    //
+    // modules is an object containing dependency information as: { id: [ 'id1', 'id2' ] }
+    //
+    var analyse = function (modules) {
+      var done = {};
+      var path = [];
+      var missing = [];
+      var cycle;
 
-      var load = [];
+      var children = function (name) {
+	array.each(modules[name], attempt);
+      };
 
-      var deps = nameToDeps[name];
+      var examine = function (name) {
+	if (modules[name])
+	  children(name);
+	else
+	  missing.push(name);
+      };
 
-      try {
-        ar.each(deps, function(dep) {
-          if (graph[dep] === VISITED) return;
-          if (nameToDeps[dep] === undefined) {  // Not loaded
-            load.push(dep);
-            graph[dep] = VISITED;
-            return;
-          }
-          var depLoad = analyseNode(dep, nameToDeps, graph);
-          load = load.concat(depLoad);
-        });
-      } catch (e) {
-        throw e.cycle ? { cycle: updateCycle(name, e.cycle) } : e;
-      }
+      var descend = function (name) {
+	path.push(name);
+	examine(name);
+	path.pop();
+      };
 
-      graph[name] = VISITED;
+      var decycle = function (name) {
+	if (array.contains(path, name))
+	  cycle = collect(path, name);
+	else
+	  descend(name);
+      };
 
-      return load;
-    };
+      var attempt = function (name) {
+	if (!done[name]) {
+	  decycle(name);
+	  done[name] = true;
+	}
+      };
 
-    var updateCycle = function(name, cycle) {
-      var cycleComplete = cycle.length > 1 && cycle[0] === cycle[cycle.length - 1];
-      return (cycleComplete) ? cycle : [ name ].concat(cycle);
+      object.each(modules, attempt);
+
+      return cycle ? { cycle: cycle } : { load: missing };
     };
 
     return {

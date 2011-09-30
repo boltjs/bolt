@@ -39,3 +39,14 @@ var cycle = {
 var r2 = analyser.analyse(cycle);
 
 assert(r2.cycle && ar.equals(r2.cycle, ['A', 'B', 'C', 'D', 'A']), "analyser detects cycles");
+
+var complex = {
+  A: ['B', 'C' ],
+  B: ['C', 'D', 'E' ],
+  C: ['E', 'F', 'G'],
+  G: []
+};
+
+var r3 = analyser.analyse(complex);
+
+assert(r3.load && ar.equals(r3.load, ['E', 'F', 'D']), "analyser detects unloaded modules in complex case");
