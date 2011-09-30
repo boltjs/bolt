@@ -12,9 +12,9 @@ kernel.module.analyser = def(
       return p.concat([name]);
     };
 
-    //
-    // modules is an object containing dependency information as: { id: [ 'id1', 'id2' ] }
-    //
+    /**
+     * @param {object} modules Contains dependency information in format: { id: [ 'id1', 'id2' ] }
+     */
     var analyse = function (modules) {
       var done = {};
       var path = [];
