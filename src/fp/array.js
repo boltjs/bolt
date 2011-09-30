@@ -26,14 +26,23 @@ kernel.fp.array = def(
         r.push(f(a[i]));
       return r;
     };
-    
+
+    var filter = function (a, f) {
+      var r = [];
+      for (var i = 0; i < a.length; ++i)
+        if (f(a[i]))
+          r.push(a[i]);
+      return r;
+    };
+
     var each = map;
 
     return {
       equals: equals,
+      forall: forall,
       map: map,
       each: each,
-      forall: forall
+      filter: filter
     };
   }
 );
