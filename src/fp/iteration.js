@@ -19,9 +19,19 @@ kernel.fp.iteration = def(
       return r;
     };
     
+    var each = map;
+
+    var oeach = function (o, f) {
+      for (var i in o)
+        if (o.hasOwnProperty(i))
+          f.call(null, i, o[i]);
+    };
+
     return {
       arrayeq: arrayeq,
-      map: map
+      map: map,
+      each: each,
+      oeach: oeach
     };
   }
 );

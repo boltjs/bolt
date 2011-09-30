@@ -4,5 +4,8 @@ MODULES = \
 	${SRC}/fp/iteration.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/module/manager.js \
+	${SRC}/module/analyser.js \
+	${SRC}/module/fetcher.js \
+	${SRC}/module/loader.js \
 	${SRC}/api/config.js
 
