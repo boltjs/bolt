@@ -1,7 +1,7 @@
 require('../include/include.js');
 
 var analyser = ephox.bolt.kernel.module.analyser;
-var it = ephox.bolt.kernel.fp.iteration;
+var ar = ephox.bolt.kernel.fp.array;
 
 var allModulesLoaded = {
   A: ['D'],
@@ -26,7 +26,7 @@ var unloadedModule = {
 
 var r1 = analyser.analyse(unloadedModule);
 
-assert(r1.load && it.arrayeq(r1.load, ['D']), "analyser detects unloaded modules");
+assert(r1.load && ar.equals(r1.load, ['D']), "analyser detects unloaded modules");
 
 var cycle = {
   AA: ['A'],
@@ -38,4 +38,4 @@ var cycle = {
 
 var r2 = analyser.analyse(cycle);
 
-assert(r2.cycle && it.arrayeq(r2.cycle, ['A', 'B', 'C', 'D', 'A']), "analyser detects cycles");
+assert(r2.cycle && ar.equals(r2.cycle, ['A', 'B', 'C', 'D', 'A']), "analyser detects cycles");

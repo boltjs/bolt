@@ -1,13 +1,16 @@
 kernel.module.manager = def(
   [
-    kernel.fp.iteration,
-    kernel.module.loader
+    kernel.fp.array,
+    kernel.fp.object,
+    kernel.module.loader,
+    kernel.module.fetcher
   ],
 
-  function (it) {
+  function (ar, obj, loader, fetcher) {
     var create = function (modulator, onerror) {
-      var blueprints = {};
-      var modules = {};
+      var blueprints = {};  // id -> {id: string, dependencies: [string], definition: function}
+      var modules = {};     // id -> module
+      var fetcherer = fetcher.create(modulator);
 
       var define = function (id, dependencies, definition) {
         if (blueprints[id] !== undefined)
@@ -21,11 +24,19 @@ kernel.module.manager = def(
       };
 
       var require = function (ids, callback) {
-        var success = function () {
-          var instances = it.map(ids, demand);
+        var onsuccess = function () {
+          var instances = ar.map(ids, demand);
           callback.apply(null, instances);
         };
-        loader.load(ids, success, onerror);
+
+        var oncontinue = function () {
+          var deps = obj.map(blueprints, function (k, v) {
+            return v.dependencies;
+          });
+          loader.load(deps, fetcherer, oncontinue, onsuccess, onerror);
+        };
+
+        oncontinue();
       };
 
       // Instantiates a module and all of its dependencies.
@@ -35,7 +46,7 @@ kernel.module.manager = def(
         if (blueprints[id] === undefined)
           throw "module '" + id + "' is not defined";
         var blueprint = blueprints[id];
-        var args = it.map(blueprint.dependencies, demand);  // Instantiate dependencies
+        var args = ar.map(blueprint.dependencies, demand);  // Instantiate dependencies
         var result = blueprint.definition.apply(null, args);  // Instantiate self
         modules[id] = result;
         return result;

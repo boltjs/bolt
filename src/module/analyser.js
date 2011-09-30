@@ -1,9 +1,10 @@
 kernel.module.analyser = def(
   [
-    kernel.fp.iteration
+    kernel.fp.array,
+    kernel.fp.object
   ],
 
-  function (it) {
+  function (ar, obj) {
     var UNVISITED = 0;  // Node states
     var INPROGRESS = 1;
     var VISITED = 2;
@@ -11,14 +12,14 @@ kernel.module.analyser = def(
     var analyse = function(nameToDeps) {
       var graph = {};
 
-      it.oeach(nameToDeps, function(name) {
+      obj.each(nameToDeps, function(name) {
         graph[name] = UNVISITED;
       });
 
       var load = [];
 
       try {  // Catch cycles
-        it.oeach(nameToDeps, function(name) {
+        obj.each(nameToDeps, function(name) {
           var depLoad = analyseNode(name, nameToDeps, graph);
           load = load.concat(depLoad);
         });
@@ -41,7 +42,7 @@ kernel.module.analyser = def(
       var deps = nameToDeps[name];
 
       try {
-        it.each(deps, function(dep) {
+        ar.each(deps, function(dep) {
           if (graph[dep] === VISITED) return;
           if (nameToDeps[dep] === undefined) {  // Not loaded
             load.push(dep);

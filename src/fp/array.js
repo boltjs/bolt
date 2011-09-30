@@ -1,9 +1,9 @@
-kernel.fp.iteration = def(
+kernel.fp.array = def(
   [
   ],
 
   function () {
-    var arrayeq = function (a1, a2) {
+    var equals = function (a1, a2) {
       if (a1.length !== a2.length)
         return false;
       for (var i = 0; i < a1.length; ++i)
@@ -21,17 +21,10 @@ kernel.fp.iteration = def(
     
     var each = map;
 
-    var oeach = function (o, f) {
-      for (var i in o)
-        if (o.hasOwnProperty(i))
-          f.call(null, i, o[i]);
-    };
-
     return {
-      arrayeq: arrayeq,
+      equals: equals,
       map: map,
-      each: each,
-      oeach: oeach
+      each: each
     };
   }
 );
