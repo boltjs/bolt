@@ -1,0 +1,8 @@
+define(
+    'example.b', 
+    [
+    ],
+
+    function () {
+    }
+);
