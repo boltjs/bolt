@@ -7,7 +7,7 @@ kernel.module.fetcher = def(
   ],
 
   function (ar, fn, map, piggybacker) {
-    var create = function (modulator, validator) {
+    var create = function (modulator, validator, onerror) {
       var piggyback = piggybacker.create();
 
       var toSpecs = function (ids) {
@@ -17,7 +17,7 @@ kernel.module.fetcher = def(
         });
       };
 
-      var validate = function (onsuccess, onerror, results) {
+      var validate = function (onsuccess, results) {
         var failed = ar.filter(results, fn.not(validator));
         if (failed.length > 0)
           onerror('Fetcher error: modules were not defined: ' + failed.join(', '));
@@ -27,22 +27,25 @@ kernel.module.fetcher = def(
 
       var mapper = function (spec, onresult) {
         var action = fn.curry(onresult, spec.id);
-        piggyback.piggyback(spec.url, spec.load, action);
+        var load = function (callback) {
+          spec.load(spec.url, callback, onerror);
+        };
+        piggyback.piggyback(spec.url, load, action);
       };
 
-      var asyncfetch = function (ids, onsuccess, onerror) {
+      var asyncfetch = function (ids, onsuccess) {
         var specs = toSpecs(ids);
-        var oncomplete = fn.curry(validate, onsuccess, onerror);
+        var oncomplete = fn.curry(validate, onsuccess);
         // FIX: must stratify specs, run serial first.
         map.amap(specs, mapper, oncomplete);
       };
 
-      var fetch = function (ids, onsuccess, onerror) {
+      var fetch = function (ids, onsuccess) {
         var cants = ar.filter(ids, fn.not(modulator.can));
         if (cants.length > 0)
           onerror('Fetcher error: do not know how to fetch: ' + cants.join(', '));
         else
-          asyncfetch(ids, onsuccess, onerror);
+          asyncfetch(ids, onsuccess);
       };
 
       return {

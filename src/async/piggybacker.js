@@ -50,9 +50,9 @@ kernel.async.piggybacker = def(
     var create = function () {
       var queue = {};  // key -> [actions]
 
-      var process = function (url) {
-        var actions = queue[url];
-        delete queue[url];
+      var process = function (key) {
+        var actions = queue[key];
+        delete queue[key];
         ar.each(actions, fn.apply);
       };
 

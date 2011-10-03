@@ -6,11 +6,12 @@ runDemo('Manager - Hello world', function() {
   };
 
   var modulate = function () {
-    var load = function () {
+    var load = function (url, onsuccess, onerror) {
       define('ephox.bolt.demo.hello', [], function() {
           return { greeting: 'hello world!' };
         }
       );
+      onsuccess();
     };
     return { serial: false, load: load, url: 'arbitrary.js' };
   };

@@ -12,7 +12,7 @@ kernel.module.manager = def(
       var modules = {};     // id -> module
       var fetcherer = fetcher.create(modulator, function (id) {
         return blueprints[id] !== undefined;
-      });
+      }, onerror);
 
       var define = function (id, dependencies, definition) {
         if (blueprints[id] !== undefined)

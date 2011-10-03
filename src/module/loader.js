@@ -13,7 +13,7 @@ kernel.module.loader = def(
       else if (result.load.length === 0)
         onsuccess();
       else
-        fetcher.fetch(result.load, oncontinue, onerror);
+        fetcher.fetch(result.load, oncontinue);
     };
 
     return {
