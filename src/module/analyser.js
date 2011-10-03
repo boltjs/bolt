@@ -1,10 +1,9 @@
 kernel.module.analyser = def(
   [
-    kernel.fp.array,
-    kernel.fp.object
+    kernel.fp.array
   ],
 
-  function (array, object) {
+  function (array) {
 
     var collect = function (path, name) {
       var i = array.indexof(path, name);
@@ -13,7 +12,7 @@ kernel.module.analyser = def(
     };
 
     /**
-     * @param {array}  roots   Contains a list of root ids.
+     * @param {array} roots Contains a list of root ids
      * @param {object} modules Contains dependency information in format: { id: [ 'id1', 'id2' ] }
      */
     var analyse = function (roots, modules) {
