@@ -35,7 +35,7 @@ kernel.module.manager = def(
           var deps = obj.map(blueprints, function (k, v) {
             return v.dependencies;
           });
-          loader.load(deps, fetcherer, oncontinue, onsuccess, onerror);
+          loader.load(ids, deps, fetcherer, oncontinue, onsuccess, onerror);
         };
 
         oncontinue();
