@@ -10,19 +10,15 @@ kernel.module.manager = def(
     var create = function (modulator, onerror) {
       var blueprints = {};  // id -> {id: string, dependencies: [string], definition: function}
       var modules = {};     // id -> module
-      var fetcherer = fetcher.create(modulator, function (id) {
-        return blueprints[id] !== undefined;
-      }, onerror);
+
+      var validator = function (id) { return blueprints[id] !== undefined; };
+      var fetcherer = fetcher.create(modulator, validator, onerror);
 
       var define = function (id, dependencies, definition) {
         if (blueprints[id] !== undefined)
           onerror("Define error: module '" + id + "' is already defined");
         else
-          blueprints[id] = {
-            id: id,
-            dependencies: dependencies,
-            definition: definition
-          };
+          blueprints[id] = { id: id, dependencies: dependencies, definition: definition };
       };
 
       var require = function (ids, callback) {
