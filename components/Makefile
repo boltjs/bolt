@@ -15,7 +15,7 @@ clean:
 	rm -rf ./${DIST}
 
 test: ${RELEASE}
-	find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 node
+	find ${TEST} -type f -name \*test.js | while read x; do echo "$$x"; node $    $x | sed -e 's/^/  /'; done
 
 ${DIST}:
 	mkdir -p $@
