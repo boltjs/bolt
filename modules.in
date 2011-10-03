@@ -5,9 +5,10 @@ MODULES = \
 	${SRC}/fp/object.js \
 	${SRC}/fp/functions.js \
 	${SRC}/async/map.js \
+	${SRC}/async/piggybacker.js \
 	${SRC}/modulator/amd.js \
-	${SRC}/module/manager.js \
 	${SRC}/module/analyser.js \
 	${SRC}/module/fetcher.js \
 	${SRC}/module/loader.js \
+	${SRC}/module/manager.js \
 	${SRC}/api/config.js
