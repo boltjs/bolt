@@ -7,18 +7,17 @@ runDemo('Manager - Hello world', function() {
 
   var modulate = function () {
     var load = function () {
-      console.log('here');
       define('ephox.bolt.demo.hello', [], function() {
           return { greeting: 'hello world!' };
         }
       );
     };
-    return {serial: false, load: load, url: url};
+    return { serial: false, load: load, url: 'arbitrary.js' };
   };
 
   var modulator = {
     can: function (id) { return id === 'ephox.bolt.demo.hello'; },
-    modulate: function (id) {       console.log('here2');return modulate(); }
+    modulate: function (id) { return modulate(); }
   };
 
   var kernel = ephox.bolt.kernel.api.config.configure(modulator, onerror);
