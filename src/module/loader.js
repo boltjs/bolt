@@ -4,8 +4,8 @@ kernel.module.loader = def(
   ],
 
   function (analyser) {
-    var load = function (deps, fetcher, oncontinue, onsuccess, onerror) {
-      var result = analyser.analyse(deps);
+    var load = function (roots, deps, fetcher, oncontinue, onsuccess, onerror) {
+      var result = analyser.analyse(roots, deps);
 
       if (result.cycle)
         onerror('Dependency error: a circular module dependency exists from ' +
@@ -13,9 +13,7 @@ kernel.module.loader = def(
       else if (result.load.length === 0)
         onsuccess();
       else
-        fetcher.fetch(result.load, function () {
-          oncontinue();
-        }, onerror);
+        fetcher.fetch(result.load, oncontinue, onerror);
     };
 
     return {
