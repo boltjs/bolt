@@ -13,10 +13,10 @@ var modulate = function () {
       }
     );
   };
-  return {serial: false, load: load, url: url};
+  return { serial: false, load: load, url: url };
 };
 
 var modulator = {
   can: function (id) { return id === 'ephox.bolt.demo.hello'; },
-  modulate: function (id) {       console.log('here2');return modulate(); }
+  modulate: function (id) { return modulate(); }
 };

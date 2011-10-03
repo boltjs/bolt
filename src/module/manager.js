@@ -10,7 +10,9 @@ kernel.module.manager = def(
     var create = function (modulator, onerror) {
       var blueprints = {};  // id -> {id: string, dependencies: [string], definition: function}
       var modules = {};     // id -> module
-      var fetcherer = fetcher.create(modulator);
+      var fetcherer = fetcher.create(modulator, function (id) {
+        return blueprints[id] !== undefined;
+      });
 
       var define = function (id, dependencies, definition) {
         if (blueprints[id] !== undefined)
