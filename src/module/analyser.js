@@ -13,9 +13,10 @@ kernel.module.analyser = def(
     };
 
     /**
+     * @param {array}  roots   Contains a list of root ids.
      * @param {object} modules Contains dependency information in format: { id: [ 'id1', 'id2' ] }
      */
-    var analyse = function (modules) {
+    var analyse = function (roots, modules) {
       var done = {};
       var path = [];
       var missing = [];
@@ -52,7 +53,7 @@ kernel.module.analyser = def(
         }
       };
 
-      object.each(modules, attempt);
+      array.each(roots, attempt);
 
       return cycle ? { cycle: cycle } : { load: missing };
     };
