@@ -1,6 +1,6 @@
 NAME = compiler
 MODULES = \
-    ${LIB}/kernel.js \
+    ${SRC}/prelude/require.js \
 	${SRC}/prelude/namespace.js \
 	${SRC}/core/error.js \
 	${SRC}/core/state.js \
@@ -11,3 +11,5 @@ MODULES = \
 	${SRC}/core/compiler.js
 POSTSCOPE = \
     ${SRC}/bin/jsc.js
+DISTFILES = \
+    ${LIB}/kernel.js

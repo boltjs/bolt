@@ -23,15 +23,5 @@ var dependencies = [
     targets: [
       { name: "kernel.js", path: lib }
     ]
-  },
-
-  {
-    name: "bolt-loader",
-    repository: "buildrepo2",
-    version : "latest",
-    source: "bolt-loader.zip",
-    targets: [
-      { name: "loader.js", path: lib }
-    ]
   }
 ];

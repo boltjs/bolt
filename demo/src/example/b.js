@@ -1,8 +1,0 @@
-define(
-    'example.b', 
-    [
-    ],
-
-    function () {
-    }
-);
