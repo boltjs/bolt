@@ -1,4 +1,3 @@
-
 /*
  * == error codes ==
  * jsc.js           - 0x
@@ -10,9 +9,7 @@
  * state.js         - 9x
  */
 
-
 var fs = require('fs');
-require('../gen/compiler');
 var compiler = ephox.bolt.compiler.core.compiler;
 
 var args = process.argv.slice(2) // argv[0] = node, argv[1] = jsc.js

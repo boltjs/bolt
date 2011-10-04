@@ -9,3 +9,5 @@ MODULES = \
 	${SRC}/load/loader.js \
 	${SRC}/output/outputter.js \
 	${SRC}/core/compiler.js
+POSTSCOPE = \
+    ${SRC}/bin/jsc.js
