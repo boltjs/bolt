@@ -1,4 +1,7 @@
 NAME = module
+MODULES = \
+	${SRC}/prelude/namespace.js \
+	${SRC}/modulator/basic.js
 DISTFILES = \
 	${LIB}/compiler/compiler.js \
 	${LIB}/compiler/kernel.js \
