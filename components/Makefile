@@ -23,6 +23,10 @@ ${DIST}:
 ${PRELUDE}:
 	dent -clean
 
-${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
-	(echo "(function(scope) {" && cat ${PRELUDE} ${MODULES} && echo "})(this.window || global);") > ${RELEASE}
-
+${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} ${POSTSCOPE} modules.in
+	( \
+	echo "(function(scope) {" && \
+	cat ${PRELUDE} ${MODULES} && \
+	echo "})(this.window || global);" && \
+	if [ ! -z "${POSTSCOPE}" ]; then cat ${POSTSCOPE}; fi \
+	) > ${RELEASE}
