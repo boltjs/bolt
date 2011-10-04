@@ -12,7 +12,8 @@
 
 
 var fs = require('fs');
-var compiler = require('./compiler');
+require('../gen/compiler');
+var compiler = ephox.bolt.compiler.core.compiler;
 
 var args = process.argv.slice(2) // argv[0] = node, argv[1] = jsc.js
 

@@ -1,19 +1,30 @@
-var error = require('./error');
+compiler.config.configurator = def(
+  [
+    compiler.core.error
+  ],
 
-exports.load = function (file) {
-    var modulator;
+  function (error) {
 
-    global.configure = function (x) {
+    var load = function (file) {
+      var modulator;
+
+      global.configure = function (x) {
         modulator = x;
         return {};
-    };
+      };
 
-    require(file);
+      require(file);
 
-    if (modulator === undefined)
+      if (modulator === undefined)
         error.die(20, 'configuration did not contain define a modulator in file: ' + file);
 
-    delete global.configure;
+      delete global.configure;
 
-    return modulator;
-};
+      return modulator;
+    };
+
+    return {
+      load: load
+    };
+  }
+);

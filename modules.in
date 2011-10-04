@@ -1,0 +1,11 @@
+NAME = compiler
+MODULES = \
+    ${LIB}/kernel.js \
+	${SRC}/prelude/namespace.js \
+	${SRC}/core/error.js \
+	${SRC}/core/state.js \
+	${SRC}/config/configurator.js \
+	${SRC}/load/evaller.js \
+	${SRC}/load/loader.js \
+	${SRC}/output/outputter.js \
+	${SRC}/core/compiler.js

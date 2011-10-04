@@ -1,43 +1,65 @@
-var error = require('./error');
-var obj = ephox.bolt.kernel.fp.object;
+compiler.core.state = def(
+  [
+    compiler.core.error,
+    ephox.bolt.kernel.fp.object
+  ],
 
-var store = {};
+  function (error, obj) {
+    var create = function () {
+      var store = {};
 
-exports.define = function (id, dependencies) {
-    store[id].dependencies = dependencies;
-    store[id].defined = true;
-};
+      var define = function (id, dependencies) {
+        store[id].dependencies = dependencies;
+        store[id].defined = true;
+      };
 
-exports.alldependencies = function () {
-    return obj.map(store, function (k, v) {
-        return v.dependencies;
-    })
-};
+      var alldependencies = function () {
+        return obj.map(store, function (k, v) {
+          return v.dependencies;
+        });
+      };
 
-exports.dependencies = function (id) {
-    if (!store[id])
-        error.die(90, 'can not get dependencies for unknown module: ' + id);
-    if (!store[id].defined)
-        error.die(91, 'can not get dependencies for undefined module: ' + id);
-    return store[id].dependencies;
-};
+      var dependencies = function (id) {
+        if (!store[id])
+          error.die(90, 'can not get dependencies for unknown module: ' + id);
+        if (!store[id].defined)
+          error.die(91, 'can not get dependencies for undefined module: ' + id);
+        return store[id].dependencies;
+      };
 
-exports.specification = function (id) {
-    if (!exports.has(id))
-        error.die(90, 'can not get dependencies for unknown module: ' + id);
-    return store[id];
-};
+      var specification = function (id) {
+        if (!has(id))
+          error.die(92, 'can not get dependencies for unknown module: ' + id);
+        return store[id];
+      };
 
-exports.save = function (id, file, wrap) {
-    var data = {id: id, file: file, wrap: wrap};
-    store[id] = data;
-    return data;
-};
+      var save = function (id, file, wrap) {
+        var data = { id: id, file: file, wrap: wrap };
+        store[id] = data;
+        return data;
+      };
 
-exports.has = function (id) {
-    return store !== undefined;
-};
+      var has = function (id) {
+        return store !== undefined;
+      };
 
-exports.isdefined = function (id) {
-    return exports.has(id) && store[id].defined;
-};
+      var isdefined = function (id) {
+        return has(id) && store[id].defined;
+      };
+
+      return {
+        define: define,
+        alldependencies: alldependencies,
+        dependencies: dependencies,
+        specification: specification,
+        save: save,
+        has: has,
+        isdefined: isdefined
+      };
+    };
+
+    return {
+      create: create
+    };
+  }
+);

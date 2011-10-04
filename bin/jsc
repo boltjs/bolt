@@ -1,0 +1,1 @@
+node jsc.js -l ../../loader/gen/loader.js ../demo/src ../demo/src/example/config.js example.main
