@@ -5,4 +5,3 @@ p.setConfig({
     dist: "gen",
     distInclude: "**/*"
 });
-

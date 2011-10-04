@@ -1,4 +1,5 @@
 NAME = module
-MODULES = \
-	${SRC}/prelude.js 
-
+DISTFILES = \
+	${LIB}/compiler/compiler.js \
+	${LIB}/compiler/kernel.js \
+	${LIB}/loader/loader.js

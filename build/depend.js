@@ -10,8 +10,28 @@ var dependencies = [
     targets: [
       { name: "assert.js", path: lib + "/framework" },
       { name: "prelude.js", path: lib + "/framework" },
+      { name: "demo.js", path: lib + "/framework" },
       { name: "Makefile", path: "." }
     ]
   },
-];
 
+  {
+    name: "bolt-loader",
+    repository: "buildrepo2",
+    version : "latest",
+    source: "bolt-loader.zip",
+    targets: [
+      { name: "loader.js", path: lib + "/loader" }
+    ]
+  },
+
+  {
+    name: "bolt-compiler",
+    repository: "buildrepo2",
+    version : "latest",
+    source: "bolt-compiler.zip",
+    targets: [
+      { name: "*.js", path: lib + "/compiler" }
+    ]
+  }
+];
