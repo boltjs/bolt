@@ -9,7 +9,10 @@ PRELUDE = ${LIB}/framework/prelude.js
 
 .PHONY: default clean test
 
-default: ${RELEASE} test
+default: dist test
+
+dist: ${RELEASE} ${DISTFILES}
+	if [ ! -z "${DISTFILES}" ]; then cp ${DISTFILES} ${DIST}; fi
 
 clean:
 	rm -rf ./${DIST}
