@@ -20,18 +20,10 @@ fi
 
 mode="$1"; shift
 
-case "$mode" in
-dev)
-    node $base/jsc.js dev "$@"
-    ;;
-prod)
-    echo "not implemented"
-    exit 1
-    ;;
-compile)
-    echo "not implemented"
-    exit 1
-    ;;
-*)
-    fail 1 "invalid mode [$1], must be one of dev|prod|compile"
-esac
+if echo "$mode" | egrep -v -q 'dev|prod|compile'; then
+    fail 1 "invalid mode [$mode], must be one of dev|prod|compile"
+fi
+
+# FIX add some defaults and argument checking, just delegate for now.
+
+exec node $base/jsc.js dev "$@"
