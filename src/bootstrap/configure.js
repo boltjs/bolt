@@ -6,7 +6,7 @@ module.bootstrap.configure = def(
     module.bootstrap.main
   ],
 
-  function (config, compound, main, scripttag) {
+  function (config, compound, scripttag, main) {
     var scripts = document.getElementsByTagName("script");
     var bootstrapUrl = scripts[scripts.length - 1].src;
 
