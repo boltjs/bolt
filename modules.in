@@ -5,6 +5,6 @@ MODULES = \
 	${SRC}/bootstrap/main.js \
 	${SRC}/modulator/basic.js
 DISTFILES = \
-	${LIB}/compiler/compiler.js \
-	${LIB}/compiler/kernel.js \
+	${LIB}/kernel/kernel.js \
 	${LIB}/loader/loader.js
+
