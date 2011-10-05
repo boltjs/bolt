@@ -17,7 +17,7 @@ var validator = function (id) {
 };
 
 var modulate = function () {
-  var load = function (url, onsuccess, onfailure) {
+  var load = function (onsuccess, onfailure) {
     define('test', [], function() {
         return { greeting: 'hello world!' };
       }

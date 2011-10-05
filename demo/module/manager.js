@@ -6,7 +6,7 @@ runDemo('Manager - Hello world', function() {
   };
 
   var modulate = function () {
-    var load = function (url, onsuccess, onerror) {
+    var load = function (onsuccess, onerror) {
       define('ephox.bolt.demo.hello', [], function() {
           return { greeting: 'hello world!' };
         }

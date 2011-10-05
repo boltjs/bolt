@@ -28,7 +28,7 @@ kernel.module.fetcher = def(
       var mapper = function (spec, onresult) {
         var action = fn.curry(onresult, spec.id);
         var load = function (callback) {
-          spec.load(spec.url, callback, onerror);
+          spec.load(callback, onerror);
         };
         piggyback.piggyback(spec.url, load, action);
       };
