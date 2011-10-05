@@ -16,12 +16,12 @@ var dependencies = [
   },
 
   {
-    name: "bolt-kernel",
+    name: "bolt-module",
     repository: "buildrepo2",
     version : "latest",
-    source: "bolt-kernel.zip",
+    source: "bolt-module.zip",
     targets: [
-      { name: "kernel.js", path: lib }
+      { name: "*.js", path: lib + "/module" }
     ]
   }
 ];

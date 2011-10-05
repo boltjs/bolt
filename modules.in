@@ -9,7 +9,9 @@ MODULES = \
 	${SRC}/load/loader.js \
 	${SRC}/output/outputter.js \
 	${SRC}/core/compiler.js
-POSTSCOPE = \
-    ${SRC}/bin/jsc.js
 DISTFILES = \
-    ${LIB}/kernel.js
+	${LIB}/module/kernel.js \
+	${LIB}/module/loader.js \
+	${LIB}/module/module.js \
+	${SRC}/bin/jsc.js \
+	${SRC}/bin/jsc
