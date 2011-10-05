@@ -1,8 +1,9 @@
 kernel.modulator.amd = def(
   [
+    kernel.fp.functions
   ],
 
-  function () {
+  function (fn) {
     var create = function (namespace, path, idTransformer, loader) {
       var can = function (id) {
         return id.indexOf(namespace) === 0;
@@ -10,10 +11,7 @@ kernel.modulator.amd = def(
 
       var modulate = function (id) {
         var url = path + "/" + idTransformer(id);
-        // FIX curry.
-        var load = function (onsuccess, onfailure) {
-          loader.load(url, onsuccess, onfailure);
-        };
+        var load = fn.curry(loader.load, url);
 
         return {
           url: url,
