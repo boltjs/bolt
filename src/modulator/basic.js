@@ -2,7 +2,7 @@ module.modulator.basic = def(
   [
     ephox.bolt.kernel.modulator.amd,
     ephox.bolt.kernel.fp.functions,
-    ephox.bolt.loader.scripttag
+    ephox.bolt.loader.api.scripttag
   ],
 
   function (amd, fp, scripttag) {
