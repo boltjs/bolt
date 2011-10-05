@@ -46,6 +46,8 @@ kernel.module.manager = def(
         var blueprint = blueprints[id];
         var args = ar.map(blueprint.dependencies, demand);  // Instantiate dependencies
         var result = blueprint.definition.apply(null, args);  // Instantiate self
+        if (result === undefined)
+          throw "module '" + id + "' returned undefined from definition function";
         modules[id] = result;
         return result;
       };
