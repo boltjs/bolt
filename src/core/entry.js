@@ -6,10 +6,13 @@ compiler.core.entry = def(
 
   function (fs, path) {
 
-    var cat = function (files, target) {
-      var contents = files.map(function (file) {
+    var cat = function (files) {
+      return files.map(function (file) {
         return fs.readFileSync(file, 'UTF-8');
       }).join("\n");
+    };
+
+    var write = function (target, contents) {
       fs.writeFileSync(target, contents);
     };
 
@@ -19,7 +22,11 @@ compiler.core.entry = def(
       var files = ['loader', 'kernel', 'module'].map(function (x) {
         return __dirname + '/' + x + '.js';
       });
-      cat(files, bootstrap);
+      var content = cat(files);
+
+      content += '\nwindow.configure = ephox.bolt.module.bootstrap.configure.configure;';
+
+      write(bootstrap, content);
     };
 
     var prod = function () {
