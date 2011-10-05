@@ -1,1 +1,37 @@
-node jsc.js -l ../../loader/gen/loader.js ../demo/src ../demo/src/example/config.js example.main
+#!/bin/sh
+
+usage() {
+    echo "usage: `basename $0` dev"
+    echo "    or `basename $0` prod"
+    echo "    or `basename $0` compile"
+}
+
+fail() {
+    echo $2 >&2
+    usage >&2
+    exit $1
+}
+
+base=`dirname $0`
+
+if [ $# -lt 1 ]; then
+    fail 1 "error: must specify mode."
+fi
+
+mode="$1"; shift
+
+case "$mode" in
+dev)
+    node $base/jsc.js dev "$@"
+    ;;
+prod)
+    echo "not implemented"
+    exit 1
+    ;;
+compile)
+    echo "not implemented"
+    exit 1
+    ;;
+*)
+    fail 1 "invalid mode [$1], must be one of dev|prod|compile"
+esac

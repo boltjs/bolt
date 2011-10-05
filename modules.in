@@ -8,7 +8,8 @@ MODULES = \
 	${SRC}/load/evaller.js \
 	${SRC}/load/loader.js \
 	${SRC}/output/outputter.js \
-	${SRC}/core/compiler.js
+	${SRC}/core/compiler.js \
+	${SRC}/core/entry.js
 DISTFILES = \
 	${LIB}/module/kernel.js \
 	${LIB}/module/loader.js \
