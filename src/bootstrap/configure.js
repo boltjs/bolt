@@ -34,7 +34,7 @@ module.bootstrap.configure = def(
     };
 
     var onsuccess = function() {
-      main.configLoaded(window.require);
+      main.configured(window.require);
     };
 
     // FIX: we need to change this
