@@ -10,6 +10,7 @@ var dependencies = [
     targets: [
       { name: "assert.js", path: lib + "/framework" },
       { name: "prelude.js", path: lib + "/framework" },
+      { name: "demo.js", path: lib + "/framework" },
       { name: "Makefile", path: "." }
     ]
   },
