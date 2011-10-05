@@ -18,7 +18,7 @@ clean:
 	rm -rf ./${DIST}
 
 test: ${RELEASE}
-	find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo ======== $$test; node $$test'
+	find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo $$test; node $$test'
 
 ${DIST}:
 	mkdir -p $@
@@ -26,10 +26,9 @@ ${DIST}:
 ${PRELUDE}:
 	dent -clean
 
-${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} ${POSTSCOPE} modules.in
+${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
 	( \
 	echo "(function(scope) {" && \
 	cat ${PRELUDE} ${MODULES} && \
 	echo "})(this.window || global);" && \
-	if [ ! -z "${POSTSCOPE}" ]; then cat ${POSTSCOPE}; fi \
 	) > ${RELEASE}
