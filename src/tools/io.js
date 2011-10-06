@@ -21,7 +21,18 @@ compiler.core.entry = def(
       return path.exists(file);
     };
 
+    var rm = function (file) {
+      fs.unlinkSync(file);
+    };
+
+    var saferm = function (file) {
+      if (exists(file))
+        rm(file);
+    };
+
     return {
+      rm: rm,
+      saferm: saferm,
       read: read,
       readall: readall,
       write: write,

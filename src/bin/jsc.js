@@ -14,4 +14,4 @@ var args = process.argv.slice(3); // argv[0] = node, argv[1] = jsc.js, argv[2] =
 
 require('./compiler');
 
-ephox.bolt.compiler.core.entry[mode].apply(null, args);
+ephox.bolt.compiler.mode[mode].run.apply(null, args);
