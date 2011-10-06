@@ -2,6 +2,7 @@ NAME = compiler
 MODULES = \
     ${SRC}/prelude/require.js \
 	${SRC}/prelude/namespace.js \
+	${SRC}/tools/io.js \
 	${SRC}/core/error.js \
 	${SRC}/core/state.js \
 	${SRC}/config/configurator.js \

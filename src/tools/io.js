@@ -18,13 +18,14 @@ compiler.core.entry = def(
     };
 
     var exists = function (file) {
-      return path.
+      return path.exists(file);
     };
 
     return {
       read: read,
       readall: readall,
-      write: write
+      write: write,
+      exists: exists
     };
   }
 );
