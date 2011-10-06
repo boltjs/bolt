@@ -6,7 +6,7 @@ compiler.compile.compiler = def(
 
   function (io) {
     var compile = function (config, module, target) {
-      io.write(target, "this is module: " + module);
+      io.write(target, "var x = 'this is module: " + module + "'");
     };
 
     return {

@@ -6,7 +6,7 @@ compiler.mode.compile = def(
 
   function (generator, compiler) {
     var run = function (config, outdir /*, mains */) {
-      var mains = Array.prototype.slice(arguments, 2);
+      var mains = Array.prototype.slice.call(arguments, 2);
 
       // build a 'prod' config
       // write out bootstrap
