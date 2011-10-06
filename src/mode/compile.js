@@ -1,9 +1,23 @@
 compiler.mode.compile = def(
   [
+    compiler.bootstrap.generator
   ],
 
-  function () {
-    var run = function () {
+  function (generator) {
+    var run = function (config, outdir /*, mains */) {
+      var mains = Array.prototype.slice(arguments, 2);
+      // FIX this needs to be a call into module
+      var hookup = "";
+      generator.generate(outdir + '/bootstrap.js', hookup);
+      // build a 'prod' config
+      // write out bootstrap
+      //    1. kernel
+      //    2. loader
+      //    3. module
+      //    4. custom config
+      //    5. call into module to kick things off.
+      // for each main module
+      //   concatenate all modules -- potentially in order for serial case.
 
     };
 
