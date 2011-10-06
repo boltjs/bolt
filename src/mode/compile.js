@@ -21,8 +21,7 @@ compiler.mode.compile = def(
       generator.generate(outdir + '/bootstrap.js', hookup);
 
       var compile = function (main) {
-        var target = outdir + "/" + main.split('/').join('.');
-        compiler.compile(config, main, target);
+        compiler.compile(config, main, outdir + '/' + main + '.js');
       };
 
       mains.forEach(compile);

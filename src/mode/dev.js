@@ -5,7 +5,7 @@ compiler.mode.dev = def(
 
   function (generator) {
     var run = function (bootstrap) {
-      var hookup = "window.configure = ephox.bolt.module.bootstrap.configure.configure;";
+      var hookup = "ephox.bolt.module.bootstrap.configure.install();";
       generator.generate(bootstrap, hookup);
     };
 

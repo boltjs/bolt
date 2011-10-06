@@ -6,6 +6,7 @@ MODULES = \
 	${SRC}/tools/files.js \
 	${SRC}/tools/error.js \
 	${SRC}/bootstrap/generator.js \
+	${SRC}/modulator/basic.js \
 	${SRC}/compile/compiler.js \
 	${SRC}/mode/compile.js \
 	${SRC}/mode/dev.js \

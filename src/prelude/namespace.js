@@ -7,3 +7,4 @@ compiler.load = compiler.load || {};
 compiler.mode = compiler.mode || {};
 compiler.output = compiler.output || {};
 compiler.tools = compiler.tools || {};
+compiler.modulator = compiler.modulator || {};
