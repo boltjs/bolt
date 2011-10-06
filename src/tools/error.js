@@ -1,4 +1,4 @@
-compiler.core.error = def(
+compiler.tools.error = def(
   [
   ],
 

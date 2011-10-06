@@ -1,4 +1,4 @@
-compiler.core.entry = def(
+compiler.tools.io = def(
   [
     require('fs'),
     require('path')

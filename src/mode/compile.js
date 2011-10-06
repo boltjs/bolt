@@ -1,9 +1,10 @@
 compiler.mode.compile = def(
   [
-    compiler.bootstrap.generator
+    compiler.bootstrap.generator,
+    compiler.compile.compiler
   ],
 
-  function (generator) {
+  function (generator, compiler) {
     var run = function (config, outdir /*, mains */) {
       var mains = Array.prototype.slice(arguments, 2);
 
@@ -19,9 +20,12 @@ compiler.mode.compile = def(
       var hookup = "";
       generator.generate(outdir + '/bootstrap.js', hookup);
 
-      // for each main module
-      //   concatenate all modules -- potentially in order for serial case.
-      mains.for
+      var compile = function (main) {
+        var target = outdir + "/" + main + ".js";
+        compiler.compile(config, main, target);
+      };
+
+      mains.forEach(compile);
     };
 
     return {
