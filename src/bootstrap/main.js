@@ -7,7 +7,10 @@ module.bootstrap.main = def(
     var mains = [];
     var loaded = false;
 
+    var requires;
+
     var configured = function(require) {
+      requires = require;
       loaded = true;
       ar.each(mains, function(main) {
         main(require);
@@ -26,7 +29,7 @@ module.bootstrap.main = def(
     var main = function (id) {
       var r = requirer(id);
       if (loaded)
-        r();
+        r(requires);
       else
         mains.push(r);
     };

@@ -7,21 +7,20 @@ module.bootstrap.configure = def(
   ],
 
   function (config, compound, scripttag, main) {
-    var scripts = document.getElementsByTagName("script");
-    var bootstrapUrl = scripts[scripts.length - 1].src;
-
-    var configfile = '../build/module.js';
-
-    var bootstrapBasePath = bootstrapUrl.substring(0, bootstrapUrl.lastIndexOf('/bootstrap.js'));
-    var configBasePath = configfile.substring(0, configfile.lastIndexOf('/'));
-
-    var convertConfigRelativePathToPage = function(path) {
-      return bootstrapBasePath + '/' + configBasePath + '/' + path;
-    };
-
-    window.main = main.main;
-
     var configure = function (configurator) {
+      var configfile = '../build/module.js';
+
+      var scripts = document.getElementsByTagName("script");
+
+      var bootstrapUrl = scripts[scripts.length - 1].src;
+
+      var bootstrapBasePath = bootstrapUrl.substring(0, bootstrapUrl.lastIndexOf('/bootstrap.js'));
+      var configBasePath = configfile.substring(0, configfile.lastIndexOf('/'));
+
+      var convertConfigRelativePathToPage = function(path) {
+        return bootstrapBasePath + '/' + configBasePath + '/' + path;
+      };
+
       var pather = function(path) {
         return convertConfigRelativePathToPage(path);
       };
@@ -42,10 +41,14 @@ module.bootstrap.configure = def(
       throw message;
     };
 
-    scripttag.load(configfile, onsuccess, onerror);
+    var install = function () {
+      window.main = main.main;
+      window.configure = configure;
+      scripttag.load(configfile, onsuccess, onerror);
+    };
 
     return {
-      configure: configure
+      install: install
     };
   }
 );
