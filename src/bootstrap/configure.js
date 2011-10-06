@@ -7,29 +7,20 @@ module.bootstrap.configure = def(
   ],
 
   function (config, compound, scripttag, main) {
-    var configure = function (configurator) {
-      var configfile = '../build/module.js';
+    var configfile = '../build/module.js';
 
-      var scripts = document.getElementsByTagName("script");
+    var configure = function (bootstrapBasePath, configBasePath) {
+      return function (configurator) {
+        var pather = function(path) {
+          return bootstrapBasePath + '/' + configBasePath + '/' + path;
+        };
 
-      var bootstrapUrl = scripts[scripts.length - 1].src;
+        var modulators = configurator(pather);
+        var boltApi = config.configure(compound.create(modulators), onerror);
 
-      var bootstrapBasePath = bootstrapUrl.substring(0, bootstrapUrl.lastIndexOf('/bootstrap.js'));
-      var configBasePath = configfile.substring(0, configfile.lastIndexOf('/'));
-
-      var convertConfigRelativePathToPage = function(path) {
-        return bootstrapBasePath + '/' + configBasePath + '/' + path;
+        window.define = boltApi.define;
+        window.require = boltApi.require;
       };
-
-      var pather = function(path) {
-        return convertConfigRelativePathToPage(path);
-      };
-
-      var modulators = configurator(pather);
-      var boltApi = config.configure(compound.create(modulators));
-
-      window.define = boltApi.define;
-      window.require = boltApi.require;
     };
 
     var onsuccess = function() {
@@ -42,9 +33,17 @@ module.bootstrap.configure = def(
     };
 
     var install = function () {
+      var scripts = document.getElementsByTagName("script");
+
+      var bootstrapUrl = scripts[scripts.length - 1].src;
+      var bootstrapBasePath = bootstrapUrl.substring(0, bootstrapUrl.lastIndexOf('/bootstrap.js'));
+
+      var configFileRelativeToPage = bootstrapBasePath + '/' + configfile;
+      var configBasePath = configfile.substring(0, configfile.lastIndexOf('/'));
+
       window.main = main.main;
-      window.configure = configure;
-      scripttag.load(configfile, onsuccess, onerror);
+      window.configure = configure(bootstrapBasePath, configBasePath);
+      scripttag.load(configFileRelativeToPage, onsuccess, onerror);
     };
 
     return {
