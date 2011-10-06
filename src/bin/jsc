@@ -26,4 +26,4 @@ fi
 
 # FIX add some defaults and argument checking, just delegate for now.
 
-exec node $base/jsc.js dev "$@"
+exec node $base/jsc.js "$mode" "$@"
