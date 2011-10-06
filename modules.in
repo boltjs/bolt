@@ -5,7 +5,7 @@ MODULES = \
 	${SRC}/tools/io.js \
 	${SRC}/tools/files.js \
 	${SRC}/tools/error.js \
-	${SRC}/bootstrap/bootstrap.js \
+	${SRC}/bootstrap/generator.js \
 	${SRC}/mode/compile.js \
 	${SRC}/mode/dev.js \
 	${SRC}/mode/prod.js
