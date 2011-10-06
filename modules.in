@@ -3,7 +3,9 @@ MODULES = \
     ${SRC}/prelude/require.js \
 	${SRC}/prelude/namespace.js \
 	${SRC}/tools/io.js \
+	${SRC}/tools/files.js \
 	${SRC}/tools/error.js \
+	${SRC}/bootstrap/bootstrap.js \
 	${SRC}/mode/compile.js \
 	${SRC}/mode/dev.js \
 	${SRC}/mode/prod.js
