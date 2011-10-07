@@ -1,9 +1,10 @@
 compiler.modulator.basic = def(
   [
-    ephox.bolt.module.modulator.basic
+    ephox.bolt.module.modulator.basic,
+    compiler.tools.io
   ],
 
-  function (delegate) {
+  function (delegate, io) {
     var create = function () {
       var instance = delegate.create.apply(null, arguments);
 
@@ -15,7 +16,7 @@ compiler.modulator.basic = def(
         var spec = instance.modulate.apply(null, arguments);
 
         var render = function () {
-
+          return io.read(spec.url);
         };
 
         return {
