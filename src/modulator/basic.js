@@ -15,14 +15,23 @@ compiler.modulator.basic = def(
       var modulate = function () {
         var spec = instance.modulate.apply(null, arguments);
 
+        var content = io.read(spec.url);
+
         var render = function () {
-          return io.read(spec.url);
+          return "(function (define, require) {\n" +
+                 content + "\n" +
+                 "})(ephox.bolt.module.runtime.define, ephox.bolt.module.runtime.require)\n";
+        };
+
+        var load = function (define /* eval scope */) {
+          eval(content);
         };
 
         return {
           url: spec.url,
           serial: spec.serial,
-          render: render
+          render: render,
+          load: load
         };
       };
 

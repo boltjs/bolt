@@ -18,8 +18,13 @@ compiler.mode.compile = def(
       //    5. call into module to kick things off.
 
       // FIX this needs to be a call into module
-      var hookup = "";
-      generator.generate(outdir + '/bootstrap.js', hookup);
+      var hookup = "(ephox.bolt.module.bootstrap.compile.install)();\n";
+      var configuration = "ephox.bolt.module.runtime.configure(function (pather) {\n" +
+                       "return [" + mains.map(function (main) {
+                         return "ephox.bolt.module.modulator.basic.create('" + main + "', pather('.'))";
+                       }).join('\n') + '];\n' +
+                       "});\n";
+      generator.generate(outdir + '/bootstrap.js', hookup + configuration);
 
       var modulator = configurator.load(config);
 

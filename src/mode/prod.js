@@ -1,10 +1,13 @@
 compiler.mode.prod = def(
   [
+    compiler.bootstrap.generator
   ],
 
-  function () {
-    var run = function () {
-
+  function (generator) {
+    var run = function (bootstrap, config) {
+      config = config || "module.js";
+      var hookup = "ephox.bolt.module.bootstrap.prod.install('" + config + "');";
+      generator.generate(bootstrap, hookup);
     };
 
     return {
