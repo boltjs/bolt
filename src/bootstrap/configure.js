@@ -7,7 +7,7 @@ module.bootstrap.configure = def(
   ],
 
   function (config, compound, scripttag, main) {
-    var configfile = '../build/module.js';
+    var configfile = '../../../build/module.js';
 
     var configure = function (bootstrapBasePath, configBasePath) {
       return function (configurator) {
