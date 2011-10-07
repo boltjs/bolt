@@ -1,4 +1,4 @@
-module.bootstrap.configure = def(
+module.bootstrap.dev = def(
   [
     ephox.bolt.kernel.api.config,
     ephox.bolt.kernel.modulator.compound,
@@ -7,8 +7,6 @@ module.bootstrap.configure = def(
   ],
 
   function (config, compound, scripttag, main) {
-    var configfile = '../../../build/module.js';
-
     var configure = function (bootstrapBasePath, configBasePath) {
       return function (configurator) {
         var pather = function(path) {
@@ -32,7 +30,7 @@ module.bootstrap.configure = def(
       throw message;
     };
 
-    var install = function () {
+    var install = function (configfile) {
       var scripts = document.getElementsByTagName("script");
 
       var bootstrapUrl = scripts[scripts.length - 1].src;

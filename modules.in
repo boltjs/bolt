@@ -2,7 +2,9 @@ NAME = module
 MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/bootstrap/main.js \
-	${SRC}/bootstrap/configure.js \
+	${SRC}/bootstrap/dev.js \
+	${SRC}/bootstrap/prod.js \
+	${SRC}/bootstrap/compile.js \
 	${SRC}/modulator/basic.js
 DISTFILES = \
 	${LIB}/kernel/kernel.js \
