@@ -15,6 +15,7 @@ module.bootstrap.install = def(
 
         scope.define = bolt.define;
         scope.require = bolt.require;
+        scope.demand = bolt.demand;
 
         main.configured(scope.require);
       };
