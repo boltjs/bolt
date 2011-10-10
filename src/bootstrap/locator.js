@@ -3,6 +3,7 @@ module.bootstrap.locator = def(
   ],
 
   function () {
+    // FIX move to loader project and write tests...
     // FIX kill this locator thing argghhhhhhhhhhhhh
     var browser = function () {
       var scripts = document.getElementsByTagName("script");
