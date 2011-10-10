@@ -18,9 +18,9 @@ compiler.modulator.basic = def(
         var content = io.read(spec.url);
 
         var render = function () {
-          return "(function (define, require) {\n" +
-                 content + "\n" +
-                 "})(ephox.bolt.module.runtime.define, ephox.bolt.module.runtime.require)\n";
+          return '(function (define, require) {\n' +
+               content + '\n' +
+            '})(ephox.bolt.module.runtime.define, ephox.bolt.module.runtime.require);\n';
         };
 
         var load = function (define /* eval scope */) {

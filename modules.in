@@ -11,8 +11,7 @@ MODULES = \
 	${SRC}/compile/loader.js \
 	${SRC}/compile/compiler.js \
 	${SRC}/mode/compile.js \
-	${SRC}/mode/dev.js \
-	${SRC}/mode/prod.js
+	${SRC}/mode/dev.js
 DISTFILES = \
 	${LIB}/module/kernel.js \
 	${LIB}/module/loader.js \
