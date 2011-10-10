@@ -30,5 +30,5 @@ ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
 	( \
 	echo "(function(scope) {" && \
 	cat ${PRELUDE} ${MODULES} && \
-	echo "})(this.window || global);" \
+	echo "})(Function('return this')());" \
 	) > ${RELEASE}
