@@ -9,7 +9,8 @@ kernel.api.config = def(
 
       return {
         define: engine.define,
-        require: engine.require
+        require: engine.require,
+        demand: engine.demand
       };
     };
 
