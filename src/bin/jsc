@@ -15,12 +15,12 @@ usage() {
     echo
     echo "options:"
     echo "  -u|--update                    equivalent of additionally running:"
-    echo "                                   `basename $0` mode <type>"
+    echo "                                   jsc mode <type>"
     echo "  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,"
     echo "                                   default: bolt/bootstrap"
-    echo "  -c|--config CONFIG_DIR         bolt configuration directory"
+    echo "  -c|--config CONFIG_DIR         override bolt configuration directory"
     echo "                                   default: bolt/config"
-    echo "  -o|--output OUTPUT_DIR         compilation output directory"
+    echo "  -o|--output OUTPUT_DIR         override compilation output directory"
     echo "                                   default: scratch/main/js"
     echo
     # FIX add examples.
