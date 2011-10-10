@@ -16,5 +16,7 @@ DISTFILES = \
 	${LIB}/module/kernel.js \
 	${LIB}/module/loader.js \
 	${LIB}/module/module.js \
+	${LIB}/module/rhino.js \
+	${LIB}/module/node.js \
 	${SRC}/bin/jsc.js \
 	${SRC}/bin/jsc
