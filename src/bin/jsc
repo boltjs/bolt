@@ -1,29 +1,157 @@
 #!/bin/sh
 
 usage() {
-    echo "usage: `basename $0` dev"
-    echo "    or `basename $0` prod"
-    echo "    or `basename $0` compile"
+    echo "usage: jsc dev     [-b|--bootstrap BOOTSTRAP_LINK] [-c|--config CONFIG_DIR]"
+    echo "                   [-u|--update]"
+    echo "    or jsc compile [-b|--bootstrap BOOTSTRAP_LINK] [-c|--config CONFIG_DIR]"
+    echo "                   [-o|--output OUTPUT_DIR] [-u|--update] [MAIN_MODULE ...]"
+    echo "    or jsc mode    [-b|--bootstrap BOOTSTRAP_LINK] [-c|--config CONFIG_DIR]"
+    echo "                   [-o|--output OUTPUT_DIR] MODE"
+    echo
+    echo "arguments:"
+    echo "  MAIN_MODULE      entry point modules used"
+    echo "  MODE             either 'dev' or 'compile', uses CONFIG_DIR in dev mode,"
+    echo "                   uses OUTPUT_DIR in prod mode"
+    echo
+    echo "options:"
+    echo "  -u|--update                    equivalent of additionally running:"
+    echo "                                   `basename $0` mode <type>"
+    echo "  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,"
+    echo "                                   default: bolt/bootstrap"
+    echo "  -c|--config CONFIG_DIR         bolt configuration directory"
+    echo "                                   default: bolt/config"
+    echo "  -o|--output OUTPUT_DIR         compilation output directory"
+    echo "                                   default: scratch/main/js"
+    echo
+    # FIX add examples.
 }
 
-fail() {
+fail_usage() {
     echo $2 >&2
+    echo >&2
     usage >&2
     exit $1
 }
 
+fail() {
+    echo $2 >&2
+    exit $1
+}
+
+
 base=`dirname $0`
 
 if [ $# -lt 1 ]; then
-    fail 1 "error: must specify mode."
+    fail_usage 1 "error: must specify mode."
 fi
 
 mode="$1"; shift
 
-if echo "$mode" | egrep -v -q 'dev|prod|compile'; then
-    fail 1 "invalid mode [$mode], must be one of dev|prod|compile"
+case "$mode" in
+dev|compile|mode)
+    ;;
+*)
+    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|mode"
+    ;;
+esac
+
+while echo x"$1" | grep -q '^x-'; do
+    flag="$1"; shift
+    case "$flag" in
+    -u|--update)
+        update_link=true
+    ;;
+    -b|--bootstrap)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        bootstrap_link="$1"; shift
+    ;;
+    -c|-config)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        config_dir="$1"; shift
+    ;;
+    -o|--output)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        output_dir="$1"; shift
+    ;;
+    --)
+        break;
+    ;;
+    *)
+        fail_usage 1 "invalid flag [$mode]"
+    ;;
+    esac
+done
+
+: ${update_link:=false}
+: ${bootstrap_link:=bolt/bootstrap}
+: ${config_dir:=bolt/config}
+: ${output_dir:=scratch/main/js}
+
+jsc_dev() {
+    if [ $# -ne 0 ]; then
+        fail_usage 1 "invalid number of arguments for jsc dev [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$config_dir/bootstrap.js" "$config_dir/module.js"
+}
+
+jsc_compile() {
+    if [ $# -ne 0 ]; then
+        fail_usage 1 "invalid number of arguments for jsc compile [$#]"
+    fi
+
+    if [ ! -d "$output_dir" ]; then
+        fail 1 "$output_dir does not exist or is not a directory"
+    fi
+
+    exec node $base/jsc.js "$mode" "$config_dir" "$output_dir" "$@"
+}
+
+jsc_mode() {
+    case $# in
+    1)
+        case "$1" in
+        dev)
+            from="$config_dir"
+            ;;
+        compile)
+            from="$output_dir"
+            ;;
+        *)
+            fail_usage 1 "invalid mode [$1], must be one of dev|compile"
+        esac
+        ;;
+    *)
+        fail_usage 1 "must specify mode, dev|compile"
+        ;;
+    esac
+
+    if [ ! -d "`dirname $bootstrap_link`" ]; then
+        mkdir -p `dirname $bootstrap_link`
+    fi
+
+    if [ -d "$bootstrap_link" ]; then
+        fail 1 "$bootstrap_link already exists as a directory and can not be overridden"
+    fi
+
+    # this, believe it or not ...
+    bits=`echo "$bootstrap_link" | awk '{ gsub("//*", "/"); gsub("[^/]", ""); gsub("/", "../"); print;}'`
+    [ -L "$bootstrap_link" ] && rm "$bootstrap_link"
+    ln -fs "$bits$from" "$bootstrap_link"
+}
+
+if [ ! -d "$config_dir" ]; then
+    fail 1 "config directory [$config_dir] does not exist or is not a directory"
 fi
 
-# FIX add some defaults and argument checking, just delegate for now.
+if [ ! -f "$config_dir/module.js" ]; then
+    fail 1 "$config_dir/module.js does not exist or is not a file"
+fi
 
-exec node $base/jsc.js "$mode" "$@"
+jsc_$mode "$@"
