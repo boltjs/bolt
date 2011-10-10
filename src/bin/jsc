@@ -98,7 +98,7 @@ jsc_dev() {
         fail_usage 1 "invalid number of arguments for jsc dev [$#]"
     fi
 
-    exec node $base/jsc.js "$mode" "$config_dir/bootstrap.js" "$config_dir/module.js"
+    exec node $base/jsc.js "$mode" "$config_dir/bootstrap.js" "module.js"
 }
 
 jsc_compile() {
