@@ -106,7 +106,7 @@ jsc_compile() {
         fail 1 "$output_dir does not exist or is not a directory"
     fi
 
-    exec node $base/jsc.js "$mode" "$config_dir" "$output_dir" "$@"
+    exec node $base/jsc.js "$mode" "$config_dir/bootstrap.js" "$output_dir" "$@"
 }
 
 jsc_mode() {
