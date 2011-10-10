@@ -102,10 +102,6 @@ jsc_dev() {
 }
 
 jsc_compile() {
-    if [ $# -ne 0 ]; then
-        fail_usage 1 "invalid number of arguments for jsc compile [$#]"
-    fi
-
     if [ ! -d "$output_dir" ]; then
         fail 1 "$output_dir does not exist or is not a directory"
     fi
