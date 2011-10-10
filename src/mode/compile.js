@@ -9,6 +9,14 @@ compiler.mode.compile = def(
     var run = function (config, outdir /*, mains */) {
       var mains = Array.prototype.slice.call(arguments, 2);
 
+      var modulator = configurator.load(config);
+
+      var compile = function (main) {
+        compiler.compile(modulator, main, outdir + '/' + main + '.js');
+      };
+
+      mains.forEach(compile);
+
       var hookup =
         '(function () {\n' +
         '  var pather = ephox.bolt.module.bootstrap.pather;\n' +
@@ -17,7 +25,7 @@ compiler.mode.compile = def(
         '})();';
 
       var modulators = mains.map(function (main) {
-        return 'ephox.bolt.module.modulator.basic.create("' + main + '", pather("."), function (x) { return x + ".js"})';
+        return modulator.modulate(main).config();
       }).join(',\n    ');
 
       var configuration =
@@ -27,17 +35,7 @@ compiler.mode.compile = def(
         '  ];\n' +
         '});';
 
-      var everything = hookup + '\n' + configuration;
-
-      generator.generate(outdir + '/bootstrap.js', everything);
-
-      var modulator = configurator.load(config);
-
-      var compile = function (main) {
-        compiler.compile(modulator, main, outdir + '/' + main + '.js');
-      };
-
-      mains.forEach(compile);
+      generator.generate(outdir + '/bootstrap.js', hookup + '\n' + configuration);
     };
 
     return {

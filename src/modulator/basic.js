@@ -12,7 +12,7 @@ compiler.modulator.basic = def(
         return instance.can.apply(null, arguments);
       };
 
-      var modulate = function () {
+      var modulate = function (id) {
         var spec = instance.modulate.apply(null, arguments);
 
         var content = io.read(spec.url);
@@ -27,10 +27,15 @@ compiler.modulator.basic = def(
           eval(content);
         };
 
+        var config = function () {
+          return 'ephox.bolt.module.modulator.basic.create("' + id + '", pather("."), function (x) { return x + ".js"})';
+        };
+
         return {
           url: spec.url,
           serial: spec.serial,
           render: render,
+          config: config,
           load: load
         };
       };
