@@ -132,7 +132,7 @@ jsc_mode() {
         mkdir -p `dirname $bootstrap_link`
     fi
 
-    if [ -d "$bootstrap_link" ]; then
+    if [ -d "$bootstrap_link" -a ! -L "$bootstrap_link" ]; then
         fail 1 "$bootstrap_link already exists as a directory and can not be overridden"
     fi
 
