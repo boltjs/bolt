@@ -6,12 +6,12 @@ module.modulator.basic = def(
   ],
 
   function (amd, fp, scripttag) {
-    var transformer = function (id) {
+    var dev = function (id) {
       return id.replace(/\./g, '/') + '.js';
     };
 
-    var create = function (namespace, path) {
-      return amd.create(namespace, path, transformer, scripttag);
+    var create = function (namespace, path, transformer) {
+      return amd.create(namespace, path, transformer || dev, scripttag);
     };
 
     return {
