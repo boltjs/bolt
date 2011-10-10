@@ -11,5 +11,7 @@ MODULES = \
 	${SRC}/modulator/basic.js
 DISTFILES = \
 	${LIB}/kernel/kernel.js \
-	${LIB}/loader/loader.js
+	${LIB}/loader/loader.js \
+	${SRC}/platform/node.js \
+	${SRC}/platform/rhino.js
 
