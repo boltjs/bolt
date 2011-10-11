@@ -2,6 +2,7 @@ NAME = module
 MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/error/error.js \
+	${SRC}/api/api.js \
 	${SRC}/bootstrap/path.js \
 	${SRC}/bootstrap/locator.js \
 	${SRC}/bootstrap/main.js \
