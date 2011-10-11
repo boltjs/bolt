@@ -8,12 +8,12 @@ kernel.module.fetcher = def(
   ],
 
   function (ar, fn, map, piggybacker, stratifier) {
-    var create = function (modulator, validator, onerror) {
+    var create = function (modulator, validator, onerror, define, require) {
       var piggyback = piggybacker.create();
 
       var toSpecs = function (ids) {
         return ar.map(ids, function (id) {
-          var spec = modulator.modulate(id);
+          var spec = modulator.modulate(id, define, require);
           return { id: id, url: spec.url, load: spec.load, serial: spec.serial };
         });
       };
@@ -23,7 +23,7 @@ kernel.module.fetcher = def(
         if (failed.length > 0)
           onerror('Fetcher error: modules were not defined: ' + failed.join(', '));
         else
-          onsuccess();        
+          onsuccess();
       };
 
       var mapper = function (spec, onresult) {

@@ -14,7 +14,9 @@ var loader = {
   }
 };
 
-var modulator = amd.create('x.y.z', '../a/b', idTransformer, loader);
+var id = function (x) { return x; };
+
+var modulator = amd.create(id, 'x.y.z', '../a/b', idTransformer, loader);
 
 assert(modulator.can('x.y.z.blah.test'), 'can works for valid id');
 assert(!modulator.can('z.y.x.blah.test'), 'can does not work for invalid id');

@@ -1,18 +1,27 @@
 kernel.modulator.js = def(
   [
-    kernel.fp.functions
   ],
 
-  function (fn) {
-    var create = function (prefix, path, loader) {
+  function () {
+    var create = function (pather, prefix, path, loader) {
+      var wrapdefine = function (id, onsuccess, define) {
+        return function () {
+          define(id, [], function () { return null; });
+          onsuccess();
+        };
+      };
+
       var can = function (id) {
         return id.indexOf("js!" + prefix + ":") === 0;
       };
 
-      var modulate = function (id) {
+      var modulate = function (id, define, require) {
         var length = ("js!" + prefix + ":").length;
-        var url = path + '/' + id.substring(length);
-        var load = fn.curry(loader.load, url);
+        var url = pather(path) + '/' + id.substring(length);
+        var load = function (onsuccess, onfailure) {
+          var wrapped = wrapdefine(id, onsuccess, define);
+          loader.load(url, wrapped, onfailure);
+        };
 
         return {
           url: url,

@@ -11,9 +11,6 @@ kernel.module.manager = def(
       var blueprints = {};  // id -> {id: string, dependencies: [string], definition: function}
       var modules = {};     // id -> module
 
-      var validator = function (id) { return blueprints[id] !== undefined; };
-      var fetcherer = fetcher.create(modulator, validator, onerror);
-
       var define = function (id, dependencies, definition) {
         if (id === undefined)
           onerror("Define error: module id can not be undefined");
@@ -38,6 +35,9 @@ kernel.module.manager = def(
 
         oncontinue();
       };
+
+      var validator = function (id) { return blueprints[id] !== undefined; };
+      var fetcherer = fetcher.create(modulator, validator, onerror, define, require);
 
       // Instantiates a module and all of its dependencies.
       var demand = function (id) {
