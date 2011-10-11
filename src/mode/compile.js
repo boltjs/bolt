@@ -24,14 +24,12 @@ compiler.mode.compile = def(
 
       var modulators = mains.map(function (main) {
         return modulator.modulate(main).config();
-      }).join(',\n    ');
+      }).join(',\n  ');
 
       var configuration =
-        'ephox.bolt.module.api.configure(function (pather) {\n' +
-        '  return [\n' +
-        '    ' + modulators + '\n' +
-        '  ];\n' +
-        '});';
+        'ephox.bolt.module.api.configure([\n' +
+        '  ' + modulators + '\n' +
+        ']);';
 
       generator.generate(outdir + '/bootstrap.js', hookup + '\n' + configuration);
     };

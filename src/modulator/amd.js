@@ -1,6 +1,6 @@
-compiler.modulator.basic = def(
+compiler.modulator.amd = def(
   [
-    ephox.bolt.module.modulator.basic,
+    ephox.bolt.module.modulator.amd,
     compiler.tools.io
   ],
 
@@ -28,7 +28,7 @@ compiler.modulator.basic = def(
         };
 
         var config = function () {
-          return 'ephox.bolt.module.modulator.basic.create("' + id + '", pather("."), function (x) { return x + ".js"})';
+          return 'ephox.bolt.module.api.modulator("amd", "' + id + '", ".", function (x) { return x + ".js"})';
         };
 
         return {
@@ -51,6 +51,3 @@ compiler.modulator.basic = def(
     };
   }
 );
-
-// wrap basic modulator for compilation.
-ephox.bolt.module.modulator.basic = compiler.modulator.basic;
