@@ -8,10 +8,10 @@ MODULES = \
 	${SRC}/bootstrap/pather.js \
 	${SRC}/bootstrap/configloader.js \
 	${SRC}/bootstrap/install.js \
-	${SRC}/modulator/basic.js
+	${SRC}/modulator/amd.js \
+	${SRC}/modulator/js.js
 DISTFILES = \
 	${LIB}/kernel/kernel.js \
 	${LIB}/loader/loader.js \
 	${SRC}/platform/node.js \
 	${SRC}/platform/rhino.js
-

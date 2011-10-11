@@ -1,4 +1,4 @@
-module.modulator.basic = def(
+module.modulator.amd = def(
   [
     ephox.bolt.kernel.modulator.amd,
     ephox.bolt.kernel.fp.functions,
