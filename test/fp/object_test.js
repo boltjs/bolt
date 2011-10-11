@@ -19,3 +19,10 @@ var maps = obj.map({a: 1, b: 2, c: 3}, function (k, v) {
 });
 
 assert(maps.a === 2 && maps.b === 4 && maps.c === 6, "object map should map values");
+
+var dst = {a: 1, b: 2};
+var src = {a: 4, c: 3};
+
+obj.merge(dst, src);
+
+assert(src.a === 4 && src.b === undefined && src.c === 3 && dst.a === 4 && dst.b === 2 && dst.c === 3, "object merge works");

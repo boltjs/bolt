@@ -13,9 +13,16 @@ kernel.fp.object = def(
 
     var each = map;
 
+    var merge = function (d, s) {
+      each(s, function (k, v) {
+        d[k] = v;
+      });
+    };
+
     return {
       map: map,
-      each: each
+      each: each,
+      merge: merge
     };
   }
 );
