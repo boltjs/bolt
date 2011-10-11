@@ -11,11 +11,9 @@ compiler.mode.compile = def(
 
       var modulator = configurator.load(config);
 
-      var compile = function (main) {
+      mains.forEach(function (main) {
         compiler.compile(modulator, main, outdir + '/' + main + '.js');
-      };
-
-      mains.forEach(compile);
+      });
 
       var hookup =
         '(function () {\n' +
