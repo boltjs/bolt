@@ -7,6 +7,7 @@ MODULES = \
 	${SRC}/bootstrap/main.js \
 	${SRC}/bootstrap/pather.js \
 	${SRC}/bootstrap/configloader.js \
+	${SRC}/bootstrap/deferred.js \
 	${SRC}/bootstrap/install.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/js.js
