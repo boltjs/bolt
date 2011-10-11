@@ -19,7 +19,7 @@ compiler.mode.compile = def(
         '(function () {\n' +
         '  var pather = ephox.bolt.module.bootstrap.pather;\n' +
         '  var install = ephox.bolt.module.bootstrap.install;\n' +
-        '  install.install(ephox.bolt.module.runtime, pather.compile());\n' +
+        '  install.install(pather.compile());\n' +
         '})();';
 
       var modulators = mains.map(function (main) {
@@ -27,7 +27,7 @@ compiler.mode.compile = def(
       }).join(',\n    ');
 
       var configuration =
-        'ephox.bolt.module.runtime.configure(function (pather) {\n' +
+        'ephox.bolt.module.api.configure(function (pather) {\n' +
         '  return [\n' +
         '    ' + modulators + '\n' +
         '  ];\n' +
