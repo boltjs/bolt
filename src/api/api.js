@@ -6,7 +6,7 @@ module.api = def(
   function (runtime) {
     var delegate = function (method) {
       return function () {
-        runtime[method].apply(null, arguments);
+        return runtime[method].apply(null, arguments);
       };
     };
 
