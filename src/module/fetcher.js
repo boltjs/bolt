@@ -3,10 +3,11 @@ kernel.module.fetcher = def(
     kernel.fp.array,
     kernel.fp.functions,
     kernel.async.map,
-    kernel.async.piggybacker
+    kernel.async.piggybacker,
+    kernel.module.stratifier
   ],
 
-  function (ar, fn, map, piggybacker) {
+  function (ar, fn, map, piggybacker, stratifier) {
     var create = function (modulator, validator, onerror) {
       var piggyback = piggybacker.create();
 
@@ -36,8 +37,8 @@ kernel.module.fetcher = def(
       var asyncfetch = function (ids, onsuccess) {
         var specs = toSpecs(ids);
         var oncomplete = fn.curry(validate, onsuccess);
-        // FIX: must stratify specs, run serial first.
-        map.amap(specs, mapper, oncomplete);
+        var strata = stratifier.stratify(specs);
+        map.amap(strata, mapper, oncomplete);
       };
 
       var fetch = function (ids, onsuccess) {
