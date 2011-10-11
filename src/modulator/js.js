@@ -5,8 +5,8 @@ module.modulator.js = def(
   ],
 
   function (js, scripttag) {
-    var create = function (prefix, path) {
-      return js.create(prefix, path, scripttag);
+    var create = function (pather, prefix, path) {
+      return js.create(pather, prefix, path, scripttag);
     };
 
     return {

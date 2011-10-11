@@ -5,13 +5,13 @@ module.bootstrap.install = def(
     ephox.bolt.kernel.modulator.compound,
     module.bootstrap.deferred,
     module.bootstrap.main,
+    module.bootstrap.modulator,
     module.runtime
   ],
 
-  function (error, config, compound, deferred, main, runtime) {
+  function (error, config, compound, deferred, main, modulator, runtime) {
     var install = function (pather) {
-      var configure = function (configurator) {
-        var modulators = configurator(pather);
+      var configure = function (modulators) {
         var modulator = compound.create(modulators);
         var bolt = config.configure(modulator, error.die);
 
@@ -23,6 +23,7 @@ module.bootstrap.install = def(
       };
 
       runtime.configure = configure;
+      runtime.modulator = modulator.modulator(pather);
       runtime.require = deferred.require;
       runtime.main = main.main;
     };

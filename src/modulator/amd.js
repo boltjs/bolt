@@ -10,8 +10,8 @@ module.modulator.amd = def(
       return id.replace(/\./g, '/') + '.js';
     };
 
-    var create = function (namespace, path, transformer) {
-      return amd.create(namespace, path, transformer || dev, scripttag);
+    var create = function (pather, namespace, path, transformer) {
+      return amd.create(pather, namespace, path, transformer || dev, scripttag);
     };
 
     return {

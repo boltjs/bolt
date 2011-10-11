@@ -12,6 +12,7 @@ module.api = def(
 
     return {
       configure: delegate('configure'),
+      modulator: delegate('modulator'),
       define: delegate('define'),
       require: delegate('require'),
       demand: delegate('demand'),
