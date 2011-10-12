@@ -52,9 +52,10 @@ compiler.compile.compiler = def(
       return render(ids);
     };
 
-    var compile = function (modulator, id, target) {
-      var content = gather(modulator, [id]);
+    var compile = function (modulator, ids, target, targetmeta) {
+      var content = gather(modulator, ids);
       io.write(target, content);
+      // FIX write targetmeta
     };
 
     return {

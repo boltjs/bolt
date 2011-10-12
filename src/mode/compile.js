@@ -1,37 +1,19 @@
 compiler.mode.compile = def(
   [
-    compiler.bootstrap.generator,
+    compiler.compile.identifier,
     compiler.compile.compiler,
-    compiler.compile.configurator
+    compiler.compile.configurator,
+    ephox.bolt.kernel.fp.array
   ],
 
-  function (generator, compiler, configurator) {
-    var run = function (config, outdir /*, mains */) {
-      var mains = Array.prototype.slice.call(arguments, 2);
-
+  function (identifier, compiler, configurator, ar) {
+    var run = function (config/*, files, target*/) {
+      var rest = Array.prototype.slice.call(arguments, 1);
+      var files = rest.slice(0, -1);
+      var target = rest[rest.length - 1];
       var modulator = configurator.load(config);
-
-      mains.forEach(function (main) {
-        compiler.compile(modulator, main, outdir + '/' + main + '.js');
-      });
-
-      var hookup =
-        '(function () {\n' +
-        '  var pather = ephox.bolt.module.bootstrap.pather;\n' +
-        '  var install = ephox.bolt.module.bootstrap.install;\n' +
-        '  install.install(pather.compile());\n' +
-        '})();';
-
-      var modulators = mains.map(function (main) {
-        return modulator.modulate(main).config();
-      }).join(',\n  ');
-
-      var configuration =
-        'ephox.bolt.module.api.configure([\n' +
-        '  ' + modulators + '\n' +
-        ']);';
-
-      generator.generate(outdir + '/bootstrap.js', hookup + '\n' + configuration);
+      var modules = ar.flatmap(files, identifier.identify);
+      compiler.compile(modulator, modules, target, target + '.meta');
     };
 
     return {

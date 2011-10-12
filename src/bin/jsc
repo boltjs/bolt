@@ -1,15 +1,21 @@
 #!/bin/sh
 
 usage() {
-    echo "usage: jsc dev     [-b|--bootstrap BOOTSTRAP_LINK] [-c|--config CONFIG_DIR]"
-    echo "                   [-u|--update]"
-    echo "    or jsc compile [-b|--bootstrap BOOTSTRAP_LINK] [-c|--config CONFIG_DIR]"
-    echo "                   [-o|--output OUTPUT_DIR] [-u|--update] [MAIN_MODULE ...]"
-    echo "    or jsc mode    [-b|--bootstrap BOOTSTRAP_LINK] [-c|--config CONFIG_DIR]"
-    echo "                   [-o|--output OUTPUT_DIR] MODE"
+    echo "usage: jsc dev     [-c|--config CONFIG_DIR]"
+    echo "    or jsc compile [-c|--config CONFIG_DIR] MODULE_FILE ... COMPILE_TARGET"
+    echo "    or jsc link    [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
+    echo "    or jsc mode    [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR]"
+    echo "                   [-b|--bootstrap BOOTSTRAP_LINK] MODE"
     echo
     echo "arguments:"
-    echo "  MAIN_MODULE      entry point modules used"
+    echo "  MODULE_FILE      file containing an uncompiled module"
+    echo "  COMPILE_TARGET   file to generate when compiling, will contain the set of"
+    echo "                   modules and their dependencies, a definition meta-data"
+    echo "                   file will be generated as 'COMPILE_TARGET.meta'"
+    echo "  COMPILE_FILE     file produced by compilation to use as input to linking,"
+    echo "                   COMPILE_FILE must have corresponding 'COMPILE_TARGET.meta'"
+    echo "  LINK_TARGET      file to generate when linking, will contain bootstrap"
+    echo "                   information: bolt, install and configuration"
     echo "  MODE             either 'dev' or 'compile', uses CONFIG_DIR in dev mode,"
     echo "                   uses OUTPUT_DIR in prod mode"
     echo
@@ -23,6 +29,9 @@ usage() {
     echo "  -o|--output OUTPUT_DIR         override compilation output directory"
     echo "                                   default: scratch/main/js/compile"
     echo
+    # FIX potential flags:
+    #      link -s|--sync for link to generate sync api using demand
+    #      compile -e|--exclude for excluding modules from compile output
     # FIX add examples.
 }
 
@@ -102,11 +111,19 @@ jsc_dev() {
 }
 
 jsc_compile() {
-    if [ ! -d "$output_dir" ]; then
-        fail 1 "$output_dir does not exist or is not a directory"
+    if [ $# -lt 2 ]; then
+        fail_usage 1 "invalid number of arguments for jsc compile [$#]"
     fi
 
-    exec node $base/jsc.js "$mode" "$config_dir/module.js" "$output_dir" "$@"
+    exec node $base/jsc.js "$mode" "$config_dir/module.js" "$@"
+}
+
+jsc_link() {
+    if [ $# -lt 2 ]; then
+        fail_usage 1 "invalid number of arguments for jsc link [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$config_dir/module.js" "$@"
 }
 
 jsc_mode() {

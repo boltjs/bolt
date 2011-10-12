@@ -8,10 +8,12 @@ MODULES = \
 	${SRC}/bootstrap/generator.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/js.js \
+	${SRC}/compile/identifier.js \
 	${SRC}/compile/configurator.js \
 	${SRC}/compile/loader.js \
 	${SRC}/compile/compiler.js \
 	${SRC}/mode/compile.js \
+	${SRC}/mode/link.js \
 	${SRC}/mode/dev.js
 DISTFILES = \
 	${LIB}/module/kernel.js \
