@@ -29,6 +29,17 @@ kernel.fp.array = def(
       return r;
     };
 
+    var flatten = function (a) {
+      var r = [];
+      for (var i = 0; i < a.length; ++i)
+        r = r.concat(a[i]);
+      return r;
+    };
+
+    var flatmap = function (a, f) {
+      return flatten(map(a, f));
+    };
+
     var filter = function (a, f) {
       var r = [];
       for (var i = 0; i < a.length; ++i)
@@ -55,7 +66,9 @@ kernel.fp.array = def(
     return {
       equals: equals,
       forall: forall,
+      flatten: flatten,
       map: map,
+      flatmap: flatmap,
       each: each,
       forall: forall,
       filter: filter,

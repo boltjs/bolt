@@ -12,6 +12,10 @@ var lt5 = function (i) {
   return i < 5;
 };
 
+var doubleitarray = function (i) {
+  return [doubleit(i)];
+};
+
 var ar = ephox.bolt.kernel.fp.array;
 
 assert(ar.equals([1, 2, 3], [1, 2, 3]), "arrays are equal.");
@@ -38,3 +42,6 @@ assert(!ar.contains(abc, 'd'), "contains works for missing element");
 assert(ar.indexof(abc, 'a') === 0, "indexof works for first element");
 assert(ar.indexof(abc, 'c') === 2, "indexof works for last element");
 assert(ar.indexof(abc, 'd') === -1, "indexof works for missing element");
+
+assert(ar.equals(ar.flatten([[1], [2], [3]]), [1, 2, 3]), "flatten flattens");
+assert(ar.equals(ar.flatmap([1, 2, 3], doubleitarray), [2, 4, 6]), "flatmap, it flattens while it maps!!!");
