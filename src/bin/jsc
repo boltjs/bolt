@@ -21,7 +21,7 @@ usage() {
     echo "  -c|--config CONFIG_DIR         override bolt configuration directory"
     echo "                                   default: bolt/config"
     echo "  -o|--output OUTPUT_DIR         override compilation output directory"
-    echo "                                   default: scratch/main/js"
+    echo "                                   default: scratch/main/js/compile"
     echo
     # FIX add examples.
 }
@@ -91,7 +91,7 @@ done
 : ${update_link:=false}
 : ${bootstrap_link:=bolt/bootstrap}
 : ${config_dir:=bolt/config}
-: ${output_dir:=scratch/main/js}
+: ${output_dir:=scratch/main/js/compile}
 
 jsc_dev() {
     if [ $# -ne 0 ]; then
