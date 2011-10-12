@@ -9,6 +9,7 @@ MODULES = \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/js.js \
 	${SRC}/compile/identifier.js \
+	${SRC}/compile/metalator.js \
 	${SRC}/compile/configurator.js \
 	${SRC}/compile/loader.js \
 	${SRC}/compile/compiler.js \

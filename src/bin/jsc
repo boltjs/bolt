@@ -57,10 +57,10 @@ fi
 mode="$1"; shift
 
 case "$mode" in
-dev|compile|mode)
+dev|compile|link|mode)
     ;;
 *)
-    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|mode"
+    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|link|mode"
     ;;
 esac
 

@@ -1,32 +1,64 @@
 compiler.mode.link = def(
   [
+    compiler.tools.error,
+    compiler.tools.io,
+    compiler.bootstrap.generator,
+    compiler.compile.identifier,
+    compiler.compile.configurator,
+    ephox.bolt.kernel.fp.array,
+    require('path')
   ],
 
-  function () {
-    var run = function () {
-//
-//      mains.forEach(function (main) {
-//
-//      });
-//
-//      var hookup =
-//        '(function () {\n' +
-//        '  var pather = ephox.bolt.module.bootstrap.pather;\n' +
-//        '  var install = ephox.bolt.module.bootstrap.install;\n' +
-//        '  install.install(pather.compile());\n' +
-//        '})();';
-//
-//      var modulators = mains.map(function (main) {
-//        return modulator.modulate(main).config();
-//      }).join(',\n  ');
-//
-//      var configuration =
-//        'ephox.bolt.module.api.configure([\n' +
-//        '  ' + modulators + '\n' +
-//        ']);';
-//
-//      generator.generate(outdir + '/bootstrap.js', hookup + '\n' + configuration);
+  function (error, io, generator, identifier, configurator, ar, path) {
 
+    var slurp = function (file) {
+      var meta = file + '.meta';
+      console.log(meta);
+      if (!io.exists(meta))
+        error.die(1, 'no meta-data found for file, "' + file + '", can only link compile output');
+      var content = io.read(meta);
+      var defines = JSON.parse(content);
+      return {file: file, defines: defines};
+    };
+
+    var configthing = function (bit) {
+      var defines = bit.defines;
+      var filepath = bit.file;
+      var filename = path.basename(filepath);
+      return defines.map(function (define) {
+        return 'modulator("amd", "' + define + '", ".", function () { return "' + filename + '"; })';
+      });
+    };
+
+    var install =
+      '(function () {\n' +
+      '  var pather = ephox.bolt.module.bootstrap.pather;\n' +
+      '  var install = ephox.bolt.module.bootstrap.install;\n' +
+      '  install.install(pather.compile());\n' +
+      '})();';
+
+    var link = function (files) {
+      var bits = files.map(slurp);
+      return ar.flatmap(bits, configthing);
+    };
+
+    var run = function (config /*, files, target */) {
+      var rest = Array.prototype.slice.call(arguments, 1);
+      var files = rest.slice(0, -1);
+      var target = rest[rest.length - 1];
+      var parts = link(files);
+      var modulators = parts.join(',\n    ');
+
+      var configuration =
+        '(function () {\n' +
+        '  var configure = ephox.bolt.module.api.configure;\n' +
+        '  var modulator = ephox.bolt.module.api.modulator;\n' +
+        '  configure([\n' +
+        '    ' + modulators + '\n' +
+        '  ]);\n' +
+        '})()';
+
+      generator.generate(target, install + '\n' + configuration);
     };
 
     return {

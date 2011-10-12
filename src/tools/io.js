@@ -18,7 +18,7 @@ compiler.tools.io = def(
     };
 
     var exists = function (file) {
-      return path.exists(file);
+      return path.existsSync(file);
     };
 
     var rm = function (file) {

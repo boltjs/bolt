@@ -5,10 +5,11 @@ compiler.compile.compiler = def(
     compiler.tools.error,
     compiler.compile.loader,
     ephox.bolt.kernel.module.analyser,
-    ephox.bolt.kernel.fp.functions
+    ephox.bolt.kernel.fp.functions,
+    ephox.bolt.kernel.fp.object
   ],
 
-  function (io, error, loader, analyser, fn) {
+  function (io, error, loader, analyser, fn, obj) {
     var modules = {};  // id -> [id]
     var rendered = {}; // id -> rendered
     var printed = {};
@@ -52,10 +53,10 @@ compiler.compile.compiler = def(
       return render(ids);
     };
 
-    var compile = function (modulator, ids, target, targetmeta) {
+    var compile = function (modulator, ids, target) {
       var content = gather(modulator, ids);
       io.write(target, content);
-      // FIX write targetmeta
+      return obj.keys(rendered);
     };
 
     return {

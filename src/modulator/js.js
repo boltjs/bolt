@@ -26,15 +26,10 @@ compiler.modulator.js = def(
           define(id, [], function () { return null; });
         };
 
-        var config = function () {
-          return 'ephox.bolt.module.api.modulator("js", "' + id + '", ".", function (x) { return x + ".js"})';
-        };
-
         return {
           url: spec.url,
           serial: spec.serial,
           render: render,
-          config: config,
           load: load
         };
       };

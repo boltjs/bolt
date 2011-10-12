@@ -27,15 +27,10 @@ compiler.modulator.amd = def(
           eval(content);
         };
 
-        var config = function () {
-          return 'ephox.bolt.module.api.modulator("amd", "' + id + '", ".", function (x) { return x + ".js"})';
-        };
-
         return {
           url: spec.url,
           serial: spec.serial,
           render: render,
-          config: config,
           load: load
         };
       };
