@@ -19,9 +19,18 @@ kernel.fp.object = def(
       });
     };
 
+    var keys = function (o) {
+      var r = [];
+      each(o, function (k) {
+        r.push(k);
+      });
+      return r;
+    };
+
     return {
-      map: map,
       each: each,
+      keys: keys,
+      map: map,
       merge: merge
     };
   }

@@ -26,3 +26,5 @@ var src = {a: 4, c: 3};
 obj.merge(dst, src);
 
 assert(src.a === 4 && src.b === undefined && src.c === 3 && dst.a === 4 && dst.b === 2 && dst.c === 3, "object merge works");
+
+assert(ar.equals(obj.keys({a: 1, b: 2}), ['a', 'b']), "keys extracts all the keys in order");
