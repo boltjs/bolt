@@ -13,7 +13,6 @@ compiler.mode.link = def(
 
     var slurp = function (file) {
       var meta = file + '.meta';
-      console.log(meta);
       if (!io.exists(meta))
         error.die(1, 'no meta-data found for file, "' + file + '", can only link compile output');
       var content = io.read(meta);
