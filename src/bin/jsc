@@ -20,8 +20,6 @@ usage() {
     echo "                   uses OUTPUT_DIR in prod mode"
     echo
     echo "options:"
-    echo "  -u|--update                    equivalent of additionally running:"
-    echo "                                   jsc mode <type>"
     echo "  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,"
     echo "                                   default: bolt/bootstrap"
     echo "  -c|--config CONFIG_DIR         override bolt configuration directory"
@@ -67,9 +65,6 @@ esac
 while echo x"$1" | grep -q '^x-'; do
     flag="$1"; shift
     case "$flag" in
-    -u|--update)
-        update_link=true
-    ;;
     -b|--bootstrap)
         if [ $# -lt 1 ]; then
             fail_usage 1 "$flag requires an argument to be specified"
@@ -97,7 +92,6 @@ while echo x"$1" | grep -q '^x-'; do
     esac
 done
 
-: ${update_link:=false}
 : ${bootstrap_link:=bolt/bootstrap}
 : ${config_dir:=bolt/config}
 : ${output_dir:=scratch/main/js/compile}

@@ -1,0 +1,95 @@
+#!/bin/sh
+
+usage() {
+    echo "usage: bolt init  [-c|--config CONFIG_DIR] [-b|--bootstrap BOOTSTRAP_LINK]"
+    echo "    or bolt build [-o|--output OUTPUT_DIR]"
+    echo
+    echo "options:"
+    echo "  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,"
+    echo "                                   default: bolt/bootstrap"
+    echo "  -c|--config CONFIG_DIR         override bolt configuration directory"
+    echo "                                   default: bolt/config"
+    echo "  -o|--output OUTPUT_DIR         override compilation output directory"
+    echo "                                   default: scratch/main/js"
+    echo
+}
+
+fail_usage() {
+    echo $2 >&2
+    echo >&2
+    usage >&2
+    exit $1
+}
+
+fail() {
+    echo $2 >&2
+    exit $1
+}
+
+
+base=`dirname $0`
+
+if [ $# -lt 1 ]; then
+    fail_usage 1 "error: must specify mode."
+fi
+
+mode="$1"; shift
+
+case "$mode" in
+init|build)
+    ;;
+*)
+    fail_usage 1 "invalid mode [$mode], must be one of init|build"
+    ;;
+esac
+
+while echo x"$1" | grep -q '^x-'; do
+    flag="$1"; shift
+    case "$flag" in
+    -b|--bootstrap)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        bootstrap_link="$1"; shift
+    ;;
+    -c|-config)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        config_dir="$1"; shift
+    ;;
+    -o|--output)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        output_dir="$1"; shift
+    ;;
+    --)
+        break;
+    ;;
+    *)
+        fail_usage 1 "invalid flag [$mode]"
+    ;;
+    esac
+done
+
+: ${bootstrap_link:=bolt/bootstrap}
+: ${config_dir:=bolt/config}
+: ${output_dir:=scratch/main/js/compile}
+
+
+bolt_init() {
+    [ -d "$config_dir" ] || mkdir -p "$config_dir"
+    [ -f "$config_dir/module.js" ] || cat > "$config_dir/module.js" <<EOF
+configure([
+]);
+EOF
+    $base/jsc dev -c "$config_dir"
+    $base/jsc mode -c "$config_dir" -b "$bootstrap_link" dev
+}
+
+bolt_build() {
+    echo "not implemented yet, sorry"
+}
+
+bolt_$mode
