@@ -20,7 +20,7 @@ compiler.modulator.amd = def(
         var render = function () {
           return '(function (define, require) {\n' +
                content + '\n' +
-            '})(ephox.bolt.module.runtime.define, ephox.bolt.module.runtime.require);\n';
+            '})(ephox.bolt.module.api.define, ephox.bolt.module.api.require);\n';
         };
 
         var load = function (define /* eval scope */) {

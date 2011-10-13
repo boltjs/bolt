@@ -19,7 +19,7 @@ compiler.modulator.js = def(
 
         var render = function () {
           return content + '\n' +
-             'ephox.bolt.module.runtime.define("' + id + '", [], function () { return null; });';
+             'ephox.bolt.module.api.define("' + id + '", [], function () { return null; });';
         };
 
         var load = function (define) {

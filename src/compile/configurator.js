@@ -28,6 +28,7 @@ compiler.compile.configurator = def(
         if (builtins[type] === undefined)
           error.die(1, "no compile modulator for type: " + type);
         var args = Array.prototype.slice.call(arguments, 1);
+        console.log('aslfaf', args);
         return builtins[type].create.apply(null, [ pather ].concat(args));
       };
 

@@ -7,6 +7,7 @@ MODULES = \
 	${SRC}/tools/error.js \
 	${SRC}/bootstrap/generator.js \
 	${SRC}/modulator/amd.js \
+	${SRC}/modulator/compiled.js \
 	${SRC}/modulator/js.js \
 	${SRC}/compile/identifier.js \
 	${SRC}/compile/metalator.js \
