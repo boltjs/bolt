@@ -4,11 +4,12 @@ compiler.compile.configurator = def(
     compiler.tools.io,
     compiler.tools.error,
     compiler.modulator.amd,
+    compiler.modulator.compiled,
     compiler.modulator.js,
     require('path')
   ],
 
-  function (compound, io, error, amd, js, path) {
+  function (compound, io, error, amd, compiled, js, path) {
 
     var load = function (file) {
       var content = io.read(file);
@@ -20,6 +21,7 @@ compiler.compile.configurator = def(
 
       var builtins = {
         amd: amd,
+        compiled: compiled,
         js: js
       };
 
@@ -28,7 +30,6 @@ compiler.compile.configurator = def(
         if (builtins[type] === undefined)
           error.die(1, "no compile modulator for type: " + type);
         var args = Array.prototype.slice.call(arguments, 1);
-        console.log('aslfaf', args);
         return builtins[type].create.apply(null, [ pather ].concat(args));
       };
 
