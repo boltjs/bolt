@@ -1,17 +1,19 @@
 compiler.modulator.compiled = def(
   [
-    ephox.bolt.module.modulate.compiled,
+    ephox.bolt.module.modulator.compiled,
     compiler.tools.io
   ],
 
   function (delegate, io) {
     var create = function () {
+      var instance = delegate.create.apply(null, arguments);
+
       var can = function () {
-        return delegate.can.apply(null, arguments);
+        return instance.can.apply(null, arguments);
       };
 
       var modulate = function (id) {
-        var spec = delegate.modulate.apply(null, arguments);
+        var spec = instance.modulate.apply(null, arguments);
         var url = spec.url;
         var serial = spec.serial;
 
