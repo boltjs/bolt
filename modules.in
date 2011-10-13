@@ -23,4 +23,5 @@ DISTFILES = \
 	${LIB}/module/rhino.js \
 	${LIB}/module/node.js \
 	${SRC}/bin/jsc.js \
-	${SRC}/bin/jsc
+	${SRC}/bin/jsc \
+	${SRC}/bin/bolt
