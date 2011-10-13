@@ -10,10 +10,12 @@ var dependencies = [
     source: "bolt-compiler.zip",
     targets: [
       { name: "jsc", path: components },
+      { name: "bolt", path: components },
       { name: "*.js", path: components }
     ],
     executables: [
-      components + "/jsc"
+      components + "/jsc",
+      components + "/bolt"
     ]
   }
 ];
