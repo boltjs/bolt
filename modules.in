@@ -3,6 +3,7 @@ MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/error/error.js \
 	${SRC}/modulator/amd.js \
+	${SRC}/modulator/compiled.js \
 	${SRC}/modulator/js.js \
 	${SRC}/api/api.js \
 	${SRC}/bootstrap/path.js \
