@@ -172,6 +172,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../compiler/compiler.iml" filepath="$PROJECT_DIR$/../compiler/compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../doc/doc.iml" filepath="$PROJECT_DIR$/../doc/doc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../example/example.iml" filepath="$PROJECT_DIR$/../example/example.iml" />
       <module fileurl="file://$PROJECT_DIR$/../framework/framework.iml" filepath="$PROJECT_DIR$/../framework/framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/../kernel/kernel.iml" filepath="$PROJECT_DIR$/../kernel/kernel.iml" />
