@@ -22,7 +22,7 @@ module.bootstrap.modulator = def(
           error.die('Configure error: modulator "' + type + '" is not supported');
 
         var all = [ pather ].concat(args);
-        builtins[type].create.apply(null, all);
+        return builtins[type].create.apply(null, all);
       };
     };
 
