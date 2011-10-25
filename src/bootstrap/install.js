@@ -6,13 +6,16 @@ module.bootstrap.install = def(
     module.bootstrap.deferred,
     module.bootstrap.main,
     module.bootstrap.modulator,
+    module.modulator.global,
     module.runtime
   ],
 
-  function (error, config, compound, deferred, main, modulator, runtime) {
+  function (error, config, compound, deferred, main, modulator, globalator, runtime) {
     var install = function (pather) {
       var configure = function (modulators) {
-        var modulator = compound.create(modulators);
+        var implicit = [ globalator.create() ];
+        var all = modulators.concat(implicit);
+        var modulator = compound.create(all);
         var bolt = config.configure(modulator, error.die);
 
         runtime.define = bolt.define;
