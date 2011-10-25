@@ -66,12 +66,11 @@ kernel.fp.array = def(
     return {
       equals: equals,
       forall: forall,
-      flatten: flatten,
       map: map,
+      flatten: flatten,
       flatmap: flatmap,
-      each: each,
-      forall: forall,
       filter: filter,
+      each: each,
       contains: contains,
       indexof: indexof
     };
