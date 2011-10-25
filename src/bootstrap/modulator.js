@@ -3,26 +3,31 @@ module.bootstrap.modulator = def(
     module.error.error,
     module.modulator.amd,
     module.modulator.compiled,
+    module.modulator.delegate,
     module.modulator.js
   ],
 
-  function (error, amd, compiled, js) {
+  function (error, amd, compiled, delegate, js) {
     var builtins = {
       amd: amd,
       compiled: compiled,
       js: js
     };
 
-    // FIX MTH this needs to support arbitrary module ids as a type, implement delegating modulator to handle them.
+    var builtin = function (type, pather, args) {
+      var all = [ pather ].concat(args);
+      return builtins[type].create.apply(null, all);
+    };
+
+    var delegatee = function (type, pather, args) {
+      var all = [ type, pather ].concat(args);
+      return delegate.create.apply(null, all);
+    };
+
     var modulator = function (pather) {
       return function(type /*, args */) {
         var args = Array.prototype.slice.call(arguments, 1);
-
-        if (builtins[type] === undefined)
-          error.die('Configure error: modulator "' + type + '" is not supported');
-
-        var all = [ pather ].concat(args);
-        return builtins[type].create.apply(null, all);
+        return builtins[type] !== undefined ? builtin(type, pather, args) : delegatee(type, pather, args);
       };
     };
 

@@ -2,11 +2,12 @@ NAME = module
 MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/error/error.js \
+	${SRC}/api/api.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/compiled.js \
+	${SRC}/modulator/delegate.js \
 	${SRC}/modulator/global.js \
 	${SRC}/modulator/js.js \
-	${SRC}/api/api.js \
 	${SRC}/bootstrap/path.js \
 	${SRC}/bootstrap/locator.js \
 	${SRC}/bootstrap/main.js \
