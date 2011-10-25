@@ -20,7 +20,7 @@ module.bootstrap.modulator = def(
     };
 
     var delegatee = function (type, pather, args) {
-      var all = [ type, pather ].concat(args);
+      var all = [ type + '.Modulator', pather ].concat(args);
       return delegate.create.apply(null, all);
     };
 
