@@ -1,22 +1,17 @@
 module.bootstrap.install = def(
   [
     module.error.error,
-    ephox.bolt.kernel.api.config,
-    ephox.bolt.kernel.modulator.compound,
+    module.config.config,
+    module.mapper.mapper,
     module.bootstrap.deferred,
     module.bootstrap.main,
-    module.bootstrap.modulator,
-    module.modulator.global,
     module.runtime
   ],
 
-  function (error, config, compound, deferred, main, modulator, globalator, runtime) {
+  function (error, config, mapper, deferred, main, runtime) {
     var install = function (pather) {
-      var configure = function (modulators) {
-        var implicit = [ globalator.create() ];
-        var all = modulators.concat(implicit);
-        var modulator = compound.create(all);
-        var bolt = config.configure(modulator, error.die);
+      var configure = function (configuration) {
+        var bolt = config.configure(configuration, pather);
 
         runtime.define = bolt.define;
         runtime.require = bolt.require;
@@ -25,10 +20,16 @@ module.bootstrap.install = def(
         deferred.configured(runtime.require);
       };
 
+      var main = function (id) {
+        runtime.require([id], fn.apply);
+      };
+
       runtime.configure = configure;
-      runtime.modulator = modulator.modulator(pather);
+      runtime.source = modulator.source;
+      runtime.modulator = modulator.modulator;
+      runtime.mapper = mapper;
       runtime.require = deferred.require;
-      runtime.main = main.main;
+      runtime.main = main;
     };
 
     return {

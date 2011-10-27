@@ -1,13 +1,12 @@
 module.bootstrap.configloader = def(
   [
     module.error.error,
-    module.bootstrap.path,
-    module.bootstrap.main,
-    module.bootstrap.locator,
+    module.util.path,
+    module.util.locator,
     ephox.bolt.loader.api.scripttag
   ],
 
-  function (error, path, main, locator, scripttag) {
+  function (error, path, locator, scripttag) {
     var load = function (configfile) {
       var script = locator.locate();
       var base = path.dirname(script);

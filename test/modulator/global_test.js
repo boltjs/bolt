@@ -1,6 +1,6 @@
 require('../include/include');
 
-var m = ephox.bolt.module.modulator.global;
+var m = ephox.bolt.module.modulator.globalator;
 
 var modulator = m.create();
 

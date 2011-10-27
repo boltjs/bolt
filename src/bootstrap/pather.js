@@ -1,7 +1,7 @@
 module.bootstrap.pather = def(
   [
-    module.bootstrap.locator,
-    module.bootstrap.path
+    module.util.locator,
+    module.util.path
   ],
 
   function (locator, path) {

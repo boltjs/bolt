@@ -1,4 +1,4 @@
-module.bootstrap.path = def(
+module.util.path = def(
   [
   ],
 

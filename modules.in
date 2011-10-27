@@ -3,18 +3,21 @@ MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/error/error.js \
 	${SRC}/api/api.js \
+	${SRC}/mapper/mapper.js \
+	${SRC}/util/path.js \
+	${SRC}/util/locator.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/compiled.js \
 	${SRC}/modulator/delegate.js \
-	${SRC}/modulator/global.js \
+	${SRC}/modulator/globalator.js \
 	${SRC}/modulator/js.js \
-	${SRC}/bootstrap/path.js \
-	${SRC}/bootstrap/locator.js \
-	${SRC}/bootstrap/main.js \
+	${SRC}/config/config.js \
+	${SRC}/config/specs.js \
+	${SRC}/config/source.js \
+	${SRC}/config/modulator.js \
 	${SRC}/bootstrap/pather.js \
 	${SRC}/bootstrap/configloader.js \
 	${SRC}/bootstrap/deferred.js \
-	${SRC}/bootstrap/modulator.js \
 	${SRC}/bootstrap/install.js
 DISTFILES = \
 	${LIB}/kernel/kernel.js \

@@ -3,23 +3,17 @@ module.modulator.delegate = def(
     module.api
   ],
 
-  function () {
+  function (api) {
     var create = function (modulatorid /*, args */) {
       var args = Array.prototype.slice(arguments, 1);
-      var instance;
-
-      var modulator = function () {
-        if (instance === undefined)
-          instance = api.demand(modulatorid).create(args);
-        return instance;
-      };
+      var instance = api.demand(modulatorid).create(args);
 
       var can = function (id) {
-        return modulator().can(id);
+        return instance.can(id);
       };
 
       var modulate = function (id) {
-        return modulator().modulate(id);
+        return instance.modulate(id);
       };
 
       return {

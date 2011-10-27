@@ -1,4 +1,4 @@
-module.modulator.global = def(
+module.modulator.globalator = def(
   [
   ],
 
