@@ -19,7 +19,7 @@ module.bootstrap.modulator = def(
       return builtins[type].create.apply(null, all);
     };
 
-    var delegatee = function (type, pather, args) {
+    var delegated = function (type, pather, args) {
       var all = [ type + '.Modulator', pather ].concat(args);
       return delegate.create.apply(null, all);
     };
@@ -27,7 +27,7 @@ module.bootstrap.modulator = def(
     var modulator = function (pather) {
       return function(type /*, args */) {
         var args = Array.prototype.slice.call(arguments, 1);
-        return builtins[type] !== undefined ? builtin(type, pather, args) : delegatee(type, pather, args);
+        return builtins[type] !== undefined ? builtin(type, pather, args) : delegated(type, pather, args);
       };
     };
 
