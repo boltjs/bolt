@@ -16,7 +16,8 @@ module.api = def(
       define: delegate('define'),
       require: delegate('require'),
       demand: delegate('demand'),
-      main: delegate('main')
+      main: delegate('main'),
+      expose: delegate('expose')
     };
   }
 );
