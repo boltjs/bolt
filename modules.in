@@ -10,6 +10,8 @@ MODULES = \
 	${SRC}/modulator/compiled.js \
 	${SRC}/modulator/globalator.js \
 	${SRC}/modulator/js.js \
+	${SRC}/config/apiwrapper.js \
+	${SRC}/config/modulator.js \
 	${SRC}/config/config.js \
 	${SRC}/config/specs.js \
 	${SRC}/bootstrap/pather.js \

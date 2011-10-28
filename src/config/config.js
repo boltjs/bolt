@@ -1,31 +1,21 @@
 module.config.config = def(
   [
     module.error.error,
-    module.modulator.amd,
-    module.modulator.globalator,
+    module.config.modulator,
+    module.config.apiwrapper,
     ephox.bolt.kernel.api.config,
-    ephox.bolt.kernel.modulator.compound,
-    ephox.bolt.kernel.fp.array
+    ephox.bolt.kernel.modulator.compound
   ],
 
-  // FIX split.
-  function (error, amd, globalator, config, compound, ar) {
+  function (error, modulator, apiwrapper, config, compound) {
     var configure = function (configuration, pather) {
-      var modulatorspecs = configuration.modulators || [];
       var sourcespecs = configuration.sources || [];
-      var prebuilt = ar.map(modulatorspecs, function (spec) {
-        return amd.create(pather, spec.namespace, spec.path, spec.mapper);
-      }).concat([ globalator.create() ]);
-      var lookup = {
-        amd: 'global!ephox.bolt.module.modulator.amd',
-        js: 'global!ephox.bolt.module.modulator.js',
-        compiled: 'global!ephox.bolt.module.modulator.compiled'
-      };
-      ar.each(modulatorspecs, function (spec) {
-        lookup[spec.type] = spec.modulator;
-      });
-      var combined = compound.create(prebuilt, lookup, sourcespecs, pather);
-      return config.configure(combined, error.die);
+      var modulatorspecs = configuration.modulators || [];
+      var modulatorsources = modulator.sources(modulatorspecs, pather);
+      var modulatortypes = modulator.types(modulatorspecs);
+      var combined = compound.create(modulatorsources, modulatortypes, sourcespecs, pather);
+      var bolt = config.configure(combined, error.die);
+      return apiwrapper.api(bolt, modulatorspecs, modulatortypes);
     };
 
     return {
