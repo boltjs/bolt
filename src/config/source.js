@@ -20,7 +20,7 @@ module.config.source = def(
     };
 
     var initialise = function (demand, modulatorsources, modulatortypes, sourcespecs, pather) {
-      var sources =  ar.map(sourcespecs, function (spec) {
+      var sources = ar.map(sourcespecs, function (spec) {
         var modulator = get(spec, demand, modulatortypes);
         var args = [ pather ].concat(spec.args);
         return modulator.create.apply(null, args);
