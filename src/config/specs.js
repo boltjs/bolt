@@ -3,10 +3,12 @@ module.config.specs = def(
   ],
 
   function () {
-    var modulator = function (type, impl, path, mapper) {
+    var modulator = function (type, namespace, path, mapper) {
       return {
         type: type,
-        impl: impl,
+        namespace: namespace,
+        modulator: namespace + '.Modulator',
+        compiler: namespace + '.Compiler',
         path: path,
         mapper: mapper
       }

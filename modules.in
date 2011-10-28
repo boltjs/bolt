@@ -8,13 +8,10 @@ MODULES = \
 	${SRC}/util/locator.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/compiled.js \
-	${SRC}/modulator/delegate.js \
 	${SRC}/modulator/globalator.js \
 	${SRC}/modulator/js.js \
 	${SRC}/config/config.js \
 	${SRC}/config/specs.js \
-	${SRC}/config/source.js \
-	${SRC}/config/modulator.js \
 	${SRC}/bootstrap/pather.js \
 	${SRC}/bootstrap/configloader.js \
 	${SRC}/bootstrap/deferred.js \
