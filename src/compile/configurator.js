@@ -1,50 +1,23 @@
 compiler.compile.configurator = def(
   [
-    ephox.bolt.kernel.modulator.compound,
+    ephox.bolt.module.config.specs,
     compiler.tools.io,
     compiler.tools.error,
     compiler.modulator.amd,
     compiler.modulator.compiled,
-    compiler.modulator.js,
-    require('path')
+    compiler.modulator.js
   ],
 
-  function (compound, io, error, amd, compiled, js, path) {
-
-    var load = function (file) {
-      var content = io.read(file);
-
-      var pather = function (s) {
-        var base = path.dirname(file);
-        return base + '/' + s;
+  function (specs, io, error, amd, compiled, js) {
+    var load = function (file, pather) {
+      var result = {};
+      var modulator = specs.modulator;
+      var source = specs.source;
+      var configure = function (configuration) {
+        result = configuration;
       };
-
-      var builtins = {
-        amd: amd,
-        compiled: compiled,
-        js: js
-      };
-
-      // scope for eval
-      var modulator = function(type /*, args */) {
-        if (builtins[type] === undefined)
-          error.die(1, "no compile modulator for type: " + type);
-        var args = Array.prototype.slice.call(arguments, 1);
-        return builtins[type].create.apply(null, [ pather ].concat(args));
-      };
-
-      var instance;
-
-      var configure = function (modulators) {
-        instance = compound.create(modulators);
-      };
-
-      eval(content);
-
-      if (instance === undefined)
-        error.die(20, 'configuration did not contain define a modulator in file: ' + file);
-
-      return instance;
+      eval(io.read(file));
+      return result;
     };
 
     return {

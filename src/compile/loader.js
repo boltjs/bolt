@@ -22,7 +22,7 @@ compiler.compile.loader = def(
       eval(content);
 
       if (modulator === undefined)
-        error.die(20, 'configuration did not contain define a modulator in file: ' + file);
+        error.die('configuration did not contain define a modulator in file: ' + file);
 
       return modulator;
     };

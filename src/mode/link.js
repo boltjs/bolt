@@ -14,7 +14,7 @@ compiler.mode.link = def(
     var slurp = function (file) {
       var meta = file + '.meta';
       if (!io.exists(meta))
-        error.die(1, 'no meta-data found for file, "' + file + '", can only link compile output');
+        error.die('no meta-data found for file, "' + file + '", can only link compile output');
       var content = io.read(meta);
       var defines = JSON.parse(content);
       return {file: file, defines: defines};

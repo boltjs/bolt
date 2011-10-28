@@ -5,12 +5,14 @@ MODULES = \
 	${SRC}/tools/io.js \
 	${SRC}/tools/files.js \
 	${SRC}/tools/error.js \
+	${SRC}/loader/node.js \
 	${SRC}/bootstrap/generator.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/compiled.js \
 	${SRC}/modulator/js.js \
 	${SRC}/compile/identifier.js \
 	${SRC}/compile/metalator.js \
+	${SRC}/compile/modulator.js \
 	${SRC}/compile/configurator.js \
 	${SRC}/compile/loader.js \
 	${SRC}/compile/compiler.js \

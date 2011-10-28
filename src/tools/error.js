@@ -3,10 +3,12 @@ compiler.tools.error = def(
   ],
 
   function () {
-    var die = function (code, message) {
+    var die = function (message, code) {
         console.error("error: " + message + "\n");
-        process.exit(code);
+        process.exit(code || 1);
     };
+
+
 
     return {
       die: die

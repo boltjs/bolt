@@ -16,7 +16,7 @@ compiler.compile.compiler = def(
 
     var load = function (modulator, id) {
       if (!modulator.can(id))
-        error.die(91, "No modulator can load module: " + id);
+        error.die("No modulator can load module: " + id);
       var spec = modulator.modulate(id);
       rendered[id] = spec.render();
       spec.load(function (id, dependencies) {
@@ -27,7 +27,7 @@ compiler.compile.compiler = def(
     var analyse = function (ids) {
       var results = analyser.analyse(ids, modules);
       if (results.cycle)
-        error.die(90, 'cycle detected whilst compiling modules: ' + results.cycle.join(' ~> '));
+        error.die('cycle detected whilst compiling modules: ' + results.cycle.join(' ~> '));
       return results;
     };
 
@@ -43,7 +43,7 @@ compiler.compile.compiler = def(
       return ids.map(renderer).join('\n');
     };
 
-    var gather = function (modulator, ids) {
+    var compile = function (modulator, ids) {
       var loader = fn.curry(load, modulator);
       var results = analyse(ids);
       while (results.load.length > 0) {
@@ -53,14 +53,15 @@ compiler.compile.compiler = def(
       return render(ids);
     };
 
-    var compile = function (modulator, ids, target) {
-      var content = gather(modulator, ids);
+    var write = function (modulator, ids, target) {
+      var content = compile(modulator, ids);
       io.write(target, content);
       return obj.keys(rendered);
     };
 
     return {
-        compile: compile
+      compile: compile,
+      write: write
     };
   }
 );
