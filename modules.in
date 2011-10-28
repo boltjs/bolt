@@ -11,6 +11,7 @@ MODULES = \
 	${SRC}/modulator/globalator.js \
 	${SRC}/modulator/js.js \
 	${SRC}/config/apiwrapper.js \
+	${SRC}/config/source.js \
 	${SRC}/config/modulator.js \
 	${SRC}/config/config.js \
 	${SRC}/config/specs.js \
