@@ -43,7 +43,7 @@ kernel.module.fetcher = def(
 
       var fetch = function (ids, onsuccess) {
         var cants = ar.filter(ids, function (id) {
-          return !modulator.can(id, define, require, demand);
+          return !modulator.can(id, demand);
         });
         if (cants.length > 0)
           onerror('Fetcher error: do not know how to fetch: ' + cants.join(', '));
