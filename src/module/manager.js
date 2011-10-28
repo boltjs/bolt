@@ -30,29 +30,32 @@ kernel.module.manager = def(
           var deps = obj.map(blueprints, function (k, v) {
             return v.dependencies;
           });
-          loader.load(ids, deps, fetcherer, oncontinue, onsuccess, onerror);
+          loader.load(ids, deps, fetch, oncontinue, onsuccess, onerror);
         };
 
         oncontinue();
       };
-
-      var validator = function (id) { return blueprints[id] !== undefined; };
-      var fetcherer = fetcher.create(modulator, validator, onerror, define, require);
-
       // Instantiates a module and all of its dependencies.
       var demand = function (id) {
         if (modules[id] !== undefined)
           return modules[id];
         if (blueprints[id] === undefined)
           throw "module '" + id + "' is not defined";
-        var blueprint = blueprints[id];
-        var args = ar.map(blueprint.dependencies, demand);  // Instantiate dependencies
-        var result = blueprint.definition.apply(null, args);  // Instantiate self
+        var result = instantiate(id);
         if (result === undefined)
           throw "module '" + id + "' returned undefined from definition function";
         modules[id] = result;
         return result;
       };
+
+      var instantiate = function (id) {
+        var blueprint = blueprints[id];
+        var args = ar.map(blueprint.dependencies, demand);  // Instantiate dependencies
+        return blueprint.definition.apply(null, args);  // Instantiate self
+      };
+
+      var validator = function (id) { return blueprints[id] !== undefined; };
+      var fetch = fetcher.create(modulator, validator, onerror, define, require, demand);
 
       return {
         define: define,

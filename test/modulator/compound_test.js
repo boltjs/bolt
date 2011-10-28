@@ -10,7 +10,7 @@ var c = compound.create([
   modulator('test1'),
   modulator('test2'),
   modulator('test3')
-]);
+], {}, []);
 
 assert(c.can('test2'), 'compound modulator can can something it knows about');
 assert(!c.can('blah'), 'compound modulator can not can something it does not know about');
