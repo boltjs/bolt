@@ -12,6 +12,7 @@ MODULES = \
 	${SRC}/modulator/js.js \
 	${SRC}/compile/identifier.js \
 	${SRC}/compile/metalator.js \
+	${SRC}/compile/source.js \
 	${SRC}/compile/modulator.js \
 	${SRC}/compile/configurator.js \
 	${SRC}/compile/loader.js \
