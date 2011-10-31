@@ -2,8 +2,8 @@ NAME = module
 MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/error/error.js \
-	${SRC}/api/api.js \
 	${SRC}/mapper/mapper.js \
+	${SRC}/api/api.js \
 	${SRC}/util/path.js \
 	${SRC}/util/locator.js \
 	${SRC}/modulator/modulators.js \

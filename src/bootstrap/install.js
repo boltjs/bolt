@@ -12,7 +12,7 @@ module.bootstrap.install = def(
     var install = function (pather) {
       var configure = function (configuration) {
         var bolt = config.configure(configuration, pather);
-        
+
         runtime.define = bolt.define;
         runtime.require = bolt.require;
         runtime.demand = bolt.demand;
@@ -23,7 +23,6 @@ module.bootstrap.install = def(
       runtime.configure = configure;
       runtime.source = specs.source;
       runtime.modulator = specs.modulator;
-      runtime.mapper = mapper;
       runtime.require = deferred.require;
       runtime.main = function (id) {
         runtime.require([id], fn.apply);
