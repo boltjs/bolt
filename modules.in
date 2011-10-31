@@ -6,9 +6,10 @@ MODULES = \
 	${SRC}/fp/functions.js \
 	${SRC}/async/map.js \
 	${SRC}/async/piggybacker.js \
+	${SRC}/modulator/globalator.js \
 	${SRC}/modulator/amd.js \
+	${SRC}/modulator/compiled.js \
 	${SRC}/modulator/compound.js \
-	${SRC}/modulator/js.js \
 	${SRC}/module/stratifier.js \
 	${SRC}/module/analyser.js \
 	${SRC}/module/fetcher.js \

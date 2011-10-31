@@ -4,7 +4,7 @@ kernel.modulator.amd = def(
   ],
 
   function (fn) {
-    var create = function (pather, namespace, path, idTransformer, loader) {
+    var create = function (loader, pather, namespace, path, idTransformer) {
       var can = function (id) {
         return id.indexOf(namespace) === 0;
       };
