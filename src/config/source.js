@@ -28,7 +28,7 @@ module.config.source = def(
       return modulatorsources.concat(sources);
     };
 
-    var build = function (modulatorsources, modulatortypes, sourcespecs, pather)  {
+    var build = function (modulatorsources, modulatortypes, sourcespecs, pather) {
       return function (id, demand) {
         var r = find(id, modulatorsources);
         if (r.found !== undefined)
