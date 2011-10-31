@@ -33,7 +33,7 @@ compiler.compile.modulator = def(
         }
       };
       ar.each(specs, function (spec) {
-        var src = source.build(nodemodulators, [spec], pather);
+        var src = source.build(nodemodulators, [{type: 'amd', args: [spec.namespace, spec.path, spec.mapper]}], pather);
         is[spec.type] = instantiate(src, spec.compiler);
       });
       return is;

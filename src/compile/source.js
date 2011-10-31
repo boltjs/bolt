@@ -9,7 +9,7 @@ compiler.config.source = def(
       var specified = ar.map(sourcespecs, function (spec) {
         var modulator = modulators[spec.type];
         if (modulator === undefined)
-          throw "could not find modulator for type: " + spec.type;
+          throw "Could not find modulator for type: " + spec.type;
         var args = [ pather ].concat(spec.args);
         return modulator.create.apply(null, args);
       });
