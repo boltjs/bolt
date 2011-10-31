@@ -15,8 +15,9 @@ compiler.compile.modulator = def(
   ],
 
   function (ar, fn, config, amd, compound, globalator, modulator, source, node, error, amdc, compiledc) {
-    var instantiate = function (source, id) {
-      var bolt = config.configure(source, error.die);
+    var instantiate = function (oracle, id) {
+      var compound = compound.create(oracle);
+      var bolt = config.configure(oracle, error.die);
       global.define = bolt.define;
       bolt.require([id], function () {});
       return bolt.demand(id);
@@ -33,8 +34,8 @@ compiler.compile.modulator = def(
         }
       };
       ar.each(specs, function (spec) {
-        var src = source.build(nodemodulators, [{type: 'amd', args: [spec.namespace, spec.path, spec.mapper]}], pather);
-        is[spec.type] = instantiate(src, spec.compiler);
+        var oracle = source.build(nodemodulators, [{type: 'amd', args: [spec.namespace, spec.path, spec.mapper]}], pather);
+        is[spec.type] = instantiate(oracle, spec.compiler);
       });
       return is;
     };
