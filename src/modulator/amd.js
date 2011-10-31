@@ -18,9 +18,9 @@ compiler.modulator.amd = def(
         var content = io.read(spec.url);
 
         var render = function () {
-          return '(function (define, require) {\n' +
+          return '(function (define, require, demand) {\n' +
                content + '\n' +
-            '})(ephox.bolt.module.api.define, ephox.bolt.module.api.require);\n';
+            '})(ephox.bolt.module.api.define, ephox.bolt.module.api.require, ephox.bolt.module.api.demand);\n';
         };
 
         var load = function (define /* eval scope */) {
