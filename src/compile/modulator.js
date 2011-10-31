@@ -1,6 +1,7 @@
 compiler.compile.modulator = def(
   [
     ephox.bolt.kernel.fp.array,
+    ephox.bolt.kernel.fp.functions,
     ephox.bolt.kernel.api.config,
     ephox.bolt.kernel.modulator.amd,
     ephox.bolt.kernel.modulator.compound,
@@ -13,7 +14,7 @@ compiler.compile.modulator = def(
     compiler.modulator.compiled
   ],
 
-  function (ar, config, amd, compound, globalator, modulator, source, node, error, amdc, compiledc) {
+  function (ar, fn, config, amd, compound, globalator, modulator, source, node, error, amdc, compiledc) {
     var instantiate = function (source, id) {
       var bolt = config.configure(source, error.die);
       global.define = bolt.define;
@@ -26,8 +27,13 @@ compiler.compile.modulator = def(
         amd: amdc,
         compiled: compiledc
       };
+      var nodemodulators = {
+        amd: {
+          create: fn.currry(amd.create, node)
+        }
+      };
       ar.each(specs, function (spec) {
-        var source = amd.create(node, pather, spec.namespace, spec.path, spec.mapper);
+        var source = source.build(nodemodulators, [spec], pather);
         is[spec.type] = instantiate(source, spec.compiler);
       });
       return is;
