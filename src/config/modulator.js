@@ -1,17 +1,22 @@
 module.config.modulator = def(
   [
-    module.modulator.globalator,
-    module.modulator.amd,
+    ephox.bolt.kernel.modulator.globalator,
+    module.modulator.modulators.amd,
     ephox.bolt.kernel.fp.array
   ],
 
   function (globalator, amd, ar) {
+    var ts = {
+      amd: 'global!ephox.bolt.module.modulator.modulators.amd',
+      'amd.scripttag': 'global!ephox.bolt.module.modulator.modulators.amdscripttag',
+      'amd.xhreval': 'global!ephox.bolt.module.modulator.modulators.amdxhreval',
+      'amd.xhrinjector': 'global!ephox.bolt.module.modulator.modulators.amdxhrinjector',
+      compiled: 'global!ephox.bolt.module.modulator.modulators.compiled',
+      'compiled.scripttag': 'global!ephox.bolt.module.modulator.modulators.compiledscripttag',
+      'compiled.xhreval': 'global!ephox.bolt.module.modulator.modulators.compiledxhreval',
+      'compiled.xhrinjector': 'global!ephox.bolt.module.modulator.modulators.compiledxhrinjector'
+    };
     var types = function (specs) {
-      var ts = {
-        amd: 'global!ephox.bolt.module.modulator.amd',
-        js: 'global!ephox.bolt.module.modulator.js',
-        compiled: 'global!ephox.bolt.module.modulator.compiled'
-      };
       ar.each(specs, function (spec) {
         ts[spec.type] = spec.modulator;
       });
