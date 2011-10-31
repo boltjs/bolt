@@ -33,8 +33,8 @@ compiler.compile.modulator = def(
         }
       };
       ar.each(specs, function (spec) {
-        var source = source.build(nodemodulators, [spec], pather);
-        is[spec.type] = instantiate(source, spec.compiler);
+        var src = source.build(nodemodulators, [spec], pather);
+        is[spec.type] = instantiate(src, spec.compiler);
       });
       return is;
     };
