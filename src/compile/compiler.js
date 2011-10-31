@@ -14,10 +14,12 @@ compiler.compile.compiler = def(
     var rendered = {}; // id -> rendered
     var printed = {};
 
+    var unexpected = fn.curry(error.die, "unexpected call to require, define or demand by compile modulator.");
+
     var load = function (modulator, id) {
-      if (!modulator.can(id))
+      if (!modulator.can(id, unexpected))
         error.die("No modulator can load module: " + id);
-      var spec = modulator.modulate(id);
+      var spec = modulator.modulate(id, unexpected, unexpected, unexpected);
       rendered[id] = spec.render();
       spec.load(function (id, dependencies) {
         modules[id] = dependencies;
