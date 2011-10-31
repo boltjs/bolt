@@ -9,7 +9,7 @@ MODULES = \
 	${SRC}/bootstrap/generator.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/compiled.js \
-	${SRC}/modulator/js.js \
+	${SRC}/modulator/globalator.js \
 	${SRC}/compile/identifier.js \
 	${SRC}/compile/metalator.js \
 	${SRC}/compile/source.js \

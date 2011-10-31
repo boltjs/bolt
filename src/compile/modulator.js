@@ -9,11 +9,10 @@ compiler.compile.modulator = def(
     compiler.loader.node,
     compiler.tools.error,
     compiler.modulator.amd,
-    compiler.modulator.compiled,
-    compiler.modulator.js
+    compiler.modulator.compiled
   ],
 
-  function (ar, config, compound, globalator, modulator, source, node, error, amd, compiled, js) {
+  function (ar, config, compound, globalator, modulator, source, node, error, amd, compiled) {
     var instantiate = function (source, id) {
       var bolt = config.configure(source, error.die);
       global.define = bolt.define;
@@ -24,7 +23,6 @@ compiler.compile.modulator = def(
     var instances = function (specs, pather) {
       var is = {
         amd: amd,
-        js: js,
         compiled: compiled
       };
       ar.each(specs, function (spec) {

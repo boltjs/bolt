@@ -12,7 +12,7 @@ compiler.compile.loader = def(
         var base = path.dirname(file);
         return base + '/' + s;
       };
-      
+
       // scope for eval
       var configure = function (configurator) {
         var modulators = configurator(pather);

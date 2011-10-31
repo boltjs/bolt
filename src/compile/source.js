@@ -1,17 +1,19 @@
 compiler.config.source = def(
   [
-    ephox.bolt.kernel.fp.array
+    ephox.bolt.kernel.fp.array,
+    ephox.bolt.compiler.modulator.globalator
   ],
 
-  function (ar) {
+  function (ar, globalator) {
     var buildsource = function (modulators, sourcespecs, pather) {
-      return ar.map(sourcespecs, function (spec) {
+      var specified = ar.map(sourcespecs, function (spec) {
         var modulator = modulators[spec.type];
         if (modulator === undefined)
           throw "could not find modulator for type: " + spec.type;
         var args = [ pather ].concat(spec.args);
         return modulator.create.apply(null, args);
       });
+      return specified.concat([ globalator.create() ]);
     };
 
     var build = function (modulators, sourcespecs, pather)  {

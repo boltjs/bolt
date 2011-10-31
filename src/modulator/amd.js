@@ -1,6 +1,6 @@
 compiler.modulator.amd = def(
   [
-    ephox.bolt.module.modulator.amd,
+    ephox.bolt.module.modulator.modulators.amd,
     compiler.tools.io
   ],
 

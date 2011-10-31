@@ -1,16 +1,14 @@
 compiler.compile.configurator = def(
   [
     ephox.bolt.module.config.specs,
-    compiler.tools.io,
-    compiler.tools.error,
-    compiler.modulator.amd,
-    compiler.modulator.compiled,
-    compiler.modulator.js
+    ephox.bolt.module.mapper.mapper,
+    compiler.tools.io
   ],
 
-  function (specs, io, error, amd, compiled, js) {
+  function (specs, mapper, io) {
     var load = function (file, pather) {
       var result = {};
+      var mappers = mapper;
       var modulator = specs.modulator;
       var source = specs.source;
       var configure = function (configuration) {
