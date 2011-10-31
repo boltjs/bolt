@@ -35,8 +35,7 @@ module.config.modulator = def(
 
     return {
       types: types,
-      sources: sources,
-      source: source
+      sources: sources
     };
   }
 );
