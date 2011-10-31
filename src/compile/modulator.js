@@ -29,7 +29,7 @@ compiler.compile.modulator = def(
       };
       var nodemodulators = {
         amd: {
-          create: fn.currry(amd.create, node)
+          create: fn.curry(amd.create, node)
         }
       };
       ar.each(specs, function (spec) {
