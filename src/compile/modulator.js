@@ -16,8 +16,8 @@ compiler.compile.modulator = def(
 
   function (ar, fn, config, amd, compound, globalator, modulator, source, node, error, amdc, compiledc) {
     var instantiate = function (oracle, id) {
-      var compound = compound.create(oracle);
-      var bolt = config.configure(oracle, error.die);
+      var combined = compound.create(oracle);
+      var bolt = config.configure(combined, error.die);
       global.define = bolt.define;
       bolt.require([id], function () {});
       return bolt.demand(id);
