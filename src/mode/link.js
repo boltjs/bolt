@@ -25,7 +25,7 @@ compiler.mode.link = def(
       var filepath = bit.file;
       var filename = path.basename(filepath);
       return defines.map(function (define) {
-        return 'modulator("amd", "' + define + '", ".", function () { return "' + filename + '"; })';
+        return 'source("amd", "' + define + '", ".", function () { return "' + filename + '"; })';
       });
     };
 
@@ -46,15 +46,17 @@ compiler.mode.link = def(
       var files = rest.slice(0, -1);
       var target = rest[rest.length - 1];
       var parts = link(files);
-      var modulators = parts.join(',\n    ');
+      var sources = parts.join(',\n    ');
 
       var configuration =
         '(function () {\n' +
         '  var configure = ephox.bolt.module.api.configure;\n' +
-        '  var modulator = ephox.bolt.module.api.modulator;\n' +
-        '  configure([\n' +
-        '    ' + modulators + '\n' +
-        '  ]);\n' +
+        '  var source = ephox.bolt.module.api.source;\n' +
+        '  configure({' +
+        '    sources: [\n' +
+        '    ' + sources + '\n' +
+        '    ]' +
+          '});\n' +
         '})()';
 
       generator.generate(target, install + '\n' + configuration);

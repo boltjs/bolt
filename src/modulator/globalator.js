@@ -16,7 +16,7 @@ compiler.modulator.globalator = def(
 
         var load = function (define) {
           // FIX sort out implicit definition behaviour.
-          define(id, [], function () {});
+          define(id, [], function () { return null; });
         };
 
         return {

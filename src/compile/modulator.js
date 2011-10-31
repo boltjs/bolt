@@ -5,16 +5,17 @@ compiler.compile.modulator = def(
     ephox.bolt.kernel.api.config,
     ephox.bolt.kernel.modulator.amd,
     ephox.bolt.kernel.modulator.compound,
-    ephox.bolt.module.modulator.globalator,
+    ephox.bolt.kernel.modulator.globalator,
     ephox.bolt.module.config.modulator,
     compiler.config.source,
     compiler.loader.node,
     compiler.tools.error,
     compiler.modulator.amd,
-    compiler.modulator.compiled
+    compiler.modulator.compiled,
+    compiler.modulator.globalator
   ],
 
-  function (ar, fn, config, amd, compound, globalator, modulator, source, node, error, amdc, compiledc) {
+  function (ar, fn, config, amd, compound, globalator, modulator, source, node, error, amdc, compiledc, globalatorc) {
     var instantiate = function (oracle, id) {
       var combined = compound.create(oracle);
       var bolt = config.configure(combined, error.die);
@@ -34,7 +35,8 @@ compiler.compile.modulator = def(
         }
       };
       ar.each(specs, function (spec) {
-        var oracle = source.build(nodemodulators, [{type: 'amd', args: [spec.namespace, spec.path, spec.mapper]}], pather);
+        var oracle = source.build(nodemodulators, [{type: 'amd', args: [spec.namespace, spec.path, spec.mapper]}], pather, globalator);
+
         is[spec.type] = instantiate(oracle, spec.compiler);
       });
       return is;
@@ -44,7 +46,7 @@ compiler.compile.modulator = def(
       var modulatorspecs = configuration.modulators || [];
       var sourcespecs = configuration.sources || [];
       var modulators = instances(modulatorspecs, pather);
-      var oracle = source.build(modulators, sourcespecs, pather);
+      var oracle = source.build(modulators, sourcespecs, pather, globalatorc);
       return compound.create(oracle);
     };
 
