@@ -13,7 +13,7 @@ kernel.api.regulator = def(
         var r = oracle(id, demand);
         if (r.notfound)
           throw 'assertion error: can should be used to validate before calls to regulate';
-        return r.found.regulate(id, define, require, demand);
+        return r.found.get(id, define, require, demand);
       };
 
       return {
