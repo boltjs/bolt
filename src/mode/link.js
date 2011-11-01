@@ -3,13 +3,12 @@ compiler.mode.link = def(
     compiler.tools.error,
     compiler.tools.io,
     compiler.bootstrap.generator,
-    compiler.compile.identifier,
     compiler.compile.configurator,
     ephox.bolt.kernel.fp.array,
     require('path')
   ],
 
-  function (error, io, generator, identifier, configurator, ar, path) {
+  function (error, io, generator, configurator, ar, path) {
 
     var slurp = function (file) {
       var meta = file + '.meta';

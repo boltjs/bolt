@@ -2,10 +2,11 @@ compiler.compile.configurator = def(
   [
     ephox.bolt.module.config.specs,
     ephox.bolt.module.mapper.mapper,
-    compiler.tools.io
+    compiler.tools.io,
+    compiler.tools.error
   ],
 
-  function (specs, mapper, io) {
+  function (specs, mapper, io, error) {
     var load = function (file, pather) {
       var result = {};
 
@@ -16,8 +17,11 @@ compiler.compile.configurator = def(
       var configure = function (configuration) {
         result = configuration;
       };
-      eval(io.read(file));
-
+      try {
+        eval(io.read(file));
+      } catch (e) {
+        error.die('Could not evaluate file: ' + file + ', error: ' + e);
+      }
       return result;
     };
 

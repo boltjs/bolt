@@ -1,9 +1,10 @@
 compiler.compile.identifier = def(
   [
-    compiler.tools.io
+    compiler.tools.io,
+    compiler.tools.error
   ],
 
-  function (io) {
+  function (io, error) {
     var indentify = function (file) {
       var content = io.read(file);
       var ids = [];
@@ -11,7 +12,11 @@ compiler.compile.identifier = def(
       var define = function (id) {
         ids.push(id);
       };
-      eval(content);
+      try {
+        eval(content);
+      } catch (e) {
+        error.die('Could not evaluate file: ' + file + ', error: ' + e);
+      }
       return ids;
     };
 
