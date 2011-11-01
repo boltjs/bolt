@@ -5,6 +5,7 @@ compiler.modulator.amd = def(
     compiler.tools.error
   ],
 
+  // FIX cleanup after compiled/amd unify
   function (metalator, io, error) {
     var create = function (pather, namespace, path, idTransformer) {
       var can = function (id) {
@@ -16,6 +17,8 @@ compiler.modulator.amd = def(
 
         var render = function () {
           var content = io.read(file);
+          if (metalator.hasMetadata(file))
+            return content;
           return '(function (define, require, demand) {\n' +
                content + '\n' +
             '})(ephox.bolt.module.api.define, ephox.bolt.module.api.require, ephox.bolt.module.api.demand);\n';
