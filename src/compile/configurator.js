@@ -11,7 +11,6 @@ compiler.compile.configurator = def(
       var result = {};
 
       // In scope for eval
-      var mappers = mapper;
       var modulator = specs.modulator;
       var source = specs.source;
       var configure = function (configuration) {

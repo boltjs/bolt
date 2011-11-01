@@ -8,20 +8,23 @@ compiler.modulator.amd = def(
   // FIX cleanup after compiled/amd unify
   function (metalator, io, error) {
     var create = function (pather, namespace, path, idTransformer) {
+
+      var wrap = function (s) {
+        return '(function (define, require, demand) {\n' +
+          s + '\n' +
+         '})(ephox.bolt.module.api.define, ephox.bolt.module.api.require, ephox.bolt.module.api.demand);\n';
+      };
+
       var can = function (id) {
         return id.indexOf(namespace) === 0;
       };
 
       var get = function (id) {
         var file = pather(path) + "/" + idTransformer(id);
+        var content = io.lazyread(file);
 
         var render = function () {
-          var content = io.read(file);
-          if (metalator.hasMetadata(file))
-            return content;
-          return '(function (define, require, demand) {\n' +
-               content + '\n' +
-            '})(ephox.bolt.module.api.define, ephox.bolt.module.api.require, ephox.bolt.module.api.demand);\n';
+          return metalator.hasMetadata(file) ? content() : wrap(content());
         };
 
         var loadcompiled = function (define) {
@@ -32,9 +35,8 @@ compiler.modulator.amd = def(
         };
 
         var loadmodule = function (define /* eval scope */) {
-          var content = io.read(file);
           try {
-            eval(content);
+            eval(content());
           } catch (e) {
             error.die('Could not evaluate file: ' + file + ', error: ' + e);
           }

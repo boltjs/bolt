@@ -6,6 +6,15 @@ compiler.tools.io = def(
   ],
 
   function (fs, path, error) {
+    var lazyread = function (file) {
+      var data;
+      return function () {
+        if (data === undefined)
+          data = io.read(file);
+        return data;
+      };
+    };
+
     var read = function (file) {
       if (!exists(file))
         error.die('File read error: expected file to exist, ' + file);
@@ -34,12 +43,13 @@ compiler.tools.io = def(
     };
 
     return {
-      rm: rm,
-      saferm: saferm,
+      lazyread: lazyread,
       read: read,
       readall: readall,
       write: write,
-      exists: exists
+      exists: exists,
+      rm: rm,
+      saferm: saferm
     };
   }
 );

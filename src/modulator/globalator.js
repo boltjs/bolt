@@ -10,6 +10,7 @@ compiler.modulator.globalator = def(
 
       var get = function (id) {
         var globalid = id.substring('global!'.length);
+
         var render = function () {
           return 'ephox.bolt.module.api.define("' + id + '", [], function () { return ' + globalid + '; });';
         };
