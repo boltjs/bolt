@@ -4,6 +4,7 @@ kernel.modulator.globalator = def(
 
   function () {
     var create = function () {
+      // FIX pull out
       var resolve = function (name, scope) {
         var parts = name.split('.');
         var r = scope;
