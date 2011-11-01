@@ -4,31 +4,17 @@ compiler.compile.compiler = def(
     compiler.meta.metalator,
     compiler.tools.io,
     compiler.tools.error,
+    compiler.compile.renderer,
     ephox.bolt.kernel.module.analyser,
     ephox.bolt.kernel.fp.functions,
     ephox.bolt.kernel.fp.object
   ],
 
-  function (metalator, io, error, analyser, fn, obj) {
-    var modules = {};  // id -> [id]
-    var rendered = {}; // id -> rendered
-    var printed = {};
+  function (metalator, io, error, renderer, analyser, fn, obj) {
+    var modules = {}; // id -> [id]
+    var renders = {}; // id -> spec
 
     var unexpected = fn.curry(error.die, "unexpected call to require, define or demand by compile modulator.");
-
-    // FIX split
-    var load = function (regulator, id) {
-      if (!regulator.can(id, unexpected))
-        error.die("No modulator can load module: " + id);
-      var spec = regulator.regulate(id, unexpected, unexpected, unexpected);
-      spec.load(function (id, dependencies) {
-        modules[id] = dependencies;
-        rendered[id] = "";
-      });
-      if (modules[id] === undefined)
-        error.die("Module id could not be loaded: " + id);
-      rendered[id] = spec.render();
-    };
 
     var analyse = function (ids) {
       var results = analyser.analyse(ids, modules);
@@ -37,39 +23,38 @@ compiler.compile.compiler = def(
       return results;
     };
 
-    var render = function (ids) {
-      var renderer = function (id) {
-        if (printed[id])
-          return "";
-        var dependencies = modules[id];
-        var deps = dependencies.map(renderer);
-        printed[id] = true;
-        return deps.join('\n') + '\n' + rendered[id];
-      };
-      return ids.map(renderer).join('\n');
+    var load = function (regulator, id) {
+      var spec = regulator.regulate(id, unexpected, unexpected, unexpected);
+      renders[id] = spec;
+      spec.load(function (id, dependencies) {
+        modules[id] = dependencies;
+      });
+    };
+    
+    var checkedload = function (regulator, id) {
+      if (!regulator.can(id, unexpected))
+        error.die("Configuration error: no source found to load module: " + id);
+
+      load(regulator, id);
+
+      if (modules[id] === undefined)
+        error.die('Configuration error: module [' + id + '] was not loaded from expected source');
     };
 
     var compile = function (regulator, ids) {
-      var loader = fn.curry(load, regulator);
+      var loader = fn.curry(checkedload, regulator);
       var results = analyse(ids);
       while (results.load.length > 0) {
         results.load.forEach(loader);
         results = analyse(ids);
       }
-      return render(ids);
-    };
-
-    var write = function (regulator, ids, target) {
-      var content = compile(regulator, ids);
       var all = obj.keys(modules);
       var header = metalator.render(all);
-      io.write(target, header + content);
-      return obj.keys(rendered);
+      return header + renderer.render(ids, modules, renders);
     };
 
     return {
-      compile: compile,
-      write: write
+      compile: compile
     };
   }
 );

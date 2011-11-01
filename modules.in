@@ -13,6 +13,7 @@ MODULES = \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/globalator.js \
 	${SRC}/compile/identifier.js \
+	${SRC}/compile/renderer.js \
 	${SRC}/compile/source.js \
 	${SRC}/compile/modulator.js \
 	${SRC}/compile/regulator.js \
