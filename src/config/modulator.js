@@ -10,11 +10,7 @@ module.config.modulator = def(
       amd: 'global!ephox.bolt.module.modulator.modulators.amd',
       'amd.scripttag': 'global!ephox.bolt.module.modulator.modulators.amdscripttag',
       'amd.xhreval': 'global!ephox.bolt.module.modulator.modulators.amdxhreval',
-      'amd.xhrinjector': 'global!ephox.bolt.module.modulator.modulators.amdxhrinjector',
-      compiled: 'global!ephox.bolt.module.modulator.modulators.compiled',
-      'compiled.scripttag': 'global!ephox.bolt.module.modulator.modulators.compiledscripttag',
-      'compiled.xhreval': 'global!ephox.bolt.module.modulator.modulators.compiledxhreval',
-      'compiled.xhrinjector': 'global!ephox.bolt.module.modulator.modulators.compiledxhrinjector'
+      'amd.xhrinjector': 'global!ephox.bolt.module.modulator.modulators.amdxhrinjector'
     };
     var types = function (specs) {
       ar.each(specs, function (spec) {

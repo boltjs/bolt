@@ -20,11 +20,7 @@ module.modulator.modulators = def(
       amd: wrap(amd, scripttag),
       amdscripttag: wrap(amd, scripttag),
       amdxhreval: wrap(amd, xhrevaller),
-      amdxhrinjector: wrap(amd, xhrinjector),
-      compiled: wrap(amd, scripttag),
-      compiledscripttag: wrap(amd, scripttag),
-      compiledxhreval: wrap(amd, xhrevaller),
-      compiledxhrinjector: wrap(amd, xhrinjector)
+      amdxhrinjector: wrap(amd, xhrinjector)
     };
   }
 );
