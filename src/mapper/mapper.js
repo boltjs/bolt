@@ -11,9 +11,16 @@ module.mapper.mapper = def(
       return id.replace(/\./g, '/') + '.js';
     };
 
+    var constant = function (name) {
+      return function (id) {
+        return name;
+      };
+    };
+
     return {
       flat: flat,
-      hierarchical: hierarchical
+      hierarchical: hierarchical,
+      constant: constant
     };
   }
 );
