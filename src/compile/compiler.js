@@ -16,6 +16,7 @@ compiler.compile.compiler = def(
 
     var unexpected = fn.curry(error.die, "unexpected call to require, define or demand by compile modulator.");
 
+    // FIX split
     var load = function (regulator, id) {
       if (!regulator.can(id, unexpected))
         error.die("No modulator can load module: " + id);
@@ -24,6 +25,8 @@ compiler.compile.compiler = def(
         modules[id] = dependencies;
         rendered[id] = "";
       });
+      if (modules[id] === undefined)
+        error.die("Module id could not be loaded: " + id);
       rendered[id] = spec.render();
     };
 
@@ -57,8 +60,9 @@ compiler.compile.compiler = def(
     };
 
     var write = function (regulator, ids, target) {
-      var header = metalator.render(ids);
       var content = compile(regulator, ids);
+      var all = obj.keys(modules);
+      var header = metalator.render(all);
       io.write(target, header + content);
       return obj.keys(rendered);
     };
