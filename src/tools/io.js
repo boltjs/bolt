@@ -10,7 +10,7 @@ compiler.tools.io = def(
       var data;
       return function () {
         if (data === undefined)
-          data = io.read(file);
+          data = read(file);
         return data;
       };
     };
