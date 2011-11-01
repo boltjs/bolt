@@ -1,9 +1,10 @@
 compiler.compile.source = def(
   [
+    ephox.bolt.kernel.fp.array,
     compiler.modulator.globalator
   ],
 
-  function (globalator) {
+  function (ar, globalator) {
     var build = function (modulators, sourcespecs, pather) {
       var specified = ar.map(sourcespecs, function (spec) {
         var modulator = modulators[spec.type];

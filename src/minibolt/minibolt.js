@@ -1,11 +1,12 @@
 compiler.minibolt.minibolt = def(
   [
     ephox.bolt.kernel.api.regulator,
+    ephox.bolt.kernel.api.config,
     compiler.oracle.compound,
     compiler.tools.error
   ],
 
-  function (regulator, compound, error) {
+  function (regulator, config, compound, error) {
     var create = function (sources) {
       var oracle = compound.create(sources);
       var r = regulator.create(oracle);
