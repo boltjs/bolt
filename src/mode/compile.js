@@ -4,12 +4,12 @@ compiler.mode.compile = def(
     compiler.compile.compiler,
     compiler.compile.configurator,
     compiler.compile.metalator,
-    compiler.compile.modulator,
+    compiler.compile.regulator,
     ephox.bolt.kernel.fp.array,
     ephox.bolt.module.util.path
   ],
 
-  function (identifier, compiler, configurator, metalator, modulator, ar, path) {
+  function (identifier, compiler, configurator, metalator, regulator, ar, path) {
     var run = function (config/*, files, target*/) {
       var rest = Array.prototype.slice.call(arguments, 1);
       var files = rest.slice(0, -1);
@@ -18,9 +18,9 @@ compiler.mode.compile = def(
         return path.dirname(config) + '/' + s;
       };
       var configuration = configurator.load(config, pather);
-      var m = modulator.load(configuration, pather);
+      var r = regulator.load(configuration, pather);
       var modules = ar.flatmap(files, identifier.identify);
-      compiler.write(m, modules, target);
+      compiler.write(r, modules, target);
       metalator.metalate(modules, target + '.meta');  
     };
 

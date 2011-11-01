@@ -1,10 +1,10 @@
-compiler.config.source = def(
+compiler.compile.source = def(
   [
-    ephox.bolt.kernel.fp.array,
+    compiler.modulator.globalator
   ],
 
-  function (ar) {
-    var buildsource = function (modulators, sourcespecs, pather, globalator) {
+  function (globalator) {
+    var build = function (modulators, sourcespecs, pather) {
       var specified = ar.map(sourcespecs, function (spec) {
         var modulator = modulators[spec.type];
         if (modulator === undefined)
@@ -15,16 +15,6 @@ compiler.config.source = def(
       return specified.concat([ globalator.create() ]);
     };
 
-    var build = function (modulators, sourcespecs, pather, globalator)  {
-      var sources = buildsource(modulators, sourcespecs, pather, globalator);
-      return function (id) {
-        for (var i = 0; i < sources.length; ++i)
-          if (sources[i].can(id))
-            return { found: sources[i] };
-        return { notfound: true };
-      };
-    };
-    
     return {
       build: build
     };

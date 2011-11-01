@@ -8,6 +8,8 @@ compiler.compile.configurator = def(
   function (specs, mapper, io) {
     var load = function (file, pather) {
       var result = {};
+
+      // In scope for eval
       var mappers = mapper;
       var modulator = specs.modulator;
       var source = specs.source;
@@ -15,6 +17,7 @@ compiler.compile.configurator = def(
         result = configuration;
       };
       eval(io.read(file));
+
       return result;
     };
 

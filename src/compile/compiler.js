@@ -3,23 +3,22 @@ compiler.compile.compiler = def(
   [
     compiler.tools.io,
     compiler.tools.error,
-    compiler.compile.loader,
     ephox.bolt.kernel.module.analyser,
     ephox.bolt.kernel.fp.functions,
     ephox.bolt.kernel.fp.object
   ],
 
-  function (io, error, loader, analyser, fn, obj) {
+  function (io, error, analyser, fn, obj) {
     var modules = {};  // id -> [id]
     var rendered = {}; // id -> rendered
     var printed = {};
 
     var unexpected = fn.curry(error.die, "unexpected call to require, define or demand by compile modulator.");
 
-    var load = function (modulator, id) {
-      if (!modulator.can(id, unexpected))
+    var load = function (regulator, id) {
+      if (!regulator.can(id, unexpected))
         error.die("No modulator can load module: " + id);
-      var spec = modulator.modulate(id, unexpected, unexpected, unexpected);
+      var spec = regulator.regulate(id, unexpected, unexpected, unexpected);
       rendered[id] = spec.render();
       spec.load(function (id, dependencies) {
         modules[id] = dependencies;
@@ -45,8 +44,8 @@ compiler.compile.compiler = def(
       return ids.map(renderer).join('\n');
     };
 
-    var compile = function (modulator, ids) {
-      var loader = fn.curry(load, modulator);
+    var compile = function (regulator, ids) {
+      var loader = fn.curry(load, regulator);
       var results = analyse(ids);
       while (results.load.length > 0) {
         results.load.forEach(loader);
@@ -55,8 +54,8 @@ compiler.compile.compiler = def(
       return render(ids);
     };
 
-    var write = function (modulator, ids, target) {
-      var content = compile(modulator, ids);
+    var write = function (regulator, ids, target) {
+      var content = compile(regulator, ids);
       io.write(target, content);
       return obj.keys(rendered);
     };

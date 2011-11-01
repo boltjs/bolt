@@ -8,7 +8,7 @@ compiler.modulator.globalator = def(
         return id.indexOf('global!') === 0;
       };
 
-      var modulate = function (id) {
+      var get = function (id) {
         var globalid = id.substring('global!'.length);
         var render = function () {
           return 'ephox.bolt.module.api.define("' + id + '", [], function () { return ' + globalid + '; });';
@@ -29,7 +29,7 @@ compiler.modulator.globalator = def(
 
       return {
         can: can,
-        modulate: modulate
+        get: get
       };
     };
 

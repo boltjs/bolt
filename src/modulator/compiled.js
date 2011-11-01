@@ -12,8 +12,8 @@ compiler.modulator.compiled = def(
         return instance.can.apply(null, arguments);
       };
 
-      var modulate = function (id) {
-        var spec = instance.modulate.apply(null, arguments);
+      var get = function (id) {
+        var spec = instance.get.apply(null, arguments);
         var url = spec.url;
         var serial = spec.serial;
 
@@ -36,7 +36,7 @@ compiler.modulator.compiled = def(
 
       return {
         can: can,
-        modulate: modulate
+        get: get
       };
     };
 

@@ -12,8 +12,8 @@ compiler.modulator.amd = def(
         return instance.can.apply(null, arguments);
       };
 
-      var modulate = function (id) {
-        var spec = instance.modulate.apply(null, arguments);
+      var get = function (id) {
+        var spec = instance.get.apply(null, arguments);
 
         var content = io.read(spec.url);
 
@@ -37,7 +37,7 @@ compiler.modulator.amd = def(
 
       return {
         can: can,
-        modulate: modulate
+        get: get
       };
     };
 

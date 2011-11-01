@@ -1,4 +1,4 @@
-compiler.loader.node = def(
+compiler.minibolt.node = def(
   [
   ],
 
