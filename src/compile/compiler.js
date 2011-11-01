@@ -40,7 +40,7 @@ compiler.compile.compiler = def(
         var dependencies = modules[id];
         var deps = dependencies.map(renderer);
         printed[id] = true;
-        return deps.join('\n') + '\n' + rendered[id];
+        return deps.join('\n') + '\n' + (rendered[id] || "");
       };
       return ids.map(renderer).join('\n');
     };
