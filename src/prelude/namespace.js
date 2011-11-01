@@ -5,6 +5,7 @@ compiler.compile = compiler.compile || {};
 compiler.config = compiler.config || {};
 compiler.load = compiler.load || {};
 compiler.loader = compiler.loader || {};
+compiler.meta = compiler.meta || {};
 compiler.minibolt = compiler.minibolt || {};
 compiler.mode = compiler.mode || {};
 compiler.modulator = compiler.modulator || {};

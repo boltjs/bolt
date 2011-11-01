@@ -1,6 +1,7 @@
 // FIX reconsider name, but compiler.compile.compiler.compile() method calls would rock.
 compiler.compile.compiler = def(
   [
+    compiler.meta.metalator,
     compiler.tools.io,
     compiler.tools.error,
     ephox.bolt.kernel.module.analyser,
@@ -8,7 +9,7 @@ compiler.compile.compiler = def(
     ephox.bolt.kernel.fp.object
   ],
 
-  function (io, error, analyser, fn, obj) {
+  function (metalator, io, error, analyser, fn, obj) {
     var modules = {};  // id -> [id]
     var rendered = {}; // id -> rendered
     var printed = {};
@@ -55,8 +56,9 @@ compiler.compile.compiler = def(
     };
 
     var write = function (regulator, ids, target) {
+      var header = metalator.render(ids);
       var content = compile(regulator, ids);
-      io.write(target, content);
+      io.write(target, header + content);
       return obj.keys(rendered);
     };
 

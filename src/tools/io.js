@@ -1,12 +1,15 @@
 compiler.tools.io = def(
   [
     require('fs'),
-    require('path')
+    require('path'),
+    compiler.tools.error
   ],
 
-  function (fs, path) {
+  function (fs, path, error) {
     var read = function (file) {
-        return fs.readFileSync(file, 'UTF-8');
+      if (!exists(file))
+        error.die('File read error: expected file to exist, ' + file);
+      return fs.readFileSync(file, 'UTF-8');
     };
 
     var readall = function (files) {

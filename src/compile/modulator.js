@@ -16,8 +16,7 @@ compiler.compile.modulator = def(
 
     var types = function (specs, pather) {
       var is = {
-        amd: ephox.bolt.compiler.modulator.amd,
-        compiled: ephox.bolt.compiler.modulator.compiled
+        amd: ephox.bolt.compiler.modulator.amd
       };
       ar.each(specs, function (spec) {
         is[spec.type] = compiler(spec, pather);

@@ -4,18 +4,17 @@ compiler.mode.link = def(
     compiler.tools.io,
     compiler.bootstrap.generator,
     compiler.compile.configurator,
+    compiler.meta.metalator,
     ephox.bolt.kernel.fp.array,
     require('path')
   ],
 
-  function (error, io, generator, configurator, ar, path) {
+  function (error, io, generator, configurator, metalator, ar, path) {
 
     var slurp = function (file) {
-      var meta = file + '.meta';
-      if (!io.exists(meta))
+      if (!metalator.hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');
-      var content = io.read(meta);
-      var defines = JSON.parse(content);
+      var defines = metalator.inspect(file);
       return {file: file, defines: defines};
     };
 

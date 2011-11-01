@@ -5,7 +5,7 @@ compiler.compile.identifier = def(
   ],
 
   function (io, error) {
-    var indentify = function (file) {
+    var indentify = function (regulator, file) {
       var content = io.read(file);
       var ids = [];
       // eval scope
@@ -17,6 +17,13 @@ compiler.compile.identifier = def(
       } catch (e) {
         error.die('Could not evaluate file: ' + file + ', error: ' + e);
       }
+      ids.forEach(function (id) {
+        if (!regulator.can(id))
+          error.die('Configuration error: configuration does not support loading id [' + id + '] from file [' + file + ']');
+        var spec = regulator.regulate(id);
+        if (!io.exists(spec.url))
+          error.die('Configuration error: configuration does not support loading id [' + id + '] from file [' + file + ']');
+      });
       return ids;
     };
 

@@ -2,18 +2,17 @@ NAME = compiler
 MODULES = \
     ${SRC}/prelude/require.js \
 	${SRC}/prelude/namespace.js \
+	${SRC}/tools/error.js \
 	${SRC}/tools/io.js \
 	${SRC}/tools/files.js \
-	${SRC}/tools/error.js \
 	${SRC}/oracle/compound.js \
 	${SRC}/loader/node.js \
 	${SRC}/minibolt/minibolt.js \
+	${SRC}/meta/metalator.js \
 	${SRC}/bootstrap/generator.js \
 	${SRC}/modulator/amd.js \
-	${SRC}/modulator/compiled.js \
 	${SRC}/modulator/globalator.js \
 	${SRC}/compile/identifier.js \
-	${SRC}/compile/metalator.js \
 	${SRC}/compile/source.js \
 	${SRC}/compile/modulator.js \
 	${SRC}/compile/regulator.js \
