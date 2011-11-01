@@ -8,12 +8,12 @@ kernel.module.fetcher = def(
   ],
 
   function (ar, fn, map, piggybacker, stratifier) {
-    var create = function (modulator, validator, onerror, define, require, demand) {
+    var create = function (regulator, validator, onerror, define, require, demand) {
       var piggyback = piggybacker.create();
 
       var toSpecs = function (ids) {
         return ar.map(ids, function (id) {
-          var spec = modulator.modulate(id, define, require, demand);
+          var spec = regulator.regulate(id, define, require, demand);
           return { id: id, url: spec.url, load: spec.load, serial: spec.serial };
         });
       };
@@ -43,7 +43,7 @@ kernel.module.fetcher = def(
 
       var fetch = function (ids, onsuccess) {
         var cants = ar.filter(ids, function (id) {
-          return !modulator.can(id, demand);
+          return !regulator.can(id, demand);
         });
         if (cants.length > 0)
           onerror('Fetcher error: do not know how to fetch: ' + cants.join(', '));

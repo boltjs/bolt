@@ -21,7 +21,7 @@ var modulator = amd.create(loader, id, 'x.y.z', '../a/b', idTransformer);
 assert(modulator.can('x.y.z.blah.test'), 'can works for valid id');
 assert(!modulator.can('z.y.x.blah.test'), 'can does not work for invalid id');
 
-var triple = modulator.modulate('x.y.z.fm.radio');
+var triple = modulator.get('x.y.z.fm.radio');
 
 assert(triple.url === '../a/b/x/y/z/fm/radio.rocks', 'modulator url transformation');
 assert(!triple.serial, 'modulator is not serial');

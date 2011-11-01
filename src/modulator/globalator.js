@@ -18,7 +18,7 @@ kernel.modulator.globalator = def(
         return id.indexOf('global!') === 0;
       };
 
-      var modulate = function (id, define, require) {
+      var get = function (id, define, require) {
         var name = id.substring('global!'.length);
 
         var load = function (onsuccess, onfailure) {
@@ -40,7 +40,7 @@ kernel.modulator.globalator = def(
 
       return {
         can: can,
-        modulate: modulate
+        get: get
       }
     };
     return {

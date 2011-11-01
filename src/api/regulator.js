@@ -1,4 +1,4 @@
-kernel.modulator.compound = def(
+kernel.api.regulator = def(
   [
   ],
 
@@ -9,16 +9,16 @@ kernel.modulator.compound = def(
         return r.found !== undefined;
       };
 
-      var modulate = function (id, define, require, demand) {
+      var regulate = function (id, define, require, demand) {
         var r = oracle(id, demand);
         if (r.notfound)
-          throw 'assertion error: can should be used to validate before calls to modulate';
-        return r.found.modulate(id, define, require, demand);
+          throw 'assertion error: can should be used to validate before calls to regulate';
+        return r.found.regulate(id, define, require, demand);
       };
 
       return {
         can: can,
-        modulate: modulate
+        regulate: regulate
       };
     };
 

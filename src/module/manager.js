@@ -7,7 +7,7 @@ kernel.module.manager = def(
   ],
 
   function (ar, obj, loader, fetcher) {
-    var create = function (modulator, onerror) {
+    var create = function (regulator, onerror) {
       var blueprints = {};  // id -> {id: string, dependencies: [string], definition: function}
       var modules = {};     // id -> module
 
@@ -55,7 +55,7 @@ kernel.module.manager = def(
       };
 
       var validator = function (id) { return blueprints[id] !== undefined; };
-      var fetch = fetcher.create(modulator, validator, onerror, define, require, demand);
+      var fetch = fetcher.create(regulator, validator, onerror, define, require, demand);
 
       return {
         define: define,

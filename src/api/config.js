@@ -4,8 +4,8 @@ kernel.api.config = def(
   ],
 
   function (manager) {
-    var configure = function (modulator, onerror) {
-      var engine = manager.create(modulator, onerror);
+    var configure = function (regulator, onerror) {
+      var engine = manager.create(regulator, onerror);
 
       return {
         define: engine.define,

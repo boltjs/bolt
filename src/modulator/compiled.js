@@ -9,7 +9,7 @@ kernel.modulator.compiled = def(
         return namespace === id;
       };
 
-      var modulate = function (id, define, require) {
+      var get = function (id, define, require) {
         var url = pather(file);
         var load = fn.curry(loader.load, url);
 
@@ -22,7 +22,7 @@ kernel.modulator.compiled = def(
 
       return {
         can: can,
-        modulate: modulate
+        get: get
       }
     };
 

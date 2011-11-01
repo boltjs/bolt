@@ -9,7 +9,7 @@ kernel.modulator.amd = def(
         return id.indexOf(namespace) === 0;
       };
 
-      var modulate = function (id) {
+      var get = function (id) {
         var url = pather(path) + "/" + idTransformer(id);
         var load = fn.curry(loader.load, url);
 
@@ -22,7 +22,7 @@ kernel.modulator.amd = def(
 
       return {
         can: can,
-        modulate: modulate
+        get: get
       };
     };
 

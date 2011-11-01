@@ -1,8 +1,8 @@
 require('../include/include');
 
-var m = ephox.bolt.kernel.modulator.globalator;
+var globalator = ephox.bolt.kernel.modulator.globalator;
 
-var modulator = m.create();
+var source = globalator.create();
 
 // Global test data
 global.dummy = {};
@@ -35,29 +35,29 @@ var reset = function () {
   failureMessage = undefined;
 };
 
-var modulate = function(id) {
+var get = function(id) {
   reset();
-  modulator.modulate(id, define).load(onsuccess, onfailure);
+  source.get(id, define).load(onsuccess, onfailure);
 };
 
-var checkModulateSuccess = function (id, value, message) {
-  modulate(id);
+var checkGetSuccess = function (id, value, message) {
+  get(id);
   assert(successCalled && failureMessage === undefined &&
          defineParams.id === id && defineParams.deps && defineParams.deps.length === 0 && defineParams.value === value, message);
 };
 
-var checkModulateFailure = function (id, message) {
-  modulate(id);
+var checkGetFailure = function (id, message) {
+  get(id);
   assert(!successCalled && failureMessage && defineParams.called === undefined, message);
 };
 
-assert(modulator.can('global!dummy'), 'global can');
-assert(modulator.can('global!dummy.someAwesomeGlobal'), 'global really can');
-assert(!modulator.can('dummy.someAwesomeGlobal'), 'global does not lie about canning');
-assert(!modulator.can('js!something.different'), 'global really does not lie about canning');
+assert(source.can('global!dummy'), 'global can');
+assert(source.can('global!dummy.someAwesomeGlobal'), 'global really can');
+assert(!source.can('dummy.someAwesomeGlobal'), 'global does not lie about canning');
+assert(!source.can('js!something.different'), 'global really does not lie about canning');
 
-checkModulateSuccess('global!dummy.someAwesomeGlobal', 'fred', 'global can modulate a global');
-checkModulateSuccess('global!dummy.someNotAwesomeGlobal', 'barney', 'global can really modulate a global');
+checkGetSuccess('global!dummy.someAwesomeGlobal', 'fred', 'global can modulate a global');
+checkGetSuccess('global!dummy.someNotAwesomeGlobal', 'barney', 'global can really modulate a global');
 
-checkModulateFailure('global!dummy.NONEXISTANT', 'global does not modulate a non-existant global');
-checkModulateFailure('xxx!dummy.someAwesomeGlobal', 'global does not modulate an invalid global');
+checkGetFailure('global!dummy.NONEXISTANT', 'global does not modulate a non-existant global');
+checkGetFailure('xxx!dummy.someAwesomeGlobal', 'global does not modulate an invalid global');

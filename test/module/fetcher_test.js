@@ -16,7 +16,7 @@ var validator = function (id) {
   return blueprints[id] !== undefined;
 };
 
-var modulate = function () {
+var regulate = function () {
   var load = function (onsuccess, onfailure) {
     define('test', [], function() {
         return { greeting: 'hello world!' };
@@ -27,12 +27,12 @@ var modulate = function () {
   return { serial: false, load: load, url: 'arbitrary.js' };
 };
 
-var modulator = {
+var regulator = {
   can: function (id) { return id === 'test'; },
-  modulate: function (id) { return modulate(); }
+  regulate: regulate
 };
 
-var fetch = fetcher.create(modulator, validator, onerror);
+var fetch = fetcher.create(regulator, validator, onerror);
 
 var isrun = false;
 
