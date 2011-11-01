@@ -11,14 +11,9 @@ module.mapper.mapper = def(
       return id.replace(/\./g, '/') + '.js';
     };
 
-    var hyphenated = function (id) {
-      return id.replace(/\./g, '-') + '.js';
-    };
-
     return {
       flat: flat,
-      hierarchical: hierarchical,
-      hyphenated: hyphenated
+      hierarchical: hierarchical
     };
   }
 );
