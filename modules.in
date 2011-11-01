@@ -8,7 +8,6 @@ MODULES = \
 	${SRC}/async/piggybacker.js \
 	${SRC}/modulator/globalator.js \
 	${SRC}/modulator/amd.js \
-	${SRC}/modulator/compiled.js \
 	${SRC}/module/stratifier.js \
 	${SRC}/module/analyser.js \
 	${SRC}/module/fetcher.js \
