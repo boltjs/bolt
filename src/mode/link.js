@@ -23,7 +23,7 @@ compiler.mode.link = def(
       var filepath = bit.file;
       var filename = path.basename(filepath);
       return defines.map(function (define) {
-        return 'source("amd", "' + define + '", ".", function () { return "' + filename + '"; })';
+        return 'source("amd", "' + define + '", ".", mapper.constant("' + filename + '"))';
       });
     };
 
@@ -50,6 +50,7 @@ compiler.mode.link = def(
         '(function () {\n' +
         '  var configure = ephox.bolt.module.api.configure;\n' +
         '  var source = ephox.bolt.module.api.source;\n' +
+        '  var mapper = ephox.bolt.module.api.mapper;\n' +
         '  configure({' +
         '    sources: [\n' +
         '    ' + sources + '\n' +
