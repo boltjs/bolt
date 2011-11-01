@@ -1,10 +1,11 @@
 compiler.modulator.amd = def(
   [
     ephox.bolt.module.modulator.modulators.amd,
-    compiler.tools.io
+    compiler.tools.io,
+    compiler.tools.error
   ],
 
-  function (delegate, io) {
+  function (delegate, io, error) {
     var create = function () {
       var instance = delegate.create.apply(null, arguments);
 
@@ -24,7 +25,11 @@ compiler.modulator.amd = def(
         };
 
         var load = function (define /* eval scope */) {
-          eval(content);
+          try {
+            eval(content);
+          } catch (e) {
+            error.die('Could not evaluate file: ' + spec.url + ', error: ' + e);
+          }
         };
 
         return {
