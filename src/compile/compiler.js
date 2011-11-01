@@ -20,10 +20,11 @@ compiler.compile.compiler = def(
       if (!regulator.can(id, unexpected))
         error.die("No modulator can load module: " + id);
       var spec = regulator.regulate(id, unexpected, unexpected, unexpected);
-      rendered[id] = spec.render();
       spec.load(function (id, dependencies) {
         modules[id] = dependencies;
+        rendered[id] = "";
       });
+      rendered[id] = spec.render();
     };
 
     var analyse = function (ids) {
@@ -40,7 +41,7 @@ compiler.compile.compiler = def(
         var dependencies = modules[id];
         var deps = dependencies.map(renderer);
         printed[id] = true;
-        return deps.join('\n') + '\n' + (rendered[id] || "");
+        return deps.join('\n') + '\n' + rendered[id];
       };
       return ids.map(renderer).join('\n');
     };
