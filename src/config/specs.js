@@ -11,7 +11,7 @@ module.config.specs = def(
         compiler: namespace + '.Compiler',
         path: path,
         mapper: mapper
-      }
+      };
     };
 
     var source = function (type /*, args */) {
