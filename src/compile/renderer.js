@@ -4,7 +4,7 @@ compiler.compile.renderer = def(
 
   function () {
     var render = function (ids, modules, renders) {
-      var printed = {};
+      var printed = {};  // url ->  boolean
 
       var renderer = function (id) {
         var dependencies = modules[id];
