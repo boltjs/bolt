@@ -13,8 +13,8 @@ module.bootstrap.deferred = def(
       deferred.push(r);
     };
 
-    var configured = function(require) {
-      ar.each(deferred, function(action) {
+    var configured = function (require) {
+      ar.each(deferred, function (action) {
         action(require);
       });
     };
