@@ -42,9 +42,9 @@ Require
 resolve :: id -> loader
 
 // loader turns a url into a blueprint
-{ id -> { url: string, serial: boolean, loader: function(callback)
+{ id -> { url: string, serial: boolean, loader: function (callback)
 
-downloader.download({ id -> url }, function({ id -> textDataFromUrl }) {
+downloader.download({ id -> url }, function ({ id -> textDataFromUrl }) {
     manager.manage(ds);
 });
 

@@ -1,4 +1,4 @@
-runDemo('Manager - Hello world', function() {
+runDemo('Manager - Hello world', function () {
   var result = createOutputElement('hello_world did not run');
 
   var onerror = function (message) {
@@ -7,7 +7,7 @@ runDemo('Manager - Hello world', function() {
 
   var regulate = function () {
     var load = function (onsuccess, onerror) {
-      define('ephox.bolt.demo.hello', [], function() {
+      define('ephox.bolt.demo.hello', [], function () {
           return { greeting: 'hello world!' };
         }
       );

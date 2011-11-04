@@ -18,7 +18,7 @@ var validator = function (id) {
 
 var regulate = function () {
   var load = function (onsuccess, onfailure) {
-    define('test', [], function() {
+    define('test', [], function () {
         return { greeting: 'hello world!' };
       }
     );

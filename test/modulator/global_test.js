@@ -11,7 +11,7 @@ global.dummy.someNotAwesomeGlobal = 'barney';
 
 // Mock out necessary calls
 var defineParams;
-var define = function(id, deps, definition) {
+var define = function (id, deps, definition) {
   defineParams.called = true;
   defineParams.id = id;
   defineParams.deps = deps;
@@ -35,7 +35,7 @@ var reset = function () {
   failureMessage = undefined;
 };
 
-var get = function(id) {
+var get = function (id) {
   reset();
   source.get(id, define).load(onsuccess, onfailure);
 };

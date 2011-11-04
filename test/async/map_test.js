@@ -9,9 +9,9 @@ var doubleit = function (i) {
 
 var r;
 
-map.amap([1, 2, 3], function(datum, success) {
+map.amap([1, 2, 3], function (datum, success) {
   success(doubleit(datum));
-}, function(results) {
+}, function (results) {
   r = results;
 });
 
