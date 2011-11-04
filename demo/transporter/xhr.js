@@ -1,4 +1,4 @@
-runDemo('Transporter - XHR', function() {
+runDemo('Transporter - XHR', function () {
   var positive = createOutputElement('positive case did not run');
   var negative = createOutputElement('negative case did not run');
 

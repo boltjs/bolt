@@ -14,7 +14,7 @@ loader.transporter.xhr = def(
       return fallback(factories);
     };
 
-    var fallback = function(items) {
+    var fallback = function (items) {
       for (var i = 0; i < items.length; ++i) {
         try {
           return items[i]();
@@ -30,7 +30,7 @@ loader.transporter.xhr = def(
       };
     };
 
-    var done = function(req, url, success, error) {
+    var done = function (req, url, success, error) {
       if (req.status === 200 || req.status === 304)
         success(req.responseText);
       else

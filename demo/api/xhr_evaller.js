@@ -1,4 +1,4 @@
-runDemo('Loader - XHR Evaller', function() {
+runDemo('Loader - XHR Evaller', function () {
   var result = createOutputElement('xhr_evaller did not run');
 
   ephox.bolt.loader.api.xhrevaller.load('api/xhr_evaller_payload.js', function () {

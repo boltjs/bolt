@@ -4,7 +4,7 @@ loader.executor.injector = def(
   ],
 
   function (script) {
-    var execute = function(data, onsuccess, onfailure) {
+    var execute = function (data, onsuccess, onfailure) {
       var inject = function (tag) {
         tag.text = data;
       };
