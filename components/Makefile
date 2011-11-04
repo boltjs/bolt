@@ -28,7 +28,7 @@ ${PRELUDE}:
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
 	( \
-	echo "(function(scope) {" && \
+	echo "(function (scope) {" && \
 	cat ${PRELUDE} ${MODULES} && \
 	echo "})(Function('return this')());" \
 	) > ${RELEASE}
