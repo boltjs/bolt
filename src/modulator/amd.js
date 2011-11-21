@@ -20,7 +20,7 @@ compiler.modulator.amd = def(
       };
 
       var get = function (id) {
-        var file = pather(path) + "/" + idTransformer(id);
+        var file = pather(path) + "/" + idTransformer(id) + '.js';
         var content = io.lazyread(file);
 
         var render = function () {
