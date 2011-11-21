@@ -10,7 +10,7 @@ kernel.modulator.amd = def(
       };
 
       var get = function (id) {
-        var url = pather(path) + "/" + idTransformer(id);
+        var url = pather(path) + "/" + idTransformer(id) + '.js';
         var load = fn.curry(loader.load, url);
 
         return {
