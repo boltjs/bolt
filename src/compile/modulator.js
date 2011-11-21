@@ -9,9 +9,11 @@ compiler.compile.modulator = def(
 
   function (ar, amd, globalator, minibolt, node) {
     var compiler = function (spec, pather) {
-      var source = amd.create(node, pather, spec.namespace, spec.path, spec.mapper);
-      var sources = [source, globalator.create() ];
-      return minibolt.demand(sources, spec.compiler);
+      var sources = ar.map(spec.sources, function (source) {
+        return amd.create.apply(null, [ node, pather ].concat(source.args));
+      });
+      var all = sources.concat([ globalator.create() ]);
+      return minibolt.demand(all, spec.compiler);
     };
 
     var types = function (specs, pather) {
