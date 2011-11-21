@@ -4,11 +4,11 @@ module.mapper.mapper = def(
 
   function () {
     var flat = function (id) {
-      return id + '.js';
+      return id;
     };
 
     var hierarchical = function (id) {
-      return id.replace(/\./g, '/') + '.js';
+      return id.replace(/\./g, '/');
     };
 
     var constant = function (name) {
