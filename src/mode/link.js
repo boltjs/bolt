@@ -21,9 +21,9 @@ compiler.mode.link = def(
     var configthing = function (bit) {
       var defines = bit.defines;
       var filepath = bit.file;
-      var filename = path.basename(filepath);
+      var name = path.basename(filepath, '.js');
       return defines.map(function (define) {
-        return 'source("amd", "' + define + '", ".", mapper.constant("' + filename + '"))';
+        return 'source("amd", "' + define + '", ".", mapper.constant("' + name + '"))';
       });
     };
 
