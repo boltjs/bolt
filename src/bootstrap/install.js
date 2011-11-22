@@ -1,5 +1,6 @@
 module.bootstrap.install = def(
   [
+     module.config.builtins,
     module.config.config,
     module.config.specs,
     module.mapper.mapper,
@@ -8,10 +9,10 @@ module.bootstrap.install = def(
     ephox.bolt.kernel.fp.functions
   ],
 
-  function (config, specs, mapper, deferred, runtime, fn) {
+  function (builtins, config, specs, mapper, deferred, runtime, fn) {
     var install = function (pather) {
       var configure = function (configuration) {
-        var bolt = config.configure(configuration, pather);
+        var bolt = config.configure(configuration, pather, builtins.browser);
 
         runtime.define = bolt.define;
         runtime.require = bolt.require;

@@ -7,14 +7,8 @@ module.config.modulator = def(
   ],
 
   function (error, amd, globalator, ar) {
-    var types = function (specs) {
-      var ts = {
-        amd: 'global!ephox.bolt.module.modulator.modulators.amd',
-        'amd.scripttag': 'global!ephox.bolt.module.modulator.modulators.amdscripttag',
-        'amd.xhreval': 'global!ephox.bolt.module.modulator.modulators.amdxhreval',
-        'amd.xhrinjector': 'global!ephox.bolt.module.modulator.modulators.amdxhrinjector'
-      };
-
+    var types = function (builtins, specs) {
+      var ts = builtins();
       ar.each(specs, function (spec) {
         ts[spec.type] = spec.modulator;
       });
