@@ -105,10 +105,16 @@ $ ./lib/bolt/bolt init
     </p>
 
 <pre>
-configure([
-    modulator('amd', 'ephox.myproject', '../../src/main/js'),
-    modulator('js', 'lib', '../../lib/compile')
-]);
+configure({
+  modulators: [  
+    modulator('js', 'ephox.modulator.js', [
+    ]),
+  ],
+  sources: [
+    source('amd', 'ephox.myproject', '../../src/main/js'),
+    source('js', 'lib', '../../lib/compile')  
+  ]
+});
 </pre>
     
     <p>
