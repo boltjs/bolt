@@ -8,8 +8,7 @@ kernel.module.loader = def(
       var result = analyser.analyse(roots, deps);
 
       if (result.cycle)
-        onerror('Dependency error: a circular module dependency exists from ' +
-            result.cycle.join(' ~> '));
+        onerror('Dependency error: a circular module dependency exists from ' + result.cycle.join(' ~> '));
       else if (result.load.length === 0)
         onsuccess();
       else
