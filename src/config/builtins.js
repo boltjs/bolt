@@ -5,7 +5,7 @@ module.config.builtins = def(
   function () {
     // FIX unthunk this.
     var builtins = function (amd) {
-      return function () { return { amd: amd } };
+      return function () { return { amd: amd }; };
     };
 
     return {
