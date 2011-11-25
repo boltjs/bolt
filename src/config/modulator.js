@@ -1,7 +1,7 @@
 module.config.modulator = def(
   [
     module.error.error,
-    module.modulator.modulators.amd,
+    module.modulator.modulators.amdscripttag,
     ephox.bolt.kernel.modulator.globalator,
     ephox.bolt.kernel.fp.array
   ],
