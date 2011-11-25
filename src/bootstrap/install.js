@@ -25,8 +25,11 @@ module.bootstrap.install = def(
       runtime.source = specs.source;
       runtime.modulator = specs.modulator;
       runtime.require = deferred.require;
-      runtime.main = function (id) {
-        runtime.require([id], fn.apply);
+      runtime.main = function (id, configs, callback) {
+        runtime.require(configs || [], function () {
+          callback && callback.apply(null, arguments);
+          runtime.require([id], fn.apply);
+        });
       };
     };
 
