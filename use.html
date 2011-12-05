@@ -1,19 +1,154 @@
 <html>
 <head>
-  <title>Bolt Documentation: Use</title>
-  <link rel="stylesheet" href="style.css" type="text/css" />
+    <title>Bolt Documentation: Use</title>
+    <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
 <body>
-  <h1>bolt</h1>
-  <div id="menu">
-    <ul>
-      <li><a href="use.html">Use</a></li>
-      <li><a href="extend.html">Extend</a></li>
-      <li><a href="develop.html">Develop</a></li>
-    </ul>
-  </div>
+<h1>bolt</h1>
 
-  <div id="content">
-  </div>
+<div id="menu">
+    <ul>
+        <li><a href="use.html">Use</a></li>
+        <li><a href="extend.html">Extend</a></li>
+        <li><a href="develop.html">Develop</a></li>
+    </ul>
+</div>
+
+<div id="content">
+    <h2>Use</h2>
+
+    <p>
+        There are multiple aspects to using bolt:
+    </p>
+
+    <ul>
+        <li>configuring a project</li>
+        <li>running up a project</li>
+        <li>defining modules</li>
+        <li>compiling modules</li>
+        <li>depending on modules</li>
+    </ul>
+
+
+    <h3>Getting Started</h3>
+
+    <p>
+        Add the following to depend.js (sorry):
+    </p>
+
+<pre>
+{
+  name: "bolt",
+  repository: "buildrepo2",
+  version : "latest",
+  source: "bolt.zip",
+  targets: [
+    { name: "jsc", path: "lib/bolt" },
+    { name: "bolt", path: "lib/bolt" },
+    { name: "*.js", path: "lib/bolt" }
+  ],
+  executables: [
+    "lib/bolt/jsc",
+    "lib/bolt/bolt"
+  ]
+}
+</pre>
+
+    <p>
+        Get bolt, by running dent from the root of your project:
+    </p>
+
+<pre>
+$ dent -clean
+</pre>
+
+    <p>
+        Initialise bolt:
+    </p>
+
+<pre>
+$ ./lib/bolt/bolt init
+</pre>
+
+    <p>
+        This will create a <code>bolt/config</code> directory in your project, initialise an
+        empty <code>module.js</code> configuration file, explained below, and also run the
+        <code>`jsc dev`</code> and <code>`jsc mode dev`</code> commands to generate
+        an initial <code>bootstrap.js</code> file and set the project to development mode.
+    </p>
+
+    <p>
+        For convenience, you may wish to define an alias for the <code>bolt</code> and <code>jsc</code> executables.
+        This has already been done for development machines via the default ephox-bashrc in
+        <code>buildtools/scripts</code>.
+    </p>
+
+    <h3>Configuration</h3>
+
+    <p>
+        Bolt is configured through via the <code>configure</code> api call. By convention
+        this call is placed in a configuration file named <code>bolt/config/module.js</code>.
+    </p>
+
+    <p>
+        The configure call takes an array of modulators, for example:
+    </p>
+
+<pre>
+configure({
+  modulators: [
+    modulator('js', 'ephox.modulator.js'),
+  ],
+  sources: [
+    source('amd', 'ephox.myproject', '../../src/main/js'),
+    source('js', 'lib', '../../lib/compile')
+  ]
+});
+</pre>
+
+    <p>
+
+    </p>
+
+    <h3>Checking out</h3>
+
+    <p>
+        checking out a project
+    </p>
+
+    <h3>Module Definition</h3>
+
+    <p>
+        defining modules
+    </p>
+
+    <h3>jsc</h3>
+
+    <p>
+        running jsc
+    </p>
+
+    <h4>development mode</h4>
+    <h4>compile mode</h4>
+
+    <h3>Ent integration</h3>
+
+    <p>
+        configuring / running bolt from ent
+    </p>
+
+    <h3>Test integration</h3>
+
+    <p>
+        setting up a project to run tests
+    </p>
+
+    <h3>Example Project</h3>
+
+    <p>
+        example project and style
+    </p>
+
+</div>
 </body>
 </html>
