@@ -68,6 +68,16 @@ h2 {
     margin-bottom: 30px;
 }
 
+#menu {
+    border-bottom: solid 1px #000;
+}
+
 #menu ul {
    list-style-type: none;
+}
+
+#menu ul li {
+   float: left;
+   padding-left: 10px;
+   padding-right: 10px;
 }
