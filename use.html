@@ -49,12 +49,21 @@
     </p>
 
     <p>
-      The <strong>bootstrap</strong> file.
-        The bootstrap file.
+      The <strong>bootstrap</strong> file. This file is referenced by projects wanting to use bolt
+      modules. There are two forms of bootstrap file: the development bootstrap which defines bolt,
+      the builtin source types, an install call to define development globals and a call to load
+      the development configuration; the compiled bootstrap which defines bolt, but does not install
+      the development globals (meaning that a compiled bootstrap can only load compiled modules) and
+      contains an inline configuration file.
     </p>
 
     <p>
-        Compiled output.
+      The development <strong>module</strong> files.  These are the (uncompiled) modules as actually,
+      written by developers.
+    </p>
+
+    <p>
+      Compiled output. 
     </p>
 
 
