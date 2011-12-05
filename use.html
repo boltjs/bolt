@@ -59,11 +59,15 @@
 
     <p>
       The development <strong>module</strong> files.  These are the (uncompiled) modules as actually,
-      written by developers.
+      written by developers. In a given project there are generally: src modules that are normally
+      stored in a hierarchical directory that match the module name; dependency modules that are
+      brought in from other projects, these are normally stored in a flat file matching the module name.
     </p>
 
     <p>
-      Compiled output. 
+      The <strong>compiled</strong> output for a project. This is the optimised, output of all modules
+      traced from a set of entry points. The compiled output uses the fully qualified bolt api, and contains
+      module defintions for all resouce types (for example a i18n source would inline the language bundles).
     </p>
 
 
