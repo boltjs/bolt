@@ -57,7 +57,12 @@ h1 {
     color: #ffffff;
     background: #333333;
     margin: 0;
-    padding: 10px 100px 10px;
+    padding: 0px 0px;
+}
+
+h1 a {
+    padding: 10px 100px;
+    display: block;
 }
 
 h1 a:hover {
