@@ -8,19 +8,18 @@ body {
 }
 
 a {
-    color: #00A;
+    color: blue;
     text-decoration: none;
 }
 
 a:hover {
-    color: #00A;
+    color: blue;
     text-decoration: underline;
 }
 
 a:visited {
-    color: #A0A;
+    color: blue;
 }
-
 
 pre, code {
     font-family:'Bitstream Vera Sans Mono','Courier',monospace;
@@ -61,6 +60,14 @@ h1 {
     padding: 10px 100px 10px;
 }
 
+h1 a:hover {
+    text-decoration: none;
+}
+
+h1 a:visited {
+    color: #ffffff;
+}
+
 h2 {
     width: 100%;
     border-bottom: 1px solid #333333;
@@ -73,11 +80,28 @@ h2 {
 }
 
 #menu ul {
-   list-style-type: none;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 100px;
 }
 
 #menu ul li {
-   float: left;
-   padding-left: 10px;
-   padding-right: 10px;
+    float: left;
+}
+
+#menu ul li a {
+    color: #525252;
+    display: block;
+    padding: 10px 15px;
+}
+
+#menu ul li a:hover, #menu ul li a.active {
+    color: white;
+    background-color: #666666;
+    text-decoration: none;
+}
+
+.clearer {
+    clear: both;
 }
