@@ -24,6 +24,7 @@ module.bootstrap.install = def(
       runtime.configure = configure;
       runtime.source = specs.source;
       runtime.type = specs.type;
+      runtime.modulator = specs.type; // FIX transitioning to type, kill after Wed 7th December.
       runtime.require = deferred.require;
       runtime.main = function (id, configs, callback) {
         runtime.require(configs || [], function () {
