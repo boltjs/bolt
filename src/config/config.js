@@ -11,7 +11,7 @@ module.config.config = def(
   function (error, modulator, source, apiwrapper, config, regulator) {
     var configure = function (configuration, pather, builtins) {
       var sourcespecs = configuration.sources || [];
-      var modulatorspecs = configuration.modulators || [];
+      var modulatorspecs = configuration.types || configuration.modulators || []; // FIX transitioning to type, kill after Wed 7th December.
       var modulatorsources = modulator.sources(modulatorspecs, pather);
       var modulatortypes = modulator.types(builtins, modulatorspecs);
       var oracle = source.build(modulatorsources, modulatortypes, sourcespecs, pather);

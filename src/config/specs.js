@@ -3,7 +3,7 @@ module.config.specs = def(
   ],
 
   function () {
-    var modulator = function (type, implementation, sources) {
+    var type = function (type, implementation, sources) {
       return {
         type: type,
         implementation: implementation,
@@ -21,7 +21,7 @@ module.config.specs = def(
     };
 
     return {
-      modulator: modulator,
+      type: type,
       source: source
     };
   }

@@ -13,7 +13,8 @@ module.api = def(
 
     return {
       configure: delegate('configure'),
-      modulator: delegate('modulator'),
+      modulator: delegate('type'),   // FIX transitioning to type, kill after Wed 7th December.
+      type: delegate('type'),
       source: delegate('source'),
       mapper: mapper,
       define: delegate('define'),
