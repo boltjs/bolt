@@ -79,7 +79,7 @@
     </p>
 
     <p>
-        The configure call takes an array of modulators, for example:
+        The configure call takes an object that can define source types, and sources.
     </p>
 
 <pre>
@@ -88,21 +88,17 @@ configure({
     type('js', 'ephox.modulator.js'),
   ],
   sources: [
-    source('amd', 'ephox.myproject', '../../src/main/js'),
-    source('js', 'lib', '../../lib/compile')
+    source('amd', 'ephox.myproject', '../../src/main/js', mapper.hierarchical),
+    source('js', 'lib', '../../lib/compile', mapper.hierarchical)
   ]
 });
 </pre>
-
-    <p>
-
-    </p>
 
     <h3>initialisation</h3>
 
     <p>
       Upon check out of a project using bolt, there a small set of tasks that are required to get up and running. 
-      These tasks are wrapped up by the <code>bolt</code> script.
+      These tasks are wrapped up by the <code>bolt</code> script. Simply run:
     </p>
 
 <pre>
@@ -110,7 +106,8 @@ $ bolt init
 </pre>
 
     <p>
-      This command will generate a bootstrap file and create a symlink ready for development.
+      This command will generate a bootstrap file and create a symlink ready for development. Projects
+      should point to the sym-linked bootstrap, <code>bolt/bootstrap/bootstrap.js</code>.
     </p>
 
 
@@ -141,18 +138,37 @@ $ bolt init
     <h4>ent integration</h4>
 
     <p>
-        configuring / running bolt from ent
+      Ent is able to trigger the bolt compiler. There are a limited set of options
+      that are set through the <code>setBolt</code> call on the ent project.
     </p>
 
+<pre>
+p.setBolt('library', '**/*.js');
+</pre>
 
+    <p>
+      This configures bolt to compile the project as a single library, and that all js files
+      are considered an <em>entry point</em>. This could be more restrictive if required.
+    </p>
+
+    <p>
+      An alternate example would be:
+    </p>
+
+<pre>
+p.setBolt('application', '**/*Main.js');
+</pre>
+
+    <p>
+      This configures bolt to compile the project as a set of application pages. Each file
+      is considered an entry point. The compiler will generate one file per page.
+    </p>
 
     <h3>testing</h3>
 
     <p>
         setting up a project to run tests
     </p>
-
-
 
 </div>
 </body>
