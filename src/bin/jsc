@@ -6,6 +6,7 @@ usage() {
     echo "    or jsc link    [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
     echo "    or jsc mode    [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR]"
     echo "                   [-b|--bootstrap BOOTSTRAP_LINK] MODE"
+    echo "    or jsc help"
     echo
     echo "arguments:"
     echo "  MODULE_FILE      file containing an uncompiled module"
@@ -55,12 +56,17 @@ fi
 mode="$1"; shift
 
 case "$mode" in
-dev|compile|link|mode)
+dev|compile|link|mode|help)
     ;;
 *)
     fail_usage 1 "invalid mode [$mode], must be one of dev|compile|link|mode"
     ;;
 esac
+
+if [ "$mode" = help ]; then
+  usage
+  exit 0
+fi
 
 while echo x"$1" | grep -q '^x-'; do
     flag="$1"; shift

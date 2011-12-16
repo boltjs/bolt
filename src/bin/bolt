@@ -3,6 +3,7 @@
 usage() {
     echo "usage: bolt init  [-c|--config CONFIG_DIR] [-b|--bootstrap BOOTSTRAP_LINK]"
     echo "    or bolt build [-o|--output OUTPUT_DIR]"
+    echo "    or bolt help"
     echo
     echo "options:"
     echo "  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,"
@@ -36,12 +37,17 @@ fi
 mode="$1"; shift
 
 case "$mode" in
-init|build)
+init|build|help)
     ;;
 *)
     fail_usage 1 "invalid mode [$mode], must be one of init|build"
     ;;
 esac
+
+if [ "$mode" = help ]; then
+    usage
+    exit 0
+fi
 
 while echo x"$1" | grep -q '^x-'; do
     flag="$1"; shift
