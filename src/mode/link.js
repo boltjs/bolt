@@ -56,7 +56,7 @@ compiler.mode.link = def(
         '    ' + sources + '\n' +
         '    ]' +
           '});\n' +
-        '})()';
+        '})();';
 
       generator.generate(target, install + '\n' + configuration);
     };
