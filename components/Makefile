@@ -26,7 +26,7 @@ ${DIST}:
 ${PRELUDE}:
 	dent -clean
 
-${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
+${RELEASE}: ${DIST} ${MODULES} ${DISTFILES} ${DEPENDENCY} ${PRELUDE} modules.in
 	if [ ! -z "${MODULES}" ]; then ( \
 	echo "(function (scope) {" && \
 	cat ${PRELUDE} ${MODULES} && \
