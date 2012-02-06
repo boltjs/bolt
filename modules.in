@@ -1,0 +1,6 @@
+NAME = inline
+MODULES =
+DISTFILES = \
+	${SRC}/inline.js \
+	${SRC}/inline.js.pre \
+	${SRC}/inline.js.post
