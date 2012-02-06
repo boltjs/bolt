@@ -1,13 +1,3 @@
-  ephox.bolt = {
-    module: {
-      api: {
-        define: def,
-        require: req,
-        demand: dem
-      }
-    }
-  };
-
   if (this.ephox)
     ephox.bolt = old;
 })();

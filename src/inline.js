@@ -40,3 +40,14 @@ var req = function (ids, callback) {
   callback.apply(null, callback);
 };
 
+var ephox = this.ephox || {};
+
+ephox.bolt = {
+  module: {
+    api: {
+      define: def,
+      require: req,
+      demand: dem
+    }
+  }
+};
