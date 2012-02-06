@@ -27,8 +27,8 @@ ${PRELUDE}:
 	dent -clean
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
-	( \
+	if [ ! -z "${MODULES}"]; then ( \
 	echo "(function (scope) {" && \
 	cat ${PRELUDE} ${MODULES} && \
 	echo "})(Function('return this')());" \
-	) > ${RELEASE}
+	) > ${RELEASE}; fi
