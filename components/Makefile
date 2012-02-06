@@ -18,7 +18,7 @@ clean:
 	rm -rf ./${DIST}
 
 test: ${RELEASE}
-	find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo $$test; node $$test'
+	if [ ! -z "${MODULES}" ]; then find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo $$test; node $$test'; fi
 
 ${DIST}:
 	mkdir -p $@
