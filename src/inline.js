@@ -9,7 +9,7 @@ var register = function (id) {
       target[fragments[i]] = {};
     target = target[fragments[i]];
   }
-  target[fragments.length - 1] = module;
+  target[fragments[fragments.length - 1]] = module;
 };
 
 var instantiate = function (id) {
