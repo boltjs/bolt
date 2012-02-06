@@ -313,6 +313,7 @@
         <w>hierarcical</w>
       </words>
     </dictionary>
+    <dictionary name="mth" />
   </component>
   <component name="ProjectModuleManager">
     <modules>
