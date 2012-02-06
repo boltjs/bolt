@@ -1,5 +1,17 @@
 var defs = {}; // id -> {dependencies, definition, instance (possibly undefined)}
 
+var register = function (id) {
+  var module = demand(id);
+  var fragments = id.split('.');
+  var target = Function('return this')();
+  for (var i = 0; i < fragments.length - 1; ++i) {
+    if (target[fragments[i]] === undefined)
+      target[fragments[i]] = {};
+    target = target[fragments[i]];
+  }
+  target[framgents.length - 1] = module;
+};
+
 var instantiate = function (id) {
   var dependencies = defs[id].dependencies;
   var definition = defs[id].definition;
@@ -8,7 +20,7 @@ var instantiate = function (id) {
     instances.push(dem(dependencies[i]));
   defs[id].instance = definition.apply(null, instances);
   if (defs[id] === undefined)
-     throw 'required module [' + id + '] is could not be defined (definition function returned undefined)';
+     throw 'required module [' + id + '] could not be defined (definition function returned undefined)';
 };
 
 var def = function (id, dependencies, definition) {
