@@ -23,5 +23,15 @@ var dependencies = [
     targets: [
       { name: "*.js", path: lib + "/module" }
     ]
+  },
+
+  {
+    name: "bolt-inline",
+    repository: "buildrepo2",
+    version : "latest",
+    source: "bolt-inline.zip",
+    targets: [
+      { name: "*.js*", path: lib + "/inline" }
+    ]
   }
 ];

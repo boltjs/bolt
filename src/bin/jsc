@@ -3,6 +3,7 @@
 usage() {
     echo "usage: jsc dev     [-c|--config CONFIG_DIR]"
     echo "    or jsc compile [-c|--config CONFIG_DIR] MODULE_FILE ... COMPILE_TARGET"
+    echo "    or jsc inline  [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
     echo "    or jsc link    [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
     echo "    or jsc mode    [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR]"
     echo "                   [-b|--bootstrap BOOTSTRAP_LINK] MODE"
@@ -56,10 +57,10 @@ fi
 mode="$1"; shift
 
 case "$mode" in
-dev|compile|link|mode|help)
+dev|compile|inline|link|mode|help)
     ;;
 *)
-    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|link|mode"
+    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|inline|link|mode|help"
     ;;
 esac
 
@@ -110,20 +111,24 @@ jsc_dev() {
     exec node $base/jsc.js "$mode" "$config_dir/bootstrap.js" "module.js"
 }
 
-jsc_compile() {
+jsc_x() {
     if [ $# -lt 2 ]; then
-        fail_usage 1 "invalid number of arguments for jsc compile [$#]"
+        fail_usage 1 "invalid number of arguments for jsc $mode [$#]"
     fi
 
     exec node $base/jsc.js "$mode" "$config_dir/module.js" "$@"
 }
 
-jsc_link() {
-    if [ $# -lt 2 ]; then
-        fail_usage 1 "invalid number of arguments for jsc link [$#]"
-    fi
+jsc_compile() {
+    jsc_x "$@"
+}
 
-    exec node $base/jsc.js "$mode" "$config_dir/module.js" "$@"
+jsc_inline() {
+    jsc_x "$@"
+}
+
+jsc_link() {
+    jsc_x "$@"
 }
 
 jsc_mode() {

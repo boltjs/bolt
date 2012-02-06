@@ -20,6 +20,7 @@ MODULES = \
 	${SRC}/compile/configurator.js \
 	${SRC}/compile/compiler.js \
 	${SRC}/mode/compile.js \
+	${SRC}/mode/inline.js \
 	${SRC}/mode/link.js \
 	${SRC}/mode/dev.js
 DISTFILES = \
@@ -28,6 +29,9 @@ DISTFILES = \
 	${LIB}/module/module.js \
 	${LIB}/module/rhino.js \
 	${LIB}/module/node.js \
+	${LIB}/inline/inline.js \
+	${LIB}/inline/inline.js.pre \
+	${LIB}/inline/inline.js.post \
 	${SRC}/bin/jsc.js \
 	${SRC}/bin/jsc \
 	${SRC}/bin/bolt
