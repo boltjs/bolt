@@ -7,7 +7,7 @@ DIST = gen
 RELEASE = ${DIST}/${NAME}.js
 PRELUDE = ${LIB}/framework/prelude.js 
 
-.PHONY: default clean test
+.PHONY: default clean test dist
 
 default: dist test
 
@@ -26,7 +26,7 @@ ${DIST}:
 ${PRELUDE}:
 	dent -clean
 
-${RELEASE}: ${DIST} ${MODULES} ${DISTFILES} ${DEPENDENCY} ${PRELUDE} modules.in
+${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
 	if [ ! -z "${MODULES}" ]; then ( \
 	echo "(function (scope) {" && \
 	cat ${PRELUDE} ${MODULES} && \
