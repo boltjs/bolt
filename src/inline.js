@@ -3,7 +3,7 @@ var defs = {}; // id -> {dependencies, definition, instance (possibly undefined)
 var register = function (id) {
   var module = demand(id);
   var fragments = id.split('.');
-  var target = Function('return this')();
+  var target = Function('return this;')();
   for (var i = 0; i < fragments.length - 1; ++i) {
     if (target[fragments[i]] === undefined)
       target[fragments[i]] = {};
