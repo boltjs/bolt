@@ -1,7 +1,7 @@
 var defs = {}; // id -> {dependencies, definition, instance (possibly undefined)}
 
 var register = function (id) {
-  var module = demand(id);
+  var module = dem(id);
   var fragments = id.split('.');
   var target = Function('return this;')();
   for (var i = 0; i < fragments.length - 1; ++i) {
