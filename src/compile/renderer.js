@@ -1,8 +1,19 @@
 compiler.compile.renderer = def(
   [
+    ephox.bolt.kernel.fp.array
   ],
 
-  function () {
+  function (ar) {
+    var stripempty = function (ss) {
+      return ar.filter(ss, function (s) {
+         return s !== '';
+      });
+    };
+
+    var join = function (ss) {
+      return stripempty(ss).join('\n');
+    };
+
     var render = function (ids, modules, renders) {
       var printed = {};  // url ->  boolean
 
@@ -11,18 +22,18 @@ compiler.compile.renderer = def(
         var deps = dependencies.map(renderer);
 
         if (renders[id] === undefined)
-          return deps.join('\n');
+          return join(deps);
 
         var spec = renders[id];
 
         if (printed[spec.url])
-          return deps.join('\n');
+          return join(deps);
 
         printed[spec.url] = true;
-        return deps.join('\n') + '\n' + spec.render();
+        return join(deps) + '\n' + spec.render();
       };
 
-      return ids.map(renderer).join('\n') + '\n';
+      return join(ids.map(renderer)) + '\n';
     };
 
     return {

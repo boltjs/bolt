@@ -2,7 +2,7 @@
 
 usage() {
     echo "usage: bolt init  [-c|--config CONFIG_DIR] [-b|--bootstrap BOOTSTRAP_LINK]"
-    echo "    or bolt build [-o|--output OUTPUT_DIR]"
+    echo "    or bolt build [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR] PATTERN ..."
     echo "    or bolt help"
     echo
     echo "options:"
@@ -58,7 +58,7 @@ while echo x"$1" | grep -q '^x-'; do
         fi
         bootstrap_link="$1"; shift
     ;;
-    -c|-config)
+    -c|--config)
         if [ $# -lt 1 ]; then
             fail_usage 1 "$flag requires an argument to be specified"
         fi
@@ -98,6 +98,9 @@ EOF
 }
 
 bolt_build() {
+    $base/jsc compile -c "$config_dir"
+    $base/jsc link -c "$config_dir" -b "$bootstrap_link" dev
+
     echo "not implemented yet, sorry"
 }
 

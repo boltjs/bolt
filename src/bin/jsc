@@ -29,10 +29,6 @@ usage() {
     echo "  -o|--output OUTPUT_DIR         override compilation output directory"
     echo "                                   default: scratch/main/js/compile"
     echo
-    # FIX potential flags:
-    #      link -s|--sync for link to generate sync api using demand
-    #      compile -e|--exclude for excluding modules from compile output
-    # FIX add examples.
 }
 
 fail_usage() {
@@ -78,7 +74,7 @@ while echo x"$1" | grep -q '^x-'; do
         fi
         bootstrap_link="$1"; shift
     ;;
-    -c|-config)
+    -c|--config)
         if [ $# -lt 1 ]; then
             fail_usage 1 "$flag requires an argument to be specified"
         fi
