@@ -2,7 +2,7 @@
 
 usage() {
     echo "usage: bolt init  [-c|--config CONFIG_DIR] [-b|--bootstrap BOOTSTRAP_LINK]"
-    echo "    or bolt build [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR] PATTERN ..."
+    echo "    or bolt build [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR] [-s|--src SRC_DIR] [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]"
     echo "    or bolt help"
     echo
     echo "options:"
@@ -11,7 +11,9 @@ usage() {
     echo "  -c|--config CONFIG_DIR         override bolt configuration directory"
     echo "                                   default: bolt/config"
     echo "  -o|--output OUTPUT_DIR         override compilation output directory"
-    echo "                                   default: scratch/main/js"
+    echo "                                   default: scratch/main/js/compile"
+    echo "  -s|--src SRC_DIR               override source directory"
+    echo "                                   default: src/main/js"
     echo
 }
 
@@ -49,6 +51,10 @@ if [ "$mode" = help ]; then
     exit 0
 fi
 
+entry_points=""
+entry_group_names=""
+targets=""
+
 while echo x"$1" | grep -q '^x-'; do
     flag="$1"; shift
     case "$flag" in
@@ -70,6 +76,27 @@ while echo x"$1" | grep -q '^x-'; do
         fi
         output_dir="$1"; shift
     ;;
+    -s|--src)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        src_dir="$1"; shift
+    ;;
+    -e|--entry-points)
+        while [ $# -gt 0 ] && echo x"$1" | grep -v -q '^x-'; do
+            entry_points="$1 $entry_points"; shift
+        done
+    ;;
+    -g|--entry-group)
+        if [ $# -lt 2 ]; then
+            fail_usage 1 "$flag requires two arguments to be specified"
+        fi
+        name="$1"; shift
+        entry_group_names="$name $entry_group_names"
+        while [ $# -gt 0 ] && echo x"$1" | grep -v -q '^x-'; do
+            eval entry_groups_$name="$1 "'$entry_groups_'"$name"; shift
+        done
+    ;;
     --)
         break;
     ;;
@@ -82,6 +109,7 @@ done
 : ${bootstrap_link:=bolt/bootstrap}
 : ${config_dir:=bolt/config}
 : ${output_dir:=scratch/main/js/compile}
+: ${src_dir:=src/main/js}
 
 
 bolt_init() {
@@ -98,10 +126,39 @@ EOF
 }
 
 bolt_build() {
-    $base/jsc compile -c "$config_dir"
-    $base/jsc link -c "$config_dir" -b "$bootstrap_link" dev
+    echo "$entry_group_names"
 
-    echo "not implemented yet, sorry"
+    if [ ! -z "$entry_points" ]; then
+        for x in $entry_points; do
+            all="`cd $src_dir; find * -path $x`"
+            for file in $all; do
+                target=`basename ${file} | sed -e 's/\//./'`
+                targets="$output_dir/$target $targets"
+                $base/jsc compile -c "$config_dir" "$src_dir/$file" "$output_dir/$target"
+            done
+        done
+    fi
+
+    if [ ! -z "$entry_group_names" ]; then
+
+        for name in $entry_group_names; do
+            all=""
+            eval all_patterns='$entry_groups_'$name
+            for p in $all_patterns; do
+                more="`cd $src_dir; find * -path $x`"
+                for x in $more; do
+                    all="$src_dir/$x $all"
+                done
+            done
+            target="$name.js"
+            targets="$output_dir/$target $targets"
+            $base/jsc compile -c "$config_dir" "$all" "$output_dir/$target"
+        done
+    fi
+
+    $base/jsc link -c "$config_dir" "$targets" "$output_dir/bootstrap.js"
 }
+
+echo "$entry_group_names"
 
 bolt_$mode
