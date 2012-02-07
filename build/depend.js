@@ -11,7 +11,7 @@ var dependencies = [
     targets: [
       { name: "jsc", path: components },
       { name: "bolt", path: components },
-      { name: "*.js", path: components }
+      { name: "*.js*", path: components }
     ],
     executables: [
       components + "/jsc",
