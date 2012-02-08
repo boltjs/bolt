@@ -213,7 +213,7 @@ bolt_build() {
     fi
 
     if [ $count_targets -gt 0 ]; then
-        set -- "$output_dir/bootstrap.js"
+        set -- "$output_dir/compile/bootstrap.js"
         for i in `seq $count_targets -1 1`; do
            eval file='$targets_'`expr $i - 1`
            set -- "$file" "$@"
