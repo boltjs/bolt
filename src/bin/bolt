@@ -120,9 +120,6 @@ while echo x"$1" | grep -q '^x-'; do
         generate_inline=true
     ;;
     -m|--modules)
-        if [ $# -lt 1 ]; then
-            fail_usage 1 "$flag requires an argument to be specified"
-        fi
         generate_modules=true
     ;;
     -e|--entry-points)
