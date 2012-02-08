@@ -27,13 +27,17 @@ compiler.mode.inline = def(
         return 'register("' + id + '");';
       }).join('\n');
     };
-    var run = function (config /*, files, target */) {
+    var run = function (config, invokemain, main, registermodules /*, files, target */) {
       var rest = Array.prototype.slice.call(arguments, 1);
       var files = rest.slice(0, -1);
       var target = rest[rest.length - 1];
       var ids = ar.flatmap(files, defines);
       var read = io.readall(files);
-      var result = read.join('\n') + '\n' + registry(ids);
+      var result = read.join('\n');
+      if (registermodules === "true" || invokemain !== "true")
+        result += '\n' + registry(ids);
+      if (invokemain === "true")
+        result += '\ndem("' + main + '")();';
       var wrapped = wrap(result);
       io.write(target, wrapped);
     };

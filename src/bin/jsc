@@ -4,7 +4,7 @@ usage() {
     echo "usage: jsc dev      [-c|--config CONFIG_DIR]"
     echo "    or jsc compile  [-c|--config CONFIG_DIR] MODULE_FILE ... COMPILE_TARGET"
     echo "    or jsc identify MODULE_FILE"
-    echo "    or jsc inline   [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
+    echo "    or jsc inline   [-c|--config CONFIG_DIR] [-n|--invoke-main MAIN_MODULE] [-r|--register] COMPILE_FILE ... LINK_TARGET"
     echo "    or jsc link     [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
     echo "    or jsc mode     [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR]"
     echo "                    [-b|--bootstrap BOOTSTRAP_LINK] MODE"
@@ -29,6 +29,8 @@ usage() {
     echo "                                   default: bolt/config"
     echo "  -o|--output OUTPUT_DIR         override compilation output directory"
     echo "                                   default: scratch/main/js/compile"
+    echo "  -n|--invoke-main MAIN_MODULE          specify main module of inline scripts"
+    echo "  -r|--register                  register modules in global namespace"
     echo
 }
 
@@ -87,6 +89,16 @@ while echo x"$1" | grep -q '^x-'; do
         fi
         output_dir="$1"; shift
     ;;
+    -n|--invoke-main)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        invoke_main=true
+        main="$1"; shift
+    ;;
+    -r|--register)
+        register_modules=true
+    ;;
     --)
         break;
     ;;
@@ -99,6 +111,8 @@ done
 : ${bootstrap_link:=bolt/bootstrap}
 : ${config_dir:=bolt/config}
 : ${output_dir:=scratch/main/js/compile}
+: ${register_modules:=false}
+: ${invoke_main:=false}
 
 jsc_dev() {
     if [ $# -ne 0 ]; then
@@ -129,7 +143,11 @@ jsc_identify() {
 }
 
 jsc_inline() {
-    jsc_x "$@"
+    if [ $# -lt 2 ]; then
+        fail_usage 1 "invalid number of arguments for jsc $mode [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$config_dir/module.js" "$invoke_main" "$main" "$register_modules" "$@"
 }
 
 jsc_link() {

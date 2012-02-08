@@ -2,7 +2,8 @@
 
 usage() {
     echo 'usage: bolt init  [-c|--config CONFIG_DIR] [-b|--bootstrap BOOTSTRAP_LINK]'
-    echo '    or bolt build [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR] [-s|--src-dir SRC_DIR] [-i|--inline]'
+    echo '    or bolt build [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR] [-s|--src-dir SRC_DIR]'
+    echo '                  [-i|--inline] [-n|--invoke-main MAIN_MODULE] [-r|--register]'
     echo '                  [-m|--modules] [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]'
     echo '    or bolt help'
     echo
@@ -19,6 +20,9 @@ usage() {
     echo '                                   default: src/main/js'
     echo '  -i|--inline                    enable generation of inline scripts (only produces output'
     echo '                                 in conjunction with -e or -g).'
+    echo '  -n|--invoke-main MAIN_MODULE   specify main module of inline scripts.'
+    echo '  -r|--register                  register modules in global namespace for inline scripts,'
+    echo '                                 this will default to true unless -n is specified.'
     echo '  -m|--modules                   enable generation of flat module files.'
     echo '  -e|--entry-points FILE ...     specify a set of entry points, a compiled output'
     echo '                                 will be generated for each entry point. Multiple'
@@ -31,12 +35,12 @@ usage() {
     echo '  Produce a bolt build for a top level application. A compiled file will be'
     echo '  generated for each Main module in this example.'
     echo
-    echo '    bolt build -e **/*Main.js'
+    echo '    bolt build -e src/main/js/**/*Main.js'
     echo
     echo
     echo '  Produce a bolt build for a top level library. A self contained script registering'
     echo '  all modules in their namespace will be produced.'
-    echo '    bolt build -i -g **/api/*.js'
+    echo '    bolt build -i -g src/main/js/**/api/*.js'
     echo
     echo
     echo '  Produce a bolt build for a general purpose library, in this build we only want'
@@ -48,6 +52,9 @@ usage() {
     echo '  Examples assume use of a shell with "**" glob support. This means either zsh or'
     echo '  bash 4.0 with `shopt -s globstar` set. If you are an insolent mac user with the'
     echo '  default bash 3.x, this build tool strongly recommends you upgrade.'
+    echo
+    echo '  If you become desperate something like $(find src/main/js -name \*.js) could be'
+    echo '  used'
     echo
 }
 
@@ -116,6 +123,15 @@ while echo x"$1" | grep -q '^x-'; do
         fi
         src_dir="$1"; shift
     ;;
+    -n|--invoke-main)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        invoke_main_flag="-n $1"; shift
+    ;;
+    -r|--register)
+        register_modules_flag="-r"
+    ;;
     -i|--inline)
         generate_inline=true
     ;;
@@ -125,6 +141,9 @@ while echo x"$1" | grep -q '^x-'; do
     -e|--entry-points)
         while [ $# -gt 0 ] && echo x"$1" | grep -v -q '^x-'; do
             entry="$1"; shift
+            if [ ! -f "$entry" ]; then
+                fail 1 "specified file for entry point not found [$entry]"
+            fi
             eval entry_point_$count_entry_point="$entry"
             count_entry_point=`expr $count_entry_point + 1`
         done
@@ -134,13 +153,19 @@ while echo x"$1" | grep -q '^x-'; do
             fail_usage 1 "$flag requires two arguments to be specified"
         fi
         name=$1; shift
+        if echo "$name" | grep -v -q '/'; then
+            fail 1 "entry group name must not contain special characters" >&2
+        fi
         eval entry_group_name_$count_entry_group_name="$name"
         count_entry_group_name=`expr $count_entry_group_name + 1`
 
         eval count_entry_groups_${name}=0
 
         while [ $# -gt 0 ] && echo x"$1" | grep -v -q '^x-'; do
-            file=$1; shift
+            file="$1"; shift
+            if [ ! -f "$file" ]; then
+                fail 1 "specified file for entry group not found [$file]"
+            fi
             eval count='$count_entry_groups_'${name}
             eval entry_groups_${name}_${count}="$file"
             eval count_entry_groups_${name}=`expr $count + 1`
@@ -150,7 +175,7 @@ while echo x"$1" | grep -q '^x-'; do
         break;
     ;;
     *)
-        fail_usage 1 "invalid flag [$mode]"
+        fail_usage 1 "invalid flag [$flag]"
     ;;
     esac
 done
@@ -175,59 +200,96 @@ EOF
     $base/jsc mode -c "$config_dir" -b "$bootstrap_link" dev
 }
 
+bolt_build_inline() {
+    target="$1"
+    name="$2"
+    mkdir -p "$output_dir/inline"
+    $base/jsc inline -c "$config_dir" $invoke_main_flag $register_modules_flag "$target" "$output_dir/inline/$name.js"
+}
+
+bolt_build_entry_point() {
+    mkdir -p "$output_dir/compile"
+
+    for i in `seq 1 $count_entry_point`; do
+        # this little bit is just iterating through the array
+        eval file='$entry_point_'`expr $i - 1`
+        name=`$base/jsc identify "$file"`
+        target="$output_dir/compile/$name.js"
+
+        # this little bit is to push onto the targets array so things can be linked later
+        eval targets_$count_targets=$target
+        count_targets=`expr $count_targets + 1`
+
+        $base/jsc compile -c "$config_dir" "$file" "$target"
+
+        if [ "$generate_inline" = "true" ]; then
+            bolt_build_inline "$target" "$name"
+        fi
+    done
+
+}
+
+bolt_build_entry_group() {
+    mkdir -p "$output_dir/compile"
+
+    for i in `seq 1 $count_entry_group_name`; do
+        # this little bit is just iterating through the array
+        eval name='$entry_group_name_'`expr $i - 1`
+        target="$output_dir/compile/$name.js"
+
+        # this little bit is to push onto the targets array so things can be linked later
+        eval targets_$count_targets=$target
+        count_targets=`expr $count_targets + 1`
+
+        # build arguments to jsc compile
+        set -- "$target"
+        for j in `seq $count_entry_group_name -1 1`; do
+            eval file='$entry_groups_'${name}'_'`expr $i - 1`
+            set -- "$file" "$@"
+        done
+        $base/jsc compile -c "$config_dir" "$@"
+
+        if [ "$generate_inline" = "true" ]; then
+            bolt_build_inline "$target" "$name"
+        fi
+    done
+}
+
+bolt_link() {
+    # this just builds up the arguments to jsc link into "$@" so they can be quoted correctly
+    set -- "$output_dir/compile/bootstrap.js"
+    for i in `seq $count_targets -1 1`; do
+        eval file='$targets_'`expr $i - 1`
+        set -- "$file" "$@"
+    done
+    $base/jsc link -c "$config_dir" "$@"
+}
+
+bolt_modules() {
+     mkdir -p "$output_dir/module"
+     module_dir=`cd "$output_dir/module" > /dev/null && pwd`
+     (
+        cd "$src_dir" > /dev/null
+        # this munges the modules into their flat format: $src_dir/ephox/bob/package/Module.js -> $output_dir/modules/ephox.bob.package.Module.js
+        find . -name \*.js -exec sh -c 'cp "$1" "$2"/`echo "$1" | sed -e "s:^./::g" -e "s:/:.:g"`' {} {} "$module_dir" \;
+     )
+}
+
 bolt_build() {
     if [ $count_entry_point -gt 0 ]; then
-        for i in `seq 1 $count_entry_point`; do
-            eval file='$entry_point_'`expr $i - 1`
-            name=`$base/jsc identify "$file"`
-            target="$output_dir/compile/$name.js"
-            eval targets_$count_targets=$target
-            count_targets=`expr $count_targets + 1`
-            mkdir -p "$output_dir/compile"
-            $base/jsc compile -c "$config_dir" "$file" "$target"
-            if [ "$generate_inline" = "true" ]; then
-                mkdir -p "$output_dir/inline"
-                $base/jsc inline -c "$config_dir" "$target" "$output_dir/inline/$name.inline.js"
-            fi
-        done
+        bolt_build_entry_point
     fi
 
     if [ $count_entry_group_name -gt 0 ]; then
-       for i in `seq 1 $count_entry_group_name`; do
-           eval name='$entry_group_name_'`expr $i - 1`
-           target="$output_dir/compile/$name.js"
-           eval targets_$count_targets=$target
-           count_targets=`expr $count_targets + 1`
-           set -- "$target"
-           for j in `seq $count_entry_group_name -1 1`; do
-               eval file='$entry_groups_'${name}'_'`expr $i - 1`
-               set -- "$file" "$@"
-           done
-           mkdir -p "$output_dir/compile"
-           $base/jsc compile -c "$config_dir" "$@"
-           if [ "$generate_inline" = "true" ]; then
-               mkdir -p "$output_dir/inline"
-               $base/jsc inline -c "$config_dir" "$target" "$output_dir/inline/$name.inline.js"
-           fi
-       done
+        bolt_build_entry_group
     fi
 
     if [ $count_targets -gt 0 ]; then
-        set -- "$output_dir/compile/bootstrap.js"
-        for i in `seq $count_targets -1 1`; do
-           eval file='$targets_'`expr $i - 1`
-           set -- "$file" "$@"
-        done
-        $base/jsc link -c "$config_dir" "$@"
+        bolt_link
     fi
 
     if [ "$generate_modules" = true ]; then
-         mkdir -p "$output_dir/module"
-         module_dir=`cd "$output_dir/module" > /dev/null && pwd`
-         (
-            cd "$src_dir" > /dev/null
-            find . -name \*.js -exec sh -c 'cp "$1" "$2"/`echo "$1" | sed -e "s:^./::g" -e "s:/:.:g"`' {} {} "$module_dir" \;
-         )
+        bolt_modules
     fi
 }
 
