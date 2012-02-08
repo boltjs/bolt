@@ -2,6 +2,7 @@ compiler.mode.inline = def(
   [
     compiler.tools.files,
     compiler.tools.io,
+    compiler.tools.error,
     compiler.compile.identifier,
     compiler.compile.compiler,
     compiler.compile.configurator,
@@ -11,7 +12,7 @@ compiler.mode.inline = def(
     ephox.bolt.kernel.fp.functions
   ],
 
-  function (filer, io, identifier, compiler, configurator, regulator, metalator, ar) {
+  function (filer, io, error, identifier, compiler, configurator, regulator, metalator, ar) {
     var defines = function (file) {
       if (!metalator.hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');

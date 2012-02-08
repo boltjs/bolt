@@ -1,12 +1,13 @@
 #!/bin/sh
 
 usage() {
-    echo "usage: jsc dev     [-c|--config CONFIG_DIR]"
-    echo "    or jsc compile [-c|--config CONFIG_DIR] MODULE_FILE ... COMPILE_TARGET"
-    echo "    or jsc inline  [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
-    echo "    or jsc link    [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
-    echo "    or jsc mode    [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR]"
-    echo "                   [-b|--bootstrap BOOTSTRAP_LINK] MODE"
+    echo "usage: jsc dev      [-c|--config CONFIG_DIR]"
+    echo "    or jsc compile  [-c|--config CONFIG_DIR] MODULE_FILE ... COMPILE_TARGET"
+    echo "    or jsc identify MODULE_FILE"
+    echo "    or jsc inline   [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
+    echo "    or jsc link     [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
+    echo "    or jsc mode     [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR]"
+    echo "                    [-b|--bootstrap BOOTSTRAP_LINK] MODE"
     echo "    or jsc help"
     echo
     echo "arguments:"
@@ -53,10 +54,10 @@ fi
 mode="$1"; shift
 
 case "$mode" in
-dev|compile|inline|link|mode|help)
+dev|compile|identify|inline|link|mode|help)
     ;;
 *)
-    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|inline|link|mode|help"
+    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|identify|inline|link|mode|help"
     ;;
 esac
 
@@ -117,6 +118,14 @@ jsc_x() {
 
 jsc_compile() {
     jsc_x "$@"
+}
+
+jsc_identify() {
+    if [ $# -ne 1 ]; then
+        fail_usage 1 "invalid number of arguments for jsc $mode [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$1"
 }
 
 jsc_inline() {
