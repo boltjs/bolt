@@ -10,6 +10,7 @@ var builtins = ephox.bolt.module.config.builtins.commonjs;
 var install = ephox.bolt.module.bootstrap.install;
 var node = ephox.bolt.module.reader.node;
 var path = ephox.bolt.module.util.path;
+var transport = ephox.bolt.loader.transporter.commonjs.read;
 
 var reader = function (done) {
   node.read(process.cwd() + '/.', configfile, done);
@@ -21,7 +22,8 @@ global.test = function (deps, fn) {
     deps = [];
   }
 
-  install.install(reader, builtins);
+  install.install(reader, builtins, transport);
+
   global.define = ephox.bolt.module.api.define;
   global.require = ephox.bolt.module.api.require;
   global.demand = ephox.bolt.module.api.demand;
