@@ -42,13 +42,14 @@ compiler.mode.link = def(
         '(function () {\n' +
         '  var install = ephox.bolt.module.bootstrap.install;\n' +
         '  var builtins = ephox.bolt.module.config.builtins.browser;\n' +
+        '  var transport = ephox.bolt.loader.transporter.xhr.request;\n' +
         '  var direct = ephox.bolt.module.reader.direct;\n' +
         '  var reader = direct.create({\n' +
         '    sources: [\n' +
         '    ' + sources + '\n' +
         '    ]\n' +
         '  });\n' +
-        '  install.install(reader, builtins);\n' +
+        '  install.install(reader, builtins, transport);\n' +
         '})();';
 
       generator.generate(target, install);

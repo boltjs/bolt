@@ -15,7 +15,8 @@ compiler.mode.dev = def(
         '  var builtins = ephox.bolt.module.config.builtins.browser;\n' +
         '  var install = ephox.bolt.module.bootstrap.install;\n' +
         '  var reader = ephox.bolt.module.bootstrap.configloader.create("' + config + '");\n' +
-        '  install.install(reader, builtins);\n' +
+        '  var transport = ephox.bolt.loader.transporter.xhr.request;\n' +
+        '  install.install(reader, builtins, transport);\n' +
         '  obj.merge(window, api);\n' +
         '})();';
       generator.generate(bootstrap, hookup);
