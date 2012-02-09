@@ -10,7 +10,8 @@ module.config.apiwrapper = def(
         return spec.modulator;
       });
       obj.each(types, function (k, v) {
-        mids.push(v);
+        if (typeof v === 'string')
+          mids.push(v);
       });
       return mids;
     };

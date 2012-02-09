@@ -9,25 +9,27 @@ module.config.modulator = def(
 
   function (error, pather, amd, globalator, ar) {
     var types = function (builtins, specs) {
-      var ts = builtins();
+      var all = {
+        amd: builtins.amd
+      };
       ar.each(specs, function (spec) {
-        ts[spec.type] = spec.modulator;
+        all[spec.type] = spec.modulator;
       });
-      return ts;
+      return all;
     };
 
-    var source = function (spec) {
+    var source = function (builtins, spec) {
       return ar.map(spec.sources, function (s) {
         if (s.type !== 'amd')
           throw 'Modulator sources only support amd, was [' + s.type + ']';
         var p = pather.create(s.relativeto);
-        return amd.create.apply(null, [ p ].concat(s.args));
+        return builtins.amd.create.apply(null, [ p ].concat(s.args));
       });
     };
 
-    var sources = function (specs) {
+    var sources = function (builtins, specs) {
       return ar.flatmap(specs, function (spec) {
-        return source(spec);
+        return source(builtins, spec);
       }).concat([ globalator.create() ]);
     };
 

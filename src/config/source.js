@@ -14,10 +14,10 @@ module.config.source = def(
 
     var get = function (spec, demand, modulatortypes) {
       var type = spec.type;
-      var id = modulatortypes[type];
-      if (id === undefined)
+      var modulator = modulatortypes[type];
+      if (modulator === undefined)
         throw 'Configuration error: no modulator for source: ' + type;
-      return demand(id);
+      return typeof modulator === 'string' ? demand(modulator) : modulator; // FIX type this so that we don't have to switch on id...
     };
 
     var initialise = function (demand, modulatorsources, modulatortypes, sourcespecs) {

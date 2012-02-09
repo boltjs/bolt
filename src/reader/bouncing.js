@@ -1,12 +1,10 @@
 module.reader.bouncing = def(
   [
     module.error.error,
-    module.config.specs,
-    module.util.path,
-    ephox.bolt.loader.transporter.xhr
+    module.config.specs
   ],
 
-  function (error, specs, path, xhr) {
+  function (error, specs) {
     var bounce = function (current, done, read, acc) {
       var next = acc.configs.shift();
       read(current, next, done, acc);

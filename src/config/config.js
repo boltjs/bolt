@@ -10,7 +10,7 @@ module.config.config = def(
 
   function (error, modulator, source, apiwrapper, config, regulator) {
     var configure = function (configuration, builtins) {
-      var sources = modulator.sources(configuration.types);
+      var sources = modulator.sources(builtins, configuration.types);
       var types = modulator.types(builtins, configuration.types);
       var oracle = source.build(sources, types, configuration.sources);
       var r = regulator.create(oracle);
