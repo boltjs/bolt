@@ -1,14 +1,14 @@
 module.bootstrap.configloader = def(
   [
     module.util.locator,
-    module.reader.bouncing
+    module.reader.browser
   ],
 
-  function (locator, bouncing) {
+  function (locator, browser) {
     var create = function (file) {
       var script = locator.locate();
       return function (done) {
-        bouncing.read(script, file, done);
+        browser.read(script, file, done);
       };
     };
 

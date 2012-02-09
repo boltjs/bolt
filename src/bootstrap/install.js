@@ -10,7 +10,7 @@ module.bootstrap.install = def(
     var notready = function () { throw 'bolt not initialised, can not call define or demand, did you mean to use require or main?'; };
 
     var install = function (reader, builtins) {
-      reader.read(function (configuration) {
+      reader(function (configuration) {
         var bolt = config.configure(configuration, builtins);
 
         runtime.define = bolt.define;

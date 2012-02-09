@@ -4,12 +4,8 @@ module.reader.direct = def(
 
   function () {
     var create = function (configuration) {
-      var read = function (done) {
+      return function (done) {
         done(configuration);
-      };
-
-      return {
-        read: read
       };
     };
 

@@ -18,7 +18,7 @@ module.reader.bouncing = def(
         types: acc.types.concat(cfg.types || []),
         configs: acc.configs.concat(cfg.configs || [])
       };
-      if (configs.length > 0)
+      if (accumulated.configs.length > 0)
         bounce(file, done, read, accumulated);
       else
         done({ sources: accumulated.sources, types: accumulated.types });

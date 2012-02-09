@@ -6,6 +6,7 @@ MODULES = \
 	${SRC}/api/api.js \
 	${SRC}/util/path.js \
 	${SRC}/util/locator.js \
+	${SRC}/bootstrap/pather.js \
 	${SRC}/modulator/modulators.js \
 	${SRC}/config/builtins.js \
 	${SRC}/config/apiwrapper.js \
@@ -13,14 +14,13 @@ MODULES = \
 	${SRC}/config/modulator.js \
 	${SRC}/config/config.js \
 	${SRC}/config/specs.js \
-	${SRC}/bootstrap/pather.js \
-	${SRC}/bootstrap/configloader.js \
-	${SRC}/bootstrap/deferred.js \
-	${SRC}/bootstrap/install.js \
 	${SRC}/reader/bouncing.js \
 	${SRC}/reader/browser.js \
 	${SRC}/reader/node.js \
-	${SRC}/reader/direct.js
+	${SRC}/reader/direct.js \
+	${SRC}/bootstrap/configloader.js \
+	${SRC}/bootstrap/deferred.js \
+	${SRC}/bootstrap/install.js
 DISTFILES = \
 	${LIB}/kernel/kernel.js \
 	${LIB}/loader/loader.js \
