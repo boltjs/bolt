@@ -2,5 +2,5 @@ NAME = test
 MODULES =
 DISTFILES = \
 	${SRC}/bin/test.js \
-	${SRC}/bin/test \
+	${SRC}/bin/best \
 	${LIB}/run/jssert.js
