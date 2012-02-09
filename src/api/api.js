@@ -12,16 +12,10 @@ module.api = def(
     };
 
     return {
-      configure: delegate('configure'),
-      modulator: delegate('type'),   // FIX transitioning to type, kill after Wed 7th December.
-      type: delegate('type'),
-      source: delegate('source'),
-      mapper: mapper,
       define: delegate('define'),
       require: delegate('require'),
       demand: delegate('demand'),
-      main: delegate('main'),
-      expose: delegate('expose')
+      main: delegate('main')
     };
   }
 );

@@ -13,11 +13,14 @@ module.config.specs = def(
       };
     };
 
-    var source = function (type /*, args */) {
-      return {
-        type: type,
-        args: Array.prototype.slice.call(arguments, 1)
-      };
+    var source = function (relativeto) {
+      return function (type /*, args */) {
+        return {
+          type: type,
+          relativeto: relativeto,
+          args: Array.prototype.slice.call(arguments, 1)
+        };
+      }
     };
 
     return {

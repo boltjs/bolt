@@ -1,31 +1,18 @@
 module.bootstrap.pather = def(
   [
-    module.util.locator,
     module.util.path
   ],
 
-  function (locator, path) {
-    var dev = function (configfile) {
-      var script = locator.locate();
-      var base = path.dirname(script);
-      var absolute = base + '/' + configfile;
-      var configbase = path.dirname(absolute);
-      return function (path) {
-        return configbase + '/' + path;
-      };
-    };
-
-    var compile = function () {
-      var script = locator.locate();
-      var base = path.dirname(script);
+  function (path) {
+    var create = function (relativeto) {
+      var base = path.dirname(relativeto);
       return function (path) {
         return base + '/' + path;
       };
     };
 
     return {
-      dev: dev,
-      compile: compile
+      create: create
     };
   }
 );

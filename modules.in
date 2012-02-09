@@ -16,7 +16,11 @@ MODULES = \
 	${SRC}/bootstrap/pather.js \
 	${SRC}/bootstrap/configloader.js \
 	${SRC}/bootstrap/deferred.js \
-	${SRC}/bootstrap/install.js
+	${SRC}/bootstrap/install.js \
+	${SRC}/reader/bouncing.js \
+	${SRC}/reader/browser.js \
+	${SRC}/reader/node.js \
+	${SRC}/reader/direct.js
 DISTFILES = \
 	${LIB}/kernel/kernel.js \
 	${LIB}/loader/loader.js \

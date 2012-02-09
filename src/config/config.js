@@ -9,15 +9,13 @@ module.config.config = def(
   ],
 
   function (error, modulator, source, apiwrapper, config, regulator) {
-    var configure = function (configuration, pather, builtins) {
-      var sourcespecs = configuration.sources || [];
-      var modulatorspecs = configuration.types || configuration.modulators || []; // FIX transitioning to type, kill after Wed 7th December.
-      var modulatorsources = modulator.sources(modulatorspecs, pather);
-      var modulatortypes = modulator.types(builtins, modulatorspecs);
-      var oracle = source.build(modulatorsources, modulatortypes, sourcespecs, pather);
+    var configure = function (configuration, builtins) {
+      var sources = modulator.sources(configuration.types);
+      var types = modulator.types(builtins, configuration.types);
+      var oracle = source.build(sources, types, configuration.sources);
       var r = regulator.create(oracle);
       var bolt = config.configure(r, error.die);
-      return apiwrapper.api(bolt, modulatorspecs, modulatortypes);
+      return apiwrapper.api(bolt, configuration.types, types);
     };
 
     return {
