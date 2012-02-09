@@ -17,5 +17,19 @@ var dependencies = [
       components + "/jsc",
       components + "/bolt"
     ]
+  },
+
+  {
+    name: "bolt-test",
+    repository: "buildrepo2",
+    version : "latest",
+    source: "bolt-test.zip",
+    targets: [
+      { name: "test", path: components },
+      { name: "*.js", path: components }
+    ],
+    executables: [
+      components + "/test"
+    ]
   }
 ];
