@@ -12,12 +12,11 @@ compiler.mode.dev = def(
         '(function () {\n' +
         '  var obj = ephox.bolt.kernel.fp.object;\n' +
         '  var api = ephox.bolt.module.api;\n' +
-        '  var pather = ephox.bolt.module.bootstrap.pather;\n' +
+        '  var builtins = ephox.bolt.module.config.builtins.browser;\n' +
         '  var install = ephox.bolt.module.bootstrap.install;\n' +
-        '  var configloader = ephox.bolt.module.bootstrap.configloader;\n' +
-        '  install.install(pather.dev("' + config + '"));\n' +
+        '  var reader = ephox.bolt.module.bootstrap.configloader.create("' + config + '");\n' +
+        '  install.install(reader, builtins);\n' +
         '  obj.merge(window, api);\n' +
-        '  configloader.load("' + config + '");\n' +
         '})();';
       generator.generate(bootstrap, hookup);
     };

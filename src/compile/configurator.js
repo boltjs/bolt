@@ -7,13 +7,12 @@ compiler.compile.configurator = def(
   ],
 
   function (specs, mapper, io, error) {
-    var load = function (file, pather) {
+    var load = function (file) {
       var result = {};
 
       // In scope for eval
-      var modulator = specs.type;
       var type = specs.type;
-      var source = specs.source;
+      var source = specs.source(file);
       var configure = function (configuration) {
         result = configuration;
       };

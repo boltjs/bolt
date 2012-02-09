@@ -10,7 +10,6 @@ compiler.mode.link = def(
   ],
 
   function (error, io, generator, configurator, metalator, ar, path) {
-
     var slurp = function (file) {
       if (!metalator.hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');
@@ -27,13 +26,6 @@ compiler.mode.link = def(
       });
     };
 
-    var install =
-      '(function () {\n' +
-      '  var pather = ephox.bolt.module.bootstrap.pather;\n' +
-      '  var install = ephox.bolt.module.bootstrap.install;\n' +
-      '  install.install(pather.compile());\n' +
-      '})();';
-
     var link = function (files) {
       var bits = files.map(slurp);
       return ar.flatmap(bits, configthing);
@@ -46,19 +38,20 @@ compiler.mode.link = def(
       var parts = link(files);
       var sources = parts.join(',\n    ');
 
-      var configuration =
+      var install =
         '(function () {\n' +
-        '  var configure = ephox.bolt.module.api.configure;\n' +
-        '  var source = ephox.bolt.module.api.source;\n' +
-        '  var mapper = ephox.bolt.module.api.mapper;\n' +
-        '  configure({' +
+        '  var install = ephox.bolt.module.bootstrap.install;\n' +
+        '  var builtins = ephox.bolt.module.config.builtins.browser;\n' +
+        '  var direct = ephox.bolt.module.reader.direct;\n' +
+        '  var reader = direct.create({\n' +
         '    sources: [\n' +
         '    ' + sources + '\n' +
-        '    ]' +
-          '});\n' +
+        '    ]\n' +
+        '  });\n' +
+        '  install.install(reader, builtins);\n' +
         '})();';
 
-      generator.generate(target, install + '\n' + configuration);
+      generator.generate(target, install);
     };
 
     return {

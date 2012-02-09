@@ -9,11 +9,9 @@ compiler.compile.regulator = def(
   ],
 
   function (ar, config, regulator, modulator, source, compound) {
-    var load = function (configuration, pather) {
-      var modulatorspecs = configuration.modulators || [];
-      var sourcespecs = configuration.sources || [];
-      var modulators = modulator.types(modulatorspecs, pather);
-      var sources = source.build(modulators, sourcespecs, pather);
+    var load = function (configuration) {
+      var modulators = modulator.types(configuration.modulators);
+      var sources = source.build(modulators, configuration.sources);
       var oracle = compound.create(sources);
       return regulator.create(oracle);
     };
