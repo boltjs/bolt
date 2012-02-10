@@ -3,16 +3,11 @@ compiler.mode.inline = def(
     compiler.tools.files,
     compiler.tools.io,
     compiler.tools.error,
-    compiler.compile.identifier,
-    compiler.compile.compiler,
-    compiler.compile.configurator,
-    compiler.compile.regulator,
-    compiler.meta.metalator,
-    ephox.bolt.kernel.fp.array,
-    ephox.bolt.kernel.fp.functions
+    compiler.inspect.metalator,
+    ephox.bolt.kernel.fp.array
   ],
 
-  function (filer, io, error, identifier, compiler, configurator, regulator, metalator, ar) {
+  function (filer, io, error, metalator, ar) {
     var defines = function (file) {
       if (!metalator.hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');

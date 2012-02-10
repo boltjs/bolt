@@ -1,4 +1,4 @@
-compiler.meta.metalator = def(
+compiler.inspect.metalator = def(
   [
     compiler.tools.io,
     compiler.tools.error

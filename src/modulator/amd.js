@@ -1,6 +1,6 @@
 compiler.modulator.amd = def(
   [
-    compiler.meta.metalator,
+    compiler.inspect.metalator,
     compiler.tools.io,
     compiler.tools.error
   ],

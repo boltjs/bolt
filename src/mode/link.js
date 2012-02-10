@@ -3,13 +3,12 @@ compiler.mode.link = def(
     compiler.tools.error,
     compiler.tools.io,
     compiler.bootstrap.generator,
-    compiler.compile.configurator,
-    compiler.meta.metalator,
+    compiler.inspect.metalator,
     ephox.bolt.kernel.fp.array,
     require('path')
   ],
 
-  function (error, io, generator, configurator, metalator, ar, path) {
+  function (error, io, generator, metalator, ar, path) {
     var slurp = function (file) {
       if (!metalator.hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');

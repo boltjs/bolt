@@ -1,11 +1,9 @@
 compiler.mode.dev = def(
   [
-    compiler.bootstrap.generator,
-    compiler.compile.modulator,
-    compiler.compile.configurator
+    compiler.bootstrap.generator
   ],
 
-  function (generator, modulator) {
+  function (generator) {
     var run = function (bootstrap, config) {
       config = config || 'module.js';
       var hookup =

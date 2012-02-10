@@ -153,7 +153,7 @@ while echo x"$1" | grep -q '^x-'; do
             fail_usage 1 "$flag requires two arguments to be specified"
         fi
         name=$1; shift
-        if echo "$name" | grep -v -q '/'; then
+        if echo "$name" | grep -q '/'; then
             fail 1 "entry group name must not contain special characters" >&2
         fi
         eval entry_group_name_$count_entry_group_name="$name"

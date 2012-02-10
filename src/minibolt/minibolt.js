@@ -2,21 +2,22 @@ compiler.minibolt.minibolt = def(
   [
     ephox.bolt.kernel.api.regulator,
     ephox.bolt.kernel.api.config,
-    compiler.oracle.compound,
+    ephox.bolt.module.config.builtins,
+    ephox.bolt.module.config.modulator,
     compiler.tools.error
   ],
 
-  function (regulator, config, compound, error) {
-    var create = function (sources) {
-      var oracle = compound.create(sources);
-      var r = regulator.create(oracle);
+  function (regulator, config, builtins, modulator, error) {
+    var create = function (configuration) {
+      var types = modulator.types(builtins.commonjs, configuration.types);
+      var r = regulator.create(types, configuration.sources);
       return config.configure(r, error.die);
     };
 
-    var demand = function (sources, id) {
-      var bolt = create(sources);
+    var demand = function (configuration, id) {
+      var bolt = create(configuration);
       global.define = bolt.define;
-      bolt.require([id], function () {});
+      bolt.require([ id ], function () {});
       delete global.define;
       return bolt.demand(id);
     };

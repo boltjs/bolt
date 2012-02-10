@@ -1,14 +1,8 @@
 var compiler = bolt.compiler = bolt.compiler || {};
 compiler.bootstrap = compiler.bootstrap || {};
-compiler.core = compiler.core || {};
 compiler.compile = compiler.compile || {};
-compiler.config = compiler.config || {};
-compiler.load = compiler.load || {};
-compiler.loader = compiler.loader || {};
-compiler.meta = compiler.meta || {};
+compiler.inspect = compiler.inspect || {};
 compiler.minibolt = compiler.minibolt || {};
 compiler.mode = compiler.mode || {};
 compiler.modulator = compiler.modulator || {};
-compiler.oracle = compiler.oracle || {};
-compiler.output = compiler.output || {};
 compiler.tools = compiler.tools || {};

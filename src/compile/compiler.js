@@ -1,7 +1,7 @@
 // FIX reconsider name, but compiler.compile.compiler.compile() method calls would rock.
 compiler.compile.compiler = def(
   [
-    compiler.meta.metalator,
+    compiler.inspect.metalator,
     compiler.tools.io,
     compiler.tools.error,
     compiler.compile.renderer,
@@ -14,8 +14,6 @@ compiler.compile.compiler = def(
     var modules = {}; // id -> [id]
     var renders = {}; // id -> spec
 
-    var unexpected = fn.curry(error.die, "unexpected call to require, define or demand by compile modulator.");
-
     var analyse = function (ids) {
       var results = analyser.analyse(ids, modules);
       if (results.cycle)
@@ -23,26 +21,26 @@ compiler.compile.compiler = def(
       return results;
     };
 
-    var load = function (regulator, id) {
-      var spec = regulator.regulate(id, unexpected, unexpected, unexpected);
+    var load = function (sources, id) {
+      var spec = sources.load(id);
       renders[id] = spec;
       spec.load(function (id, dependencies) {
         modules[id] = dependencies;
       });
     };
     
-    var checkedload = function (regulator, id) {
-      if (!regulator.can(id, unexpected))
+    var checkedload = function (sources, id) {
+      if (!sources.can(id))
         error.die("Configuration error: no source found to load module: " + id);
 
-      load(regulator, id);
+      load(sources, id);
 
       if (modules[id] === undefined)
         error.die('Configuration error: module [' + id + '] was not loaded from expected source');
     };
 
-    var compile = function (regulator, ids) {
-      var loader = fn.curry(checkedload, regulator);
+    var compile = function (sources, ids) {
+      var loader = fn.curry(checkedload, sources);
       var results = analyse(ids);
       while (results.load.length > 0) {
         results.load.forEach(loader);
