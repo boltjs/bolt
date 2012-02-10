@@ -14,10 +14,11 @@ compiler.mode.compile = def(
       var files = rest.slice(0, -1);
       var target = rest[rest.length - 1];
       reader.read(process.cwd() + '/.', config, function (configuration) {
-        var source = sources.create(configuration);
-        var modules = ar.flatmap(files, identifier.identify);
-        var result = compiler.compile(source, modules);
-        io.write(target, result);
+        sources.build(configuration, function (source) {
+          var modules = ar.flatmap(files, identifier.identify);
+          var result = compiler.compile(source, modules);
+          io.write(target, result);
+        });
       });
     };
 

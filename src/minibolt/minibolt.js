@@ -14,17 +14,18 @@ compiler.minibolt.minibolt = def(
       return config.configure(r, error.die);
     };
 
-    var demand = function (configuration, id) {
+    var require = function (configuration, ids, onsuccess) {
       var bolt = create(configuration);
       global.define = bolt.define;
-      bolt.require([ id ], function () {});
-      delete global.define;
-      return bolt.demand(id);
+      bolt.require(ids, function (/* modules */) {
+        delete global.define;
+        onsuccess(arguments);
+      });
     };
 
     return {
       create: create,
-      demand: demand
+      require: require
     };
   }
 );
