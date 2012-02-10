@@ -11,13 +11,6 @@ kernel.module.fetcher = def(
     var create = function (regulator, validator, onerror, define, require, demand) {
       var piggyback = piggybacker.create();
 
-      var toSpecs = function (ids) {
-        return ar.map(ids, function (id) {
-          var spec = regulator.regulate(id, define, require, demand);
-          return { id: id, url: spec.url, load: spec.load, serial: spec.serial };
-        });
-      };
-
       var validate = function (onsuccess, results) {
         var failed = ar.filter(results, fn.not(validator));
         if (failed.length > 0)
@@ -34,21 +27,16 @@ kernel.module.fetcher = def(
         piggyback.piggyback(spec.url, load, action);
       };
 
-      var asyncfetch = function (ids, onsuccess) {
-        var specs = toSpecs(ids);
+      var asyncfetch = function (specs, onsuccess) {
         var oncomplete = fn.curry(validate, onsuccess);
         var strata = stratifier.stratify(specs);
         map.amap(strata, mapper, oncomplete);
       };
 
       var fetch = function (ids, onsuccess) {
-        var cants = ar.filter(ids, function (id) {
-          return !regulator.can(id, demand);
-        });
-        if (cants.length > 0)
-          onerror('Fetcher error: do not know how to fetch: ' + cants.join(', '));
-        else
-          asyncfetch(ids, onsuccess);
+        regulator.regulate(ids, define, require, demand, function (specs) {
+          asyncfetch(specs, onsuccess);
+        }, onerror);
       };
 
       return {
