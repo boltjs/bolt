@@ -9,8 +9,6 @@ MODULES = \
 	${SRC}/bootstrap/pather.js \
 	${SRC}/modulator/modulators.js \
 	${SRC}/config/builtins.js \
-	${SRC}/config/apiwrapper.js \
-	${SRC}/config/source.js \
 	${SRC}/config/modulator.js \
 	${SRC}/config/config.js \
 	${SRC}/config/specs.js \

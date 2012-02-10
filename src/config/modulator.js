@@ -1,41 +1,26 @@
 module.config.modulator = def(
   [
     module.error.error,
-    module.bootstrap.pather,
     module.modulator.modulators.amdscripttag,
     ephox.bolt.kernel.modulator.globalator,
-    ephox.bolt.kernel.fp.array
+    ephox.bolt.kernel.fp.array,
+    ephox.bolt.kernel.fp.object
   ],
 
-  function (error, pather, amd, globalator, ar) {
+  function (error, amd, globalator, ar, obj) {
     var types = function (builtins, specs) {
-      var all = {
-        amd: builtins.amd
-      };
+      var r = {};
+      obj.each(builtins, function (key, value) {
+        r[key] = { instance: value };
+      });
       ar.each(specs, function (spec) {
-        all[spec.type] = spec.modulator;
+        r[spec.type] = { id: spec.modulator };
       });
-      return all;
-    };
-
-    var source = function (builtins, spec) {
-      return ar.map(spec.sources, function (s) {
-        if (s.type !== 'amd')
-          throw 'Modulator sources only support amd, was [' + s.type + ']';
-        var p = pather.create(s.relativeto);
-        return builtins.amd.create.apply(null, [ p ].concat(s.args));
-      });
-    };
-
-    var sources = function (builtins, specs) {
-      return ar.flatmap(specs, function (spec) {
-        return source(builtins, spec);
-      }).concat([ globalator.create() ]);
+      return r;
     };
 
     return {
-      types: types,
-      sources: sources
+      types: types
     };
   }
 );

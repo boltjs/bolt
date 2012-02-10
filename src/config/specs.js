@@ -1,15 +1,15 @@
 module.config.specs = def(
   [
+    module.bootstrap.pather
   ],
 
-  function () {
-    var type = function (type, implementation, sources) {
+  function (pather) {
+    var type = function (type, implementation) {
       return {
         type: type,
         implementation: implementation,
         modulator: implementation + '.Modulator',
-        compiler: implementation + '.Compiler',
-        sources: sources
+        compiler: implementation + '.Compiler'
       };
     };
 
@@ -18,7 +18,7 @@ module.config.specs = def(
         return {
           type: type,
           relativeto: relativeto,
-          args: Array.prototype.slice.call(arguments, 1)
+          args: [ pather.create(relativeto) ].concat(Array.prototype.slice.call(arguments, 1))
         };
       }
     };
