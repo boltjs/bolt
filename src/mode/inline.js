@@ -23,7 +23,7 @@ compiler.mode.inline = def(
       }).join('\n');
     };
     var run = function (config, invokemain, main, registermodules /*, files, target */) {
-      var rest = Array.prototype.slice.call(arguments, 1);
+      var rest = Array.prototype.slice.call(arguments, 4);
       var files = rest.slice(0, -1);
       var target = rest[rest.length - 1];
       var ids = ar.flatmap(files, defines);
