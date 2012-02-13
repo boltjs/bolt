@@ -1,6 +1,5 @@
 NAME = compiler
 MODULES = \
-    ${SRC}/prelude/require.js \
 	${SRC}/prelude/namespace.js \
 	${SRC}/tools/error.js \
 	${SRC}/tools/io.js \
@@ -24,7 +23,6 @@ DISTFILES = \
 	${LIB}/module/loader.js \
 	${LIB}/module/module.js \
 	${LIB}/module/rhino.js \
-	${LIB}/module/node.js \
 	${LIB}/inline/inline.js \
 	${LIB}/inline/inline.js.pre \
 	${LIB}/inline/inline.js.post \
