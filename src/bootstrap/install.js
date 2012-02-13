@@ -1,32 +1,24 @@
 module.bootstrap.install = def(
   [
-    module.config.config,
+    ephox.bolt.kernel.api.config,
     module.bootstrap.deferred,
-    module.runtime
+    module.bootstrap.main,
+    module.runtime,
+    module.error.error
   ],
 
-  function (config, deferred, runtime) {
+  function (config, deferred, main, runtime, error) {
     var notready = function () { throw 'bolt not initialised, can not call define or demand, did you mean to use require or main?'; };
 
     var install = function (reader, builtins, transport) {
-      var main = function (id, args, configs, callback) {
-        runtime.require(configs || [], function () {
-          callback && callback.apply(null, arguments);
-          runtime.require([id], function (module) {
-            module.apply(null, args);
-          });
-        });
-      };
-
       runtime.define = notready;
       runtime.demand = notready;
       runtime.require = deferred.require;
-      runtime.main = main;
+      runtime.main = main.main;
       runtime.load = transport;
 
       reader(function (configuration) {
-        var bolt = config.configure(configuration, builtins);
-
+        var bolt = config.configure(configuration, builtins, error.die);
         runtime.define = bolt.define;
         runtime.require = bolt.require;
         runtime.demand = bolt.demand;

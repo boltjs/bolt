@@ -25,7 +25,7 @@ module.reader.bouncing = def(
     var evaluate = function (file, payload, done, read, acc) {
       var result = {};
       /* eval scope */
-      var mapper = module.mapper.mapper;
+      var mapper = module.config.mapper;
       var type = specs.type;
       var source = specs.source(file);
       var configure = function (configuration) {

@@ -1,4 +1,4 @@
-module.mapper.mapper = def(
+module.config.mapper = def(
   [
   ],
 
@@ -12,7 +12,7 @@ module.mapper.mapper = def(
     };
 
     var constant = function (name) {
-      return function (id) {
+      return function () {
         return name;
       };
     };

@@ -1,10 +1,9 @@
 module.api = def(
   [
-    module.runtime,
-    module.mapper.mapper
+    module.runtime
   ],
   
-  function (runtime, mapper) {
+  function (runtime) {
     var delegate = function (method) {
       return function () {
         return runtime[method].apply(null, arguments);

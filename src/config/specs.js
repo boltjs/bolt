@@ -1,6 +1,6 @@
 module.config.specs = def(
   [
-    module.bootstrap.pather
+    module.util.pather
   ],
 
   function (pather) {

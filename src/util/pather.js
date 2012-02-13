@@ -1,4 +1,4 @@
-module.bootstrap.pather = def(
+module.util.pather = def(
   [
     module.util.path
   ],

@@ -3,7 +3,6 @@ module.util.locator = def(
   ],
 
   function () {
-    // FIX move to loader project and write tests...
     var browser = function () {
       var scripts = document.getElementsByTagName("script");
       return scripts[scripts.length - 1].src;
