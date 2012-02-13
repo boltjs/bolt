@@ -1,11 +1,15 @@
 kernel.api.config = def(
   [
-    kernel.module.manager
+    kernel.module.manager,
+    kernel.api.regulator,
+    kernel.api.sources
   ],
 
-  function (manager) {
-    var configure = function (regulator, onerror) {
-      var engine = manager.create(regulator, onerror);
+  function (manager, regulator, sources) {
+    var configure = function (configuration, builtins, onerror) {
+      var s = sources.create(builtins, configuration);
+      var r = regulator.create(s);
+      var engine = manager.create(r, onerror);
 
       return {
         define: engine.define,

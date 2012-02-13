@@ -12,11 +12,15 @@ var define = function (id, dependencies, definition) {
   blueprints[id] = {};
 };
 
+var fail = function () {
+  throw 'unexepected call.';
+};
+
 var validator = function (id) {
   return blueprints[id] !== undefined;
 };
 
-var regulate = function () {
+var regulate = function (ids, define, require, demand, onsuccess, onerror) {
   var load = function (onsuccess, onfailure) {
     define('test', [], function () {
         return { greeting: 'hello world!' };
@@ -24,15 +28,18 @@ var regulate = function () {
     );
     onsuccess();
   };
-  return { serial: false, load: load, url: 'arbitrary.js' };
+
+  if (ids.length === 1 && ids[0] === 'test')
+    onsuccess([ { id: 'test', serial: false, load: load, url: 'arbitrary.js' } ]);
+  else
+    onerror('unexpected ids [' + ids.join(', ') + ']');
 };
 
 var regulator = {
-  can: function (id) { return id === 'test'; },
   regulate: regulate
 };
 
-var fetch = fetcher.create(regulator, validator, onerror);
+var fetch = fetcher.create(regulator, validator, onerror, define, fail, fail);
 
 var isrun = false;
 
@@ -44,4 +51,4 @@ var onsuccess = function () {
 fetch.fetch(['test'], onsuccess);
 
 assert(isrun, "onsuccess was called");
-assert(blueprints['test'] !== undefined, "define was called with the correct module")
+assert(blueprints['test'] !== undefined, "define was called with the correct module");
