@@ -1,6 +1,9 @@
 NAME = test
-MODULES =
+MODULES = \
+	${SRC}/prelude/namespace.js \
+	${SRC}/report/vanilla.js \
+	${SRC}/run/runner.js \
+	${SRC}/run/test.js \
+	${SRC}/run/wrapper.js
 DISTFILES = \
-	${SRC}/bin/test.js \
-	${SRC}/bin/best \
 	${LIB}/run/jssert.js
