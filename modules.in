@@ -1,0 +1,10 @@
+NAME = script
+MODULES =
+DISTFILES = \
+	${SRC}/bolt \
+	${SRC}/bolt-init.subr \
+	${SRC}/bolt-build.subr \
+	${SRC}/bolt-test.subr \
+	${SRC}/bolt-test.js \
+	${SRC}/jsc \
+	${SRC}/jsc.js

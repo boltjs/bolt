@@ -1,0 +1,60 @@
+usage() {
+    echo 'usage: bolt init  [-c|--config CONFIG_DIR] [-b|--bootstrap BOOTSTRAP_LINK]'
+    echo
+    echo 'options:'
+    echo '  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,'
+    echo '                                   default: bolt/bootstrap'
+    echo '  -c|--config CONFIG_DIR         override bolt configuration directory'
+    echo '                                   default: bolt/config'
+    echo
+    echo 'example:'
+    echo '  Initialise a project after checkout.'
+    echo
+    echo '    bolt init'
+    echo
+}
+
+if [ "$help_mode" = true ]; then
+    usage
+    exit 0
+fi
+
+while echo x"$1" | grep -q '^x-'; do
+    flag="$1"; shift
+    case "$flag" in
+    -b|--bootstrap)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        bootstrap_link="$1"; shift
+    ;;
+    -c|--config)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        config_dir="$1"; shift
+    ;;
+    --)
+        break;
+    ;;
+    *)
+        fail_usage 1 "invalid flag [$flag]"
+    ;;
+    esac
+done
+
+: ${bootstrap_link:=bolt/bootstrap}
+: ${config_dir:=bolt/config}
+
+[ -d "$config_dir" ] || mkdir -p "$config_dir"
+
+[ -f "$config_dir/module.js" ] || cat > "$config_dir/module.js" <<EOF
+configure({
+  sources: [
+  ]
+});
+
+EOF
+
+$base/jsc dev -c "$config_dir"
+$base/jsc mode -c "$config_dir" -b "$bootstrap_link" dev

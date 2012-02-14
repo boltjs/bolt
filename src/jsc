@@ -1,0 +1,198 @@
+#!/bin/sh
+
+usage() {
+    echo "usage: jsc dev      [-c|--config CONFIG_DIR]"
+    echo "    or jsc compile  [-c|--config CONFIG_DIR] MODULE_FILE ... COMPILE_TARGET"
+    echo "    or jsc identify MODULE_FILE"
+    echo "    or jsc inline   [-c|--config CONFIG_DIR] [-n|--invoke-main MAIN_MODULE] [-r|--register] COMPILE_FILE ... LINK_TARGET"
+    echo "    or jsc link     [-c|--config CONFIG_DIR] COMPILE_FILE ... LINK_TARGET"
+    echo "    or jsc mode     [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR]"
+    echo "                    [-b|--bootstrap BOOTSTRAP_LINK] MODE"
+    echo "    or jsc help"
+    echo
+    echo "arguments:"
+    echo "  MODULE_FILE      file containing an uncompiled module"
+    echo "  COMPILE_TARGET   file to generate when compiling, will contain the set of"
+    echo "                   modules and their dependencies, a definition meta-data"
+    echo "                   file will be generated as 'COMPILE_TARGET.meta'"
+    echo "  COMPILE_FILE     file produced by compilation to use as input to linking,"
+    echo "                   COMPILE_FILE must have corresponding 'COMPILE_TARGET.meta'"
+    echo "  LINK_TARGET      file to generate when linking, will contain bootstrap"
+    echo "                   information: bolt, install and configuration"
+    echo "  MODE             either 'dev' or 'compile', uses CONFIG_DIR in dev mode,"
+    echo "                   uses OUTPUT_DIR in prod mode"
+    echo
+    echo "options:"
+    echo "  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,"
+    echo "                                   default: bolt/bootstrap"
+    echo "  -c|--config CONFIG_DIR         override bolt configuration directory"
+    echo "                                   default: bolt/config"
+    echo "  -o|--output OUTPUT_DIR         override compilation output directory"
+    echo "                                   default: scratch/main/js/compile"
+    echo "  -n|--invoke-main MAIN_MODULE          specify main module of inline scripts"
+    echo "  -r|--register                  register modules in global namespace"
+    echo
+}
+
+fail_usage() {
+    echo $2 >&2
+    echo >&2
+    usage >&2
+    exit $1
+}
+
+fail() {
+    echo $2 >&2
+    exit $1
+}
+
+
+base=`dirname $0`
+
+if [ $# -lt 1 ]; then
+    fail_usage 1 "error: must specify mode."
+fi
+
+mode="$1"; shift
+
+case "$mode" in
+dev|compile|identify|inline|link|mode|help)
+    ;;
+*)
+    fail_usage 1 "invalid mode [$mode], must be one of dev|compile|identify|inline|link|mode|help"
+    ;;
+esac
+
+if [ "$mode" = help ]; then
+  usage
+  exit 0
+fi
+
+while echo x"$1" | grep -q '^x-'; do
+    flag="$1"; shift
+    case "$flag" in
+    -b|--bootstrap)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        bootstrap_link="$1"; shift
+    ;;
+    -c|--config)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        config_dir="$1"; shift
+    ;;
+    -o|--output)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        output_dir="$1"; shift
+    ;;
+    -n|--invoke-main)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        invoke_main=true
+        main="$1"; shift
+    ;;
+    -r|--register)
+        register_modules=true
+    ;;
+    --)
+        break;
+    ;;
+    *)
+        fail_usage 1 "invalid flag [$mode]"
+    ;;
+    esac
+done
+
+: ${bootstrap_link:=bolt/bootstrap}
+: ${config_dir:=bolt/config}
+: ${output_dir:=scratch/main/js/compile}
+: ${register_modules:=false}
+: ${invoke_main:=false}
+
+jsc_dev() {
+    if [ $# -ne 0 ]; then
+        fail_usage 1 "invalid number of arguments for jsc dev [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$config_dir/bootstrap.js" "module.js"
+}
+
+jsc_x() {
+    if [ $# -lt 2 ]; then
+        fail_usage 1 "invalid number of arguments for jsc $mode [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$config_dir/module.js" "$@"
+}
+
+jsc_compile() {
+    jsc_x "$@"
+}
+
+jsc_identify() {
+    if [ $# -ne 1 ]; then
+        fail_usage 1 "invalid number of arguments for jsc $mode [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$1"
+}
+
+jsc_inline() {
+    if [ $# -lt 2 ]; then
+        fail_usage 1 "invalid number of arguments for jsc $mode [$#]"
+    fi
+
+    exec node $base/jsc.js "$mode" "$config_dir/module.js" "$invoke_main" "$main" "$register_modules" "$@"
+}
+
+jsc_link() {
+    jsc_x "$@"
+}
+
+jsc_mode() {
+    case $# in
+    1)
+        case "$1" in
+        dev)
+            from="$config_dir"
+            ;;
+        compile)
+            from="$output_dir"
+            ;;
+        *)
+            fail_usage 1 "invalid mode [$1], must be one of dev|compile"
+        esac
+        ;;
+    *)
+        fail_usage 1 "must specify mode, dev|compile"
+        ;;
+    esac
+
+    if [ ! -d "`dirname $bootstrap_link`" ]; then
+        mkdir -p `dirname $bootstrap_link`
+    fi
+
+    if [ -d "$bootstrap_link" -a ! -L "$bootstrap_link" ]; then
+        fail 1 "$bootstrap_link already exists as a directory and can not be overridden"
+    fi
+
+    # this, believe it or not ...
+    bits=`echo "$bootstrap_link" | awk '{ gsub("//*", "/"); gsub("[^/]", ""); gsub("/", "../"); print;}'`
+    [ -L "$bootstrap_link" ] && rm "$bootstrap_link"
+    ln -fs "$bits$from" "$bootstrap_link"
+}
+
+if [ ! -d "$config_dir" ]; then
+    fail 1 "config directory [$config_dir] does not exist or is not a directory"
+fi
+
+if [ ! -f "$config_dir/module.js" ]; then
+    fail 1 "$config_dir/module.js does not exist or is not a file"
+fi
+
+jsc_$mode "$@"
