@@ -13,7 +13,7 @@ usage() {
     echo '  help'
     echo
     echo 'For usage/help on a specific module, use:'
-    echo '  bolt help MODE
+    echo '  bolt help MODE'
 }
 
 fail_usage() {
@@ -41,9 +41,11 @@ case "$mode" in
 -h|--help)
     usage
     exit 0
+    ;;
 -v|--version)
     echo "bolt version [$version]"
     exit 0
+    ;;
 init|build|test|help)
     ;;
 *)
@@ -53,8 +55,14 @@ esac
 
 if [ "$mode" = help ]; then
     help_mode=true
-    shift
     mode="$1"
+    case "$mode" in
+    init|build|test)
+        ;;
+    *)
+        fail 2 "help requires argument: bolt help MODE, where MODE is one of init|build|test"
+        ;;
+    esac
 fi
 
 . $base/bolt-$mode.subr

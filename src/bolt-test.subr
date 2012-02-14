@@ -30,7 +30,7 @@ if [ "$help_mode" = true ]; then
     exit 0
 fi
 
-if [ $? -lt 2 ]; then
+if [ $# -lt 2 ]; then
     fail_usage 1 "Not enough arguments, must specify configuration and at least one test file."
 fi
 
@@ -46,4 +46,4 @@ for file in "$@"; do
     fi
 done
 
-exec node $base/bolt-test.js "$@"
+exec node $base/bolt-test.js "$config" "$@"
