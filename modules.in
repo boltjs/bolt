@@ -7,7 +7,8 @@ MODULES = \
 	${SRC}/minibolt/minibolt.js \
 	${SRC}/inspect/metalator.js \
 	${SRC}/inspect/identifier.js \
-	${SRC}/bootstrap/generator.js \
+	${SRC}/generator/bootstrap.js \
+	${SRC}/generator/inline.js \
 	${SRC}/modulator/amd.js \
 	${SRC}/modulator/globalator.js \
 	${SRC}/compile/renderer.js \
@@ -25,7 +26,4 @@ DISTFILES = \
 	${LIB}/module/rhino.js \
 	${LIB}/inline/inline.js \
 	${LIB}/inline/inline.js.pre \
-	${LIB}/inline/inline.js.post \
-	${SRC}/bin/jsc.js \
-	${SRC}/bin/jsc \
-	${SRC}/bin/bolt
+	${LIB}/inline/inline.js.post

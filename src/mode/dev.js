@@ -1,6 +1,6 @@
 compiler.mode.dev = def(
   [
-    compiler.bootstrap.generator
+    compiler.generator.bootstrap
   ],
 
   function (generator) {

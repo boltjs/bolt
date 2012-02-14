@@ -9,15 +9,20 @@ compiler.mode.compile = def(
   ],
 
   function (io, identifier, compiler, sources, reader, ar) {
+    var compile = function (configuration, files, source, target) {
+      var modules = ar.flatmap(files, identifier.identify);
+      var result = compiler.compile(source, modules);
+      io.write(target, result);
+    };
+
     var run = function (config/*, files, target*/) {
       var rest = Array.prototype.slice.call(arguments, 1);
       var files = rest.slice(0, -1);
       var target = rest[rest.length - 1];
+
       reader.read(process.cwd() + '/.', config, function (configuration) {
         sources.build(configuration, function (source) {
-          var modules = ar.flatmap(files, identifier.identify);
-          var result = compiler.compile(source, modules);
-          io.write(target, result);
+          compile(configuration, files, source, target);
         });
       });
     };

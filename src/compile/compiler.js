@@ -47,7 +47,7 @@ compiler.compile.compiler = def(
         results = analyse(ids);
       }
       var all = obj.keys(modules);
-      var header = metalator.render(all);
+      var header = metalator.render(all); // FIX consider separating all ids vs specified ids.
       return header + renderer.render(ids, modules, renders);
     };
 

@@ -2,40 +2,26 @@ compiler.mode.link = def(
   [
     compiler.tools.error,
     compiler.tools.io,
-    compiler.bootstrap.generator,
+    compiler.generator.bootstrap,
     compiler.inspect.metalator,
     ephox.bolt.kernel.fp.array,
     require('path')
   ],
 
   function (error, io, generator, metalator, ar, path) {
-    var slurp = function (file) {
-      if (!metalator.hasMetadata(file))
-        error.die('no meta-data found for file, "' + file + '", can only link compile output');
-      var defines = metalator.inspect(file);
-      return {file: file, defines: defines};
-    };
-
-    var configthing = function (bit) {
-      var defines = bit.defines;
-      var filepath = bit.file;
-      var name = path.basename(filepath, '.js');
-      return defines.map(function (define) {
+    var source = function (spec) {
+      var name = path.basename(spec.file, '.js');
+      return ar.map(spec.defines, function (define) {
         return 'source("amd", "' + define + '", ".", mapper.constant("' + name + '"))';
       });
-    };
-
-    var link = function (files) {
-      var bits = files.map(slurp);
-      return ar.flatmap(bits, configthing);
     };
 
     var run = function (config /*, files, target */) {
       var rest = Array.prototype.slice.call(arguments, 1);
       var files = rest.slice(0, -1);
       var target = rest[rest.length - 1];
-      var parts = link(files);
-      var sources = parts.join(',\n    ');
+      var specs = files.map(metalator.spec);
+      var sources = ar.flatmap(specs, source);
 
       var install =
         '(function () {\n' +
@@ -45,7 +31,7 @@ compiler.mode.link = def(
         '  var direct = ephox.bolt.module.reader.direct;\n' +
         '  var reader = direct.create({\n' +
         '    sources: [\n' +
-        '    ' + sources + '\n' +
+        '    ' + sources.join(',\n    ') + '\n' +
         '    ]\n' +
         '  });\n' +
         '  install.install(reader, builtins, transport);\n' +
