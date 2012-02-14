@@ -1,8 +1,4 @@
-var p = Ent.Project.create('bolt-inline', 'external');
+var p = Ent.Project.create('bolt', 'archive');
 p.setVersion(1, 1, 0);
-p.setConfig({
-    command: ["make"],
-    dist: "gen",
-    distInclude: "**/*"
-});
+p.setExecutables(["bolt", "jsc"]);
 
