@@ -1,35 +1,17 @@
-var components = 'components';
-
-var cleanDirs = [ components ];
+var lib = 'lib';
+var cleanDirs = [ lib ];
 
 var dependencies = [
   {
-    name: "bolt-compiler",
+    name: "bolt-framework",
     repository: "buildrepo2",
     version : "latest",
-    source: "bolt-compiler.zip",
+    source: "bolt-framework.zip",
     targets: [
-      { name: "jsc", path: components },
-      { name: "bolt", path: components },
-      { name: "*.js*", path: components }
-    ],
-    executables: [
-      components + "/jsc",
-      components + "/bolt"
-    ]
-  },
-
-  {
-    name: "bolt-test",
-    repository: "buildrepo2",
-    version : "latest",
-    source: "bolt-test.zip",
-    targets: [
-      { name: "test", path: components },
-      { name: "*.js", path: components }
-    ],
-    executables: [
-      components + "/test"
+      { name: "assert.js", path: lib + "/framework" },
+      { name: "prelude.js", path: lib + "/framework" },
+      { name: "demo.js", path: lib + "/framework" },
+      { name: "Makefile", path: "." }
     ]
   }
 ];

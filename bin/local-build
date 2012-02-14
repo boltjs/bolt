@@ -1,0 +1,37 @@
+#!/bin/sh -e
+
+run() {
+    (
+    cd "../$1"
+    shift
+    "$@"
+    )
+}
+
+: ${destination:=local}
+
+mkdir -p "$destination" ../compiler/lib/{module,inline} ../module/lib/{kernel,loader}
+
+if [ "$1" = "-d" ]; then
+    for x in inline test script kernel loader module compiler; do
+        run "$x" dent
+    done
+fi
+
+for x in inline test script kernel loader; do
+    run "$x" make -s
+done
+
+cp ../kernel/gen/kernel.js ../module/lib/kernel/
+cp ../loader/gen/loader.js ../module/lib/loader/
+
+run module make -s
+
+cp ../module/gen/* ../compiler/lib/module/
+cp ../inline/gen/* ../compiler/lib/inline/
+
+run compiler make -s
+
+cp ../compiler/gen/* "$destination"
+cp ../test/gen/* "$destination"
+cp ../script/gen/* "$destination"

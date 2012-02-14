@@ -5,6 +5,7 @@
 /lib
 /gen
 /dependency
+/components
 /scratch
+/local
 Makefile
-components

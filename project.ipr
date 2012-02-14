@@ -326,6 +326,7 @@
       <module fileurl="file://$PROJECT_DIR$/../loader/loader.iml" filepath="$PROJECT_DIR$/../loader/loader.iml" />
       <module fileurl="file://$PROJECT_DIR$/../module/module.iml" filepath="$PROJECT_DIR$/../module/module.iml" />
       <module fileurl="file://$PROJECT_DIR$/project.iml" filepath="$PROJECT_DIR$/project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../script/script.iml" filepath="$PROJECT_DIR$/../script/script.iml" />
       <module fileurl="file://$PROJECT_DIR$/../test/test.iml" filepath="$PROJECT_DIR$/../test/test.iml" />
     </modules>
   </component>
@@ -338,6 +339,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../inline" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../script" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../test" vcs="Git" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
