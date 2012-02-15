@@ -1,7 +1,9 @@
 NAME = test
 MODULES = \
 	${SRC}/prelude/namespace.js \
-	${SRC}/report/vanilla.js \
+	${SRC}/report/timer.js \
+	${SRC}/report/namer.js \
+	${SRC}/report/logger.js \
 	${SRC}/run/wrapper.js \
 	${SRC}/run/test.js \
 	${SRC}/run/runner.js

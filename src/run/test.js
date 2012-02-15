@@ -8,8 +8,8 @@ test.run.test = def(
   ],
 
   function (fn, builtins, install, transport, wrapper) {
-    var create = function (reporter, reader, testcase) {
-      return function (deps, fn) {
+    var create = function (reporter, reader, testcase, next) {
+      return function (name, deps, fn) {
         if (typeof deps === 'function' && fn === undefined) {
           fn = deps;
           deps = [];
@@ -17,15 +17,9 @@ test.run.test = def(
 
         install.install(reader, builtins, transport);
 
-        var testcase = wrapper.wrap(reporter, testcase, fn);
+        var wrapped = wrapper.wrap(reporter, testcase, name, fn, next);
 
-        global.define = ephox.bolt.module.api.define;
-        global.require = ephox.bolt.module.api.require;
-        global.demand = ephox.bolt.module.api.demand;
-        ephox.bolt.module.api.require(deps, testcase);
-//        delete global.define;
-//        delete global.require;
-//        delete global.demand;
+        ephox.bolt.module.api.require(deps, wrapped);
       };
     };
 

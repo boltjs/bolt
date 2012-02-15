@@ -5,13 +5,20 @@ test.run.runner = def(
   ],
 
   function (test, path) {
+    var one = function (reporter, reader, testfile, next) {
+      var testcase = path.resolve(testfile);
+      global.test = test.create(reporter, reader, testcase, next);
+      require(testcase);
+    };
+
     var run = function (reporter, reader, tests) {
-      tests.forEach(function (testfile) {
-        var testcase = path.resolve(testfile);
-        global.test = test.create(reporter, reader, testcase);
-        require(testcase);
-        delete global.test;
-      });
+      var loop = function () {
+        if (tests.length > 0)
+          one(reporter, reader, tests.shift(), loop);
+        else
+          reporter.done();
+      };
+      loop();
     };
 
     return {
