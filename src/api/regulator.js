@@ -32,7 +32,7 @@ kernel.api.regulator = def(
             return;
           }
           var spec = source.found.get(id, define, require, demand);
-          r[i] = build(spec, id);
+          r[i] = build(id, spec);
         }
         onsuccess(r);
       };

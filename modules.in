@@ -13,5 +13,6 @@ MODULES = \
 	${SRC}/module/fetcher.js \
 	${SRC}/module/loader.js \
 	${SRC}/module/manager.js \
+	${SRC}/api/sources.js \
 	${SRC}/api/regulator.js \
 	${SRC}/api/config.js
