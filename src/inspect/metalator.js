@@ -7,7 +7,7 @@ compiler.inspect.metalator = def(
 
   function (ar, io, error) {
     var guard = function (file) {
-      if (!metalator.hasMetadata(file))
+      if (!hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');
     };
 
@@ -33,16 +33,16 @@ compiler.inspect.metalator = def(
 
     var amdmodules = function (file) {
       guard(file);
-      var all = metalator.inspect(file);
+      var all = inspect(file);
       return ar.filter(all, function (id) {
          return id.indexOf('!') === -1;
       });
     };
 
     var spec = function (file) {
-      if (!metalator.hasMetadata(file))
+      if (!hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');
-      var defines = metalator.inspect(file);
+      var defines = inspect(file);
       return {file: file, defines: defines};
     };
 
