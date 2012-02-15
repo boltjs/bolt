@@ -2,8 +2,8 @@ NAME = test
 MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/report/vanilla.js \
-	${SRC}/run/runner.js \
+	${SRC}/run/wrapper.js \
 	${SRC}/run/test.js \
-	${SRC}/run/wrapper.js
+	${SRC}/run/runner.js
 DISTFILES = \
 	${LIB}/run/jssert.js

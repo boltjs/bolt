@@ -3,12 +3,11 @@ test.run.test = def(
     ephox.bolt.kernel.fp.functions,
     ephox.bolt.module.config.builtins.commonjs,
     ephox.bolt.module.bootstrap.install,
-    ephox.bolt.module.reader.node,
     ephox.bolt.loader.transporter.commonjs.read,
-    test.runner.wrapper
+    test.run.wrapper
   ],
 
-  function (fn, builtins, install, node, transport, wrapper) {
+  function (fn, builtins, install, transport, wrapper) {
     var create = function (reporter, reader, testcase) {
       return function (deps, fn) {
         if (typeof deps === 'function' && fn === undefined) {
@@ -24,9 +23,9 @@ test.run.test = def(
         global.require = ephox.bolt.module.api.require;
         global.demand = ephox.bolt.module.api.demand;
         ephox.bolt.module.api.require(deps, testcase);
-        delete global.define;
-        delete global.require;
-        delete global.demand;
+//        delete global.define;
+//        delete global.require;
+//        delete global.demand;
       };
     };
 

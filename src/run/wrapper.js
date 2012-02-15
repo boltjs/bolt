@@ -1,4 +1,4 @@
-test.runner.wrapper = def(
+test.run.wrapper = def(
   [
   ],
 

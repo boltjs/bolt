@@ -1,7 +1,6 @@
 test.run.runner = def(
   [
     test.run.test,
-    test.report.vanilla,
     require('path')
   ],
 
