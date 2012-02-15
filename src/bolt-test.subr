@@ -1,6 +1,6 @@
 
 usage() {
-    echo 'usage: bolt test CONFIG TEST ...'
+    echo 'usage: bolt test [-v|--verbose] CONFIG TEST ...'
     echo
     echo 'arguments:'
     echo '  CONFIG                   The bolt configuration file to be used for tests'
@@ -34,6 +34,19 @@ if [ $# -lt 2 ]; then
     fail_usage 1 "Not enough arguments, must specify configuration and at least one test file."
 fi
 
+verbose=false
+
+case "$1" in
+-v|--verbose)
+    verbose=true; shift
+    ;;
+-*)
+    fail_usage 1 "Unknown flag [$1]"
+    ;;
+*)
+    ;;
+esac
+
 config="$1"; shift
 
 if [ ! -f "$config" ]; then
@@ -46,4 +59,4 @@ for file in "$@"; do
     fi
 done
 
-exec node $base/bolt-test.js "$config" "$@"
+exec node $base/bolt-test.js "$verbose" "$config" "$@"

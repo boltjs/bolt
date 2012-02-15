@@ -3,7 +3,7 @@
 version="1.1"
 
 usage() {
-    echo 'usage: bolt [-h|--help] [-v|--version]'
+    echo 'usage: bolt [-h|--help] [-V|--version]'
     echo '    or bolt MODE [<args>]'
     echo
     echo 'modes:'
@@ -42,7 +42,7 @@ case "$mode" in
     usage
     exit 0
     ;;
--v|--version)
+-V|--version)
     echo "bolt version [$version]"
     exit 0
     ;;
