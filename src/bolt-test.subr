@@ -42,7 +42,7 @@ fi
 
 for file in "$@"; do
     if [ ! -f "$file" ]; then
-        fail 20 "Coult not find test file [$file]"
+        fail 20 "Could not find test file [$file]"
     fi
 done
 

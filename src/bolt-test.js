@@ -12,6 +12,6 @@ var runner = ephox.bolt.test.run.runner;
 var reporter = ephox.bolt.test.report.vanilla;
 var fn = ephox.bolt.kernel.fp.functions;
 var node = ephox.bolt.module.reader.node;
-var reader = fn.curry(node.read, path.resolve(configfile));
+var reader = fn.curry(node.read, process.cwd() + '/.', configfile);
 
 runner.run(reporter, reader, tests);
