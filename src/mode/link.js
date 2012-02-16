@@ -29,6 +29,8 @@ compiler.mode.link = def(
         '  var builtins = ephox.bolt.module.config.builtins.browser;\n' +
         '  var transport = ephox.bolt.loader.transporter.xhr.request;\n' +
         '  var direct = ephox.bolt.module.reader.direct;\n' +
+        '  var mapper = ephox.bolt.module.config.mapper;' +
+        '  var source = ephox.bolt.module.config.specs.source;' +
         '  var reader = direct.create({\n' +
         '    sources: [\n' +
         '    ' + sources.join(',\n    ') + '\n' +
