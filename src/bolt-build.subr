@@ -191,8 +191,9 @@ bolt_build_entry_group() {
 
         # build arguments to jsc compile
         set -- "$target"
-        for j in `seq $count_entry_group_name -1 1`; do
-            eval file='$entry_groups_'${name}'_'`expr $i - 1`
+        eval counter='$count_entry_groups_'${name}
+        for j in `seq $counter -1 1`; do
+            eval file='$entry_groups_'${name}'_'`expr $j - 1`
             set -- "$file" "$@"
         done
         $base/jsc compile -c "$config_dir" "$@"
