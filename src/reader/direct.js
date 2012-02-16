@@ -5,7 +5,11 @@ module.reader.direct = def(
   function () {
     var create = function (configuration) {
       return function (done) {
-        done(configuration);
+        done({
+          sources: configuration.sources || [],
+          types: configuration.types || [],
+          configs: configuration.configs || []
+        });
       };
     };
 
