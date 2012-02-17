@@ -148,6 +148,19 @@ done
 : ${generate_inline=false}
 : ${generate_modules=false}
 
+tick() {
+    start="$1"
+    end="$2"
+
+    awk 'BEGIN{ for(i='$start';i<='$end';i++) print i}'
+}
+tock() {
+    start="$1"
+    end="$2" 
+
+    awk 'BEGIN{ for(i='$start';i>='$end';i--) print i}'
+}
+
 bolt_build_inline() {
     target="$1"
     name="$2"
@@ -158,7 +171,7 @@ bolt_build_inline() {
 bolt_build_entry_point() {
     mkdir -p "$output_dir/compile"
 
-    for i in `seq 1 $count_entry_point`; do
+    for i in `tick 1 $count_entry_point`; do
         # this little bit is just iterating through the array
         eval file='$entry_point_'`expr $i - 1`
         name=`$base/jsc identify "$file"`
@@ -180,7 +193,7 @@ bolt_build_entry_point() {
 bolt_build_entry_group() {
     mkdir -p "$output_dir/compile"
 
-    for i in `seq 1 $count_entry_group_name`; do
+    for i in `tick 1 $count_entry_group_name`; do
         # this little bit is just iterating through the array
         eval name='$entry_group_name_'`expr $i - 1`
         target="$output_dir/compile/$name.js"
@@ -192,7 +205,7 @@ bolt_build_entry_group() {
         # build arguments to jsc compile
         set -- "$target"
         eval counter='$count_entry_groups_'${name}
-        for j in `seq $counter -1 1`; do
+        for j in `tock $counter -1 1`; do
             eval file='$entry_groups_'${name}'_'`expr $j - 1`
             set -- "$file" "$@"
         done
@@ -207,7 +220,7 @@ bolt_build_entry_group() {
 bolt_link() {
     # this just builds up the arguments to jsc link into "$@" so they can be quoted correctly
     set -- "$output_dir/compile/bootstrap.js"
-    for i in `seq $count_targets -1 1`; do
+    for i in `tock $count_targets -1 1`; do
         eval file='$targets_'`expr $i - 1`
         set -- "$file" "$@"
     done
