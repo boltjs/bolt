@@ -205,7 +205,7 @@ bolt_build_entry_group() {
         # build arguments to jsc compile
         set -- "$target"
         eval counter='$count_entry_groups_'${name}
-        for j in `tock $counter -1 1`; do
+        for j in `tock $counter 1`; do
             eval file='$entry_groups_'${name}'_'`expr $j - 1`
             set -- "$file" "$@"
         done
@@ -220,7 +220,7 @@ bolt_build_entry_group() {
 bolt_link() {
     # this just builds up the arguments to jsc link into "$@" so they can be quoted correctly
     set -- "$output_dir/compile/bootstrap.js"
-    for i in `tock $count_targets -1 1`; do
+    for i in `tock $count_targets 1`; do
         eval file='$targets_'`expr $i - 1`
         set -- "$file" "$@"
     done
