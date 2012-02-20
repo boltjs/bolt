@@ -7,8 +7,11 @@ test.run.runner = def(
   function (test, path) {
     var one = function (reporter, reader, testfile, next) {
       var testcase = path.resolve(testfile);
-      global.test = test.create(reporter, reader, testcase, next);
+      var t = test.create(reporter, reader, testcase, next);
+      global.test = t.test; 
       require(testcase);
+      if (!t.hastests())
+        next();
     };
 
     var run = function (reporter, reader, tests) {

@@ -9,7 +9,11 @@ test.run.test = def(
 
   function (fn, builtins, install, transport, wrapper) {
     var create = function (reporter, reader, testcase, next) {
-      return function (name, deps, fn) {
+      var called = false;
+
+      var test = function (name, deps, fn) {
+        called = true;
+
         if (typeof deps === 'function' && fn === undefined) {
           fn = deps;
           deps = [];
@@ -20,6 +24,15 @@ test.run.test = def(
         var wrapped = wrapper.wrap(reporter, testcase, name, fn, next);
 
         ephox.bolt.module.api.require(deps, wrapped);
+      };
+
+      var hastests = function () {
+        return called;
+      };
+
+      return {
+        test: test,
+        hastests: hastests
       };
     };
 

@@ -1,10 +1,11 @@
 test.report.logger = def(
   [
     test.report.timer,
-    test.report.namer
+    test.report.namer,
+    require('util')
   ],
 
-  function (timer, namer) {
+  function (timer, namer, util) {
     var create = function (verbose) {
       var times = {};
       var passed = 0;
@@ -34,8 +35,27 @@ test.report.logger = def(
       var fail = function (testcase, name, error) {
         ++failed;
         log('- [failed] : ' + namer.format(testcase, name) + '');
-        log('     ' + error.replace(/\n/g, '\n    '));
+        log('    ' + errorstring(error).replace(/\n/g, '\n    '));
         log();
+      };
+
+      var errorstring = function (e) {
+        if (typeof e === 'string')
+          return e;
+        if (e.name && e.name === 'AssertionError')
+          return 'Assertion error' + (e.message ? ' [' + e.message + ']' : '') + ': [' + util.inspect(e.expected) + '] ' + e.operator + ' [' + util.inspect(e.actual) + ']' + stack(e);
+        return util.inspect(e) + stack(e);
+      };
+
+      var stack = function (e) {
+        if (!e.stack)
+          return '';
+        var lines = e.stack.split('\n').filter(function (line) {
+          return line.indexOf('at') !== -1 && 
+            !(line.indexOf('/kernel.js') !== -1 ||
+              line.indexOf('/test.js') !== -1);
+        });
+        return '\n' + lines.join('\n');
       };
 
       var done = function () {
