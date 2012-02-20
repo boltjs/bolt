@@ -5,22 +5,40 @@ module.reader.bouncing = def(
   ],
 
   function (error, specs) {
-    var bounce = function (current, done, read, acc) {
+    var bounce = function (done, read, acc) {
       var next = acc.configs.shift();
-      read(current, next, done, acc);
+      read(next.relativeto, next.config, done, acc);
     };
 
     var tick = function (file, cfg, done, read, acc) {
+      var munged = (cfg.configs || []).map(function (config) {
+        return { relativeto: file, config: config };
+      });
       var accumulated = {
-        sources: acc.sources.concat(cfg.sources || []),
-        types: acc.types.concat(cfg.types || []),
-        configs: acc.configs.concat(cfg.configs || [])
+        sources: acc.sources.concat(cfg.sources || []), 
+        types: acc.types.concat(cfg.types || []),       
+        configs: munged.concat(acc.configs)
       };
       if (accumulated.configs.length > 0)
-        bounce(file, done, read, accumulated);
+        bounce(done, read, accumulated);
       else
         done({ sources: accumulated.sources, types: accumulated.types });
     };
+
+    /*
+     * All precedence is depth-first, pre-order. Example:
+     *
+     *        A
+     *       /-\    
+     *      B   C
+     *     /|   |\
+     *    D E   F G
+     *
+     * Configs are read in A, B, D, E, C, F, G.
+     *
+     * If configs mixed delegation and sources, the
+     * sources would be ordered the same: A, B, D, E, C, F, G.
+     */
 
     var evaluate = function (file, payload, done, read, acc) {
       var result = {};
