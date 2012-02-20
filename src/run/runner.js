@@ -5,22 +5,27 @@ test.run.runner = def(
   ],
 
   function (test, path) {
-    var one = function (reporter, reader, testfile, next) {
-      var testcase = path.resolve(testfile);
-      var t = test.create(reporter, reader, testcase, next);
-      global.test = t.test; 
-      require(testcase);
-      if (!t.hastests())
-        next();
-    };
-
     var run = function (reporter, reader, tests) {
+      var accumulated = [];
+
       var loop = function () {
-        if (tests.length > 0)
-          one(reporter, reader, tests.shift(), loop);
+        if (accumulated.length > 0)
+          test.apply(null, accumulated.shift());
         else
           reporter.done();
       };
+
+      tests.forEach(function (testfile) {
+        global.test = function () {
+          var arrayed = Array.prototype.slice.call(arguments, 0);
+          var args = [ loop, reporter, reader, testfile ].concat(arrayed);
+          accumulated.push(args);
+        };
+
+        var testcase = path.resolve(testfile);
+        require(testcase);
+      });
+
       loop();
     };
 

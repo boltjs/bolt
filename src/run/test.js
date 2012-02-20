@@ -8,36 +8,17 @@ test.run.test = def(
   ],
 
   function (fn, builtins, install, transport, wrapper) {
-    var create = function (reporter, reader, testcase, next) {
-      var called = false;
+    return function (next, reporter, reader, testfile, name, deps, fn) {
+      if (typeof deps === 'function' && fn === undefined) {
+        fn = deps;
+        deps = [];
+      }
 
-      var test = function (name, deps, fn) {
-        called = true;
+      install.install(reader, builtins, transport);
 
-        if (typeof deps === 'function' && fn === undefined) {
-          fn = deps;
-          deps = [];
-        }
+      var wrapped = wrapper.wrap(reporter, testfile, name, fn, next);
 
-        install.install(reader, builtins, transport);
-
-        var wrapped = wrapper.wrap(reporter, testcase, name, fn, next);
-
-        ephox.bolt.module.api.require(deps, wrapped);
-      };
-
-      var hastests = function () {
-        return called;
-      };
-
-      return {
-        test: test,
-        hastests: hastests
-      };
-    };
-
-    return {
-      create: create
+      ephox.bolt.module.api.require(deps, wrapped);
     };
   }
 );
