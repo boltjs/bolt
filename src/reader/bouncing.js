@@ -1,22 +1,23 @@
 module.reader.bouncing = def(
   [
+    ephox.bolt.kernel.fp.array,
     module.error.error,
     module.config.specs
   ],
 
-  function (error, specs) {
+  function (ar, error, specs) {
     var bounce = function (done, read, acc) {
       var next = acc.configs.shift();
       read(next.relativeto, next.config, done, acc);
     };
 
     var tick = function (file, cfg, done, read, acc) {
-      var munged = (cfg.configs || []).map(function (config) {
+      var munged = ar.map(cfg.configs || [], function (config) {
         return { relativeto: file, config: config };
       });
       var accumulated = {
-        sources: acc.sources.concat(cfg.sources || []), 
-        types: acc.types.concat(cfg.types || []),       
+        sources: acc.sources.concat(cfg.sources || []),
+        types: acc.types.concat(cfg.types || []),
         configs: munged.concat(acc.configs)
       };
       if (accumulated.configs.length > 0)
@@ -29,7 +30,7 @@ module.reader.bouncing = def(
      * All precedence is depth-first, pre-order. Example:
      *
      *        A
-     *       /-\    
+     *       /-\
      *      B   C
      *     /|   |\
      *    D E   F G
