@@ -28,6 +28,7 @@ compiler.mode.link = def(
         '  var install = ephox.bolt.module.bootstrap.install;\n' +
         '  var builtins = ephox.bolt.module.config.builtins.browser;\n' +
         '  var transport = ephox.bolt.loader.transporter.xhr.request;\n' +
+        '  var script = ephox.bolt.loader.api.scripttag.load;\n' +
         '  var direct = ephox.bolt.module.reader.direct;\n' +
         '  var mapper = ephox.bolt.module.config.mapper;' +
         '  var source = ephox.bolt.module.config.specs.source;' +
@@ -36,7 +37,7 @@ compiler.mode.link = def(
         '    ' + sources.join(',\n    ') + '\n' +
         '    ]\n' +
         '  });\n' +
-        '  install.install(reader, builtins, transport);\n' +
+        '  install.install(reader, builtins, transport, script);\n' +
         '})();';
 
       generator.generate(target, install);

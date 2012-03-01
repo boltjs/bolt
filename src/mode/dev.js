@@ -14,7 +14,8 @@ compiler.mode.dev = def(
         '  var install = ephox.bolt.module.bootstrap.install;\n' +
         '  var reader = ephox.bolt.module.bootstrap.configloader.create("' + config + '");\n' +
         '  var transport = ephox.bolt.loader.transporter.xhr.request;\n' +
-        '  install.install(reader, builtins, transport);\n' +
+        '  var script = ephox.bolt.loader.api.scripttag.load;\n' +
+        '  install.install(reader, builtins, transport, script);\n' +
         '  obj.merge(window, api);\n' +
         '})();';
       generator.generate(bootstrap, hookup);
