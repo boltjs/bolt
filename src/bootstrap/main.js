@@ -10,7 +10,7 @@ module.bootstrap.main = def(
       runtime.require(configids || [], function () {
         callback && callback.apply(null, arguments);
         runtime.require([ id ], function (module) {
-          module.apply(null, args);
+          module.apply(null, args || []);
         });
       });
     };
