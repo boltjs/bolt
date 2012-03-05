@@ -121,7 +121,7 @@ while echo x"$1" | grep -q '^x-'; do
         eval entry_group_name_$count_entry_group_name="$name"
         count_entry_group_name=`expr $count_entry_group_name + 1`
 
-        eval count_entry_groups_${name}=0
+        eval count_entry_groups_${safe_name}=0
 
         while [ $# -gt 0 ] && echo x"$1" | grep -v -q '^x-'; do
             file="$1"; shift
