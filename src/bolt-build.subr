@@ -121,6 +121,7 @@ while echo x"$1" | grep -q '^x-'; do
         eval entry_group_name_$count_entry_group_name="$name"
         count_entry_group_name=`expr $count_entry_group_name + 1`
 
+        safe_name=`echo "$name" | sed -e 's/-/_/g'`
         eval count_entry_groups_${safe_name}=0
 
         while [ $# -gt 0 ] && echo x"$1" | grep -v -q '^x-'; do
@@ -128,7 +129,6 @@ while echo x"$1" | grep -q '^x-'; do
             if [ ! -f "$file" ]; then
                 fail 1 "specified file for entry group not found [$file]"
             fi
-            safe_name=`echo "$name" | sed -e 's/-/_/g'`
             eval count='$count_entry_groups_'${safe_name}
             eval entry_groups_${safe_name}_${count}="$file"
             eval count_entry_groups_${safe_name}=`expr $count + 1`
