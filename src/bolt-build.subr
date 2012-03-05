@@ -128,9 +128,10 @@ while echo x"$1" | grep -q '^x-'; do
             if [ ! -f "$file" ]; then
                 fail 1 "specified file for entry group not found [$file]"
             fi
-            eval count='$count_entry_groups_'${name}
-            eval entry_groups_${name}_${count}="$file"
-            eval count_entry_groups_${name}=`expr $count + 1`
+            safe_name=`echo "$name" | sed -e 's/-/_/g'`
+            eval count='$count_entry_groups_'${safe_name}
+            eval entry_groups_${safe_name}_${count}="$file"
+            eval count_entry_groups_${safe_name}=`expr $count + 1`
         done
     ;;
     --)
@@ -196,6 +197,7 @@ bolt_build_entry_group() {
     for i in `tick 1 $count_entry_group_name`; do
         # this little bit is just iterating through the array
         eval name='$entry_group_name_'`expr $i - 1`
+        safe_name=`echo "$name" | sed -e 's/-/_/g'`
         target="$output_dir/compile/$name.js"
 
         # this little bit is to push onto the targets array so things can be linked later
@@ -204,9 +206,9 @@ bolt_build_entry_group() {
 
         # build arguments to jsc compile
         set -- "$target"
-        eval counter='$count_entry_groups_'${name}
+        eval counter='${count_entry_groups_'${safe_name}'}'
         for j in `tock $counter 1`; do
-            eval file='$entry_groups_'${name}'_'`expr $j - 1`
+            eval file='${entry_groups_'${safe_name}'_'`expr $j - 1`'}'
             set -- "$file" "$@"
         done
         $base/jsc compile -c "$config_dir" "$@" || exit $?
