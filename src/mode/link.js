@@ -30,8 +30,9 @@ compiler.mode.link = def(
         '  var transport = ephox.bolt.loader.transporter.xhr.request;\n' +
         '  var script = ephox.bolt.loader.api.scripttag.load;\n' +
         '  var direct = ephox.bolt.module.reader.direct;\n' +
-        '  var mapper = ephox.bolt.module.config.mapper;' +
-        '  var source = ephox.bolt.module.config.specs.source;' +
+        '  var mapper = ephox.bolt.module.config.mapper;\n' +
+        '  var locator = ephox.bolt.module.util.locator;\n' +
+        '  var source = ephox.bolt.module.config.specs.source(locator.locate());\n' +;
         '  var reader = direct.create({\n' +
         '    sources: [\n' +
         '    ' + sources.join(',\n    ') + '\n' +
