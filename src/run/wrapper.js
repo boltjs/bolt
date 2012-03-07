@@ -49,7 +49,7 @@ test.run.wrapper = def(
         var args = Array.prototype.slice.call(arguments, 0);
 
         try {
-          fn.apply(null, args.concat([ onsuccess, onfailure ]));
+          f.apply(null, args.concat([ onsuccess, onfailure ]));
         } catch (e) {
           onfailure(e);
         }
