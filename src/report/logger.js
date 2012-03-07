@@ -1,12 +1,12 @@
 test.report.logger = def(
   [
     test.report.timer,
-    test.report.namer,
-    require('util')
+    test.report.namer
   ],
 
   function (timer, namer, util) {
     var create = function (verbose) {
+      var util = require('util');
       var times = {};
       var passed = 0;
       var failed = 0;
@@ -51,7 +51,7 @@ test.report.logger = def(
         if (!e.stack)
           return '';
         var lines = e.stack.split('\n').filter(function (line) {
-          return line.indexOf('at') !== -1 && 
+          return line.indexOf('at') !== -1 &&
             !(line.indexOf('/kernel.js') !== -1 ||
               line.indexOf('/test.js') !== -1);
         });
@@ -68,7 +68,7 @@ test.report.logger = def(
         pass: pass,
         fail: fail,
         done: done
-      };                                           1
+      };
     };
 
     return {

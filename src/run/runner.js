@@ -1,11 +1,11 @@
 test.run.runner = def(
   [
-    test.run.test,
-    require('path')
+    test.run.test
   ],
 
-  function (test, path) {
+  function (test) {
     var run = function (reporter, reader, tests) {
+      var path = require('path');
       var accumulated = [];
 
       var loop = function () {
