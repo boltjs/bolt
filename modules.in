@@ -3,7 +3,9 @@ MODULES = \
 	${SRC}/prelude/namespace.js \
 	${SRC}/report/timer.js \
 	${SRC}/report/namer.js \
+	${SRC}/report/errors.js \
 	${SRC}/report/logger.js \
+	${SRC}/run/accumulator.js \
 	${SRC}/run/wrapper.js \
 	${SRC}/run/test.js \
 	${SRC}/run/runner.js

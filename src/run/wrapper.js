@@ -1,21 +1,21 @@
 test.run.wrapper = def(
   [
+    Function('return this;')()
   ],
 
-  function () {
-    var wrap = function (reporter, testcase, name, f, next) {
+  function (global) {
+    var sync = function (reporter, testfile, name, f, next) {
       global.define = ephox.bolt.module.api.define;
       global.require = ephox.bolt.module.api.require;
       global.demand = ephox.bolt.module.api.demand;
 
-
       return function (/* arguments */) {
+        var testcase = reporter.test(testfile, name);
         try {
-          reporter.start(testcase, name);
           f.apply(null, arguments);
-          reporter.pass(testcase, name);
+          testcase.pass();
         } catch (f) {
-          reporter.fail(testcase, name, f);
+          testcase.fail(f);
         } finally {
           delete global.define;
           delete global.require;
@@ -25,8 +25,41 @@ test.run.wrapper = def(
       };
     };
 
+    var async = function (reporter, testfile, name, f, next) {
+      global.define = ephox.bolt.module.api.define;
+      global.require = ephox.bolt.module.api.require;
+      global.demand = ephox.bolt.module.api.demand;
+
+      return function (/* arguments */) {
+        var testcase = reporter.test(testfile, name);
+
+        var oncomplete = function (f) {
+          return function () {
+            f.apply(null, arguments);
+            delete global.define;
+            delete global.require;
+            delete global.demand;
+            next();
+          };
+        };
+
+        var onsuccess = oncomplete(testcase.pass);
+        var onfailure = oncomplete(testcase.fail);
+
+        var args = Array.prototype.slice.call(arguments, 0);
+
+        try {
+          fn.apply(null, args.concat([ onsuccess, onfailure ]));
+        } catch (e) {
+          onfailure(e);
+        }
+      };
+    };
+
+
     return {
-      wrap: wrap
+      sync: sync,
+      async: async
     };
   }
 );

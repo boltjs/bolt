@@ -1,32 +1,26 @@
 test.run.runner = def(
   [
-    test.run.test
+    test.run.accumulator,
+    test.run.test,
+    test.run.wrapper,
+    ephox.bolt.module.config.builtins.commonjs,
+    ephox.bolt.loader.transporter.commonjs.read,
+    ephox.bolt.loader.api.commonjsevaller.load
   ],
 
-  function (test) {
+  function (accumulator, test, wrapper, builtins, load, loadscript) {
     var run = function (reporter, reader, tests) {
-      var path = require('path');
-      var accumulated = [];
+      var runtest = test.create(builtins, load, loadscript, reporter, reader);
 
-      var loop = function () {
-        if (accumulated.length > 0)
-          test.apply(null, accumulated.shift());
-        else
-          reporter.done();
-      };
+      var path = require('path');
 
       tests.forEach(function (testfile) {
-        global.test = function () {
-          var arrayed = Array.prototype.slice.call(arguments, 0);
-          var args = [ loop, reporter, reader, testfile ].concat(arrayed);
-          accumulated.push(args);
-        };
-
         var testcase = path.resolve(testfile);
+        accumulator.register(testfile, wrapper.sync, wrapper.async);
         require(testcase);
       });
 
-      loop();
+      accumulator.drain(runtest, reporter.done);
     };
 
     return {

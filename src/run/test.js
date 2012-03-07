@@ -1,25 +1,19 @@
 test.run.test = def(
   [
-    ephox.bolt.kernel.fp.functions,
-    ephox.bolt.module.config.builtins.commonjs,
-    ephox.bolt.module.bootstrap.install,
-    ephox.bolt.loader.transporter.commonjs.read,
-    ephox.bolt.loader.api.commonjsevaller.load,
-    test.run.wrapper
+    ephox.bolt.module.bootstrap.install
   ],
 
-  function (fn, builtins, install, load, loadscript, wrapper) {
-    return function (next, reporter, reader, testfile, name, deps, fn) {
-      if (typeof deps === 'function' && fn === undefined) {
-        fn = deps;
-        deps = [];
-      }
+  function (install) {
+    var create = function (builtins, load, loadscript, reporter, reader) {
+      return function (next, wrapper, testfile, name, deps, fn) {
+        install.install(reader, builtins, load, loadscript);
+        var wrapped = wrapper(reporter, testfile, name, fn, next);
+        ephox.bolt.module.api.require(deps, wrapped);
+      };
+    };
 
-      install.install(reader, builtins, load, loadscript);
-
-      var wrapped = wrapper.wrap(reporter, testfile, name, fn, next);
-
-      ephox.bolt.module.api.require(deps, wrapped);
+    return {
+      create: create
     };
   }
 );
