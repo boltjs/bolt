@@ -17,6 +17,7 @@ module.bootstrap.deferred = def(
       ar.each(deferred, function (action) {
         action(require);
       });
+      deferred = [];
     };
 
     return {
