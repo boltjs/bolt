@@ -29,7 +29,7 @@ fail() {
 }
 
 
-base=`dirname $0`
+base=`readlink -f $0 | xargs dirname`
 
 if [ $# -lt 1 ]; then
     fail_usage 1 "error: must specify mode."
