@@ -47,7 +47,7 @@ fail() {
 }
 
 
-base=`readlink -f $0 | xargs dirname`
+base=`(readlink "$0" || printf "%s" "$0") | xargs dirname`
 
 if [ $# -lt 1 ]; then
     fail_usage 1 "error: must specify mode."
