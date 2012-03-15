@@ -14,8 +14,8 @@ test.run.wrapper = def(
         try {
           f.apply(null, arguments);
           testcase.pass();
-        } catch (f) {
-          testcase.fail(f);
+        } catch (e) {
+          testcase.fail(e);
         } finally {
           delete global.define;
           delete global.require;
