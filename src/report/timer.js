@@ -8,7 +8,11 @@ test.report.timer = def(
       var millis = end - since;
       var seconds = Math.floor(millis / 1000);
       var point = Math.floor(millis - (seconds * 1000) / 100);
-      return seconds + '.' + point + 's';
+      var printable = 
+	point < 10 ? '00'  + point :
+        point < 100 ? '0' + point :
+                      '' + point;
+      return seconds + '.' + printable + 's';
     };
 
     return {
