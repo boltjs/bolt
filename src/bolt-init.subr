@@ -1,14 +1,9 @@
 usage() {
-    echo 'usage: bolt init  [-c|--config CONFIG_JS] [BOOTSTRAP_TARGET]'
-    echo
-    echo 'arguments:'
-    echo '  BOOTSTRAP_TARGET file to generate for running in dev mode, this defaults'
-    echo '                   to a file called bootstrap.js in the same directory as'
-    echo '                   the config file'
+    echo 'usage: bolt init  [-c|--config CONFIG_DIR]'
     echo
     echo 'options:'
-    echo '  -c|--config CONFIG_JS          override bolt configuration file'
-    echo '                                   default: config/bolt/prod.js'
+    echo '  -c|--config CONFIG_DIR          override bolt configuration directory'
+    echo '                                   default: config/bolt'
     echo
     echo 'example:'
     echo '  Initialise a project after checkout.'
@@ -40,17 +35,22 @@ while echo x"$1" | grep -q '^x-'; do
     esac
 done
 
-: ${config_js:=config/bolt/prod.js}
+: ${config_dir:=config/bolt}
 config_dir="`dirname $config_js`"
 
 [ -d "$config_dir" ] || mkdir -p "$config_dir"
 
-[ -f "$config_js" ] || cat > "$config_js" <<EOF
-configure({
-  sources: [
-  ]
-});
 
-EOF
+# FIX discuss the merits of cherry picking these two vs generating all.
 
-$base/jsc dev -c "$config_js"
+if [ -f "$config_dir/prod.js ]; then
+    $base/jsc dev -c "$config_dir/prod.js" "$config_dir/bootstrap-prod.js" || exit $?
+fi
+
+if [ -f "$config_dir/demo.js ]; then
+    $base/jsc dev -c "$config_dir/demo.js" "$config_dir/bootstrap-demo.js" || exit $?
+fi
+
+exit 0
+
+
