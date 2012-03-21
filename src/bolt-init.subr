@@ -1,11 +1,14 @@
 usage() {
-    echo 'usage: bolt init  [-c|--config CONFIG_DIR] [-b|--bootstrap BOOTSTRAP_LINK]'
+    echo 'usage: bolt init  [-c|--config CONFIG_JS] [BOOTSTRAP_TARGET]'
+    echo
+    echo 'arguments:'
+    echo '  BOOTSTRAP_TARGET file to generate for running in dev mode, this defaults'
+    echo '                   to a file called bootstrap.js in the same directory as'
+    echo '                   the config file'
     echo
     echo 'options:'
-    echo '  -b|--bootstrap BOOTSTRAP_LINK  override bootstrap location,'
-    echo '                                   default: bolt/bootstrap'
-    echo '  -c|--config CONFIG_DIR         override bolt configuration directory'
-    echo '                                   default: bolt/config'
+    echo '  -c|--config CONFIG_JS          override bolt configuration file'
+    echo '                                   default: config/bolt/prod.js'
     echo
     echo 'example:'
     echo '  Initialise a project after checkout.'
@@ -22,12 +25,6 @@ fi
 while echo x"$1" | grep -q '^x-'; do
     flag="$1"; shift
     case "$flag" in
-    -b|--bootstrap)
-        if [ $# -lt 1 ]; then
-            fail_usage 1 "$flag requires an argument to be specified"
-        fi
-        bootstrap_link="$1"; shift
-    ;;
     -c|--config)
         if [ $# -lt 1 ]; then
             fail_usage 1 "$flag requires an argument to be specified"
@@ -43,12 +40,12 @@ while echo x"$1" | grep -q '^x-'; do
     esac
 done
 
-: ${bootstrap_link:=bolt/bootstrap}
-: ${config_dir:=bolt/config}
+: ${config_js:=config/bolt/prod.js}
+config_dir="`dirname $config_js`"
 
 [ -d "$config_dir" ] || mkdir -p "$config_dir"
 
-[ -f "$config_dir/module.js" ] || cat > "$config_dir/module.js" <<EOF
+[ -f "$config_js" ] || cat > "$config_js" <<EOF
 configure({
   sources: [
   ]
@@ -56,5 +53,4 @@ configure({
 
 EOF
 
-$base/jsc dev -c "$config_dir"
-$base/jsc mode -c "$config_dir" -b "$bootstrap_link" dev
+$base/jsc dev -c "$config_js"
