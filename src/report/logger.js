@@ -7,7 +7,7 @@ test.report.logger = def(
 
   function (errors, timer, namer) {
     var create = function (verbose) {
-      var initial = Date.now();
+      var initial = new Date();
       var times = {};
       var passed = 0;
       var failed = 0;
@@ -21,7 +21,7 @@ test.report.logger = def(
       };
 
       var test = function (testcase, name) {
-        var starttime = Date.now();
+        var starttime = new Date();
         vlog('[' + name + ']');
 
         var pass = function () {
