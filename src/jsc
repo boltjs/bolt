@@ -109,8 +109,7 @@ jsc_dev() {
     1) bootstrap="$1" ;;
     *) fail_usage 1 "invalid number of arguments for jsc dev [$#]" ;;
     esac
-
-    exec node $base/jsc.js "$mode" "$bootstrap" "module.js"
+    exec node $base/jsc.js "$mode" "$bootstrap" "$config_js"
 }
 
 jsc_x() {
