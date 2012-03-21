@@ -9,9 +9,15 @@ usage() {
     echo '                           automatically.'
     echo
     echo 'example:'
-    echo '  Run all tests.'
+    echo '  Run all atomic tests.'
     echo
-    echo '    bolt test bolt/config/test.js src/test/js/atomic/**/*.js'
+    echo '    bolt test config/bolt/atomic.js src/test/js/atomicr/**/*.js'
+    echo
+    echo
+    echo '  Run all browser tests.'
+    echo
+    echo '    bolt test config/bolt/browser.js src/test/js/browser/**/*.js'
+    echo
     echo
     echo 'note:'
     echo '  Examples assume use of a shell with "**" glob support. This means either zsh or'
