@@ -17,9 +17,9 @@ test.run.wrapper = def(
         } catch (e) {
           testcase.fail(e);
         } finally {
-          delete global.define;
-          delete global.require;
-          delete global.demand;
+          global.define = undefined;
+          global.require = undefined;
+          global.demand = undefined;
           next();
         }
       };
@@ -36,9 +36,9 @@ test.run.wrapper = def(
         var oncomplete = function (f) {
           return function () {
             f.apply(null, arguments);
-            delete global.define;
-            delete global.require;
-            delete global.demand;
+            global.define = undefined;
+            global.require = undefined;
+            global.demand = undefined;
             next();
           };
         };
