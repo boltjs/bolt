@@ -1,7 +1,5 @@
 #!/bin/sh
 
-version="1.1"
-
 usage() {
     echo 'usage: bolt [-h|--help] [-V|--version]'
     echo '    or bolt MODE [<args>]'
@@ -43,7 +41,8 @@ case "$mode" in
     exit 0
     ;;
 -V|--version)
-    echo "bolt version [$version]"
+    echo -n "bolt "
+    cat "$base/version"
     exit 0
     ;;
 init|build|test|help)
