@@ -1,13 +1,13 @@
 #!/bin/sh
 
 usage() {
-    echo 'usage: bolt build [-c|--config CONFIG_DIR] [-o|--output OUTPUT_DIR] [-s|--src-dir SRC_DIR]'
+    echo 'usage: bolt build [-c|--config CONFIG_JS] [-o|--output OUTPUT_DIR] [-s|--src-dir SRC_DIR]'
     echo '                  [-i|--inline] [-n|--invoke-main MAIN_MODULE] [-r|--register]'
     echo '                  [-m|--modules] [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]'
     echo
     echo 'options:'
-    echo '  -c|--config CONFIG_DIR         override bolt configuration directory'
-    echo '                                   default: bolt/config'
+    echo '  -c|--config CONFIG_JS         override bolt configuration file'
+    echo '                                   default: config/bolt/prod.js'
     echo '  -o|--output OUTPUT_DIR         override output directory, note this is different'
     echo '                                 to the jsc compile directory, the compiled output,'
     echo '                                 will be located at $OUTPUT_DIR/compile'
@@ -71,7 +71,7 @@ while echo x"$1" | grep -q '^x-'; do
         if [ $# -lt 1 ]; then
             fail_usage 1 "$flag requires an argument to be specified"
         fi
-        config_dir="$1"; shift
+        config_js="$1"; shift
     ;;
     -o|--output)
         if [ $# -lt 1 ]; then
@@ -143,7 +143,7 @@ while echo x"$1" | grep -q '^x-'; do
     esac
 done
 
-: ${config_dir:=bolt/config}
+: ${config_js:=config/bolt/prod.js}
 : ${output_dir:=scratch/main/js}
 : ${src_dir:=src/main/js}
 : ${generate_inline=false}
@@ -166,7 +166,7 @@ bolt_build_inline() {
     target="$1"
     name="$2"
     mkdir -p "$output_dir/inline"
-    $base/jsc inline -c "$config_dir" $invoke_main_flag $register_modules_flag "$target" "$output_dir/inline/$name.js" || exit $?
+    $base/jsc inline -c "$config_js" $invoke_main_flag $register_modules_flag "$target" "$output_dir/inline/$name.js" || exit $?
 }
 
 bolt_build_entry_point() {
@@ -182,7 +182,7 @@ bolt_build_entry_point() {
         eval targets_$count_targets=$target
         count_targets=`expr $count_targets + 1`
 
-        $base/jsc compile -c "$config_dir" "$file" "$target" || exit $?
+        $base/jsc compile -c "$config_js" "$file" "$target" || exit $?
 
         if [ "$generate_inline" = "true" ]; then
             bolt_build_inline "$target" "$name"
@@ -211,7 +211,7 @@ bolt_build_entry_group() {
             eval file='${entry_groups_'${safe_name}'_'`expr $j - 1`'}'
             set -- "$file" "$@"
         done
-        $base/jsc compile -c "$config_dir" "$@" || exit $?
+        $base/jsc compile -c "$config_js" "$@" || exit $?
 
         if [ "$generate_inline" = "true" ]; then
             bolt_build_inline "$target" "$name"
@@ -226,7 +226,7 @@ bolt_link() {
         eval file='$targets_'`expr $i - 1`
         set -- "$file" "$@"
     done
-    $base/jsc link -c "$config_dir" "$@" || exit $?
+    $base/jsc link -c "$config_js" "$@" || exit $?
 }
 
 bolt_modules() {
