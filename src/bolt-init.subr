@@ -36,7 +36,6 @@ while echo x"$1" | grep -q '^x-'; do
 done
 
 : ${config_dir:=config/bolt}
-config_dir="`dirname $config_js`"
 
 [ -d "$config_dir" ] || mkdir -p "$config_dir"
 
