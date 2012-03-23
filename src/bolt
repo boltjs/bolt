@@ -41,7 +41,7 @@ case "$mode" in
     exit 0
     ;;
 -V|--version)
-    echo -n "bolt "
+    printf "bolt "
     cat "$base/version"
     exit 0
     ;;
