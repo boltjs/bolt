@@ -7,6 +7,7 @@ MODULES = \
 	${SRC}/report/logger.js \
 	${SRC}/run/accumulator.js \
 	${SRC}/run/wrapper.js \
+        ${SRC}/run/config.js \
 	${SRC}/run/test.js \
 	${SRC}/run/runner.js
 DISTFILES = \

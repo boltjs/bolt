@@ -7,13 +7,14 @@ test.run.accumulator = def(
   function (global, fn) {
     var tests = [];
 
-    var push = function (wrapper, testfile, name, deps, fn) {
+    var push = function (wrapper, testfile, name, replacements, deps, fn) {
       if (typeof deps === 'function' && fn === undefined) {
         fn = deps;
-        deps = [];
+        deps = replacements;
+        replacements = {};
       }
 
-      var args = [ wrapper, testfile, name, deps, fn ];
+      var args = [ wrapper, testfile, name, replacements, deps, fn ];
       tests.push(args);
     };
 
@@ -31,16 +32,17 @@ test.run.accumulator = def(
       if (more())
         runtest.apply(null, [ fn.curry(drain, runtest, done) ].concat(take()));
       else
-        done()
+        done();
     };
 
     var register = function (testfile, syncwrapper, asyncwrapper) {
-      global.test = function (name, deps, fn) {
-        push(syncwrapper, testfile, name, deps, fn);
+
+      global.test = function (name, replacements, deps, fn) {
+        push(syncwrapper, testfile, name, replacements, deps, fn);
       };
 
-      global.asynctest = function (name, deps, fn) {
-        push(asyncwrapper, testfile, name, deps, fn);
+      global.asynctest = function (name, replacements, deps, fn) {
+        push(asyncwrapper, testfile, name, replacements, deps, fn);
       };
     };
 
