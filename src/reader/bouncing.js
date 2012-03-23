@@ -32,7 +32,7 @@ module.reader.bouncing = def(
         result = configuration;
       };
       try {
-        eval(payload)
+        eval(payload);
       } catch (e) {
         throw 'Could not load configuration [' + file + '], with: ' + e;
       }
