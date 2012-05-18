@@ -197,14 +197,48 @@ define(
 
     </dl>
 
-    <p>
-
 
     <h3>Development Mode</h3>
 
-    Bolt is designed so that the some html can refer to a bootstrap file that can be in a
-    development mode where modules are downloaded as individual files directly from the
-    file system, or in a compiled mode where a single file is download for efficiency.
+    <p>
+      Bolt is designed so that the some html can refer to a bootstrap file that can be in a
+      development mode where modules are downloaded as individual files directly from the
+      file system, or in a compiled mode where a single file is download for efficiency.
+    </p>
+
+    <p>
+      In development mode the system is designed to be run behind a web server that is
+      serving up the actually versioned controlled source tree of your project. For pure
+      javascript projects this is normally achieved by just serving up the source with
+      apache or nginx. For more complex projects it would involve configuring what ever
+      application server or framework is involved to serve up the module and config source
+      files.
+    </p>
+
+    <p>
+      A standard layout:
+    </p>
+    <pre>
+config
+|-- bolt
+|   |-- bootstrap-prod.js
+|   |-- prod.js
+|
+src
+|-- js
+|   `-- example
+|       `-- bolt
+|           |-- Module.js
+|           |-- AnotherModule.js
+|           `-- DifferentModule.js
+test
+`-- js
+    |-- ModuleTest.js
+    |-- AnotherModuleTest.js
+    `-- DifferentModuleTest.js
+    </pre>
+
+
 
     <h3>Compiled Mode</h3>
 
