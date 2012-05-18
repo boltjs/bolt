@@ -104,28 +104,31 @@
 
       <dt>mapper.hierarchical</dt>
       <dd>
-        A convenience function that specifies a function that takes a module name and
-        converts it to a directory structure. For example, the module <code>example.bolt.Module</code>
-        would be come the path <code>example/bolt/Module</code>. This is how modules are commonly
-        layed out in source control.
+        <p>
+          A convenience function that specifies a function that takes a module name and
+          converts it to a directory structure. For example, the module <code>example.bolt.Module</code>
+          would be come the path <code>example/bolt/Module</code>. This is how modules are commonly
+          layed out in source control.
+        </p>
       </dd>
 
       <dt>mapper.flat</dt>
       <dd>
         <p>
-        A convenience function that specifies a function that takes a module name and
-        converts it to a file name. This is effectively an identity function. For example,
-        the module <code>example.bolt.Module</code>  would be come the path <code>example.bolt.Module</code>.
-        The bolt compiler's -m flag outputs modules in this structure.
+          A convenience function that specifies a function that takes a module name and
+          converts it to a file name. This is effectively an identity function. For example,
+          the module <code>example.bolt.Module</code>  would be come the path <code>example.bolt.Module</code>.
+          The bolt compiler's -m flag outputs modules in this structure.
         </p>
       </dd>
 
       <dt>mapper.constant(path)</dt>
       <dd>
         <p>
-        A convenience function that specifies a function that takes a module name and
-        converts it to a directory structure. For example, the module <code>example.modules.Module</code>
-        would be come the path <code>example/modules/Module</code>.
+          A convenience function that is used to construct a function that always returns a constant path.
+          For example, a call to <code>mapper.constant('example/bolt'), would convert any module name
+          to the path <code>example/bolt</code>. This is useful for referencing a compiled file where
+          a number of modules are contained in a single file.
         </p>
       </dd>
 
