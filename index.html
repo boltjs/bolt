@@ -88,9 +88,11 @@
         </p>
         <pre>type('js', 'ephox.modulator.js')</pre>
         <p>
-          The implementation package, specifies the base package for a type.
+          The implementation package specifies the base package for a type. It is expected to contain
+          two modules <code>&lt;package&gt.Modulator</code>, which is used for runtime loading of the
+          custom module type; and <code>&lt;package&gt.Compiler</code>, which is used for compilation
+          of the custom module type.
         </p>
-
       </dd>
 
       <dt>source</dt>
@@ -98,7 +100,14 @@
         source(type, arguments...);
       </dd>
 
-      <dt>mapper</dt>
+      <dt>mapper.hierarchical</dt>
+      <dd>
+        A convenience function that specifies a function that takes a module name and
+        converts it to a directory structure.
+      </dd>
+
+      <dt>mapper.hierarchical</dt>
+      <dt>mapper.constant(path)</dt>
       <dd>
         mapper.hierarchical
       </dd>
