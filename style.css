@@ -7,6 +7,10 @@ body {
     padding: 0;
 }
 
+dt {
+    font-weight: bold;
+}
+
 h1 a {
     color: white;
     text-decoration: none;

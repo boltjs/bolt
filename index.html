@@ -30,6 +30,64 @@
       configurations where this information can be found.
     </p>
 
+    <h4>Concepts</h4>
+
+    <dl>
+      <dt>configs</dt>
+      <dd>
+          configs are other javascript files that are used to configure bolt,
+          a configuration file consists of a single <code>configure</code>
+          call that takes an object with three optional keys, <code>configs</code>,
+          <code>types</code> and <code>sources</code>.
+      </dd>
+      <dt>types</dt>
+      <dd>
+          component types that are groked by bolt, these component types are
+          able to be loaded and compiled by bolt.
+      </dd>
+      <dt>sources</dt>
+      <dd>
+          sources specify where to load resources from, each source consists
+          of a type and then a set of configuration that indicate what modules
+          it can be loaded from this source and where to load them from.
+      </dd>
+
+    </dl>
+
+    <h4>Api</h4>
+
+    <dl>
+      <dt>configure</dt>
+      <dl>
+        configure({ configs: [ path ], types: [ type ], sources: [ source ] });
+
+        <p>
+asgfas
+        </p>
+      </dl>
+
+      <dt>type</dt>
+      <dl>
+        type(type, impl);
+      </dl>
+
+      <dt>source</dt>
+      <dl>
+        source(type, arguments...);
+      </dl>
+
+      <dt>mapper</dt>
+      <dl>
+        mapper.hierarchical
+      </dl>
+      <dl>
+        mapper.flat
+      </dl>
+      <dl>
+        mapper.constant(path)
+      </dl>
+
+    <p>
 
 
     <h3>Development Mode</h3>
