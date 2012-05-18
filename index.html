@@ -69,7 +69,8 @@
         <p>
           <code>configs</code> are an array of strings which specify the path to another
           configuration file. Configurations are read pre-order, so sources and types specified
-          take precedence over those read from the imported configs.
+          take precedence over those read from the imported configs. Relative paths are defined
+          relative to the file they are declared in.
         </p>
 
         <p>
@@ -108,6 +109,20 @@
           For the base amd type, this is of the form:
         </p>
         <p><code>source('amd', namespace, path, mapper)</code></p>
+        <p>
+          The <code>namespace</code> argument specifies the namespace prefix that is being configured
+          by this source, i.e. only modules matching this prefix will match this source.
+        </p>
+        <p>
+          The <code>path</code> specifies the path (excluding the mapped module name) to where
+          the modules should be loaded from. Relative paths are defined relative to the file
+          they are declared in.
+        </p>
+        <p>
+          The <code>mapper</code> specifies a function that takes a module name and converts it
+          to a file path (exclude the '.js') extension
+        </p>
+
       </dd>
 
       <dt>mapper.hierarchical</dt>
@@ -134,7 +149,7 @@
       <dd>
         <p>
           A convenience function that is used to construct a function that always returns a constant path.
-          For example, a call to <code>mapper.constant('example/bolt'), would convert any module name
+          For example, a call to <code>mapper.constant('example/bolt')</code>, would convert any module name
           to the path <code>example/bolt</code>. This is useful for referencing a compiled file where
           a number of modules are contained in a single file.
         </p>
