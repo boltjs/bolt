@@ -7,18 +7,33 @@ body {
     padding: 0;
 }
 
+h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+h1 a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+h1 a {
+    color: white;
+    text-decoration: none;
+}
+
 a {
-    color: blue;
+    color: #00ccff;
     text-decoration: none;
 }
 
 a:hover {
-    color: blue;
+    color: #00ccff;
     text-decoration: underline;
 }
 
 a:visited {
-    color: blue;
+    color: #o00ccff;
 }
 
 pre, code {
