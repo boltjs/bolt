@@ -57,7 +57,7 @@
     <h4>Api</h4>
 
     <dl>
-      <dt> <code>configure({ configs: [ path ], types: [ type ], sources: [ source ] });</code></dt>
+      <dt><code>configure({ configs: [ path ], types: [ type ], sources: [ source ] });</code></dt>
       <dd>
         <p>
           A single configure call should be the only thing made in a configuration
@@ -79,9 +79,18 @@
         </p>
        </dd>
 
-      <dt>type</dt>
+      <dt><code>type(type, package);</code></dt>
       <dd>
-        type(type, impl);
+        <p>
+          The type registers with bolt a module type to be loaded. The <code>amd</code> type is
+          always implicitly loaded but a common example is the <code>js</code> type, which registers
+          a custom type for loading raw javascript files as bolt modules.
+        </p>
+        <pre>type('js', 'ephox.modulator.js')</pre>
+        <p>
+          The implementation package, specifies the base package for a type.
+        </p>
+
       </dd>
 
       <dt>source</dt>
