@@ -404,9 +404,48 @@ configure({
     <h2>Compilation</h2>
 
     <p>
-      A standard layout:
+      For production bolt will compile all modules into a single file and generate
+      a bootstrap with an inline configuration to minimise server requests.
     </p>
 
+    <p>
+      There are a number of ways that you may want to arrange your javascript depending
+      on if you are generating a library, building a single-page application or a multi-page
+      application. The best way to demonstrate this is with a series of examples. All examples
+      use the directory gen as there output location.
+    </p>
+
+    <p>
+      Produce a bolt build for a multi-page application. A compiled file will be
+      generated for each Main module in this example.
+    </p>
+    <pre>bolt build -o gen -e src/js/**/*Main.js</pre>
+
+    <p>
+      Produce a bolt build for a library. A self contained script registering
+      all modules in their namespace will be produced. This compiles in a minimal
+      kernel so that your library does not have a dependency on bolt.
+    </p>
+    <pre>bolt build -o gen -i -g src/js/**/api/*.js</pre>
+
+    <p>
+      Produce a bolt build for a library to be consumed by other bolt projects, in
+      this build we only want modules to be converted to a convenient form, no compiled
+      output is produced.
+    </p>
+    <pre>bolt build -o gen -m src/js</pre>
+
+    <p>
+      These options can be used together for more complex scenarios. See <code>bolt help build</code>
+      for more detail.
+    </p>
+
+    <p>
+      Note that the examples assume use of a shell with "**" glob support. This means either zsh or
+      bash 4.x with `shopt -s globstar` set. If you are an mac user with a
+      default bash 3.x, bolt strongly recommends you upgrade to a nicer shell, however you can
+      use something like $(find src/js -name \*.js) to simulate glob support.
+    </p>
 
 
     <h3>Compiled Mode</h3>
