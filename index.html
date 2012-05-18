@@ -123,7 +123,8 @@ define(
         <p>
           <code>configs</code> are an array of strings which specify the path to another
           configuration file. Configurations are read pre-order, so sources and types specified
-          take precedence over those read from the imported configs.
+          take precedence over those read from the imported configs. Relative paths are defined
+          relative to the file they are declared in.
         </p>
 
         <p>
@@ -162,6 +163,20 @@ define(
           For the base amd type, this is of the form:
         </p>
         <p><code>source('amd', namespace, path, mapper)</code></p>
+        <p>
+          The <code>namespace</code> argument specifies the namespace prefix that is being configured
+          by this source, i.e. only modules matching this prefix will match this source.
+        </p>
+        <p>
+          The <code>path</code> specifies the path (excluding the mapped module name) to where
+          the modules should be loaded from. Relative paths are defined relative to the file
+          they are declared in.
+        </p>
+        <p>
+          The <code>mapper</code> specifies a function that takes a module name and converts it
+          to a file path (exclude the '.js') extension. This is normally in the form of one of
+          the convenience mappers described below.
+        </p>
       </dd>
 
       <dt>mapper.hierarchical</dt>
@@ -188,7 +203,7 @@ define(
       <dd>
         <p>
           A convenience function that is used to construct a function that always returns a constant path.
-          For example, a call to <code>mapper.constant('example/bolt'), would convert any module name
+          For example, a call to <code>mapper.constant('example/bolt')</code>, would convert any module name
           to the path <code>example/bolt</code>. This is useful for referencing a compiled file where
           a number of modules are contained in a single file.
         </p>
@@ -196,14 +211,76 @@ define(
 
     </dl>
 
-    <p>
-
 
     <h3>Development Mode</h3>
+
+    <p>
+      Bolt is designed so that the some html can refer to a bootstrap file that can be in a
+      development mode where modules are downloaded as individual files directly from the
+      file system, or in a compiled mode where a single file is download for efficiency.
+    </p>
+
+    <p>
+      In development mode the system is designed to be run behind a web server that is
+      serving up the actually versioned controlled source tree of your project. For pure
+      javascript projects this is normally achieved by just serving up the source with
+      apache or nginx. For more complex projects it would involve configuring what ever
+      application server or framework is involved to serve up the module and config source
+      files.
+    </p>
+
+    <p>
+      A standard layout:
+    </p>
+    <pre>
+config
+|-- bolt
+|   |-- bootstrap-prod.js
+|   |-- prod.js
+|   `-- test.js7
+|
+src
+|-- js
+|   `-- example
+|       `-- bolt
+|           |-- Module.js
+|           |-- AnotherModule.js
+|           `-- DifferentModule.js
+test
+`-- js
+    |-- ModuleTest.js
+    |-- AnotherModuleTest.js
+    `-- DifferentModuleTest.js
+    </pre>
+
+    <p>
+      The <code>config/bolt/prod.js</code> (default by convention but can be specified on command line), file is the production configuration.
+    </p>
+    <pre>
+configure({
+  sources: [
+    source('amd', 'example.bolt', '../../src/js', mapper.hierarchical),
+  ]
+});
+    </pre>
+    <p>
+      The <code>config/bolt/test.js</code> file is the test configuration. In
+      this case it just delegates to the production configuration, but in a
+      more complex scenario would include its own sources.
+    </p>
+    <pre>
+configure({
+  configs: [
+    'prod.js'
+  ]
+});
+    </pre>
 
     <h3>Compiled Mode</h3>
 
     <h3>Inlined Mode</h3>
+
+    <h3>Testing</h3>
 
 
 </div>
