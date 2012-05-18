@@ -15,8 +15,16 @@
 
     <h2>Modules in Bolt</h2>
 
+    <h3>Modules</h3>
+
     <p>
-      The central component of a bolt project is a module.
+      The central component of a bolt project is the module.
+    </p>
+
+    <p>
+      A module is essentially a named, self-contained unit of JavaScript
+      code, with a specified API, that may or may not depend on other
+      modules in order to accomplish its purpose.
     </p>
 
     <p>
@@ -26,7 +34,7 @@
 
     <pre>define(name, dependencies, definitionFunction);</pre>
 
-    <p>A typical module definition in a bolt project looks like:</p>
+    <p>For example, a typical bolt module definition in a project might look like:</p>
 
     <pre>
 define(
@@ -37,7 +45,7 @@ define(
     'example.bolt.DifferentModule'
   ],
 
-  function (AnotherModule, DifferentModule) {   // Definition function, passed dependencies in order
+  function (AnotherModule, DifferentModule) {   // Definition function - passed dependencies in order
     // Private state
 
     var hello = function () {
@@ -53,12 +61,18 @@ define(
     </pre>
 
     <p>
-
-    <p>
-      By convention, this module definition would live in the file
-      <code>example/bolt/Module.js</code> somewhere in the source directory
+      By convention, this module would live in the file
+      <code>example/bolt/Module.js</code>, somewhere in the source directory
       of a project.
     </p>
+
+    <h4>Naming</h4>
+    <h4>Dependencies</h4>
+    <h4>Definition Function</h4>
+
+    <h3>Requiring Modules</h3>
+
+    <h3>Main Modules</h3>
 
     <h2>Developing with Bolt</h2>
 
