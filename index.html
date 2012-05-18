@@ -48,7 +48,7 @@
       Define has the following signature:
     </p>
 
-    <pre>define(name, dependencies, definitionFunction);</pre>
+    <code>define(name, dependencies, definitionFunction);</code>
 
     <p>For example, a typical bolt module definition in a project might look like:</p>
 
@@ -74,7 +74,7 @@ define(
     };
   }
 );
-    </pre>
+</pre>
 
     <p>
       By convention, this module would live in the file
@@ -85,11 +85,16 @@ define(
     <h4>Naming</h4>
 
     <p>
+      The first parameter to <code>define</code> is the namespaced module name
+      of the newly defined module.
+    </p>
+
+    <p>
       Bolt module names are capitalised, and follow a namespacing convention
       of lower-case, dot-separated segments, for example:
     </p>
 
-    <pre>example.bolt.Module</pre>
+    <code>example.bolt.Module</code>
 
     <p>
       In this case, the <code>Module</code> module is in the
@@ -105,7 +110,33 @@ define(
     <h4>Dependencies</h4>
 
     <p>
-      Dependencies are specified
+      Dependencies are specified as an array of strings of module names that a
+      given module needs to use in order to carry out its tasks. For example:
+    </p>
+
+    <pre>
+[
+  'example.bolt.AnotherModule',
+  'example.bolt.DifferentModule'
+]
+</pre>
+
+    <p>
+      The dependency array is the second parameter to <code>define</code>, and
+      may be empty if a module doesn't have any dependencies.
+    </p>
+
+    <p>
+      In bolt, circular module dependencies are not allowed, for example if module
+      <code>example.bolt.A</code> depends on <code>example.bolt.B</code>, which
+      then depends on <code>example.bolt.A</code> again.
+    </p>
+
+    <p>
+      The bolt runtime will throw an exception if this situation is encountered
+      whilst initialising a project. Note that circular dependency chains can be
+      quite long and non-obvious in some cases, however bolt will list what the
+      circular dependency is when it complains.
     </p>
 
     <h4>Definition Function</h4>
