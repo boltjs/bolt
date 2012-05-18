@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Bolt: JavaScript Modules</title>
+    <title>Bolt JavaScript Framework</title>
     <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
 <body>
@@ -10,9 +10,9 @@
     <h2>Getting Started</h2>
 
     <p>
-      Bolt is a JavaScript module framework, inspired by, but at this point (intentionally)
-      not fully with compliant with the AMD specification. Bolt consists of a runtime framework,
-      compiler and testing tool for JavaScript modules.
+      Bolt is a module-based JavaScript framework, inspired by, but at this point (intentionally)
+      not fully compatible with the <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD specification</a>.
+      Bolt consists of a runtime framework, compiler and testing tool for JavaScript modules.
     </p>
 
     <p>
@@ -340,14 +340,14 @@ configure({
       </dd>
       <dt>types</dt>
       <dd>
-          component types that are groked by bolt, these component
+          component types that are understood by bolt - these component
           types are able to be loaded and compiled by bolt.
       </dd>
       <dt>sources</dt>
       <dd>
-          sources specify where to load resources from, each source
-          consists of a type and then a set of configuration that
-          indicate what modules it can be loaded from this source and
+          sources specify where to load resources from. Each source
+          consists of a type and then a set of configuration parameters that
+          indicate what modules can be loaded from this source and
           where to load them from.
       </dd>
 
@@ -479,7 +479,7 @@ configure({
       web server that is serving up the source tree of your
       project. For pure javascript projects this is normally achieved
       by just serving up the source with apache or nginx. For more
-      complex projects it would involve configuring what ever
+      complex projects it would involve configuring whatever
       application server or framework is involved to serve up the
       module and config source files.
     </p>
@@ -521,7 +521,7 @@ configure({
     <h2>Compilation</h2>
 
     <p>
-      For production bolt will compile all modules into a single file and generate
+      For production, bolt will compile all modules into a single file and generate
       a bootstrap with an inline configuration to minimise server requests.
     </p>
 
@@ -529,7 +529,7 @@ configure({
       There are a number of ways that you may want to arrange your javascript depending
       on if you are generating a library, building a single-page application or a multi-page
       application. The best way to demonstrate this is with a series of examples. All examples
-      use the directory gen as there output location.
+      use the directory gen as their output location.
     </p>
 
     <p>
@@ -559,7 +559,7 @@ configure({
 
     <p>
       Note that the examples assume use of a shell with "**" glob support. This means either zsh or
-      bash 4.x with `shopt -s globstar` set. If you are an mac user with a
+      bash 4.x with `shopt -s globstar` set. If you are a mac user with a
       default bash 3.x, bolt strongly recommends you upgrade to a nicer shell, however you can
       use something like $(find src/js -name \*.js) to simulate glob support.
     </p>
