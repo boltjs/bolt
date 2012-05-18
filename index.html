@@ -19,9 +19,11 @@
       There are a few things that need to be understood to take full advantage of bolt
       modules:
       <ul>
-        <li>Module Definition</li>
+        <li>Modules</li>
         <li>Project Structure</li>
         <li>Configuration</li>
+        <li>Compilation</li>
+        <li>Testing</li>
         <li>Getting Bolt</li>
       </ul>
     </p>
@@ -87,9 +89,93 @@ define(
 
     <h3>Main Modules</h3>
 
-    <h2>Developing with Bolt</h2>
+    <h2>Project Structure</h2>
 
-    <h3>Configuration</h3>
+   <p>
+      In development mode the system is designed to be run behind a web server that is
+      serving up the actually versioned controlled source tree of your project. For pure
+      javascript projects this is normally achieved by just serving up the source with
+      apache or nginx. For more complex projects it would involve configuring what ever
+      application server or framework is involved to serve up the module and config source
+      files.
+    </p>
+
+
+    <p>
+      A standard layout:
+    </p>
+    <pre>
+config
+|-- bolt
+|   |-- bootstrap-demo.js
+|   |-- bootstrap-prod.js
+|   |-- demo.js
+|   `-- prod.js
+|
+demo
+|-- html
+|   ` demo.html
+|-- js
+|   `-- example
+|       `--bolt
+|          `--demo
+|             `-- Demo.js
+|
+src
+|-- js
+|   `-- example
+|       `-- bolt
+|           |-- Module.js
+|           |-- AnotherModule.js
+|           `-- DifferentModule.js
+test
+`-- js
+    |-- ModuleTest.js
+    |-- AnotherModuleTest.js
+    `-- DifferentModuleTest.js
+    </pre>
+
+    <p>
+      The <code>config/bolt/prod.js</code> (default by convention but can be specified on command line), file is the production configuration.
+    </p>
+    <pre>
+configure({
+  sources: [
+    source('amd', 'example.bolt', '../../src/js', mapper.hierarchical),
+  ]
+});
+    </pre>
+    <p>
+      The <code>config/bolt/demo.js</code> file is the demo configuration. In
+      this case it just delegates to the production configuration, but in a
+      more complex scenario would include its own sources.
+    </p>
+    <pre>
+configure({
+  configs: [
+    'prod.js'
+  ]
+});
+    </pre>
+    <p>
+      The demo help shows what the client code would contain to reference bolt
+      code.
+    </p>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script type="text/javascript" src="../../config/bolt/bootstrap-demo.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript"&gt;
+            ephox.bolt.module.api.main('example.bolt.Module');
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+
+
+    <h2>Configuration</h2>
 
     <p>
       Bolt relies on a configuration file that defines what types of files
@@ -99,7 +185,7 @@ define(
       modules.
     </p>
 
-    <h4>Concepts</h4>
+    <h3>Concepts</h4>
 
     <dl>
       <dt>configs</dt>
@@ -123,7 +209,7 @@ define(
 
     </dl>
 
-    <h4>Api</h4>
+    <h3>Api</h3>
 
     <dl>
       <dt><code>configure({ configs: [ path ], types: [ type ], sources: [ source ] });</code></dt>
@@ -225,90 +311,6 @@ define(
     </dl>
 
 
-    <h3>Getting Started</h3>
-
-   <p>
-      In development mode the system is designed to be run behind a web server that is
-      serving up the actually versioned controlled source tree of your project. For pure
-      javascript projects this is normally achieved by just serving up the source with
-      apache or nginx. For more complex projects it would involve configuring what ever
-      application server or framework is involved to serve up the module and config source
-      files.
-    </p>
-
-
-    <p>
-      A standard layout:
-    </p>
-    <pre>
-config
-|-- bolt
-|   |-- bootstrap-demo.js
-|   |-- bootstrap-prod.js
-|   |-- demo.js
-|   `-- prod.js
-|
-demo
-|-- html
-|   ` demo.html
-|-- js
-|   `-- example
-|       `--bolt
-|          `--demo
-|             `-- Demo.js
-|
-src
-|-- js
-|   `-- example
-|       `-- bolt
-|           |-- Module.js
-|           |-- AnotherModule.js
-|           `-- DifferentModule.js
-test
-`-- js
-    |-- ModuleTest.js
-    |-- AnotherModuleTest.js
-    `-- DifferentModuleTest.js
-    </pre>
-
-    <p>
-      The <code>config/bolt/prod.js</code> (default by convention but can be specified on command line), file is the production configuration.
-    </p>
-    <pre>
-configure({
-  sources: [
-    source('amd', 'example.bolt', '../../src/js', mapper.hierarchical),
-  ]
-});
-    </pre>
-    <p>
-      The <code>config/bolt/demo.js</code> file is the demo configuration. In
-      this case it just delegates to the production configuration, but in a
-      more complex scenario would include its own sources.
-    </p>
-    <pre>
-configure({
-  configs: [
-    'prod.js'
-  ]
-});
-    </pre>
-    <p>
-      The demo help shows what the client code would contain to reference bolt
-      code.
-    </p>
-    <pre>
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;script type="text/javascript" src="../../config/bolt/bootstrap-demo.js"&gt;&lt;/script&gt;
-        &lt;script type="text/javascript"&gt;
-            ephox.bolt.module.api.main('example.bolt.Module');
-        &lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-    </pre>
 
     <h3>Compiled Mode</h3>
 
