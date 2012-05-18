@@ -353,8 +353,27 @@ configure({
     <p>
       Note that this process only needs to happen once.
       Configuration is read dynamically so the bootstrap does
-      not need to be rebuilt for each change.
+      not need to be rebuilt for each change. The default
+      configuration can be overrided with the -c or --config flag.
     </p>
+    <p>
+      Any html that needs access to javascript modules references
+      the bootstrap file:
+    </p>
+    <pre>
+&lt;script type="text/javascript" src="../../config/bolt/bootstrap-demo.js"&gt;&lt;/script&gt;
+</pre>
+
+    <p>and can then call the bolt runtime api to
+      load modules. In most cases it is sufficient to directly invoke
+      a main module:
+    </p>
+    <pre>
+&lt;script type="text/javascript"&gt;
+  ephox.bolt.module.api.main('example.bolt.Module');
+&lt;/script&gt;
+</pre>
+
 
     <h2>Compilation</h2>
 
