@@ -57,10 +57,8 @@
     <h4>Api</h4>
 
     <dl>
-      <dt>configure</dt>
-      <dl>
-        configure({ configs: [ path ], types: [ type ], sources: [ source ] });
-
+      <dt> <code>configure({ configs: [ path ], types: [ type ], sources: [ source ] });</code></dt>
+      <dd>
         <p>
           A single configure call should be the only thing made in a configuration
           file.
@@ -79,29 +77,29 @@
         <p>
           <code>sources</code> are an array of objects created by calls to the source function specified below.
         </p>
-
-      </dl>
+       </dd>
 
       <dt>type</dt>
-      <dl>
+      <dd>
         type(type, impl);
-      </dl>
+      </dd>
 
       <dt>source</dt>
-      <dl>
+      <dd>
         source(type, arguments...);
-      </dl>
+      </dd>
 
       <dt>mapper</dt>
-      <dl>
+      <dd>
         mapper.hierarchical
-      </dl>
-      <dl>
+      </dd>
+      <dd>
         mapper.flat
-      </dl>
-      <dl>
+      </dd>
+      <dd>
         mapper.constant(path)
-      </dl>
+      </dd>
+    </dl>
 
     <p>
 
