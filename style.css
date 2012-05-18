@@ -27,17 +27,17 @@ h1 a {
 }
 
 a {
-    color: #00ccff;
+    color: #00aaff;
     text-decoration: none;
 }
 
 a:hover {
-    color: #00ccff;
+    color: #00aaff;
     text-decoration: underline;
 }
 
 a:visited {
-    color: #o00ccff;
+    color: #00aaff;
 }
 
 pre, code {
