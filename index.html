@@ -48,9 +48,9 @@ ln -s `pwd`/bolt-*/bin/jsc /usr/local/bin/jsc
       You can test the bolt command by using <code>bolt --version</code>
     </p>
 
-    <h2>Modules in Bolt</h2>
+    <h2>Modules</h2>
 
-    <h3>Modules</h3>
+    <h3>Concepts</h3>
 
     <p>
       The central component of a bolt project is the module.
@@ -142,7 +142,7 @@ define(
 
     <p>
       The dependency array is the second parameter to <code>define</code>, and
-      may be empty if a module doesn't have any dependencies.
+      may be an empty array if a module doesn't have any dependencies.
     </p>
 
     <p>
@@ -159,6 +159,38 @@ define(
     </p>
 
     <h4>Definition Function</h4>
+
+    <p>
+      The definition function is responsible for initialising the module, setting
+      up any static resources it might have, and for returning a value that will
+      be made available to other modules that depend on in it.
+    </p>
+
+    <p>
+      The definition function is the third and final parameter to
+      <code>define</code>.
+    </p>
+
+    <p>
+      The definition function must return a value, but it need not be an object - although
+      typically it is, containing a set of methods that represent the module's
+      public API. For example:
+    </p>
+
+    <pre>
+function (...) {
+  // ...
+
+  return {
+    api1: api1,
+    api2: api2
+  };
+}
+</pre>
+
+    <p>
+      Values exported by modules depended 
+    </p>
 
     <h3>Requiring Modules</h3>
 
