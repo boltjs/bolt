@@ -7,10 +7,23 @@
 <h1><a href="index.html">bolt</a></h1>
 
 <div id="content">
-    <h2>Getting started</h2>
+    <h2>Getting Started</h2>
 
     <p>
-       download, untar, put on path.
+      Bolt is designed so that the some html can refer to a bootstrap file that can be in a
+      development mode where modules are downloaded as individual files directly from the
+      file system, or in a compiled mode where a single file is download for efficiency.
+    </p>
+
+    <p>
+      There are a few things that need to be understood to take full advantage of bolt
+      modules:
+      <ul>
+        <li>Module Definition</li>
+        <li>Project Structure</li>
+        <li>Configuration</li>
+        <li>Getting Bolt</li>
+      </ul>
     </p>
 
     <h2>Modules in Bolt</h2>
@@ -60,7 +73,7 @@ define(
       of a project.
     </p>
 
-    <h2>Developing with Bolt</h2>
+
 
     <h3>Configuration</h3>
 
@@ -198,15 +211,9 @@ define(
     </dl>
 
 
-    <h3>Development Mode</h3>
+    <h3>Getting Started</h3>
 
-    <p>
-      Bolt is designed so that the some html can refer to a bootstrap file that can be in a
-      development mode where modules are downloaded as individual files directly from the
-      file system, or in a compiled mode where a single file is download for efficiency.
-    </p>
-
-    <p>
+   <p>
       In development mode the system is designed to be run behind a web server that is
       serving up the actually versioned controlled source tree of your project. For pure
       javascript projects this is normally achieved by just serving up the source with
@@ -215,15 +222,26 @@ define(
       files.
     </p>
 
+
     <p>
       A standard layout:
     </p>
     <pre>
 config
 |-- bolt
+|   |-- bootstrap-demo.js
 |   |-- bootstrap-prod.js
-|   |-- prod.js
-|   `-- test.js7
+|   |-- demo.js
+|   `-- prod.js
+|
+demo
+|-- html
+|   ` demo.html
+|-- js
+|   `-- example
+|       `--bolt
+|          `--demo
+|             `-- Demo.js
 |
 src
 |-- js
@@ -250,7 +268,7 @@ configure({
 });
     </pre>
     <p>
-      The <code>config/bolt/test.js</code> file is the test configuration. In
+      The <code>config/bolt/demo.js</code> file is the demo configuration. In
       this case it just delegates to the production configuration, but in a
       more complex scenario would include its own sources.
     </p>
@@ -261,8 +279,25 @@ configure({
   ]
 });
     </pre>
+    <p>
+      The demo help shows what the client code would contain to reference bolt
+      code.
+    </p>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script type="text/javascript" src="../../config/bolt/bootstrap-demo.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript"&gt;
+            ephox.bolt.module.api.main('example.bolt.Module');
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
 
     <h3>Compiled Mode</h3>
+
 
     <h3>Inlined Mode</h3>
 
