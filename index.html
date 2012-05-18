@@ -27,7 +27,9 @@
     <p>
       Bolt relies on a configuration file that defines what types of files
       can be loaded, where they are loaded from and potentially other
-      configurations where this information can be found.
+      configurations where this information can be found. The configuration
+      is used for both runtime loading of modules and the compilation of
+      modules.
     </p>
 
     <h4>Concepts</h4>
@@ -103,20 +105,26 @@
       <dt>mapper.hierarchical</dt>
       <dd>
         A convenience function that specifies a function that takes a module name and
-        converts it to a directory structure.
+        converts it to a directory structure. For example, the module <code>example.modules.Module</code>
+        would be come the path <code>example/modules/Module</code>. This is how modules are commonly
+        layed out in source control.
       </dd>
 
-      <dt>mapper.hierarchical</dt>
+      <dt>mapper.flat</dt>
+      <dd>
+        A convenience function that specifies a function that takes a module name and
+        converts it to a file name. This is effectively an identity function. For example,
+        the module <code>example.modules.Module</code>  would be come the path <code>example.modules.Module</code>.
+        The bolt compiler's -m flag outputs modules in this structure.
+      </dd>
+
       <dt>mapper.constant(path)</dt>
       <dd>
-        mapper.hierarchical
+        A convenience function that specifies a function that takes a module name and
+        converts it to a directory structure. For example, the module <code>example.modules.Module</code>
+        would be come the path <code>example/modules/Module</code>.
       </dd>
-      <dd>
-        mapper.flat
-      </dd>
-      <dd>
-        mapper.constant(path)
-      </dd>
+
     </dl>
 
     <p>
