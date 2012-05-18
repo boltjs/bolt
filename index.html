@@ -16,9 +16,49 @@
     <h2>Modules in Bolt</h2>
 
     <p>
-      Marli's stuff goes here. Defining a module.
+      The central component of a bolt project is a module.
     </p>
 
+    <p>
+      Modules are created by calling the <code>define</code> function.
+      Define has the following signature:
+    </p>
+
+    <pre>define(name, dependencies, definitionFunction);</pre>
+
+    <p>A typical module definition in a bolt project looks like:</p>
+
+    <pre>
+define(
+  'example.bolt.Module',   // Module name (including namespace)
+
+  [
+    'example.bolt.AnotherModule',   // Dependencies on other modules
+    'example.bolt.DifferentModule'
+  ],
+
+  function (AnotherModule, DifferentModule) {   // Definition function, passed dependencies in order
+    // Private state
+
+    var hello = function () {
+      alert('Hello, world!');
+    };
+
+    // Public API (exposed to other modules)
+    return {
+      hello: hello
+    };
+  }
+);
+    </pre>
+
+    <p>
+
+    <p>
+      By convention, this module definition would live in the file
+      <code>example/bolt/Module.js</code> somewhere in the source directory
+      of a project.
+    </p>
 
     <h2>Developing with Bolt</h2>
 
