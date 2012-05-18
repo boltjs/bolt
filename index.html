@@ -65,6 +65,21 @@
           A single configure call should be the only thing made in a configuration
           file.
         </p>
+
+        <p>
+          <code>configs</code> are an array of strings which specify the path to another
+          configuration file. Configurations are read pre-order, so sources and types specified
+          take precedence over those read from the imported configs.
+        </p>
+
+        <p>
+          <code>types</code> are an array of objects created by calls to the type function specified below.
+        </p>
+
+        <p>
+          <code>sources</code> are an array of objects created by calls to the source function specified below.
+        </p>
+
       </dl>
 
       <dt>type</dt>
