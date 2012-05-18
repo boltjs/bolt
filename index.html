@@ -19,15 +19,17 @@
       There are a few things that need to be understood to take full advantage of bolt
       modules:
       <ul>
+        <li>Getting Bolt</li>
         <li>Modules</li>
         <li>Project Structure</li>
         <li>Configuration</li>
         <li>Runtime</li>
         <li>Compilation</li>
         <li>Testing</li>
-        <li>Getting Bolt</li>
       </ul>
     </p>
+
+    <h2>Getting Bolt</h2>
 
     <h2>Modules in Bolt</h2>
 
@@ -447,15 +449,38 @@ configure({
       use something like $(find src/js -name \*.js) to simulate glob support.
     </p>
 
+    <h2>Testing</h2>
 
-    <h3>Compiled Mode</h3>
+    <p>
+      Bolt comes with testing support. Tests are defined in by a <code>test</code> function
+      similar in style to a <code>define</code> call. An example test:
+    </p>
+    <pre>
+test(
+  'This is the test name',
 
+  [
+    'example.bolt.AnotherModule'
+  ],
 
-    <h3>Inlined Mode</h3>
+  function (AnotherModule) {
+    var actual = AnotherModule.five();
+    assert.equal(5, actual);
+  }
+);
+</pre>
 
-    <h3>Testing</h3>
+    <p>
+      This is using the assert module available on node, see <a href="http://nodejs.org/docs/latest/api/assert.html">http://nodejs.org/docs/latest/api/assert.html</a> for more detail.
+    </p>
 
+    <p>
+      To run tests you specify a config that knows how to load any
+      modules required by the tests. For the example project structure
+      the production configuration is sufficient. To run the tests:
+    </p>
 
+    <pre>bolt test config/bolt/prod.js test/js/*.js</pre>
 </div>
 </body>
 </html>
