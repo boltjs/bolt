@@ -112,17 +112,21 @@
 
       <dt>mapper.flat</dt>
       <dd>
+        <p>
         A convenience function that specifies a function that takes a module name and
         converts it to a file name. This is effectively an identity function. For example,
-        the module <code>example.modules.Module</code>  would be come the path <code>example.modules.Module</code>.
+        the module <code>example.bolt.Module</code>  would be come the path <code>example.bolt.Module</code>.
         The bolt compiler's -m flag outputs modules in this structure.
+        </p>
       </dd>
 
       <dt>mapper.constant(path)</dt>
       <dd>
+        <p>
         A convenience function that specifies a function that takes a module name and
         converts it to a directory structure. For example, the module <code>example.modules.Module</code>
         would be come the path <code>example/modules/Module</code>.
+        </p>
       </dd>
 
     </dl>
