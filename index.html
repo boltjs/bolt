@@ -172,7 +172,7 @@ define(
     </p>
 
     <p>
-      The definition function must return a value, but it need not be an object - although
+      The function must return a value, but it need not be an object - although
       typically it is, containing a set of methods that represent the module's
       public API. For example:
     </p>
@@ -189,15 +189,50 @@ function (...) {
 </pre>
 
     <p>
-      Values exported by modules depended 
+      Another common value that is returned by the definition function is another
+      function. This is often the case when the module is used to manufacture
+      instances - the returned function is treated like a constructor by modules
+      that depend upon it.
     </p>
 
-    <h3>Requiring Modules</h3>
+    <p>
+      The definition function is passed the values exported by modules specified in the
+      list of dependencies, in the order that they appear in the list. For example,
+      given the following dependencies:
+    </p>
+
+    <pre>
+[
+  'example.bolt.AnotherModule',
+  'example.bolt.DifferentModule'
+]
+</pre>
+
+    <p>
+      the definition function would appear as follows:
+    </p>
+
+    <pre>
+function (AnotherModule, DifferentModule) {
+  // ...
+}
+</pre>
+
+    <p>
+      By convention, the names given to the arguments of the definition function
+      are the same as the dependency module names (minus the namespace), however
+      these argument names are arbitrary and scoped to the definition function,
+      so they can be easily changed to something else to e.g. resolve name clashes
+      between modules in different namespaces with the same name.
+    </p>
+
+<!-- TODO -->
+<!--     <h3>Requiring Modules</h3>
 
     <h3>Main Modules</h3>
 
     <h3>Demanding Modules</h3>
-
+ -->
     <h2>Project Structure</h2>
 
    <p>
