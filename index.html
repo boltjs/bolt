@@ -97,9 +97,17 @@
         </p>
       </dd>
 
-      <dt>source</dt>
+      <dt>source(type, arguments ...)</dt>
       <dd>
-        source(type, arguments...);
+        <p>
+          The source function takes the type as a string as its first argument and then a variable
+          number of arguments that are passed to the source types implementation. The exact argument
+          formulation is dependent on the type argument.
+        </p>
+        <p>
+          For the base amd type, this is of the form:
+        </p>
+        <p><code>source('amd', namespace, path, mapper)</code></p>
       </dd>
 
       <dt>mapper.hierarchical</dt>
