@@ -223,6 +223,7 @@ config
 |-- bolt
 |   |-- bootstrap-prod.js
 |   |-- prod.js
+|   `-- test.js7
 |
 src
 |-- js
@@ -238,11 +239,34 @@ test
     `-- DifferentModuleTest.js
     </pre>
 
-
+    <p>
+      The <code>config/bolt/prod.js</code> (default by convention but can be specified on command line), file is the production configuration.
+    </p>
+    <pre>
+configure({
+  sources: [
+    source('amd', 'example.bolt', '../../src/js', mapper.hierarchical),
+  ]
+});
+    </pre>
+    <p>
+      The <code>config/bolt/test.js</code> file is the test configuration. In
+      this case it just delegates to the production configuration, but in a
+      more complex scenario would include its own sources.
+    </p>
+    <pre>
+configure({
+  configs: [
+    'prod.js'
+  ]
+});
+    </pre>
 
     <h3>Compiled Mode</h3>
 
     <h3>Inlined Mode</h3>
+
+    <h3>Testing</h3>
 
 
 </div>
