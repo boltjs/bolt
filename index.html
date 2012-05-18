@@ -67,7 +67,9 @@ define(
     <p>
       Bolt relies on a configuration file that defines what types of files
       can be loaded, where they are loaded from and potentially other
-      configurations where this information can be found.
+      configurations where this information can be found. The configuration
+      is used for both runtime loading of modules and the compilation of
+      modules.
     </p>
 
     <h4>Concepts</h4>
@@ -135,28 +137,49 @@ define(
         </p>
       </dd>
 
-      <dt>source</dt>
+      <dt>source(type, arguments ...)</dt>
       <dd>
-        source(type, arguments...);
+        <p>
+          The source function takes the type as a string as its first argument and then a variable
+          number of arguments that are passed to the source types implementation. The exact argument
+          formulation is dependent on the type argument.
+        </p>
+        <p>
+          For the base amd type, this is of the form:
+        </p>
+        <p><code>source('amd', namespace, path, mapper)</code></p>
       </dd>
 
       <dt>mapper.hierarchical</dt>
       <dd>
-        A convenience function that specifies a function that takes a module name and
-        converts it to a directory structure.
+        <p>
+          A convenience function that specifies a function that takes a module name and
+          converts it to a directory structure. For example, the module <code>example.bolt.Module</code>
+          would be come the path <code>example/bolt/Module</code>. This is how modules are commonly
+          layed out in source control.
+        </p>
       </dd>
 
-      <dt>mapper.hierarchical</dt>
+      <dt>mapper.flat</dt>
+      <dd>
+        <p>
+          A convenience function that specifies a function that takes a module name and
+          converts it to a file name. This is effectively an identity function. For example,
+          the module <code>example.bolt.Module</code>  would be come the path <code>example.bolt.Module</code>.
+          The bolt compiler's -m flag outputs modules in this structure.
+        </p>
+      </dd>
+
       <dt>mapper.constant(path)</dt>
       <dd>
-        mapper.hierarchical
+        <p>
+          A convenience function that is used to construct a function that always returns a constant path.
+          For example, a call to <code>mapper.constant('example/bolt'), would convert any module name
+          to the path <code>example/bolt</code>. This is useful for referencing a compiled file where
+          a number of modules are contained in a single file.
+        </p>
       </dd>
-      <dd>
-        mapper.flat
-      </dd>
-      <dd>
-        mapper.constant(path)
-      </dd>
+
     </dl>
 
     <p>
