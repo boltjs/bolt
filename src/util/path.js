@@ -4,13 +4,15 @@ module.util.path = def(
 
   function () {
     var dirname = function (file) {
-      var end = file.lastIndexOf('/');
-      return file.substring(0, end);
+      var normalized = file.replace(/\\/g, '/');
+      var end = normalized.lastIndexOf('/');
+      return normalized.substring(0, end);
     };
 
     var basename = function (file) {
-      var end = file.lastIndexOf('/');
-      return file.substring(end + 1);
+      var normalized = file.replace(/\\/g, '/');
+      var end = normalized.lastIndexOf('/');
+      return normalized.substring(end + 1);
     };
 
     return {
