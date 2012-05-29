@@ -36,7 +36,7 @@ usage() {
     echo
     echo '  Produce a bolt build for a top level library. A self contained script registering'
     echo '  all modules in their namespace will be produced.'
-    echo '    bolt build -i -g src/main/js/**/api/*.js'
+    echo '    bolt build -i -g example src/main/js/**/api/*.js'
     echo
     echo
     echo '  Produce a bolt build for a general purpose library, in this build we only want'
