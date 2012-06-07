@@ -2,8 +2,7 @@
 
 Bolt is a javascript module system, inspired by, but at this
 point (intentionally) not compatible with the AMD specification.
-Bolt consists of a runtime framework, compiler and testing tool for
-JavaScript modules.
+Bolt consists of a runtime framework, compiler and testing tools.
 
 The general philosophy is quick, clean and easy.
 
