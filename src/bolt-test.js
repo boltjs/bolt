@@ -7,8 +7,6 @@ require('./kernel');
 require('./loader');
 require('./module');
 require('./test');
-require('./jssert');
-global.assert = require('assert');
 
 var path = require('path');
 var runner = ephox.bolt.test.run.runner;

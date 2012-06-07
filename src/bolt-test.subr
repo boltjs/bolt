@@ -5,8 +5,8 @@ usage() {
     echo 'arguments:'
     echo '  CONFIG                   The bolt configuration file to be used for tests'
     echo '  TEST                     A test file. The test file may contain one or more'
-    echo '                           test methods. `jssert` is exposed to the test file'
-    echo '                           automatically.'
+    echo '                           test methods. Test files have an `assert` library'
+    echo '                           exposed to them automatically.'
     echo
     echo 'example:'
     echo '  Run all atomic tests.'
