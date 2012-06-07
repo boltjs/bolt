@@ -57,14 +57,12 @@ if "%mode%"=="compile" goto done_mode_validation
 if "%mode%"=="identify" goto done_mode_validation
 if "%mode%"=="inline" goto done_mode_validation
 if "%mode%"=="link" goto done_mode_validation
-if "%mode%"=="help" goto done_mode_validation
+if "%mode%"=="help" call :usage && exit /b 0
 
 echo invalid mode [%mode%], must be one of dev^|compile^|identify^|inline^|link^|help
 goto fail_usage
 
 :done_mode_validation
-
-if "%mode%"=="help" call :usage && exit /b 0
 
 :parse_flags
   set flag=%~1
