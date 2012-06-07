@@ -89,6 +89,8 @@ ${REPOSITORY_PATH}/compiler/gen/compiler.js: ${REPOSITORY_PATH}/module/gen/modul
 	cp ${REPOSITORY_PATH}/module/gen/module.js ${REPOSITORY_PATH}/compiler/lib/module
 	cp ${REPOSITORY_PATH}/module/gen/rhino.js ${REPOSITORY_PATH}/compiler/lib/module
 	cp ${REPOSITORY_PATH}/inline/gen/inline.js ${REPOSITORY_PATH}/compiler/lib/inline
+	cp ${REPOSITORY_PATH}/inline/gen/inline.js.pre ${REPOSITORY_PATH}/compiler/lib/inline
+	cp ${REPOSITORY_PATH}/inline/gen/inline.js.post ${REPOSITORY_PATH}/compiler/lib/inline
 	cd ${REPOSITORY_PATH}/compiler; ${MAKE} $(MFLAGS)
 
 ${REPOSITORY_PATH}/framework/components/Makefile: ${REPOSITORIES}
