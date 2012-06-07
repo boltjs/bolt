@@ -5,7 +5,7 @@ LIB = lib
 TEST = test
 DIST = gen
 RELEASE = ${DIST}/${NAME}.js
-PRELUDE = ${LIB}/framework/prelude.js 
+PRELUDE = ${LIB}/framework/prelude.js
 
 .PHONY: default clean test dist
 
@@ -23,8 +23,9 @@ test: ${RELEASE}
 ${DIST}:
 	mkdir -p $@
 
-${PRELUDE}:
-	dent -clean
+${PRELUDE}: ../framework/components/prelude.js
+	mkdir -p lib/framework
+	cp ../framework/components/prelude.js lib/framework
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
 	if [ ! -z "${MODULES}" ]; then ( \
