@@ -83,11 +83,11 @@ ${REPOSITORY_PATH}/module/gen/module.js ${REPOSITORY_PATH}/module/gen/loader.js 
 	cd ${REPOSITORY_PATH}/module; ${MAKE} ${MFLAGS}
 
 ${REPOSITORY_PATH}/compiler/gen/compiler.js: ${REPOSITORY_PATH}/module/gen/module.js ${REPOSITORY_PATH}/module/gen/loader.js ${REPOSITORY_PATH}/module/gen/kernel.js ${REPOSITORY_PATH}/inline/gen/inline.js ${REPOSITORY_PATH}/compiler/Makefile
-	mkdir -p ${REPOSITORY_PATH}/module/lib/inline ${REPOSITORY_PATH}/module/lib/module
-	cp ${REPOSITORY_PATH}/module/gen/loader.js ${REPOSITORY_PATH}/module/lib/module
-	cp ${REPOSITORY_PATH}/module/gen/kernel.js ${REPOSITORY_PATH}/module/lib/module
-	cp ${REPOSITORY_PATH}/module/gen/module.js ${REPOSITORY_PATH}/module/lib/module
-	cp ${REPOSITORY_PATH}/inline/gen/inline.js ${REPOSITORY_PATH}/module/lib/inline
+	mkdir -p ${REPOSITORY_PATH}/compiler/lib/inline ${REPOSITORY_PATH}/compiler/lib/module
+	cp ${REPOSITORY_PATH}/module/gen/loader.js ${REPOSITORY_PATH}/compiler/lib/module
+	cp ${REPOSITORY_PATH}/module/gen/kernel.js ${REPOSITORY_PATH}/compiler/lib/module
+	cp ${REPOSITORY_PATH}/module/gen/module.js ${REPOSITORY_PATH}/compiler/lib/module
+	cp ${REPOSITORY_PATH}/inline/gen/inline.js ${REPOSITORY_PATH}/compiler/lib/inline
 	cd ${REPOSITORY_PATH}/compiler; ${MAKE} $(MFLAGS)
 
 ${REPOSITORY_PATH}/framework/components/Makefile: ${REPOSITORIES}
