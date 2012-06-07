@@ -47,4 +47,4 @@ gen/image/bolt-local.
 
 # Getting Started
 
-Checkout the [github wiki](https://github.com/ephox/bolt/wiki/Overview) for some basic documentation on getting started.
+Checkout the [github wiki](https://github.com/ephox/bolt/wiki/Home) for some basic documentation on getting started.
