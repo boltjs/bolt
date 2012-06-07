@@ -7,7 +7,7 @@ function getVersionString() {
 }
 
 p.setConfig({
-  command: ["make", "-e", getVersionString, "GIT_BASE=git://git/bolt/", "--", "cleandist"],
+  command: ["make", getVersionString, "GIT_BASE=git://git/bolt/", "--", "cleandist"],
     dist: "gen/dist",
     distInclude: "**/*"
 });
