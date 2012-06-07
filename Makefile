@@ -26,6 +26,8 @@ SRC = \
 	${REPOSITORY_PATH}/loader/gen/loader.js \
 	${REPOSITORY_PATH}/kernel/gen/kernel.js \
 	${REPOSITORY_PATH}/inline/gen/inline.js \
+	${REPOSITORY_PATH}/inline/gen/inline.js.pre \
+	${REPOSITORY_PATH}/inline/gen/inline.js.post \
 	${REPOSITORY_PATH}/compiler/gen/compiler.js \
 	${REPOSITORY_PATH}/script/src/bolt \
 	${REPOSITORY_PATH}/script/src/bolt-init.subr \
