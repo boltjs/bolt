@@ -36,10 +36,18 @@ test.assert.assert = def(
       }
     };
 
+    var fail = function (message) {
+      if (message !== undefined)
+        throw new Error(message);
+      else
+        throw new Error('Test failed.');
+    };
+
     return {
       eq: eq,
       throws: throws,
-      succeeds: succeeds
+      succeeds: succeeds,
+      fail: fail
     };
   }
 );
