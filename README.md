@@ -1,10 +1,14 @@
 # Bolt
 
-Bolt is a module-based JavaScript framework, inspired by, but at this
-point (intentionally) not fully compatible with the AMD specification.
+Bolt is a javascript module system, inspired by, but at this
+point (intentionally) not compatible with the AMD specification.
 Bolt consists of a runtime framework, compiler and testing tool for
-JavaScript modules. The general philosophy is quick, clean and
-easy.
+JavaScript modules.
+
+The general philosophy is quick, clean and easy.
+
+Bolt is open source under a [BSD style license](https://raw.github.com/ephox/bolt/master/LICENCE).
+
 
 # Getting Bolt
 
@@ -42,4 +46,6 @@ The distribution tar can then be found in gen/dist/bolt-local.tar.gz, or unpacke
 gen/image/bolt-local.
 
 
+# Getting Started
 
+Checkout the [github wiki](https://github.com/ephox/bolt/wiki/Overview) for some basic documentation on getting started.
