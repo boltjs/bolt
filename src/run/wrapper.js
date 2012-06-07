@@ -1,9 +1,12 @@
 test.run.wrapper = def(
   [
-    Function('return this;')()
+    Function('return this;')(),
+    test.assert.assert
   ],
 
-  function (global) {
+  function (global, assert) {
+    global.assert = assert;
+
     var sync = function (reporter, testfile, name, f, next) {
       global.define = ephox.bolt.module.api.define;
       global.require = ephox.bolt.module.api.require;
@@ -55,7 +58,6 @@ test.run.wrapper = def(
         }
       };
     };
-
 
     return {
       sync: sync,

@@ -1,5 +1,4 @@
 test.run.config = def(
-
   [
     ephox.bolt.kernel.fp.object,
     ephox.bolt.module.config.mapper,
@@ -8,7 +7,6 @@ test.run.config = def(
   ],
 
   function (obj, mapper, specs, path) {
-
     var sources = function (testfile, replacements) {
       var r = [];
       var testpath = path.dirname(testfile);

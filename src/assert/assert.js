@@ -1,0 +1,45 @@
+test.assert.assert = def(
+  [
+    test.assert.compare
+  ],
+
+  function (compare) {
+    var eq = function (expected, actual, message) {
+      var result = compare.compare(expected, actual);
+      if (!result.eq) {
+        if (message !== undefined)
+          throw new Error(message);
+        else
+          throw new Error(result.why);
+      }
+    };
+
+    var throws = function (expected, f, message) {
+      var token = {};
+
+      try {
+        f();
+        throw token;
+      } catch (e) {
+        if (e === token)
+          throw new Error(message);
+        if (expected !== undefined)
+          eq(expected, e, message);
+      }
+    };
+
+    var succeeds = function (f, message) {
+      try {
+        f();
+      } catch (e) {
+        throw new Error(message);
+      }
+    };
+
+    return {
+      eq: eq,
+      throws: throws,
+      succeeds: succeeds
+    };
+  }
+);

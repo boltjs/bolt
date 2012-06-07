@@ -13,14 +13,5 @@ var dependencies = [
       { name: "demo.js", path: lib + "/framework" },
       { name: "Makefile", path: "." }
     ]
-  },
-
-  {
-    name: "jssert",
-    repository: "buildrepo2",
-    source: "jssert.zip",
-    targets: [
-      {name: "jssert.js", path: lib + '/run'}
-    ]
   }
 ];
