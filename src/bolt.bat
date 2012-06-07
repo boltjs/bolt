@@ -59,6 +59,7 @@ if not "%mode%"=="help" goto run_mode
 
 set help_mode=true
 set mode=%~1
+shift
 
 if "%mode%"=="init" goto run_mode
 if "%mode%"=="build" goto run_mode
@@ -69,5 +70,12 @@ exit /b 2
 
 :run_mode
 
-call %base%bolt-%mode%.subr.bat
+:inline_remaining
+if "%~1"=="" goto end_inline_remaining
+set remaining=%remaining% "%~1"
+shift
+goto :inline_remaining
+:end_inline_remaining
+
+call %base%bolt-%mode%.subr.bat %remaining%
 exit /b %errorlevel%
