@@ -14,7 +14,7 @@ test.assert.assert = def(
       }
     };
 
-    var throws = function (expected, f, message) {
+    var throws = function (f, expected, message) {
       var token = {};
 
       try {
