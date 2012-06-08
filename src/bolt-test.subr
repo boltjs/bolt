@@ -36,10 +36,6 @@ if [ "$help_mode" = true ]; then
     exit 0
 fi
 
-if [ $# -lt 2 ]; then
-    fail_usage 1 "Not enough arguments, must specify configuration and at least one test file."
-fi
-
 verbose=false
 
 case "$1" in
@@ -52,6 +48,10 @@ case "$1" in
 *)
     ;;
 esac
+
+if [ $# -lt 2 ]; then
+    fail_usage 1 "Not enough arguments, must specify configuration and at least one test file."
+fi
 
 config="$1"; shift
 
