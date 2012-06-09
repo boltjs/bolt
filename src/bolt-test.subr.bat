@@ -73,7 +73,8 @@ if "%node%"=="" echo error: node.js is not on the system path && goto fail
 set remaining=
 :remaining
 if "%~1"=="" goto end_remaining
-set remaining=%remaining% "%~1"
+for /F "usebackq delims=" %%s in (`glob -w "%~1"`) do set globbed=%%s
+set remaining=%remaining% %globbed%
 shift
 goto remaining
 :end_remaining
