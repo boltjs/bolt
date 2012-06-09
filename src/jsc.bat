@@ -136,7 +136,7 @@ exit /b 0
 
 :jsc_dev
   if "%~1"=="" for %%F in ("%config_js%") do (set bootstrap=%%~dpFbootstrap.js) && goto exec_jsc_dev
-  if "%~2"=="" set bootstrap=%~1 && goto exec_jsc_dev
+  if "%~2"=="" (set bootstrap=%~1) && goto exec_jsc_dev
   echo invalid number of arguments for jsc %mode%
   goto fail_usage
 
