@@ -157,6 +157,7 @@ exit /b 0
   if "%~1"=="" echo invalid number of arguments for jsc %mode% && goto fail_usage
   if "%~2"=="" echo invalid number of arguments for jsc %mode% && goto fail_usage
 
+  set remaining=
   :jsc_inline_remaining
   if "%~1"=="" goto end_jsc_inline_remaining
   set remaining=%remaining% "%~1"
@@ -174,6 +175,7 @@ exit /b 0
   if "%~1"=="" echo invalid number of arguments for jsc %mode% && goto fail_usage
   if "%~2"=="" echo invalid number of arguments for jsc %mode% && goto fail_usage
 
+  set remaining=
   :jsc_x_remaining
   if "%~1"=="" goto end_jsc_x_remaining
   set remaining=%remaining% "%~1"

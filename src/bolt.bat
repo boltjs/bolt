@@ -70,6 +70,7 @@ exit /b 2
 
 :run_mode
 
+set remaining=
 :inline_remaining
 if "%~1"=="" goto end_inline_remaining
 set remaining=%remaining% "%~1"
