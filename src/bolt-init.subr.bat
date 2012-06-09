@@ -24,6 +24,14 @@ goto entry
 :fail
   exit /b 1
 
+:is_dir
+  setlocal
+  set olddir=%CD%
+  cd "%~1" 2>NUL
+  set err=%errorlevel%
+  cd "%olddir%"
+  exit /b %err%
+
 
 :entry
 
@@ -51,7 +59,8 @@ if "%help_mode%"=="true" call :usage && exit /b 0
 
 if "%config_dir%"=="" set config_dir=config\bolt
 
-for %%i in ("%config_dir%") do if not exist %%~si\NUL mkdir %config_dir%
+call :is_dir "%config_dir%"
+if %errorlevel%==1 mkdir "%config_dir%"
 
 rem FIX discuss the merits of cherry picking these two vs generating all.
 
