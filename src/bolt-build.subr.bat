@@ -68,8 +68,6 @@ goto entry
 
 :entry
 
-set base=%~dp0
-
 if "%help_mode%"=="true" call :usage && exit /b 0
 
 set count_targets=0
