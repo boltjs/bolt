@@ -138,7 +138,7 @@ set count_entry_group_name=0
 
   :parse_modules
     set generate_modules=true
-  goto parse_modules
+  goto parse_flags
 
   :parse_points
     :point_loop
@@ -155,12 +155,12 @@ set count_entry_group_name=0
       set /a count_entry_point=%count_entry_point% + 1
     goto point_loop
     :end_point_loop
-  goto parse_modules
+  goto parse_flags
 
   :parse_group
     echo --entry-group parsing not implemented.
     exit /b 1
-  goto parse_modules
+  goto parse_flags
 
 :done_parse_flags
 
