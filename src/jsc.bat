@@ -42,6 +42,14 @@ goto entry
 :fail
   exit /b 1
 
+:is_dir
+  setlocal
+  set olddir=%CD%
+  cd "%~1" 2>NUL
+  set err=%errorlevel%
+  cd "%olddir%"
+  exit /b %err%
+
 
 :entry
 
@@ -113,7 +121,8 @@ if "%register_modules%"=="" set register_modules=false
 if "%invoke_main%"=="" set invoke_main=false
 
 if not exist "%config_js%" echo %config_js% does not exist or is not a file && goto fail
-for %%i in ("%config_js%") do if exist %%~si\NUL echo %config_js% does not exist or is not a file && goto fail
+call :is_dir "%config_js%"
+if %errorlevel%==0 echo %config_js% does not exist or is not a file && goto fail
 
 for %%i in (node.exe) do set node=%%~$PATH:i
 if "%node%"=="" echo error: node.js is not on the system path && goto fail
@@ -152,7 +161,7 @@ exit /b 0
   if "%~1"=="" goto end_jsc_inline_remaining
   set remaining=%remaining% "%~1"
   shift
-  goto :jsc_inline_remaining
+  goto jsc_inline_remaining
   :end_jsc_inline_remaining
 
   "%node%" "%base%jsc.js" "%mode%" "%config_js%" "%invoke_main%" "%main%" "%register_modules%" %remaining%
@@ -169,7 +178,7 @@ exit /b 0
   if "%~1"=="" goto end_jsc_x_remaining
   set remaining=%remaining% "%~1"
   shift
-  goto :jsc_x_remaining
+  goto jsc_x_remaining
   :end_jsc_x_remaining
 
   "%node%" "%base%jsc.js" "%mode%" "%config_js%" %remaining%
