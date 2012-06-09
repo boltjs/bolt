@@ -85,4 +85,4 @@ for %%i in (%remaining%) do (
   if !errorlevel!==0 echo Could not find test file [%%i] && exit /b 20)
 endlocal
 
-echo "%node%" "%base%bolt-test.js" "%verbose%" "%config%" %remaining%
+"%node%" "%base%bolt-test.js" "%verbose%" "%config%" %remaining%
