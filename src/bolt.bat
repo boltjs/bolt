@@ -74,7 +74,7 @@ exit /b 2
 if "%~1"=="" goto end_inline_remaining
 set remaining=%remaining% "%~1"
 shift
-goto :inline_remaining
+goto inline_remaining
 :end_inline_remaining
 
 call %base%bolt-%mode%.subr.bat %remaining%
