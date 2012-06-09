@@ -72,5 +72,105 @@ set base=%~dp0
 
 if "%help_mode%"=="true" call :usage && exit /b 0
 
+set count_targets=0
+set count_entry_point=0
+set count_entry_group_name=0
+
+:parse_flags
+  set flag=%~1
+  if not "%flag:~0,1%"=="-" goto done_parse_flags
+  shift
+
+  if "%flag%"=="-c" goto parse_config
+  if "%flag%"=="--config" goto parse_config
+  if "%flag%"=="-o" goto parse_output
+  if "%flag%"=="--output" goto parse_output
+  if "%flag%"=="-s" goto parse_src
+  if "%flag%"=="--src-dir" goto parse_src
+  if "%flag%"=="-n" goto parse_invoke
+  if "%flag%"=="--invoke-main" goto parse_invoke
+  if "%flag%"=="-r" goto parse_register
+  if "%flag%"=="--register" goto parse_register
+  if "%flag%"=="-i" goto parse_inline
+  if "%flag%"=="--inline" goto parse_inline
+  if "%flag%"=="-m" goto parse_modules
+  if "%flag%"=="--modules" goto parse_modules
+  if "%flag%"=="-e" goto parse_points
+  if "%flag%"=="--entry-points" goto parse_points
+  if "%flag%"=="-g" goto parse_group
+  if "%flag%"=="--entry-group" goto parse_group
+  if "%flag%"=="--" goto done_parse_flags
+  echo invalid flag [%flag%] && goto fail_usage
+
+  goto parse_flags
+
+  :parse_config
+    if "%~1"=="" echo %flag% requires an argument to be specified && goto fail_usage
+    set config_js=%~1
+    shift
+  goto parse_flags
+
+  :parse_output
+    if "%~1"=="" echo %flag% requires an argument to be specified && goto fail_usage
+    set output_dir=%~1
+    shift
+  goto parse_flags
+
+  :parse_src
+    if "%~1"=="" echo %flag% requires an argument to be specified && goto fail_usage
+    set src_dir=%~1
+    shift
+  goto parse_flags
+
+  :parse_invoke
+    if "%~1"=="" echo %flag% requires an argument to be specified && goto fail_usage
+    set invoke_main_flag=-n "%~1"
+    shift
+  goto parse_flags
+
+  :parse_register
+    set register_modules_flag=-r
+  goto parse_flags
+
+  :parse_inline
+    set generate_inline=true
+  goto parse_flags
+
+  :parse_modules
+    set generate_modules=true
+  goto parse_modules
+
+  :parse_points
+    :point_loop
+      set entry=%~1
+      if "%entry%"=="" goto end_point_loop
+      if "%entry:~0,1%"=="-" goto end_point_loop
+      shift
+
+      if not exist "%entry%" echo specified file for entry point not found [%entry%] && goto fail
+      call :is_dir "%entry%"
+      if %errorlevel%==0 echo specified file for entry point not found [%entry%] && goto fail
+
+      set entry_point_%count_entry_point%="%entry%"
+      set /a count_entry_point=%count_entry_point% + 1
+    goto point_loop
+    :end_point_loop
+  goto parse_modules
+
+  :parse_group
+    echo --entry-group parsing not implemented.
+    exit /b 1
+  goto parse_modules
+
+:done_parse_flags
+
+if "%config_js%"=="" set config_js=config/bolt/prod.js
+if "%output_dir%"=="" set output_dir=scratch/main/js
+if "%src_dir%"=="" set src_dir=src/main/js
+if "%generate_inline%"=="" set generate_inline=false
+if "%generate_modules%"=="" set generate_modules=false
+
+
+
 echo Windows support for bolt build is currently not implemented.
 exit /b 1
