@@ -13,7 +13,7 @@ goto entry
   echo   test
   echo   help
   echo.
-  echo For usage/help on a specific module, use:
+  echo For usage/help on a specific mode, use:
   echo   bolt help MODE
 
   exit /b 0
