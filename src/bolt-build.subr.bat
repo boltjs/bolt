@@ -195,6 +195,18 @@ if "%generate_modules%"=="" set generate_modules=false
 
 goto dispatch
 
+:bolt_point
+  echo bolt_point unimplemented.
+  exit /b 1
+
+:bolt_group
+  echo bolt_group unimplemented.
+  exit /b 1
+
+:bolt_link
+  echo bolt_link unimplemented.
+  exit /b 1
+
 :bolt_modules
   mkdir "%output_dir%/module" 2>NUL
   set olddir=%CD%
@@ -208,4 +220,7 @@ goto dispatch
 
 :dispatch
 
+if %count_entry_point% GTR 0 call :bolt_point
+if %count_entry_group_name% GTR 0 call :bolt_group
+if %count_targets% GTR 0 call :bolt_link
 if "%generate_modules%"=="true" call :bolt_modules
