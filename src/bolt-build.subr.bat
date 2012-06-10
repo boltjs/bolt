@@ -70,6 +70,7 @@ goto entry
 
 if "%help_mode%"=="true" call :usage && exit /b 0
 
+set targets=
 set count_targets=0
 set count_entry_point=0
 set count_entry_group_name=0
@@ -212,8 +213,8 @@ goto dispatch
     for /F "usebackq delims=" %%j in (`""%base%jsc" identify "!file!""`) do set name=%%j
     set target=!output_dir!\compile\!name!.js
 
-    rem push onto the targets array so things can be linked later
-    set targets_!count_targets!=!target!
+    rem add to targets variable so things can be linked later
+    set targets=!targets! "!target!"
     set /a count_targets=!count_targets! + 1
 
     call "!base!jsc.bat" compile -c "%config_js%" "!file!" "!target!" || exit /b !errorlevel!
@@ -227,7 +228,7 @@ goto dispatch
   exit /b 0
 
 :bolt_link
-  echo bolt_link unimplemented.
+  call "%base%jsc.bat" link -c "%config_js%" %targets% "%output_dir%/compile/bootstrap.js" || exit /b %errorlevel%
   exit /b 0
 
 :bolt_modules
