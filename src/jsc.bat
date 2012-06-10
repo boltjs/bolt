@@ -45,9 +45,9 @@ goto entry
 :is_dir
   setlocal
   set olddir=%CD%
-  cd "%~1" 2>NUL
+  cd /D "%~1" 2>NUL
   set err=%errorlevel%
-  cd "%olddir%"
+  cd /D "%olddir%"
   exit /b %err%
 
 
