@@ -60,9 +60,9 @@ goto entry
 :is_dir
   setlocal
   set olddir=%CD%
-  cd "%~1" 2>NUL
+  cd /D "%~1" 2>NUL
   set err=%errorlevel%
-  cd "%olddir%"
+  cd /D "%olddir%"
   exit /b %err%
 
 
@@ -193,5 +193,19 @@ if "%src_dir%"=="" set src_dir=src/main/js
 if "%generate_inline%"=="" set generate_inline=false
 if "%generate_modules%"=="" set generate_modules=false
 
-echo Windows support for bolt build is currently not implemented.
-exit /b 1
+goto dispatch
+
+:bolt_modules
+  mkdir "%output_dir%/module" 2>NUL
+  set olddir=%CD%
+  cd /D "%output_dir%/module"
+  for /F "usebackq delims=" %%i in (`cd`) do set module_dir=%%i
+  cd /D "%olddir%"
+  cd /D "%src_dir%"
+  for /F "usebackq delims=" %%m in (`glob **\*.js`) do (set module=%%m) && copy "%%m" "%module_dir%\!module:\=.!" >NUL
+  cd /D "%olddir%"
+  exit /b 0
+
+:dispatch
+
+if "%generate_modules%"=="true" call :bolt_modules
