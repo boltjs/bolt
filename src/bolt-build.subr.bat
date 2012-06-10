@@ -195,17 +195,37 @@ if "%generate_modules%"=="" set generate_modules=false
 
 goto dispatch
 
+:bolt_inline
+  echo bolt_inline unimplemented.
+  exit /b 0
+
 :bolt_point
-  echo bolt_point unimplemented.
-  exit /b 1
+  mkdir "%output_dir%/compile" 2>NUL
+
+  set /a num=%count_entry_point% - 1
+  for /L %%i in (0,1,%num%) do (
+    rem iterate through the array
+    set file=!entry_point_%%i!
+    for /F "usebackq delims=" %%j in (`""%base%jsc" identify "!file!""`) do set name=%%j
+    set target=!output_dir!\compile\!name!.js
+
+    rem push onto the targets array so things can be linked later
+    set targets_!count_targets!=!target!
+    set /a count_targets=!count_targets! + 1
+
+    call "!base!jsc.bat" compile -c "%config_js%" "!file!" "!target!" || exit /b !errorlevel!
+
+    if "%generate_inline%"=="true" call :bolt_inline "!target!" "!name!"
+  )
+  exit /b 0
 
 :bolt_group
   echo bolt_group unimplemented.
-  exit /b 1
+  exit /b 0
 
 :bolt_link
   echo bolt_link unimplemented.
-  exit /b 1
+  exit /b 0
 
 :bolt_modules
   mkdir "%output_dir%/module" 2>NUL
@@ -220,7 +240,9 @@ goto dispatch
 
 :dispatch
 
-if %count_entry_point% GTR 0 call :bolt_point
-if %count_entry_group_name% GTR 0 call :bolt_group
-if %count_targets% GTR 0 call :bolt_link
-if "%generate_modules%"=="true" call :bolt_modules
+if %count_entry_point% GTR 0 call :bolt_point || exit /b %errorlevel%
+if %count_entry_group_name% GTR 0 call :bolt_group || exit /b %errorlevel%
+if %count_targets% GTR 0 call :bolt_link || exit /b %errorlevel%
+if "%generate_modules%"=="true" call :bolt_modules || exit /b %errorlevel%
+
+exit /b 0
