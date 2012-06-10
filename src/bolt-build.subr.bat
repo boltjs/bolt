@@ -196,7 +196,10 @@ if "%generate_modules%"=="" set generate_modules=false
 goto dispatch
 
 :bolt_inline
-  echo bolt_inline unimplemented.
+  set target=%~1
+  set name=%~2
+  mkdir "%output_dir%/inline" 2> NUL
+  call "%base%jsc.bat" inline -c "%config_js%" %invoke_main_flag% %register_modules_flag% "%target%" "%output_dir%/inline/%name%.js" || exit /b %errorlevel%
   exit /b 0
 
 :bolt_point
