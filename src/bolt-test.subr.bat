@@ -79,11 +79,9 @@ shift
 goto remaining
 :end_remaining
 
-setlocal enabledelayedexpansion
 for %%i in (%remaining%) do (
   if not exist %%i echo Could not find test file [%%i] && exit /b 20
   call :is_dir %%i
   if !errorlevel!==0 echo Could not find test file [%%i] && exit /b 20)
-endlocal
 
 "%node%" "%base%bolt-test.js" "%verbose%" "%config%" %remaining%

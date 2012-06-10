@@ -149,15 +149,40 @@ set count_entry_group_name=0
       call :is_dir "%entry%"
       if %errorlevel%==0 echo specified file for entry point not found [%entry%] && goto fail
 
-      set entry_point_%count_entry_point%="%entry%"
+      set entry_point_%count_entry_point%=%entry%
       set /a count_entry_point=%count_entry_point% + 1
     goto point_loop
     :end_point_loop
   goto parse_flags
 
   :parse_group
-    echo --entry-group parsing not implemented.
-    exit /b 1
+    if "%~2"=="" echo %flag% requires two arguments to be specified && goto fail_usage
+    set name=%~1
+    shift
+
+    echo.%name%| findstr /C:"/" >NUL 2>&1 && echo entry group name must not contain special characters >&2 && goto fail
+
+    set entry_group_name_%count_entry_group_name%=%name%
+    set /a count_entry_group_name=%count_entry_group_name% + 1
+
+    set safe_name=%name:-=_%
+    set /a count_entry_groups_%safe_name%=0
+
+    :group_loop
+      set file=%~1
+      if "%file%"=="" goto end_group_loop
+      if "%file:~0,1%"=="-" goto end_group_loop
+      shift
+
+      if not exist "%file%" echo specified file for entry group not found [%file%] && goto fail
+      call :is_dir "%file%"
+      if %errorlevel%==0 echo specified file for entry group not found [%file%] && goto fail
+
+      set count=!count_entry_groups_%safe_name%!
+      set entry_groups_%safe_name%_%count%=%file%
+      set /a count_entry_groups_%safe_name%=%count% + 1
+    goto group_loop
+    :end_group_loop
   goto parse_flags
 
 :done_parse_flags
@@ -167,8 +192,6 @@ if "%output_dir%"=="" set output_dir=scratch/main/js
 if "%src_dir%"=="" set src_dir=src/main/js
 if "%generate_inline%"=="" set generate_inline=false
 if "%generate_modules%"=="" set generate_modules=false
-
-
 
 echo Windows support for bolt build is currently not implemented.
 exit /b 1
