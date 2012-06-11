@@ -164,10 +164,10 @@ set count_entry_group_name=0
     echo.%name%| findstr /C:"/" >NUL 2>&1 && echo entry group name must not contain special characters >&2 && goto fail
 
     set entry_group_name_%count_entry_group_name%=%name%
+    set current_entry_group=%count_entry_group_name%
     set /a count_entry_group_name=%count_entry_group_name% + 1
 
-    set safe_name=%name:-=_%
-    set /a count_entry_groups_%safe_name%=0
+    set entry_group_files_%current_entry_group%=
 
     :group_loop
       set file=%~1
@@ -179,9 +179,7 @@ set count_entry_group_name=0
       call :is_dir "%file%"
       if %errorlevel%==0 echo specified file for entry group not found [%file%] && goto fail
 
-      set count=!count_entry_groups_%safe_name%!
-      set entry_groups_%safe_name%_%count%=%file%
-      set /a count_entry_groups_%safe_name%=%count% + 1
+      set entry_group_files_%current_entry_group%="%file%" !entry_group_files_%current_entry_group%!
     goto group_loop
     :end_group_loop
   goto parse_flags
@@ -224,7 +222,22 @@ goto dispatch
   exit /b 0
 
 :bolt_group
-  echo bolt_group unimplemented.
+  mkdir "%output_dir%/compile" 2>NUL
+
+  set /a num=%count_entry_group_name% - 1
+  for /L %%i in (0,1,%num%) do (
+    rem iterate through the array
+    set name=!entry_group_name_%%i!
+    set target=!output_dir!\compile\!name!.js
+
+    rem add to targets variable so things can be linked later
+    set targets=!targets! "!target!"
+    set /a count_targets=!count_targets! + 1
+
+    call "!base!jsc.bat" compile -c "%config_js%" !entry_group_files_%%i! "!target!" || exit /b !errorlevel!
+
+    if "%generate_inline%"=="true" call :bolt_inline "!target!" "!name!"
+  )
   exit /b 0
 
 :bolt_link
