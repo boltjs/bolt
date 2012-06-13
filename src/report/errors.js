@@ -6,13 +6,14 @@ test.report.errors = def(
     var clean = function (e) {
       if (typeof e === 'string')
         return e;
+      var s = stack(e);
       if (e.name === 'AssertionError')
-        return 'Assertion error' + (e.message ? ' [' + e.message + ']' : '') + ': [' + JSON.stringify(e.expected) + '] ' + e.operator + ' [' + JSON.stringify(e.actual) + ']' + stack(e);
+        return 'Assertion error' + (e.message ? ' [' + e.message + ']' : '') + ': [' + JSON.stringify(e.expected) + '] ' + e.operator + ' [' + JSON.stringify(e.actual) + ']' + s;
       if (e.name && e.message)
-        return e.name + ': ' + e.message + stack(e);
+        return s.indexOf(e.name + ': ' + e.message) === 0 ? s : e.name + ': ' + e.message + s;
       if (e.toString)
-        return e.toString() + stack(e);
-      return JSON.stringify(e) + stack(e);
+        return s.indexOf(e.toString()) === 0 ? s : e.toString() + s;
+      return JSON.stringify(e) + s;
     };
 
     var stack = function (e) {
