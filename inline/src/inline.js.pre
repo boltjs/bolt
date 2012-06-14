@@ -1,0 +1,3 @@
+(function () {
+  if (this.ephox)
+    var old = this.ephox.bolt;
