@@ -19,6 +19,5 @@ MODULES = \
 	${SRC}/bootstrap/main.js \
 	${SRC}/bootstrap/install.js
 DISTFILES = \
-	${LIB}/kernel/kernel.js \
-	${LIB}/loader/loader.js \
-	${SRC}/platform/rhino.js
+	../kernel/gen/kernel.js \
+	../loader/gen/loader.js

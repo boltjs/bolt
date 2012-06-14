@@ -19,11 +19,11 @@ MODULES = \
 	${SRC}/mode/inline.js \
 	${SRC}/mode/link.js \
 	${SRC}/mode/dev.js
-DISTFILES = \
-	${LIB}/module/kernel.js \
-	${LIB}/module/loader.js \
-	${LIB}/module/module.js \
-	${LIB}/module/rhino.js \
-	${LIB}/inline/inline.js \
-	${LIB}/inline/inline.js.pre \
-	${LIB}/inline/inline.js.post
+DISTFILES= \
+	../kernel/gen/kernel.js \
+	../loader/gen/loader.js \
+	../module/gen/module.js \
+	../inline/gen/inline.js \
+	../inline/gen/inline.js.pre \
+	../inline/gen/inline.js.post
+

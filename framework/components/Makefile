@@ -18,7 +18,8 @@ dist: ${RELEASE} ${DISTFILES}
 clean:
 	rm -rf ./${DIST}
 
-test: ${RELEASE} ${ASSERT}
+test: ${RELEASE} ${DISTFILES} ${ASSERT}
+	cp ${DISTFILES} lib/
 	if [ ! -z "${MODULES}" ] && [ -d "${TEST}" ]; then find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo $$test; node $$test'; fi
 
 ${DIST}:
@@ -32,9 +33,14 @@ ${ASSERT}: ../framework/components/assert.js
 	mkdir -p lib/framework
 	cp ../framework/components/assert.js lib/framework
 
-${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCY} ${PRELUDE} modules.in
+${DISTFILES}:
+	cd `echo $@ | xargs dirname | xargs dirname` && ${MAKE} $(MFLAGS)
+
+${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCIES} ${PRELUDE} modules.in
 	if [ ! -z "${MODULES}" ]; then ( \
 	echo "(function (scope) {" && \
 	cat ${PRELUDE} ${MODULES} && \
 	echo "})(Function('return this')());" \
 	) > ${RELEASE}; fi
+
+
