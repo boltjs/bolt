@@ -30,7 +30,7 @@ TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
 VERSION_FILE = ${TAR_IMAGE}/bin/version
 DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin
-MFLAGS = -s
+MFLAGS =
 
 .PHONY: clean dist
 
