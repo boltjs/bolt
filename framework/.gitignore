@@ -1,0 +1,6 @@
+*~
+/dist
+*.iws
+.idea/workspace.xml
+/scratch
+/extras
