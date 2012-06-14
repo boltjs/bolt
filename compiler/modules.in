@@ -1,0 +1,29 @@
+NAME = compiler
+MODULES = \
+	${SRC}/prelude/namespace.js \
+	${SRC}/tools/error.js \
+	${SRC}/tools/io.js \
+	${SRC}/tools/files.js \
+	${SRC}/minibolt/minibolt.js \
+	${SRC}/inspect/metalator.js \
+	${SRC}/inspect/identifier.js \
+	${SRC}/generator/bootstrap.js \
+	${SRC}/generator/inline.js \
+	${SRC}/modulator/amd.js \
+	${SRC}/modulator/globalator.js \
+	${SRC}/compile/renderer.js \
+	${SRC}/compile/sources.js \
+	${SRC}/compile/compiler.js \
+	${SRC}/mode/compile.js \
+	${SRC}/mode/identify.js \
+	${SRC}/mode/inline.js \
+	${SRC}/mode/link.js \
+	${SRC}/mode/dev.js
+DISTFILES = \
+	${LIB}/module/kernel.js \
+	${LIB}/module/loader.js \
+	${LIB}/module/module.js \
+	${LIB}/module/rhino.js \
+	${LIB}/inline/inline.js \
+	${LIB}/inline/inline.js.pre \
+	${LIB}/inline/inline.js.post
