@@ -1,0 +1,12 @@
+NAME = loader
+MODULES = \
+	${SRC}/prelude/namespace.js \
+	${SRC}/tag/script.js \
+	${SRC}/transporter/commonjs.js \
+	${SRC}/transporter/xhr.js \
+	${SRC}/executor/evaller.js \
+	${SRC}/executor/injector.js \
+	${SRC}/api/commonjs_evaller.js \
+	${SRC}/api/script_tag.js \
+	${SRC}/api/xhr_evaller.js \
+	${SRC}/api/xhr_injector.js
