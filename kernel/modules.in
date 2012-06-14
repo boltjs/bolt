@@ -1,0 +1,18 @@
+NAME = kernel
+MODULES = \
+	${SRC}/prelude/namespace.js \
+	${SRC}/fp/array.js \
+	${SRC}/fp/object.js \
+	${SRC}/fp/functions.js \
+	${SRC}/async/map.js \
+	${SRC}/async/piggybacker.js \
+	${SRC}/modulator/globalator.js \
+	${SRC}/modulator/amd.js \
+	${SRC}/module/stratifier.js \
+	${SRC}/module/analyser.js \
+	${SRC}/module/fetcher.js \
+	${SRC}/module/loader.js \
+	${SRC}/module/manager.js \
+	${SRC}/api/sources.js \
+	${SRC}/api/regulator.js \
+	${SRC}/api/config.js
