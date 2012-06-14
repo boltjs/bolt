@@ -1,0 +1,55 @@
+usage() {
+    echo 'usage: bolt init  [-c|--config CONFIG_DIR]'
+    echo
+    echo 'options:'
+    echo '  -c|--config CONFIG_DIR          override bolt configuration directory'
+    echo '                                   default: config/bolt'
+    echo
+    echo 'example:'
+    echo '  Initialise a project after checkout.'
+    echo
+    echo '    bolt init'
+    echo
+}
+
+if [ "$help_mode" = true ]; then
+    usage
+    exit 0
+fi
+
+while echo x"$1" | grep -q '^x-'; do
+    flag="$1"; shift
+    case "$flag" in
+    -c|--config)
+        if [ $# -lt 1 ]; then
+            fail_usage 1 "$flag requires an argument to be specified"
+        fi
+        config_dir="$1"; shift
+    ;;
+    --)
+        break;
+    ;;
+    *)
+        fail_usage 1 "invalid flag [$flag]"
+    ;;
+    esac
+done
+
+: ${config_dir:=config/bolt}
+
+[ -d "$config_dir" ] || mkdir -p "$config_dir"
+
+
+# FIX discuss the merits of cherry picking these two vs generating all.
+
+if [ -f "$config_dir/prod.js" ]; then
+    $base/jsc dev -c "$config_dir/prod.js" "$config_dir/bootstrap-prod.js" || exit $?
+fi
+
+if [ -f "$config_dir/demo.js" ]; then
+    $base/jsc dev -c "$config_dir/demo.js" "$config_dir/bootstrap-demo.js" || exit $?
+fi
+
+exit 0
+
+

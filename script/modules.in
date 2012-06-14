@@ -1,0 +1,15 @@
+NAME = script
+MODULES =
+DISTFILES = \
+	${SRC}/bolt \
+	${SRC}/bolt.bat \
+	${SRC}/bolt-init.subr \
+	${SRC}/bolt-init.subr.bat \
+	${SRC}/bolt-build.subr \
+	${SRC}/bolt-build.subr.bat \
+	${SRC}/bolt-test.subr \
+	${SRC}/bolt-test.subr.bat \
+	${SRC}/bolt-test.js \
+	${SRC}/jsc \
+	${SRC}/jsc.bat \
+	${SRC}/jsc.js

@@ -1,0 +1,67 @@
+#!/bin/sh
+
+usage() {
+    echo 'usage: bolt [-h|--help] [-V|--version]'
+    echo '    or bolt MODE [<args>]'
+    echo
+    echo 'modes:'
+    echo '  init'
+    echo '  build'
+    echo '  test'
+    echo '  help'
+    echo
+    echo 'For usage/help on a specific mode, use:'
+    echo '  bolt help MODE'
+}
+
+fail_usage() {
+    echo $2 >&2
+    echo >&2
+    usage >&2
+    exit $1
+}
+
+fail() {
+    echo $2 >&2
+    exit $1
+}
+
+
+base=`(readlink "$0" || printf "%s" "$0") | xargs dirname`
+
+if [ $# -lt 1 ]; then
+    fail_usage 1 "error: must specify mode."
+fi
+
+mode="$1"; shift
+
+case "$mode" in
+-h|--help)
+    usage
+    exit 0
+    ;;
+-V|--version)
+    printf "bolt "
+    cat "$base/version"
+    exit 0
+    ;;
+init|build|test|help)
+    ;;
+*)
+    fail_usage 1 "invalid mode [$mode], must be one of init|build|test|help"
+    ;;
+esac
+
+if [ "$mode" = help ]; then
+    help_mode=true
+    mode="$1"
+    case "$mode" in
+    init|build|test)
+        ;;
+    *)
+        fail 2 "help requires argument: bolt help MODE, where MODE is one of init|build|test"
+        ;;
+    esac
+fi
+
+. $base/bolt-$mode.subr
