@@ -30,7 +30,7 @@ TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
 VERSION_FILE = ${TAR_IMAGE}/bin/version
 DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin
-MFLAGS =
+MFLAGS = -s
 
 .PHONY: clean dist
 
@@ -43,17 +43,16 @@ cleandist: clean dist
 ${VERSION_FILE}: ${TAR_IMAGE}
 	echo ${VERSION} > ${VERSION_FILE}
 
-${TAR}: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE} ${SRC}
+${TAR}: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
+	for x in ${PROJECTS}; do ${MAKE} $(MFLAGS) dist; done
 	cp ${SRC} ${TAR_IMAGE}/bin
 	tar cfz ${TAR} -C ${GEN}/image .
-
-${SRC}:
-	(cd `echo $@ | xargs dirname | xargs dirname` && ${MAKE} $(MFLAGS))
 
 ${DIRECTORIES}:
 	mkdir -p $@
 
 clean:
 	rm -rf ./${GEN}
+	for x in ${PROJECTS}; do ${MAKE} $(MFLAGS) clean; done
 
 

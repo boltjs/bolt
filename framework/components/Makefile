@@ -1,5 +1,7 @@
 include modules.in
 
+MFLAGS = -s
+
 SRC = src
 LIB = lib
 TEST = test
