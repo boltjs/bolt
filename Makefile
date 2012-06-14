@@ -44,7 +44,7 @@ ${VERSION_FILE}: ${TAR_IMAGE}
 	echo ${VERSION} > ${VERSION_FILE}
 
 ${TAR}: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
-	for x in ${PROJECTS}; do ${MAKE} $(MFLAGS) dist; done
+	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS) dist); done
 	cp ${SRC} ${TAR_IMAGE}/bin
 	tar cfz ${TAR} -C ${GEN}/image .
 
@@ -53,6 +53,6 @@ ${DIRECTORIES}:
 
 clean:
 	rm -rf ./${GEN}
-	for x in ${PROJECTS}; do ${MAKE} $(MFLAGS) clean; done
+	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS) clean); done
 
 
