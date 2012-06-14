@@ -29,7 +29,7 @@ ${VERSION_FILE}: ${TAR_IMAGE}
 ${TAR}: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
 	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS) dist) && cp $$x/gen/* ${TAR_IMAGE}/bin/.; done
 	cp script/* ${TAR_IMAGE}/bin/.
-	cp LICENCE README ${TAR_IMAGE}/.
+	cp LICENCE README.md ${TAR_IMAGE}/.
 	tar cfz ${TAR} -C ${GEN}/image .
 
 ${DIRECTORIES}:
