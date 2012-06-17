@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Name="Bolt" Version="1.2.0.41" Manufacturer="Ephox" Id="AD0111FD-7086-4C02-9F8E-D1B72D9644EB" UpgradeCode="FEC7BFF2-5962-44B0-91E6-E329BC92FC37" Language="1033">
+    <Package Id="*" InstallerVersion="100" Compressed="yes" />
+    <Media Id="1" Cabinet="Bolt.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="Bolt">
+          <Directory Id="bin" Name="bin" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="LICENCE" Guid="C937DD22-12FB-495A-A810-2DE66D394336">
+        <File Id="LICENCE" Source="LICENCE" KeyPath="yes" />
+      </Component>
+      <Component Id="README.md" Guid="CC676FF6-C68C-4D58-8A73-DDFDFE617A0D">
+          <File Id="README.md" Source="README.md" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="bin">
+      <Component Id="bolt.bat" Guid="AF46BCC6-3128-4B88-8894-22A2BF4301C1">
+        <File Id="bolt.bat" Source="bin/bolt.bat" KeyPath="yes"/>
+      </Component>
+      <Component Id="bolt-build.subr.bat" Guid="3E60E9D2-8EAB-4D9C-8B99-46322A428ECF">
+        <File Id="bolt-build.subr.bat" Source="bin/bolt-build.subr.bat" KeyPath="yes"/>
+      </Component>
+      <Component Id="bolt-init.subr.bat" Guid="B12E6E12-6657-4535-AEC9-B79A1CEEACA3">
+        <File Id="bolt-init.subr.bat" Source="bin/bolt-init.subr.bat" KeyPath="yes"/>
+      </Component>
+      <Component Id="bolt-test.subr.bat" Guid="72D2644F-98D3-423E-AD2C-74D1D0285845">
+        <File Id="bolt-test.subr.bat" Source="bin/bolt-test.subr.bat" KeyPath="yes"/>
+      </Component>
+      <Component Id="bolt-test.js" Guid="47EC55D6-E74D-4120-8E41-392E3885FB41">
+        <File Id="bolt-test.js" Source="bin/bolt-test.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="compiler.js" Guid="0A34E602-D23F-4703-82AA-1C5B431E85D8">
+        <File Id="compiler.js" Source="bin/compiler.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="inline.js" Guid="5A419044-9941-42B4-977F-BFF13186DAE9">
+        <File Id="inline.js" Source="bin/inline.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="inline.js.post" Guid="FF26AEDB-4701-4D75-8D26-6408EB662CB5">
+        <File Id="inline.js.post" Source="bin/inline.js.post" KeyPath="yes"/>
+      </Component>
+      <Component Id="inline.js.pre" Guid="0C455BE4-4105-439B-8DAB-30432B9A7DA7">
+        <File Id="inline.js.pre" Source="bin/inline.js.pre" KeyPath="yes"/>
+      </Component>
+      <Component Id="jsc.bat" Guid="96DD0F1A-0AA5-4F99-A754-9D18DD3E5BDB">
+        <File Id="jsc.bat" Source="bin/jsc.bat" KeyPath="yes"/>
+      </Component>
+      <Component Id="jsc.js" Guid="1E78258E-0548-4A2D-A00E-36FF760E0A35">
+        <File Id="jsc.js" Source="bin/jsc.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="kernel.js" Guid="69A44717-A7CF-44F3-BCC5-E76F58FF8F0D">
+        <File Id="kernel.js" Source="bin/kernel.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="loader.js" Guid="35A66404-9D9F-4966-8EDA-FF0098A031E7">
+        <File Id="loader.js" Source="bin/loader.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="module.js" Guid="D9597956-9601-43A2-8E4F-011971FB9325">
+        <File Id="module.js" Source="bin/module.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="test.js" Guid="FADD566B-7610-42A9-B7F7-5D2428FF2328">
+        <File Id="test.js" Source="bin/test.js" KeyPath="yes"/>
+      </Component>
+      <Component Id="version" Guid="F82E5781-0B93-4197-84B3-A1F5CF12CFDC">
+        <File Id="version" Source="bin/version" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="Bolt" Level="1">
+      <ComponentRef Id="LICENCE" />
+      <ComponentRef Id="README.md" />
+      <ComponentRef Id="bolt.bat" />
+      <ComponentRef Id="bolt-build.subr.bat" />
+      <ComponentRef Id="bolt-init.subr.bat" />
+      <ComponentRef Id="bolt-test.subr.bat" />
+      <ComponentRef Id="bolt-test.js" />
+      <ComponentRef Id="compiler.js" />
+      <ComponentRef Id="inline.js" />
+      <ComponentRef Id="inline.js.post" />
+      <ComponentRef Id="inline.js.pre" />
+      <ComponentRef Id="jsc.bat" />
+      <ComponentRef Id="jsc.js" />
+      <ComponentRef Id="kernel.js" />
+      <ComponentRef Id="loader.js" />
+      <ComponentRef Id="module.js" />
+      <ComponentRef Id="test.js" />
+      <ComponentRef Id="version" />
+    </Feature>
+  </Product>
+</Wix>
