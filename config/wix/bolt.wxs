@@ -88,6 +88,10 @@
       <Component Id="version" Guid="F82E5781-0B93-4197-84B3-A1F5CF12CFDC">
         <File Id="version" Source="bin/version" KeyPath="yes"/>
       </Component>
+      <Component Id="UpdatePath" Guid="8C908A19-0C4F-41C3-A2BF-963B8A076D1D">
+        <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes" />
+        <RegistryValue Root="HKCU" Key="Software\Ephox\Bolt" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
     </DirectoryRef>
 
     <Feature Id="Bolt" Level="1">
@@ -109,6 +113,7 @@
       <ComponentRef Id="module.js" />
       <ComponentRef Id="test.js" />
       <ComponentRef Id="version" />
+      <ComponentRef Id="UpdatePath" />
     </Feature>
   </Product>
 </Wix>
