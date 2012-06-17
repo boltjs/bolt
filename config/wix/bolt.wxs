@@ -25,17 +25,17 @@
       <Component Id="bolt.bat" Guid="AF46BCC6-3128-4B88-8894-22A2BF4301C1">
         <File Id="bolt.bat" Source="bin/bolt.bat" KeyPath="yes"/>
       </Component>
-      <Component Id="bolt-build.subr.bat" Guid="3E60E9D2-8EAB-4D9C-8B99-46322A428ECF">
-        <File Id="bolt-build.subr.bat" Source="bin/bolt-build.subr.bat" KeyPath="yes"/>
+      <Component Id="bolt_build.subr.bat" Guid="3E60E9D2-8EAB-4D9C-8B99-46322A428ECF">
+        <File Id="bolt_build.subr.bat" Source="bin/bolt-build.subr.bat" KeyPath="yes"/>
       </Component>
-      <Component Id="bolt-init.subr.bat" Guid="B12E6E12-6657-4535-AEC9-B79A1CEEACA3">
-        <File Id="bolt-init.subr.bat" Source="bin/bolt-init.subr.bat" KeyPath="yes"/>
+      <Component Id="bolt_init.subr.bat" Guid="B12E6E12-6657-4535-AEC9-B79A1CEEACA3">
+        <File Id="bolt_init.subr.bat" Source="bin/bolt-init.subr.bat" KeyPath="yes"/>
       </Component>
-      <Component Id="bolt-test.subr.bat" Guid="72D2644F-98D3-423E-AD2C-74D1D0285845">
-        <File Id="bolt-test.subr.bat" Source="bin/bolt-test.subr.bat" KeyPath="yes"/>
+      <Component Id="bolt_test.subr.bat" Guid="72D2644F-98D3-423E-AD2C-74D1D0285845">
+        <File Id="bolt_test.subr.bat" Source="bin/bolt-test.subr.bat" KeyPath="yes"/>
       </Component>
-      <Component Id="bolt-test.js" Guid="47EC55D6-E74D-4120-8E41-392E3885FB41">
-        <File Id="bolt-test.js" Source="bin/bolt-test.js" KeyPath="yes"/>
+      <Component Id="bolt_test.js" Guid="47EC55D6-E74D-4120-8E41-392E3885FB41">
+        <File Id="bolt_test.js" Source="bin/bolt-test.js" KeyPath="yes"/>
       </Component>
       <Component Id="compiler.js" Guid="0A34E602-D23F-4703-82AA-1C5B431E85D8">
         <File Id="compiler.js" Source="bin/compiler.js" KeyPath="yes"/>
@@ -76,10 +76,10 @@
       <ComponentRef Id="LICENCE" />
       <ComponentRef Id="README.md" />
       <ComponentRef Id="bolt.bat" />
-      <ComponentRef Id="bolt-build.subr.bat" />
-      <ComponentRef Id="bolt-init.subr.bat" />
-      <ComponentRef Id="bolt-test.subr.bat" />
-      <ComponentRef Id="bolt-test.js" />
+      <ComponentRef Id="bolt_build.subr.bat" />
+      <ComponentRef Id="bolt_init.subr.bat" />
+      <ComponentRef Id="bolt_test.subr.bat" />
+      <ComponentRef Id="bolt_test.js" />
       <ComponentRef Id="compiler.js" />
       <ComponentRef Id="inline.js" />
       <ComponentRef Id="inline.js.post" />

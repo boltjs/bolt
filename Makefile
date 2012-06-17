@@ -11,8 +11,12 @@ GEN = gen
 DIST = ${GEN}/dist
 TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
+INSTALLER = ${GEN}/installer
+WXS = config/wix/${MODULE}.wxs
+WIXOBJ = ${INSTALLER}/${MODULE}-${VERSION}.wixobj
+MSI = ${DIST}/${MODULE}-${VERSION}.msi
 VERSION_FILE = ${TAR_IMAGE}/bin/version
-DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin
+DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin ${INSTALLER}
 MFLAGS = -s
 
 .PHONY: clean dist
@@ -32,11 +36,17 @@ ${TAR}: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
 	cp LICENCE README.md ${TAR_IMAGE}/.
 	tar cfz ${TAR} -C ${GEN}/image .
 
+${WIXOBJ}:
+	candle.exe -o ${WIXOBJ} ${WXS}
+
+${MSI}: ${WIXOBJ} ${TAR_IMAGE}
+	light.exe -spdb -o ${MSI} -b ${TAR_IMAGE} ${WIXOBJ}
+
 ${DIRECTORIES}:
 	mkdir -p $@
+
+installer: ${MSI}
 
 clean:
 	rm -rf ./${GEN}
 	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS) clean); done
-
-
