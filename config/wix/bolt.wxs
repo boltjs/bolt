@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Name="Bolt __VERSION__" Version="__VERSION__" Manufacturer="Ephox" Id="*" UpgradeCode="FEC7BFF2-5962-44B0-91E6-E329BC92FC37" Language="1033">
+  <Product Name="bolt __VERSION__" Version="__VERSION__" Manufacturer="Ephox" Id="*" UpgradeCode="FEC7BFF2-5962-44B0-91E6-E329BC92FC37" Language="1033">
     <Package Id="*" InstallerVersion="100" Compressed="yes" />
-    <Media Id="1" Cabinet="Bolt.cab" EmbedCab="yes" />
+    <Media Id="1" Cabinet="bolt.cab" EmbedCab="yes" />
 
     <Upgrade Id="FEC7BFF2-5962-44B0-91E6-E329BC92FC37">
       <!--
@@ -15,7 +15,7 @@
       <UpgradeVersion Property="NEWERFOUND" OnlyDetect="yes" Minimum="__VERSION__" IncludeMinimum="no" />
     </Upgrade>
 
-    <CustomAction Id="NoDowngrade" Error="A later version of Bolt is already installed." />
+    <CustomAction Id="NoDowngrade" Error="A later version of bolt is already installed." />
 
     <InstallExecuteSequence>
       <Custom Action="NoDowngrade" After="FindRelatedProducts">NEWERFOUND</Custom>
@@ -24,7 +24,7 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLDIR" Name="Bolt">
+        <Directory Id="INSTALLDIR" Name="bolt">
           <Directory Id="bin" Name="bin" />
         </Directory>
       </Directory>
@@ -90,11 +90,11 @@
       </Component>
       <Component Id="UpdatePath" Guid="8C908A19-0C4F-41C3-A2BF-963B8A076D1D">
         <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes" />
-        <RegistryValue Root="HKCU" Key="Software\Ephox\Bolt" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\Ephox\bolt" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
 
-    <Feature Id="Bolt" Level="1">
+    <Feature Id="bolt" Level="1">
       <ComponentRef Id="LICENCE" />
       <ComponentRef Id="README.md" />
       <ComponentRef Id="bolt.bat" />
