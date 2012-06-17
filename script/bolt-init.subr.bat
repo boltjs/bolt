@@ -64,7 +64,7 @@ if %errorlevel%==1 mkdir "%config_dir%"
 
 rem FIX discuss the merits of cherry picking these two vs generating all.
 
-if exist "%config_dir%\prod.js" call %base%jsc.bat dev -c "%config_dir%\prod.js" "%config_dir%\bootstrap-prod.js" || exit /b %errorlevel%
-if exist "%config_dir%\demo.js" call %base%jsc.bat dev -c "%config_dir%\demo.js" "%config_dir%\bootstrap-demo.js" || exit /b %errorlevel%
+if exist "%config_dir%\prod.js" call "%base%jsc.bat" dev -c "%config_dir%\prod.js" "%config_dir%\bootstrap-prod.js" || exit /b %errorlevel%
+if exist "%config_dir%\demo.js" call "%base%jsc.bat" dev -c "%config_dir%\demo.js" "%config_dir%\bootstrap-demo.js" || exit /b %errorlevel%
 
 exit /b 0

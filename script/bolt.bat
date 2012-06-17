@@ -27,7 +27,7 @@ goto entry
   exit /b 1
 
 :version
-  for /F " delims=" %%i in (%base%version) do set v=%%i
+  for /F "usebackq delims=" %%i in ("%base%version") do set v=%%i
   echo bolt %v%
   exit /b 0
 
@@ -78,5 +78,5 @@ shift
 goto inline_remaining
 :end_inline_remaining
 
-call %base%bolt-%mode%.subr.bat %remaining%
+call "%base%bolt-%mode%.subr.bat" %remaining%
 exit /b %errorlevel%
