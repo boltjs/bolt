@@ -8,8 +8,7 @@
       <!--
         This will unfortunately still allow downgrades from e.g. a.b.c.x to a.b.c.y, where x > y
         as Windows Installer only ever checks the first 3 digits of a version number. However for
-        our purposes, this is acceptible, as it is unlikely our Windows installation
-        behaviour will change dramatically between buildnumber releases.
+        our purposes this should be acceptible.
       -->
       <UpgradeVersion Property="PREVIOUSFOUND" OnlyDetect="no" Minimum="1.0.0" Maximum="__VERSION__" IncludeMinimum="yes" IncludeMaximum="yes" />
       <UpgradeVersion Property="NEWERFOUND" OnlyDetect="yes" Minimum="__VERSION__" IncludeMinimum="no" />
@@ -35,58 +34,61 @@
         <File Id="LICENCE" Source="LICENCE" KeyPath="yes" />
       </Component>
       <Component Id="README.md" Guid="CC676FF6-C68C-4D58-8A73-DDFDFE617A0D">
-          <File Id="README.md" Source="README.md" KeyPath="yes"/>
+          <File Id="README.md" Source="README.md" KeyPath="yes" />
       </Component>
     </DirectoryRef>
 
     <DirectoryRef Id="bin">
+      <Component Id="glob.exe" Guid="AD33F341-8AEE-4C74-B7D6-5C3B5FB07F8E">
+        <File Id="glob.exe" Source="bin/glob.exe" KeyPath="yes" />
+      </Component>
       <Component Id="bolt.bat" Guid="AF46BCC6-3128-4B88-8894-22A2BF4301C1">
-        <File Id="bolt.bat" Source="bin/bolt.bat" KeyPath="yes"/>
+        <File Id="bolt.bat" Source="bin/bolt.bat" KeyPath="yes" />
       </Component>
       <Component Id="bolt_build.subr.bat" Guid="3E60E9D2-8EAB-4D9C-8B99-46322A428ECF">
-        <File Id="bolt_build.subr.bat" Source="bin/bolt-build.subr.bat" KeyPath="yes"/>
+        <File Id="bolt_build.subr.bat" Source="bin/bolt-build.subr.bat" KeyPath="yes" />
       </Component>
       <Component Id="bolt_init.subr.bat" Guid="B12E6E12-6657-4535-AEC9-B79A1CEEACA3">
-        <File Id="bolt_init.subr.bat" Source="bin/bolt-init.subr.bat" KeyPath="yes"/>
+        <File Id="bolt_init.subr.bat" Source="bin/bolt-init.subr.bat" KeyPath="yes" />
       </Component>
       <Component Id="bolt_test.subr.bat" Guid="72D2644F-98D3-423E-AD2C-74D1D0285845">
-        <File Id="bolt_test.subr.bat" Source="bin/bolt-test.subr.bat" KeyPath="yes"/>
+        <File Id="bolt_test.subr.bat" Source="bin/bolt-test.subr.bat" KeyPath="yes" />
       </Component>
       <Component Id="bolt_test.js" Guid="47EC55D6-E74D-4120-8E41-392E3885FB41">
-        <File Id="bolt_test.js" Source="bin/bolt-test.js" KeyPath="yes"/>
+        <File Id="bolt_test.js" Source="bin/bolt-test.js" KeyPath="yes" />
       </Component>
       <Component Id="compiler.js" Guid="0A34E602-D23F-4703-82AA-1C5B431E85D8">
-        <File Id="compiler.js" Source="bin/compiler.js" KeyPath="yes"/>
+        <File Id="compiler.js" Source="bin/compiler.js" KeyPath="yes" />
       </Component>
       <Component Id="inline.js" Guid="5A419044-9941-42B4-977F-BFF13186DAE9">
-        <File Id="inline.js" Source="bin/inline.js" KeyPath="yes"/>
+        <File Id="inline.js" Source="bin/inline.js" KeyPath="yes" />
       </Component>
       <Component Id="inline.js.post" Guid="FF26AEDB-4701-4D75-8D26-6408EB662CB5">
-        <File Id="inline.js.post" Source="bin/inline.js.post" KeyPath="yes"/>
+        <File Id="inline.js.post" Source="bin/inline.js.post" KeyPath="yes" />
       </Component>
       <Component Id="inline.js.pre" Guid="0C455BE4-4105-439B-8DAB-30432B9A7DA7">
-        <File Id="inline.js.pre" Source="bin/inline.js.pre" KeyPath="yes"/>
+        <File Id="inline.js.pre" Source="bin/inline.js.pre" KeyPath="yes" />
       </Component>
       <Component Id="jsc.bat" Guid="96DD0F1A-0AA5-4F99-A754-9D18DD3E5BDB">
-        <File Id="jsc.bat" Source="bin/jsc.bat" KeyPath="yes"/>
+        <File Id="jsc.bat" Source="bin/jsc.bat" KeyPath="yes" />
       </Component>
       <Component Id="jsc.js" Guid="1E78258E-0548-4A2D-A00E-36FF760E0A35">
-        <File Id="jsc.js" Source="bin/jsc.js" KeyPath="yes"/>
+        <File Id="jsc.js" Source="bin/jsc.js" KeyPath="yes" />
       </Component>
       <Component Id="kernel.js" Guid="69A44717-A7CF-44F3-BCC5-E76F58FF8F0D">
-        <File Id="kernel.js" Source="bin/kernel.js" KeyPath="yes"/>
+        <File Id="kernel.js" Source="bin/kernel.js" KeyPath="yes" />
       </Component>
       <Component Id="loader.js" Guid="35A66404-9D9F-4966-8EDA-FF0098A031E7">
-        <File Id="loader.js" Source="bin/loader.js" KeyPath="yes"/>
+        <File Id="loader.js" Source="bin/loader.js" KeyPath="yes" />
       </Component>
       <Component Id="module.js" Guid="D9597956-9601-43A2-8E4F-011971FB9325">
-        <File Id="module.js" Source="bin/module.js" KeyPath="yes"/>
+        <File Id="module.js" Source="bin/module.js" KeyPath="yes" />
       </Component>
       <Component Id="test.js" Guid="FADD566B-7610-42A9-B7F7-5D2428FF2328">
-        <File Id="test.js" Source="bin/test.js" KeyPath="yes"/>
+        <File Id="test.js" Source="bin/test.js" KeyPath="yes" />
       </Component>
       <Component Id="version" Guid="F82E5781-0B93-4197-84B3-A1F5CF12CFDC">
-        <File Id="version" Source="bin/version" KeyPath="yes"/>
+        <File Id="version" Source="bin/version" KeyPath="yes" />
       </Component>
       <Component Id="UpdatePath" Guid="8C908A19-0C4F-41C3-A2BF-963B8A076D1D">
         <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes" />
@@ -97,6 +99,7 @@
     <Feature Id="bolt" Level="1">
       <ComponentRef Id="LICENCE" />
       <ComponentRef Id="README.md" />
+      <ComponentRef Id="glob.exe" />
       <ComponentRef Id="bolt.bat" />
       <ComponentRef Id="bolt_build.subr.bat" />
       <ComponentRef Id="bolt_init.subr.bat" />
