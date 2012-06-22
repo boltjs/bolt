@@ -7,8 +7,8 @@
  *
  * Performing an analysis results in either:
  *   1. an empty array, indicating that all dependencies are satisfied,
- *   2. an array of strings that are, at the minimum, still needed to satisfy
- *      the given dependency trees, or
+ *   2. an array of strings that are, at the minimum, still needed in order to
+ *      satisfy the given dependency trees, or
  *   3. an array of strings that form a dependency cycle.
  */
 kernel.module.analyser = def(

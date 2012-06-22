@@ -1,3 +1,7 @@
+/**
+ * This module is responsible for performing dependency analysis of a set of
+ * modules and, if needed, fetching any dependencies that aren't satisfied.
+ */
 kernel.module.loader = def(
   [
     kernel.module.analyser
