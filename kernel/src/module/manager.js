@@ -1,9 +1,3 @@
-/**
- * This module forms the heart of the kernel, and of bolt.
- *
- * It is responsible for loading modules into the system, ensuring they are
- * instantiated in an order that satisfies their dependencies.
- */
 kernel.module.manager = def(
   [
     kernel.fp.array,
