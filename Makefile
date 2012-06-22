@@ -43,6 +43,7 @@ ${BUILD_MSI}:
 	echo '@echo off' > $@
 	echo 'setlocal enableextensions' >> $@
 	echo 'set base=%~dp0' >> $@
+	echo 'move "%base%glob.exe" "%base%..\\image\\${MODULE}-${VERSION}"' >> $@
 	echo 'candle.exe -o "%base%${MODULE}.wixobj" "%base%${MODULE}.wxs"' >> $@
 	echo 'light.exe -spdb -sw1076 -o "%base%..\\dist\\${MODULE}-${VERSION}.msi" -b "%base%..\\image\\${MODULE}-${VERSION}" "%base%${MODULE}.wixobj"' >> $@
 
