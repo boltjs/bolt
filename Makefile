@@ -40,12 +40,12 @@ ${WXS}: ${CONFIG_WXS} ${INSTALLER}
 	sed 's/__VERSION__/${VERSION}/g' ${CONFIG_WXS} > $@
 
 ${BUILD_MSI}:
-	echo '@echo off' > $@
-	echo 'setlocal enableextensions' >> $@
-	echo 'set base=%~dp0' >> $@
-	echo 'move "%base%glob.exe" "%base%..\\image\\${MODULE}-${VERSION}"' >> $@
-	echo 'candle -o "%base%${MODULE}.wixobj" "%base%${MODULE}.wxs"' >> $@
-	echo 'light -spdb -sw1076 -o "%base%..\\dist\\${MODULE}-${VERSION}.msi" -b "%base%..\\image\\${MODULE}-${VERSION}" "%base%${MODULE}.wixobj"' >> $@
+	echo '@echo off\r' > $@
+	echo 'setlocal enableextensions\r' >> $@
+	echo 'set base=%~dp0\r' >> $@
+	echo 'move "%base%glob.exe" "%base%..\\image\\${MODULE}-${VERSION}"\r' >> $@
+	echo 'candle -o "%base%${MODULE}.wixobj" "%base%${MODULE}.wxs"\r' >> $@
+	echo 'light -spdb -sw1076 -o "%base%..\\dist\\${MODULE}-${VERSION}.msi" -b "%base%..\\image\\${MODULE}-${VERSION}" "%base%${MODULE}.wixobj"\r' >> $@
 
 ${DIRECTORIES}:
 	mkdir -p $@
