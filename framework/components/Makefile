@@ -44,5 +44,3 @@ ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCIES} ${PRELUDE} modules.in
 	cat ${PRELUDE} ${MODULES} && \
 	echo "})(Function('return this')());" \
 	) > ${RELEASE}; fi
-
-

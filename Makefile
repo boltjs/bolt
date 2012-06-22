@@ -13,9 +13,8 @@ TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
 INSTALLER = ${GEN}/installer
 CONFIG_WXS = config/wix/${MODULE}.wxs
-WXS = ${INSTALLER}/${MODULE}-${VERSION}.wxs
-WIXOBJ = ${INSTALLER}/${MODULE}-${VERSION}.wixobj
-MSI = ${DIST}/${MODULE}-${VERSION}.msi
+WXS = ${INSTALLER}/${MODULE}.wxs
+BUILD_MSI = ${INSTALLER}/build_msi.bat
 VERSION_FILE = ${TAR_IMAGE}/bin/version
 DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin ${INSTALLER}
 MFLAGS = -s
@@ -24,7 +23,7 @@ MFLAGS = -s
 
 default: cleandist
 
-dist: ${TAR}
+dist: ${TAR} ${WXS} ${BUILD_MSI}
 
 cleandist: clean dist
 
@@ -38,18 +37,17 @@ ${TAR}: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
 	tar cfz ${TAR} -C ${GEN}/image .
 
 ${WXS}: ${CONFIG_WXS} ${INSTALLER}
-	sed 's/__VERSION__/${VERSION}/g' ${CONFIG_WXS} > ${WXS}
+	sed 's/__VERSION__/${VERSION}/g' ${CONFIG_WXS} > $@
 
-${WIXOBJ}: ${WXS}
-	candle.exe -o ${WIXOBJ} ${WXS}
-
-${MSI}: ${WIXOBJ} ${TAR_IMAGE}
-	light.exe -spdb -sw1076 -o ${MSI} -b ${TAR_IMAGE} ${WIXOBJ}
+${BUILD_MSI}:
+	echo '@echo off' > $@
+	echo 'setlocal enableextensions' >> $@
+	echo 'set base=%~dp0' >> $@
+	echo 'candle.exe -o "%base%${MODULE}.wixobj" "%base%${MODULE}.wxs"' >> $@
+	echo 'light.exe -spdb -sw1076 -o "%base%..\\dist\\${MODULE}-${VERSION}.msi" -b "%base%..\\image\\${MODULE}-${VERSION}" "%base%${MODULE}.wixobj"' >> $@
 
 ${DIRECTORIES}:
 	mkdir -p $@
-
-installer: ${MSI}
 
 clean:
 	rm -rf ./${GEN}
