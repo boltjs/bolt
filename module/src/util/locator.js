@@ -11,8 +11,8 @@ module.util.locator = def(
     var runtime = module.runtime.locate;
 
     var locate = function () {
-        var f = runtime || browser;
-        return f();
+      var f = runtime || browser;
+      return f();
     };
 
     return {

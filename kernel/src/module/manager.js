@@ -8,9 +8,10 @@ kernel.module.manager = def(
 
   function (ar, obj, loader, fetcher) {
     var create = function (regulator, onerror) {
-      var blueprints = {};  // id -> {id: string, dependencies: [string], definition: function}
+      var blueprints = {};  // id -> { id: string, dependencies: [ string ], definition: function }
       var modules = {};     // id -> module
 
+      // Adds a module to the system.
       var define = function (id, dependencies, definition) {
         if (id === undefined)
           onerror("Define error: module id can not be undefined");
@@ -20,6 +21,7 @@ kernel.module.manager = def(
           blueprints[id] = { id: id, dependencies: dependencies, definition: definition };
       };
 
+      // Loads a set of modules asynchronously.
       var require = function (ids, callback) {
         var onsuccess = function () {
           var instances = ar.map(ids, demand);
@@ -35,6 +37,7 @@ kernel.module.manager = def(
 
         oncontinue();
       };
+
       // Instantiates a module and all of its dependencies.
       var demand = function (id) {
         if (modules[id] !== undefined)

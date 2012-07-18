@@ -3,8 +3,8 @@
  *  1. Ensures that asynchronous function calls, 'f', that share the same
  *     'key' are not executed in parallel.
  *  2. In the case where an attempt to call in parallel is prevented,
- *     the 'action' callbacks are be executed when the asynchronous
- *     call is completed.
+ *     the 'action' callbacks are executed when the asynchronous call is
+ *     completed.
  *
  * Example:
  *  When we async-map to remotely fetch module definition, it is
