@@ -124,7 +124,7 @@ if not exist "%config_js%" echo %config_js% does not exist or is not a file && g
 call :is_dir "%config_js%"
 if %errorlevel%==0 echo %config_js% does not exist or is not a file && goto fail
 
-for %%i in (node.exe) do set node=%%~$PATH:i
+for %%i in (node.bat node.exe) do if not "%%~$PATH:i"=="" set node=%%~$PATH:i
 if "%node%"=="" echo error: node.js is not on the system path && goto fail
 
 if "%mode%"=="dev" goto jsc_dev

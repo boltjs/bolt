@@ -62,9 +62,11 @@ if "%config_dir%"=="" set config_dir=config\bolt
 call :is_dir "%config_dir%"
 if %errorlevel%==1 mkdir "%config_dir%"
 
-rem FIX discuss the merits of cherry picking these two vs generating all.
-
-if exist "%config_dir%\prod.js" call "%base%jsc.bat" dev -c "%config_dir%\prod.js" "%config_dir%\bootstrap-prod.js" || exit /b %errorlevel%
-if exist "%config_dir%\demo.js" call "%base%jsc.bat" dev -c "%config_dir%\demo.js" "%config_dir%\bootstrap-demo.js" || exit /b %errorlevel%
+for /F "delims=" %%i in ('dir /b "%config_dir%"') do (
+  set current_config=%%i
+  if not "!current_config:~0,10!"=="bootstrap-" (
+    call "%base%jsc.bat" dev -c "%config_dir%\%%i" "%config_dir%\bootstrap-!current_config!" || exit /b %errorlevel%
+  )
+)
 
 exit /b 0

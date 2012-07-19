@@ -67,7 +67,7 @@ if not exist "%config%" echo Could not find config file [%config%] && exit /b 10
 call :is_dir "%config%"
 if %errorlevel%==0 echo Could not find config file [%config%] && exit /b 10
 
-for %%i in (node.exe) do set node=%%~$PATH:i
+for %%i in (node.bat node.exe) do if not "%%~$PATH:i"=="" set node=%%~$PATH:i
 if "%node%"=="" echo error: node.js is not on the system path && goto fail
 
 set remaining=
