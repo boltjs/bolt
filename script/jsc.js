@@ -20,8 +20,6 @@ var usage = function () {
          'options:\n' +
          '  -c|--config CONFIG_JS          override bolt configuration file\n' +
          '                                   default: config/bolt/prod.js\n' +
-         '  -o|--output OUTPUT_DIR         override compilation output directory\n' +
-         '                                   default: scratch/main/js/compile\n' +
          '  -n|--invoke-main MAIN_MODULE   specify main module of inline scripts\n' +
          '  -r|--register                  register modules in global namespace for\n' +
          '                                 inline scripts\n';
@@ -68,7 +66,6 @@ if (mode === 'help') {
 
 
 var config_js = 'config/bolt/prod.js';
-var output_dir = 'scratch/main/js/compile';
 var register_modules = 'false';
 var invoke_main = 'false';
 var main = '';
@@ -83,13 +80,6 @@ while (process.argv.length > 0 && process.argv[0][0] === '-') {
       if (process.argv.length < 1)
         fail_usage(1, flag + ' requires an argument to be specified');
       config_js = process.argv[0];
-      process.argv.shift();
-      break;
-    case '-o':
-    case '--output':
-      if (process.argv.length < 1)
-        fail_usage(1, flag + ' requires an argument to be specified');
-      output_dir = process.argv[0];
       process.argv.shift();
       break;
     case '-n':
