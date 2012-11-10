@@ -1,9 +1,183 @@
-var mode = process.argv[2];
-var args = process.argv.slice(3); // argv[0] = node, argv[1] = jsc.js, argv[2] = MODE
+var usage = function () {
+  return 'usage: jsc dev      [-c|--config CONFIG_JS] [BOOTSTRAP_TARGET]\n' +
+         '    or jsc compile  [-c|--config CONFIG_JS] MODULE_FILE ... COMPILE_TARGET\n' +
+         '    or jsc identify MODULE_FILE\n' +
+         '    or jsc inline   [-c|--config CONFIG_JS] [-n|--invoke-main MAIN_MODULE] [-r|--register] COMPILE_FILE ... LINK_TARGET\n' +
+         '    or jsc link     [-c|--config CONFIG_JS] COMPILE_FILE ... LINK_TARGET\n' +
+         '    or jsc help\n' +
+         '\n' +
+         'arguments:\n' +
+         '  BOOTSTRAP_TARGET file to generate for running in dev mode, this defaults\n' +
+         '                   to a file called bootstrap.js in the same directory as\n' +
+         '                   the config file\n' +
+         '  MODULE_FILE      file containing an uncompiled module\n' +
+         '  COMPILE_TARGET   file to generate when compiling, will contain the set of\n' +
+         '                   modules and their dependencies\n' +
+         '  COMPILE_FILE     file produced by compilation to use as input to linking,\n' +
+         '                   COMPILE_FILE must have corresponding \'COMPILE_TARGET.meta\'\n' +
+         '  LINK_TARGET      file to generate when linking, will contain bootstrap\n' +
+         '                   information: bolt, install and configuration\n' +
+         '\n' +
+         'options:\n' +
+         '  -c|--config CONFIG_JS          override bolt configuration file\n' +
+         '                                   default: config/bolt/prod.js\n' +
+         '  -o|--output OUTPUT_DIR         override compilation output directory\n' +
+         '                                   default: scratch/main/js/compile\n' +
+         '  -n|--invoke-main MAIN_MODULE   specify main module of inline scripts\n' +
+         '  -r|--register                  register modules in global namespace\n';
+};
+
+var fail_usage = function (code, message) {
+  console.error(message);
+  console.error('');
+  console.error(usage());
+  process.exit(code);
+};
+
+var fail = function (code, message) {
+  console.error(message);
+  process.exit(code);
+};
+
+
+process.argv.shift();  // argv[0] = node
+process.argv.shift();  // argv[1] = jsc.js
+
+if (process.argv.length < 1)
+  fail_usage(1, 'error: must specify mode.');
+
+var mode = process.argv[0];
+process.argv.shift();
+
+switch (mode) {
+  case 'dev':
+  case 'compile':
+  case 'identify':
+  case 'inline':
+  case 'link':
+  case 'help':
+    break;
+  default:
+    fail_usage(1, 'invalid mode [' + mode + '], must be one of dev|compile|identify|inline|link|help');
+}
+
+if (mode === 'help') {
+  console.log(usage());
+  process.exit();
+}
+
+
+var config_js = 'config/bolt/prod.js';
+var output_dir = 'scratch/main/js/compile';
+var register_modules = 'false';
+var invoke_main = 'false';
+var main = '';
+
+while (process.argv.length > 0 && process.argv[0][0] === '-') {
+  var flag = process.argv[0];
+  process.argv.shift();
+
+  switch (flag) {
+    case '-c':
+    case '--config':
+      if (process.argv.length < 1)
+        fail_usage(1, flag + ' requires an argument to be specified');
+      config_js = process.argv[0];
+      process.argv.shift();
+      break;
+    case '-o':
+    case '--output':
+      if (process.argv.length < 1)
+        fail_usage(1, flag + ' requires an argument to be specified');
+      output_dir = process.argv[0];
+      process.argv.shift();
+      break;
+    case '-n':
+    case '--invoke-main':
+      if (process.argv.length < 1)
+        fail_usage(1, flag + ' requires an argument to be specified');
+      invoke_main = 'true';
+      main = process.argv[0];
+      process.argv.shift();
+      break;
+    case '-r':
+    case '--register':
+      register_modules = 'true';
+      break;
+    case '--':
+      break;
+    default:
+      fail_usage(1, 'invalid flag [' + flag +']');
+  }
+}
+
 
 require('./kernel');
 require('./loader');
 require('./module');
 require('./compiler');
 
-ephox.bolt.compiler.mode[mode].run.apply(null, args);
+var path = require('path');
+var fs = require('fs');
+
+
+var dev = function () {
+  var bootstrap = '';
+  switch (process.argv.length) {
+    case 0:
+      bootstrap = path.dirname(config_js) + '/bootstrap.js';
+      break;
+    case 1:
+      bootstrap = process.argv[0];
+      break;
+    default:
+      fail_usage(1, 'invalid number of arguments for jsc dev [' + process.argv.length + ']');
+  }
+
+  ephox.bolt.compiler.mode.dev.run(bootstrap, config_js);
+};
+
+var compile = function () {
+  if (process.argv.length < 2)
+    fail_usage(1, 'invalid number of arguments for jsc compile [' + process.argv.length + ']');
+
+  var args = [ config_js ].concat(process.argv);
+  ephox.bolt.compiler.mode.compile.run.apply(null, args);
+};
+
+var identify = function () {
+  if (process.argv.length !== 1)
+    fail_usage(1, 'invalid number of arguments for jsc identify [' + process.argv.length + ']');
+
+  ephox.bolt.compiler.mode.identify.run(process.argv[0]);
+};
+
+var inline = function () {
+  if (process.argv.length < 2)
+    fail_usage(1, 'invalid number of arguments for jsc inline [' + process.argv.length + ']');
+
+  var args = [ config_js, invoke_main, main, register_modules ].concat(process.argv);
+  ephox.bolt.compiler.mode.inline.run.apply(null, args);
+};
+
+var link = function () {
+  if (process.argv.length < 2)
+    fail_usage(1, 'invalid number of arguments for jsc link [' + process.argv.length + ']');
+
+  var args = [ config_js ].concat(process.argv);
+  ephox.bolt.compiler.mode.link.run.apply(null, args);
+};
+
+
+if (!path.existsSync(config_js) || !fs.statSync(config_js).isFile())
+  fail_usage(1, config_js + ' does not exist or is not a file');
+
+var jsc = {
+  dev: dev,
+  compile: compile,
+  identify: identify,
+  inline: inline,
+  link: link
+};
+
+jsc[mode]();
