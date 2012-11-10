@@ -9,12 +9,11 @@ var usage = function () {
          'arguments:\n' +
          '  BOOTSTRAP_TARGET file to generate for running in dev mode, this defaults\n' +
          '                   to a file called bootstrap.js in the same directory as\n' +
-         '                   the config file\n' +
+         '                   CONFIG_JS\n' +
          '  MODULE_FILE      file containing an uncompiled module\n' +
          '  COMPILE_TARGET   file to generate when compiling, will contain the set of\n' +
          '                   modules and their dependencies\n' +
-         '  COMPILE_FILE     file produced by compilation to use as input to linking,\n' +
-         '                   COMPILE_FILE must have corresponding \'COMPILE_TARGET.meta\'\n' +
+         '  COMPILE_FILE     file produced by compilation to use as input to linking\n' +
          '  LINK_TARGET      file to generate when linking, will contain bootstrap\n' +
          '                   information: bolt, install and configuration\n' +
          '\n' +
@@ -24,7 +23,8 @@ var usage = function () {
          '  -o|--output OUTPUT_DIR         override compilation output directory\n' +
          '                                   default: scratch/main/js/compile\n' +
          '  -n|--invoke-main MAIN_MODULE   specify main module of inline scripts\n' +
-         '  -r|--register                  register modules in global namespace\n';
+         '  -r|--register                  register modules in global namespace for\n' +
+         '                                 inline scripts\n';
 };
 
 var fail_usage = function (code, message) {
