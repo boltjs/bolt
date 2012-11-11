@@ -77,7 +77,4 @@ if (mode === 'help') {
   }
 }
 
-console.log('help_mode: ', help_mode);
-console.log('mode: ', mode);
-
-// . $base/bolt-$mode.subr
+require('./bolt-' + mode)(help_mode);
