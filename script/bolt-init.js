@@ -66,7 +66,7 @@ module.exports = function (help_mode) {
            file.length > 3 && file.lastIndexOf('.js') === file.length - 3;
   });
 
-  var processFile = function () {
+  var processFileLoop = function () {
     if (files.length === 0) return;
     var file = files.shift();
 
@@ -77,9 +77,9 @@ module.exports = function (help_mode) {
       [ 'dev', '-c', configJs, bootstrapJs ], { stdio: 'inherit' });
 
     child.on('exit', function (code) {
-      code === 0 ? processFile() : process.exit(code);
+      code === 0 ? processFileLoop() : process.exit(code);
     });
   };
 
-  processFile();
+  processFileLoop();
 };
