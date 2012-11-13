@@ -60,27 +60,25 @@ module.exports = function (help_mode) {
   else if (!fs.statSync(config_dir).isDirectory())
     fail_usage(2, 'directory specified for CONFIG_DIR exists but is not a directory');
 
-  var files = fs.readdirSync(config_dir);
+  var files = fs.readdirSync(config_dir).filter(function (file) {
+    return fs.statSync(config_dir + '/' + file).isFile() &&
+           file.indexOf('bootstrap') !== 0 &&
+           file.length > 3 && file.lastIndexOf('.js') === file.length - 3;
+  });
 
   var processFile = function () {
-    if (files.length === 0)
-      return;
-
+    if (files.length === 0) return;
     var file = files.shift();
 
     var configJs = config_dir + '/' + file;
     var bootstrapJs = config_dir + '/bootstrap-' + file;
 
-    if (fs.statSync(configJs).isFile() && file.indexOf('bootstrap') !== 0 &&
-        file.length > 3 && file.indexOf('.js') === file.length - 3) {
+    var child = child_process.spawn(__dirname + '/jsc',
+      [ 'dev', '-c', configJs, bootstrapJs ], { stdio: 'inherit' });
 
-      var child = child_process.spawn(__dirname + '/jsc',
-        [ 'dev', '-c', configJs, bootstrapJs ], { stdio: 'inherit' });
-
-      child.on('exit', function (code) {
-        code === 0 ? processFile() : process.exit(code);
-      });
-    }
+    child.on('exit', function (code) {
+      code === 0 ? processFile() : process.exit(code);
+    });
   };
 
   processFile();
