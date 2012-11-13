@@ -160,7 +160,7 @@ var link = function () {
 
 
 if (!path.existsSync(config_js) || !fs.statSync(config_js).isFile())
-  fail_usage(1, config_js + ' does not exist or is not a file');
+  fail(1, config_js + ' does not exist or is not a file');
 
 var jsc = {
   dev: dev,

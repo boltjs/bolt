@@ -53,6 +53,7 @@ module.exports = function (help_mode) {
 
   var path = require('path');
   var fs = require('fs');
+  var child_process = require('child_process');
 
   if (!path.existsSync(config_dir))
     fs.mkdirSync(config_dir);
@@ -61,13 +62,26 @@ module.exports = function (help_mode) {
 
   var files = fs.readdirSync(config_dir);
 
-  files.forEach(function (file) {
-    console.log(file);
-  });
+  var processFile = function () {
+    if (files.length === 0)
+      return;
 
-// for i in `find "$config_dir" -maxdepth 1 -type f -name \*.js -not -name bootstrap\*`; do
-//     $base/jsc dev -c "$i" "$config_dir/bootstrap-`basename "$i"`" || exit $?
-// done
+    var file = files.shift();
 
-  process.exit();
+    var configJs = config_dir + '/' + file;
+    var bootstrapJs = config_dir + '/bootstrap-' + file;
+
+    if (fs.statSync(configJs).isFile() && file.indexOf('bootstrap') !== 0 &&
+        file.length > 3 && file.indexOf('.js') === file.length - 3) {
+
+      var child = child_process.spawn(__dirname + '/jsc',
+        [ 'dev', '-c', configJs, bootstrapJs ], { stdio: 'inherit' });
+
+      child.on('exit', function (code) {
+        code === 0 ? processFile() : process.exit(code);
+      });
+    }
+  };
+
+  processFile();
 };
