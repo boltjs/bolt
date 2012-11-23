@@ -1,10 +1,10 @@
 define(
-  'bolt.example.ModuleC',
+  'bolt.demo.ModuleB',
 
   [
   ],
 
   function () {
-    return 'c';
+    return 'b';
   }
 );

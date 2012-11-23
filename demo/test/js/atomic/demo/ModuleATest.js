@@ -1,4 +1,4 @@
-test('some example', [ 'bolt.example.ModuleA', 'bolt.example.test.Fixture' ], function (ModuleA, Fixture) {
+test('some example', [ 'bolt.demo.ModuleA', 'bolt.demo.test.Fixture' ], function (ModuleA, Fixture) {
   assert.eq(Fixture, 'Fixturea', 'Problem with fixutre!');
   assert.eq(ModuleA, 'a', 'Problem with dependency!');
 
