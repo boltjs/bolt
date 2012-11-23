@@ -3,6 +3,7 @@
 /dist
 /dependency
 /scratch
+/.lib
 *~
 *#
 *.sublime-workspace
