@@ -1,8 +1,8 @@
 define(
-  'bolt.example.ExampleMain',
+  'bolt.demo.DemoMain',
 
   [
-    'bolt.example.ModuleA'
+    'bolt.demo.ModuleA'
   ],
 
   function (ModuleA) {
