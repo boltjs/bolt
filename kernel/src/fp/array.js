@@ -63,6 +63,13 @@ kernel.fp.array = def(
       return -1;
     };
 
+    var find = function (a, f) {
+      for (var i = 0; i < a.length; ++i)
+        if (f(a[i]))
+          return a[i];
+      return undefined;
+    };
+
     return {
       equals: equals,
       forall: forall,
@@ -72,7 +79,8 @@ kernel.fp.array = def(
       filter: filter,
       each: each,
       contains: contains,
-      indexof: indexof
+      indexof: indexof,
+      find: find
     };
   }
 );

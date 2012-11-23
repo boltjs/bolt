@@ -2,10 +2,11 @@ define(
   'bolt.demo.DemoMain',
 
   [
-    'bolt.demo.ModuleA'
+    'bolt.demo.ModuleA',
+    'ephox.compass.Arr'
   ],
 
-  function (ModuleA) {
+  function (ModuleA, Arr) {
     return function () {
     };
   }

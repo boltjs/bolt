@@ -8,7 +8,8 @@ module.reader.direct = def(
         done({
           sources: configuration.sources || [],
           types: configuration.types || [],
-          configs: configuration.configs || []
+          configs: configuration.configs || [],
+          repositories: configuration.repositories || []
         });
       };
     };

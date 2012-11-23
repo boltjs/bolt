@@ -18,12 +18,13 @@ module.reader.bouncing = def(
       var accumulated = {
         sources: acc.sources.concat(cfg.sources || []),
         types: acc.types.concat(cfg.types || []),
+        repositories: acc.repositories.concat(cfg.repositories || []),
         configs: munged.concat(acc.configs)
       };
       if (accumulated.configs.length > 0)
         bounce(done, read, accumulated);
       else
-        done({ sources: accumulated.sources, types: accumulated.types });
+        done({ repositories: accumulated.repositories, sources: accumulated.sources, types: accumulated.types });
     };
 
     /*
@@ -45,6 +46,7 @@ module.reader.bouncing = def(
       var result = {};
       /* eval scope */
       var mapper = module.config.mapper;
+      var repository = specs.repository;
       var type = specs.type;
       var source = specs.source(file);
       var configure = function (configuration) {

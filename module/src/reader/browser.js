@@ -8,7 +8,7 @@ module.reader.browser = def(
 
   function (error, bouncing, path, xhr) {
     var read = function (relativeto, file, done, acc) {
-      var accumulated = acc || { sources: [], types: [],  configs: [] };
+      var accumulated = acc || { sources: [], types: [],  configs: [], repositories: [] };
       var base = path.dirname(relativeto);
       var absolute = base + '/' + file;
       xhr.request(absolute, function (payload) {

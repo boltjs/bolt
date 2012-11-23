@@ -56,7 +56,7 @@ kernel.api.sources = def(
         ar.each(sourcespecs, function (spec) {
           if (isResolved(spec.type)) {
             var instance = instanceOf(spec.type);
-            var source = instance.create.apply(null, spec.args);
+            var source = instance.create.apply(null, [ configuration.repositories ].concat(spec.args));
             sources.push(source);
           } else
             left.push(spec);

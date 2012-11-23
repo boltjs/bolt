@@ -4,6 +4,14 @@ module.config.specs = def(
   ],
 
   function (pather) {
+    var repository = function (name, remote, local) {
+      return {
+        name: name,
+        remote: remote,
+        local: local
+      };
+    };
+
     var type = function (type, implementation) {
       return {
         type: type,
@@ -24,6 +32,7 @@ module.config.specs = def(
     };
 
     return {
+      repository: repository,
       type: type,
       source: source
     };
