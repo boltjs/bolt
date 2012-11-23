@@ -3,6 +3,6 @@ configure({
     './prod.js'
   ],
   sources: [
-    source('amd', 'bolt.example.demo', '../../src/demo/js', mapper.hierarchical)
+    source('amd', 'bolt.demo.demo', '../../src/demo/js', mapper.hierarchical)
   ]
 });
