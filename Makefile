@@ -19,20 +19,24 @@ VERSION_FILE = ${TAR_IMAGE}/bin/version
 DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin ${INSTALLER}
 MFLAGS = -s
 
-.PHONY: clean dist
+.PHONY: clean dist projects browser
 
-default: cleandist
+default: clean projects
 
 dist: ${TAR} ${WXS} ${BUILD_MSI}
-
-cleandist: clean dist
 
 ${VERSION_FILE}: ${TAR_IMAGE}
 	echo ${VERSION} > ${VERSION_FILE}
 
-${TAR}: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
+projects: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
 	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS) dist) && cp $$x/gen/* ${TAR_IMAGE}/bin/.; done
 	cp script/* ${TAR_IMAGE}/bin/.
+
+browser: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
+	(cd browser && ${MAKE} $(MFLAGS) VERSION=${VERSION})
+	cp -r browser/gen/image/bolt-browser-${VERSION} ${TAR_IMAGE}
+
+${TAR}: projects browser
 	cp LICENCE README.md ${TAR_IMAGE}/.
 	tar cfz ${TAR} -C ${GEN}/image .
 
