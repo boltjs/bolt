@@ -4,15 +4,24 @@
   "cache": "path/to/cache",
   "config": "config/bolt",
   "build": {
-    "main-moduke": "example.main.HookmeUpScotty",
+    "config": "prod.js",
+    "output": "gen/bolt",
+    "src": "src/js",
+    "inline": true,
+    "main-module": "example.main.HookMeUpScotty",
     "register-globals": false,
     "entry-points": [ "example.data.for.the.win.Main" ],
-    "entry-group": { "fred": [ "example.special.Snowflake" ] }
+    "entry-groups": { "fred": [ "example.special.Snowflake" ] }
   },
   "test": {
     "atomic": {
+      "verbose": true,
       "config": "atomic.js",
       "files": [ "test/js/atomic/**/*.js" ]
+    },
+    "browser": {
+      "config": "browser.js",
+      "files": [ "test/js/browser/**/*.js" ]
     }
   }
 }
