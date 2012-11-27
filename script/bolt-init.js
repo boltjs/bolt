@@ -52,9 +52,13 @@ module.exports = function (help_mode) {
   }
 
 
+  require('./kernel');
+  require('./loader');
+  require('./module');
+  require('./compiler');
+
   var path = require('path');
   var fs = require('fs');
-  var child_process = require('child_process');
 
   if (!path.existsSync(config_dir))
     fs.mkdirSync(config_dir);
@@ -67,20 +71,9 @@ module.exports = function (help_mode) {
            file.length > 3 && file.lastIndexOf('.js') === file.length - 3;
   });
 
-  var processFileLoop = function () {
-    if (files.length === 0) return;
-    var file = files.shift();
-
-    var configJs = config_dir + '/' + file;
-    var bootstrapJs = config_dir + '/bootstrap-' + file;
-
-    var child = child_process.spawn(__dirname + '/jsc',
-      [ 'dev', '-c', configJs, bootstrapJs ], { stdio: 'inherit' });
-
-    child.on('exit', function (code) {
-      code === 0 ? processFileLoop() : process.exit(code);
-    });
-  };
-
-  processFileLoop();
+  files.forEach(function (file) {
+    var config = config_dir + '/' + file;
+    var bootstrap = config_dir + '/bootstrap-' + file;
+    ephox.bolt.compiler.mode.dev.run(config, bootstrap);
+  });
 };

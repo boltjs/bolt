@@ -9,7 +9,7 @@ compiler.mode.inline = def(
   ],
 
   function (filer, io, error, metalator, inline, ar) {
-    var registry = function (files) {
+    var register = function (files) {
       var ids = ar.flatmap(files, metalator.amdmodules);
       return ar.map(ids, function (id) {
         return 'register("' + id + '");';
@@ -21,14 +21,11 @@ compiler.mode.inline = def(
       return read.join('\n');
     };
 
-    var run = function (config, invokemain, main, registermodules /*, files, target */) {
-      var rest = Array.prototype.slice.call(arguments, 4);
-      var files = rest.slice(0, -1);
-      var target = rest[rest.length - 1];
+    var run = function (config, files, target, registermodules, main) {
       var result = readall(files);
-      if (registermodules === "true" || invokemain !== "true")
-        result += '\n' + registry(files);
-      if (invokemain === "true")
+      if (registermodules || main === undefined)
+        result += '\n' + register(files);
+      if (main !== undefined)
         result += '\ndem("' + main + '")();';
       inline.generate(target, result);
     };

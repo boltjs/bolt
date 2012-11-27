@@ -1,0 +1,9 @@
+/gen
+/project/target
+/dist
+/dependency
+/scratch
+/.lib
+*~
+*#
+*.sublime-workspace

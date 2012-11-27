@@ -1,5 +1,5 @@
-var p = Ent.Project.create('bolt', 'external');
-p.setVersion(1, 2, 0);
+var p = Ent.Project.create("bolt-browser", "external");
+p.setVersion(1, 1, 0);
 
 function getVersionString() {
     var v = p.version;
@@ -7,7 +7,7 @@ function getVersionString() {
 }
 
 p.setConfig({
-  command: ["make", getVersionString, "GIT_BASE=git://git/bolt/", "--", "clean", "dist"],
+    command: ["make", "-e", getVersionString],
     dist: "gen/dist",
     distInclude: "**/*"
 });

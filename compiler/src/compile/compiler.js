@@ -31,7 +31,7 @@ compiler.compile.compiler = def(
     
     var checkedload = function (sources, id) {
       if (!sources.can(id))
-        error.die("Configuration error: no source found to load module: " + id);
+        error.die('Configuration error: no source found to load module: ' + id);
 
       load(sources, id);
 
