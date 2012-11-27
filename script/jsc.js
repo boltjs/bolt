@@ -131,15 +131,17 @@ var compile = function () {
   if (process.argv.length < 2)
     fail_usage(1, 'invalid number of arguments for jsc compile [' + process.argv.length + ']');
 
-  var args = [ config_js ].concat(process.argv);
-  ephox.bolt.compiler.mode.compile.run.apply(null, args);
+  var files = process.argv.slice(0, -1);
+  var target = process.argv[process.argv.length - 1];
+  ephox.bolt.compiler.mode.compile.run(config_js, files, target);
 };
 
 var identify = function () {
   if (process.argv.length !== 1)
     fail_usage(1, 'invalid number of arguments for jsc identify [' + process.argv.length + ']');
 
-  ephox.bolt.compiler.mode.identify.run(process.argv[0]);
+  var id = ephox.bolt.compiler.mode.identify.run(process.argv[0]);
+  console.log(id);
 };
 
 var inline = function () {

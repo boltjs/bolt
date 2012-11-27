@@ -9,7 +9,7 @@ compiler.mode.identify = def(
       var ids = identifier.identify(file);
       if (ids.length > 1)
         error.die('File: ' + file + ', contained more than one module: [' + ids.join(', ') + ']');
-      console.log(ids[0]);
+      return ids[0];
     };
 
     return {
