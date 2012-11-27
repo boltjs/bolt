@@ -25,8 +25,6 @@ default: clean projects
 
 dist: ${TAR} ${WXS} ${BUILD_MSI}
 
-cleandist: clean dist
-
 ${VERSION_FILE}: ${TAR_IMAGE}
 	echo ${VERSION} > ${VERSION_FILE}
 
