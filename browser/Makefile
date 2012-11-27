@@ -34,7 +34,7 @@ clean:
 	rm -rf ./${GEN}/bolt ./${GEN}/dist ./${GEN}/image ./${GEN}/sbt
 
 sbt:
-	./sbt "set version := \"${VERSION}\"" clean update compile test copy-dependencies package
+	./sbt -Dsbt.log.noformat=true "set version := \"${VERSION}\"" clean update compile test copy-dependencies package
 
 dist: sbt ${TAR_IMAGE} ${TAR_IMAGE}/lib ${TAR_IMAGE}/www/js ${TAR_IMAGE}/www/css ${DIST} ${GEN}/bolt ${BOLT_GEN}
 	cp -r ${BOLT_GEN}/bolt-* ${GEN}/bolt
