@@ -43,7 +43,7 @@ compiler.inspect.metalator = def(
       if (!hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');
       var defines = inspect(file);
-      return {file: file, defines: defines};
+      return { file: file, defines: defines };
     };
 
     return {

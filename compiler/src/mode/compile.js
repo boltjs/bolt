@@ -11,7 +11,7 @@ compiler.mode.compile = def(
   function (io, identifier, compiler, sources, reader, ar) {
     var compile = function (source, files, target) {
       var modules = ar.flatmap(files, identifier.identify);
-      var result = compiler.compile(source, modules);
+      var result = compiler().compile(source, modules);
       io.write(target, result);
     };
 

@@ -72,4 +72,208 @@ module.exports = function (help_mode) {
     console.log(usage());
     process.exit();
   }
+
+  var config_js = 'config/bolt/prod.js';
+  var output_dir = 'scratch/main/js';
+  var src_dir = 'src/main/js';
+  var generate_inline = false;
+  var generate_modules = false;
+  var register_modules = false;
+  var main = undefined;
+  var entry_points = [];
+  var entry_groups = {};
+
+  var path = require('path');
+  var fs = require('fs');
+
+  while (process.argv.length > 0 && process.argv[0][0] === '-') {
+    var flag = process.argv[0];
+    process.argv.shift();
+
+    switch (flag) {
+      case '-c':
+      case '--config':
+        if (process.argv.length < 1)
+          fail_usage(1, flag + ' requires an argument to be specified');
+        config_js = process.argv[0];
+        process.argv.shift();
+        break;
+      case '-o':
+      case '--output':
+        if (process.argv.length < 1)
+          fail_usage(1, flag + ' requires an argument to be specified');
+        output_dir = process.argv[0];
+        process.argv.shift();
+        break;
+      case '-s':
+      case '--src-dir':
+        if (process.argv.length < 1)
+          fail_usage(1, flag + ' requires an argument to be specified');
+        src_dir = process.argv[0];
+        process.argv.shift();
+        break;
+      case '-n':
+      case '--invoke-main':
+        if (process.argv.length < 1)
+          fail_usage(1, flag + ' requires an argument to be specified');
+      main = process.argv[0];
+      process.argv.shift();
+        break;
+      case '-r':
+      case '--register':
+        register_modules = true;
+        break;
+      case '-i':
+      case '--inline':
+        generate_inline = true;
+        break;
+      case '-m':
+      case '--modules':
+        generate_modules = true;
+        break;
+      case '-e':
+      case '--entry-points':
+        while (process.argv.length > 0 && process.argv[0][0] !== '-') {
+          var entry = process.argv[0];
+          process.argv.shift();
+          if (!path.existsSync(entry) || !fs.statSync(entry).isFile())
+            fail(1, 'specified file for entry point not found [' + entry + ']');
+          entry_points.push(entry);
+        }
+        break;
+      case '-g':
+      case '--entry-group':
+        if (process.argv.length < 2)
+          fail_usage(1, flag + ' requires two arguments to be specified');
+        var name = process.argv[0];
+        process.argv.shift();
+        if (name.indexOf('/') !== -1)
+          fail(1, 'entry group name must not contain special characters');
+        entry_groups[name] = [];
+
+        while (process.argv.length > 0 && process.argv[0][0] !== '-') {
+          var file = process.argv[0];
+          process.argv.shift();
+          if (!path.existsSync(file) || !fs.statSync(file).isFile())
+            fail(1, 'specified file for entry group not found [' + file + ']');
+          entry_groups[name].push(file);
+        }
+        break;
+      case '--':
+        break;
+      default:
+        fail_usage(1, 'invalid flag [' + flag +']');
+    }
+  }
+
+  // nodejs doesn't have an mkdir -p equivalent
+  var mkdirp = function (dir) {
+    dir = path.resolve(dir);
+    if (!fs.existsSync(dir)) {
+      mkdirp(path.dirname(dir));
+      fs.mkdirSync(dir);
+    }
+  };
+
+  // walk a directory tree
+  var walk = function (root, processor) {
+    var files = fs.readdirSync(root);
+    files.forEach(function (file) {
+      var filepath = path.join(root, file);
+      fs.statSync(filepath).isDirectory() ?
+        walk(filepath, processor) : processor(filepath);
+    });
+  };
+
+
+  require('./kernel');
+  require('./loader');
+  require('./module');
+  require('./compiler');
+
+  var targets = [];
+
+  var bolt_build_inline = function (file, name) {
+    mkdirp(path.join(output_dir, 'inline'));
+    var target = path.join(output_dir, 'inline', name + '.js');
+    ephox.bolt.compiler.mode.inline.run(config_js, [ file ], target, register_modules, main);
+  };
+
+  var bolt_build_entry_point = function (done) {
+    mkdirp(path.join(output_dir, 'compile'));
+
+    var process = function (file) {
+      var id = ephox.bolt.compiler.mode.identify.run(file);
+      var target = path.join(output_dir, 'compile', id + '.js');
+      targets.push(target);  // So that things can be linked together later
+
+      ephox.bolt.compiler.mode.compile.run(config_js, [ file ], target, function () {
+        if (generate_inline)
+          bolt_build_inline(target, id);
+        next();
+      });
+    };
+
+    var next = function () {
+      entry_points.length > 0 ? process(entry_points.shift()) : done();
+    };
+
+    next();
+  };
+
+  var bolt_build_entry_group = function (done) {
+    mkdirp(path.join(output_dir, 'compile'));
+
+    var groups = Object.keys(entry_groups);
+
+    var process = function (group) {
+      var target = path.join(output_dir, 'compile', group + '.js');
+      targets.push(target);  // So that things can be linked together later
+
+      ephox.bolt.compiler.mode.compile.run(config_js, entry_groups[group], target, function () {
+        if (generate_inline)
+          bolt_build_inline(target, group);
+        next();
+      });
+    };
+
+    var next = function () {
+      groups.length > 0 ? process(groups.shift()) : done();
+    };
+
+    next();
+  };
+
+  var bolt_link = function () {
+    var link_output = path.join(output_dir, 'compile/bootstrap.js');
+    ephox.bolt.compiler.mode.link.run(config_js, targets, link_output);
+  };
+
+  var bolt_modules = function () {
+    if (!path.existsSync(src_dir) || !fs.statSync(src_dir).isDirectory())
+      fail(1, config_js + ' does not exist or is not a directory');
+
+    if (generate_modules) {
+      var module_dir = path.join(output_dir, 'module');
+      mkdirp(module_dir);
+      walk(src_dir, function (file) {
+        var name = ephox.bolt.compiler.mode.identify.run(file);
+        fs.writeFileSync(path.join(module_dir, name + '.js'), fs.readFileSync(file));
+      });
+    }
+  };
+
+
+  if (!path.existsSync(config_js) || !fs.statSync(config_js).isFile())
+    fail(1, config_js + ' does not exist or is not a file');
+
+  bolt_build_entry_point(function () {
+    bolt_build_entry_group(function () {
+      if (targets.length > 0)
+        bolt_link();
+
+      if (generate_modules)
+        bolt_modules();
+    });
+  });
 };
