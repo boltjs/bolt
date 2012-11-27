@@ -5,8 +5,7 @@ loader.transporter.commonjs = def(
   function () {
     var read = function (url, success, error) {
       var fs = require('fs');
-      var path = require('path');
-      path.exists(url, function (exists) {
+      fs.exists(url, function (exists) {
         if (exists)
           fs.readFile(url, 'UTF-8', function (err, data) {
             if (err)

@@ -57,10 +57,9 @@ module.exports = function (help_mode) {
   require('./module');
   require('./compiler');
 
-  var path = require('path');
   var fs = require('fs');
 
-  if (!path.existsSync(config_dir))
+  if (!fs.existsSync(config_dir))
     fs.mkdirSync(config_dir);
   else if (!fs.statSync(config_dir).isDirectory())
     fail_usage(2, 'directory specified for CONFIG_DIR exists but is not a directory');

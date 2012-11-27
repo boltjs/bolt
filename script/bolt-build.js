@@ -136,7 +136,7 @@ module.exports = function (help_mode) {
         while (process.argv.length > 0 && process.argv[0][0] !== '-') {
           var entry = process.argv[0];
           process.argv.shift();
-          if (!path.existsSync(entry) || !fs.statSync(entry).isFile())
+          if (!fs.existsSync(entry) || !fs.statSync(entry).isFile())
             fail(1, 'specified file for entry point not found [' + entry + ']');
           entry_points.push(entry);
         }
@@ -154,7 +154,7 @@ module.exports = function (help_mode) {
         while (process.argv.length > 0 && process.argv[0][0] !== '-') {
           var file = process.argv[0];
           process.argv.shift();
-          if (!path.existsSync(file) || !fs.statSync(file).isFile())
+          if (!fs.existsSync(file) || !fs.statSync(file).isFile())
             fail(1, 'specified file for entry group not found [' + file + ']');
           entry_groups[name].push(file);
         }
@@ -250,7 +250,7 @@ module.exports = function (help_mode) {
   };
 
   var bolt_modules = function () {
-    if (!path.existsSync(src_dir) || !fs.statSync(src_dir).isDirectory())
+    if (!fs.existsSync(src_dir) || !fs.statSync(src_dir).isDirectory())
       fail(1, config_js + ' does not exist or is not a directory');
 
     if (generate_modules) {
@@ -264,7 +264,7 @@ module.exports = function (help_mode) {
   };
 
 
-  if (!path.existsSync(config_js) || !fs.statSync(config_js).isFile())
+  if (!fs.existsSync(config_js) || !fs.statSync(config_js).isFile())
     fail(1, config_js + ' does not exist or is not a file');
 
   bolt_build_entry_point(function () {

@@ -1,11 +1,10 @@
 compiler.tools.io = def(
   [
     require('fs'),
-    require('path'),
     compiler.tools.error
   ],
 
-  function (fs, path, error) {
+  function (fs, error) {
     var lazyread = function (file) {
       var data;
       return function () {
@@ -30,7 +29,7 @@ compiler.tools.io = def(
     };
 
     var exists = function (file) {
-      return path.existsSync(file);
+      return fs.existsSync(file);
     };
 
     var rm = function (file) {

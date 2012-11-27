@@ -69,15 +69,14 @@ module.exports = function (help_mode) {
   process.argv.shift();
 
   var fs = require('fs');
-  var path = require('path');
 
-  if (!path.existsSync(config) || !fs.statSync(config).isFile())
+  if (!fs.existsSync(config) || !fs.statSync(config).isFile())
     fail(10, 'Could not find config file [' + config + ']');
 
   var tests = process.argv.slice(0);
 
   tests.forEach(function (file) {
-    if (!path.existsSync(file) || !fs.statSync(file).isFile())
+    if (!fs.existsSync(file) || !fs.statSync(file).isFile())
       fail(20, 'Could not find test file [' + file + ']');
   });
 
