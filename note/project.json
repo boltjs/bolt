@@ -1,0 +1,12 @@
+{
+  "name": "hyphen-seperated-project-name",
+  "version": "<major>.<minor>.<patch>-<build>",
+  "cache": "path/to/cache",
+  "build": {
+  },
+  "test": {
+    "atomic": {
+      "config": "bolt/config/"
+    }
+  }
+}
