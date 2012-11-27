@@ -2,11 +2,17 @@
   "name": "hyphen-seperated-project-name",
   "version": "<major>.<minor>.<patch>-<build>",
   "cache": "path/to/cache",
+  "config": "config/bolt",
   "build": {
+    "main-moduke": "example.main.HookmeUpScotty",
+    "register-globals": false,
+    "entry-points": [ "example.data.for.the.win.Main" ],
+    "entry-group": { "fred": [ "example.special.Snowflake" ] }
   },
   "test": {
     "atomic": {
-      "config": "bolt/config/"
+      "config": "atomic.js",
+      "files": [ "test/js/atomic/**/*.js" ]
     }
   }
 }
