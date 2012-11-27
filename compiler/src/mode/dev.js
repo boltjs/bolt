@@ -4,7 +4,7 @@ compiler.mode.dev = def(
   ],
 
   function (generator) {
-    var run = function (bootstrap, config) {
+    var run = function (config, bootstrap) {
       var path = require('path');
       var relative = path.relative(path.dirname(bootstrap), config);
 

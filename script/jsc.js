@@ -124,7 +124,7 @@ var dev = function () {
       fail_usage(1, 'invalid number of arguments for jsc dev [' + process.argv.length + ']');
   }
 
-  ephox.bolt.compiler.mode.dev.run(bootstrap, config_js);
+  ephox.bolt.compiler.mode.dev.run(config_js, bootstrap);
 };
 
 var compile = function () {

@@ -72,8 +72,8 @@ module.exports = function (help_mode) {
   });
 
   files.forEach(function (file) {
-    var configJs = config_dir + '/' + file;
-    var bootstrapJs = config_dir + '/bootstrap-' + file;
-    ephox.bolt.compiler.mode.dev.run(bootstrapJs, configJs);
+    var config = config_dir + '/' + file;
+    var bootstrap = config_dir + '/bootstrap-' + file;
+    ephox.bolt.compiler.mode.dev.run(config, bootstrap);
   });
 };
