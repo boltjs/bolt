@@ -66,9 +66,8 @@ if (mode === 'help') {
 
 
 var config_js = 'config/bolt/prod.js';
-var register_modules = 'false';
-var invoke_main = 'false';
-var main = '';
+var register_modules = false;
+var main = undefined;
 
 while (process.argv.length > 0 && process.argv[0][0] === '-') {
   var flag = process.argv[0];
@@ -86,13 +85,12 @@ while (process.argv.length > 0 && process.argv[0][0] === '-') {
     case '--invoke-main':
       if (process.argv.length < 1)
         fail_usage(1, flag + ' requires an argument to be specified');
-      invoke_main = 'true';
       main = process.argv[0];
       process.argv.shift();
       break;
     case '-r':
     case '--register':
-      register_modules = 'true';
+      register_modules = true;
       break;
     case '--':
       break;
@@ -148,16 +146,18 @@ var inline = function () {
   if (process.argv.length < 2)
     fail_usage(1, 'invalid number of arguments for jsc inline [' + process.argv.length + ']');
 
-  var args = [ config_js, invoke_main, main, register_modules ].concat(process.argv);
-  ephox.bolt.compiler.mode.inline.run.apply(null, args);
+  var files = process.argv.slice(0, -1);
+  var target = process.argv[process.argv.length - 1];
+  ephox.bolt.compiler.mode.inline.run(config_js, files, target, register_modules, main);
 };
 
 var link = function () {
   if (process.argv.length < 2)
     fail_usage(1, 'invalid number of arguments for jsc link [' + process.argv.length + ']');
 
-  var args = [ config_js ].concat(process.argv);
-  ephox.bolt.compiler.mode.link.run.apply(null, args);
+  var files = process.argv.slice(0, -1);
+  var target = process.argv[process.argv.length - 1];
+  ephox.bolt.compiler.mode.link.run(config_js, files, target);
 };
 
 

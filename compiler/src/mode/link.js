@@ -16,10 +16,7 @@ compiler.mode.link = def(
       });
     };
 
-    var run = function (config /*, files, target */) {
-      var rest = Array.prototype.slice.call(arguments, 1);
-      var files = rest.slice(0, -1);
-      var target = rest[rest.length - 1];
+    var run = function (config, files, target) {
       var specs = files.map(metalator.spec);
       var sources = ar.flatmap(specs, source);
 
@@ -35,7 +32,7 @@ compiler.mode.link = def(
         '  var source = ephox.bolt.module.config.specs.source(locator.locate());\n' +
         '  var reader = direct.create({\n' +
         '    sources: [\n' +
-        '    ' + sources.join(',\n    ') + '\n' +
+        '      ' + sources.join(',\n      ') + '\n' +
         '    ]\n' +
         '  });\n' +
         '  install.install(reader, builtins, transport, script);\n' +
