@@ -2,7 +2,8 @@ var usage = function () {
   return 'usage: jsc dev      [-c|--config CONFIG_JS] [BOOTSTRAP_TARGET]\n' +
          '    or jsc compile  [-c|--config CONFIG_JS] MODULE_FILE ... COMPILE_TARGET\n' +
          '    or jsc identify MODULE_FILE\n' +
-         '    or jsc inline   [-c|--config CONFIG_JS] [-n|--invoke-main MAIN_MODULE] [-r|--register] COMPILE_FILE ... LINK_TARGET\n' +
+         '    or jsc inline   [-c|--config CONFIG_JS] [-n|--invoke-main MAIN_MODULE]\n' +
+         '                    [-r|--register] COMPILE_FILE ... LINK_TARGET\n' +
          '    or jsc link     [-c|--config CONFIG_JS] COMPILE_FILE ... LINK_TARGET\n' +
          '    or jsc help\n' +
          '\n' +
