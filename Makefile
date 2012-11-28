@@ -37,7 +37,7 @@ browser: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
 	cp -r browser/gen/image/bolt-browser-${VERSION} ${TAR_IMAGE}
 
 ${TAR}: projects browser
-	cp LICENCE README.md ${TAR_IMAGE}/.
+	cp LICENSE README.md ${TAR_IMAGE}/.
 	tar cfz ${TAR} -C ${GEN}/image .
 
 ${WXS}: ${CONFIG_WXS} ${INSTALLER}
