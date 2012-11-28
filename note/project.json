@@ -2,12 +2,14 @@
   "name": "hyphen-seperated-project-name",
   "version": "<major>.<minor>.<patch>-<build>",
   "cache": "path/to/cache",
-  "config": "config/bolt",
+  "src": "src/js",
+  "output": "gen/bolt",
+  "bootstraps": {
+    "config/bolt/prod.js": "config/bolt/bootstrap-prod.js",
+    "config/bolt/demo.js": "config/bolt/bootstrap-demo.js"
+  },
   "build": {
-    "config": "prod.js",
-    "output": "gen/bolt",
-    "src": "src/js",
-    "inline": true,
+    "config": "config/bolt/prod.js",
     "main-module": "example.main.HookMeUpScotty",
     "register-globals": false,
     "entry-points": [ "example.data.for.the.win.Main" ],
@@ -16,12 +18,17 @@
   "test": {
     "atomic": {
       "verbose": true,
-      "config": "atomic.js",
+      "config": "config/bolt/atomic.js",
       "files": [ "test/js/atomic/**/*.js" ]
     },
     "browser": {
-      "config": "browser.js",
+      "config": "config/bolt/browser.js",
       "files": [ "test/js/browser/**/*.js" ]
     }
+  },
+  "publish": {
+    "server": "blah.com:repos/prod",
+    "user": "fred",
+    "keyfile": "private-key-file"
   }
 }
