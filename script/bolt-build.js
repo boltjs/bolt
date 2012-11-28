@@ -4,11 +4,11 @@ var usage = function () {
          '                  [-m|--modules] [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]\n' +
          '\n' +
          'options:\n' +
-         '  -c|--config CONFIG_JS         override bolt configuration file\n' +
+         '  -c|--config CONFIG_JS          override bolt configuration file\n' +
          '                                   default: config/bolt/prod.js\n' +
-         '  -o|--output OUTPUT_DIR         override output directory, note this is different\n' +
-         '                                 to the jsc compile directory, the compiled output,\n' +
-         '                                 will be located at $OUTPUT_DIR/compile\n' +
+         '  -o|--output OUTPUT_DIR         override output directory, compiled output will be\n' +
+         '                                 located at $OUTPUT_DIR/compile, inline output at\n' +
+         '                                 $OUTPUT_DIR/inline, modules at $OUTPUT_DIR/module'
          '                                   default: scratch/main/js\n' +
          '  -s|--src-dir SRC_DIR           override source directory\n' +
          '                                   default: src/main/js\n' +
