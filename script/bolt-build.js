@@ -8,7 +8,7 @@ var usage = function () {
          '                                   default: config/bolt/prod.js\n' +
          '  -o|--output OUTPUT_DIR         override output directory, compiled output will be\n' +
          '                                 located at $OUTPUT_DIR/compile, inline output at\n' +
-         '                                 $OUTPUT_DIR/inline, modules at $OUTPUT_DIR/module'
+         '                                 $OUTPUT_DIR/inline, modules at $OUTPUT_DIR/module\n' +
          '                                   default: scratch/main/js\n' +
          '  -s|--src-dir SRC_DIR           override source directory\n' +
          '                                   default: src/main/js\n' +
