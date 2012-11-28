@@ -137,6 +137,9 @@ module.exports = function (help_mode) {
         break;
       case '-e':
       case '--entry-points':
+        if (process.argv.length < 1)
+          fail_usage(1, flag + ' requires an argument to be specified');
+
         while (process.argv.length > 0 && process.argv[0][0] !== '-') {
           var entry = process.argv[0];
           process.argv.shift();
