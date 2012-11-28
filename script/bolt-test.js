@@ -19,14 +19,13 @@ var usage = function () {
          '\n' +
          '\n' +
          'note:\n' +
-         '  Examples assume use of a shell with "**" glob support. This means either zsh or\n' +
-         '  bash 4.x with `shopt -s globstar` set. If you are an insolent mac user with a\n' +
-         '  default bash 3.x, this tool strongly recommends you upgrade (although defenestration\n' +
-         '  of said mac is also a valid option).\n' +
+         '  Examples assume use of a shell with "**" glob support. This means either zsh\n' +
+         '  or bash 4.x with `shopt -s globstar` set. If you are an insolent mac user with\n' +
+         '  a default bash 3.x, this tool strongly recommends you upgrade (although\n' +
+         '  defenestration of said mac is also a valid option).\n' +
          '\n' +
-         '\n' +
-         '  If you become desperate something like $(find src/test/js/atomic -name \*.js) could be\n' +
-         '  used as a substitute.\n';
+         '  If you become desperate something like $(find src/test/js/atomic -name \*.js)\n' +
+         '  could be used as a substitute.\n';
 };
 
 var fail_usage = function (code, message) {
