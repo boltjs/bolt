@@ -9,7 +9,7 @@ MODULES = \
 	${SRC}/inspect/identifier.js \
 	${SRC}/generator/bootstrap.js \
 	${SRC}/generator/inline.js \
-	${SRC}/modulator/amd.js \
+	${SRC}/modulator/bolt.js \
 	${SRC}/modulator/globalator.js \
 	${SRC}/compile/renderer.js \
 	${SRC}/compile/sources.js \

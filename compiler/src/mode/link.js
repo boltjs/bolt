@@ -12,7 +12,7 @@ compiler.mode.link = def(
     var source = function (spec) {
       var name = path.basename(spec.file, '.js');
       return ar.map(spec.defines, function (define) {
-        return 'source("amd", "' + define + '", ".", mapper.constant("' + name + '"))';
+        return 'source("bolt", "' + define + '", ".", mapper.constant("' + name + '"))';
       });
     };
 

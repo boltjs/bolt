@@ -1,6 +1,6 @@
 require('../include/include.js');
 
-var amd = ephox.bolt.kernel.modulator.amd;
+var bolt = ephox.bolt.kernel.modulator.bolt;
 
 var idTransformer = function (id) {
   return id.replace(/\./g, '/') + '.rocks';
@@ -16,7 +16,7 @@ var loader = {
 
 var id = function (x) { return x; };
 
-var modulator = amd.create(loader, id, 'x.y.z', '../a/b', idTransformer);
+var modulator = bolt.create(loader, id, 'x.y.z', '../a/b', idTransformer);
 
 assert(modulator.can('x.y.z.blah.test'), 'can works for valid id');
 assert(!modulator.can('z.y.x.blah.test'), 'can does not work for invalid id');

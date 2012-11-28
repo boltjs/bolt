@@ -31,7 +31,7 @@ compiler.inspect.metalator = def(
       return JSON.parse(json);
     };
 
-    var amdmodules = function (file) {
+    var boltmodules = function (file) {
       guard(file);
       var all = inspect(file);
       return ar.filter(all, function (id) {
@@ -50,7 +50,7 @@ compiler.inspect.metalator = def(
       render: render,
       hasMetadata: hasMetadata,
       inspect: inspect,
-      amdmodules: amdmodules,
+      boltmodules: boltmodules,
       spec: spec
     };
   }

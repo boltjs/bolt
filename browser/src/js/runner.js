@@ -22,7 +22,7 @@
     return {
       args: [ function (path) { return '/' + path; }, 'ephox.bolt.browser', 'js', function (id) { return id; } ],
       relativeTo: '/',
-      type: 'amd'
+      type: 'bolt'
     };
   };
 

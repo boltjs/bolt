@@ -1,13 +1,15 @@
 module.config.builtins = def(
   [
-    ephox.bolt.module.modulator.modulators.amdscripttag,
-    ephox.bolt.module.modulator.modulators.amdcommonjs
+    ephox.bolt.module.modulator.modulators.boltscripttag,
+    ephox.bolt.module.modulator.modulators.boltcommonjs
   ],
 
-  function (amdscripttag, amdcommonjs) {
+  function (boltscripttag, boltcommonjs) {
     return {
-      browser: { amd: amdscripttag },
-      commonjs: { amd: amdcommonjs }
+      // TODO: 'amd' is maintained for backwards compatibility, will be removed
+      // at some point.
+      browser: { bolt: boltscripttag, amd: boltscripttag },
+      commonjs: { bolt: boltcommonjs, amd: boltcommonjs }
     };
   }
 );

@@ -10,7 +10,7 @@ compiler.mode.inline = def(
 
   function (filer, io, error, metalator, inline, ar) {
     var register = function (files) {
-      var ids = ar.flatmap(files, metalator.amdmodules);
+      var ids = ar.flatmap(files, metalator.boltmodules);
       return ar.map(ids, function (id) {
         return 'register("' + id + '");';
       }).join('\n');

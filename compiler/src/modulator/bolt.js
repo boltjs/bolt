@@ -1,11 +1,11 @@
-compiler.modulator.amd = def(
+compiler.modulator.bolt = def(
   [
     compiler.inspect.metalator,
     compiler.tools.io,
     compiler.tools.error
   ],
 
-  // FIX cleanup after compiled/amd unify
+  // FIX cleanup after compiled/bolt unify
   function (metalator, io, error) {
     var create = function (pather, namespace, path, idTransformer) {
 

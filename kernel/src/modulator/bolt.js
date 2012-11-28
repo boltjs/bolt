@@ -1,4 +1,4 @@
-kernel.modulator.amd = def(
+kernel.modulator.bolt = def(
   [
     kernel.fp.functions
   ],
