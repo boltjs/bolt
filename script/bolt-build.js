@@ -1,5 +1,5 @@
 var usage = function () {
-  return 'usage: bolt build [-c|--config CONFIG_JS] [-o|--output OUTPUT_DIR] [-s|--src-dir SRC_DIR]\n' +
+  return 'usage: bolt build [-c|--config CONFIG_JS] [-o|--output OUTPUT_DIR] [-s|--src SRC_DIR]\n' +
          '                  [-i|--inline] [-n|--invoke-main MAIN_MODULE] [-r|--register]\n' +
          '                  [-m|--modules] [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]\n' +
          '\n' +
@@ -10,7 +10,7 @@ var usage = function () {
          '                                 located at $OUTPUT_DIR/compile, inline output at\n' +
          '                                 $OUTPUT_DIR/inline, modules at $OUTPUT_DIR/module\n' +
          '                                   default: scratch/main/js\n' +
-         '  -s|--src-dir SRC_DIR           override source directory\n' +
+         '  -s|--src SRC_DIR               override source directory\n' +
          '                                   default: src/main/js\n' +
          '  -i|--inline                    enable generation of inline scripts (only produces output\n' +
          '                                 in conjunction with -e or -g).\n' +
@@ -106,7 +106,7 @@ module.exports = function (help_mode) {
         process.argv.shift();
         break;
       case '-s':
-      case '--src-dir':
+      case '--src':
         if (process.argv.length < 1)
           fail_usage(1, flag + ' requires an argument to be specified');
         src_dir = process.argv[0];
