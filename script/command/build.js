@@ -193,10 +193,10 @@ module.exports = function (help_mode) {
   };
 
 
-  require('./kernel');
-  require('./loader');
-  require('./module');
-  require('./compiler');
+  require('./../lib/kernel');
+  require('./../lib/loader');
+  require('./../lib/module');
+  require('./../lib/compiler');
 
   var targets = [];
 

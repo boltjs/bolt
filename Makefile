@@ -16,7 +16,7 @@ CONFIG_WXS = config/wix/${MODULE}.wxs
 WXS = ${INSTALLER}/${MODULE}.wxs
 BUILD_MSI = ${INSTALLER}/build_msi.bat
 VERSION_FILE = ${TAR_IMAGE}/bin/version
-DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin ${INSTALLER}
+DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin ${TAR_IMAGE}/command ${TAR_IMAGE}/lib ${INSTALLER}
 MFLAGS = -s
 
 .PHONY: clean dist projects browser
@@ -28,9 +28,10 @@ dist: ${TAR} ${WXS} ${BUILD_MSI}
 ${VERSION_FILE}: ${TAR_IMAGE}
 	echo ${VERSION} > ${VERSION_FILE}
 
-projects: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
-	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS) dist) && cp $$x/gen/* ${TAR_IMAGE}/bin/.; done
-	cp script/* ${TAR_IMAGE}/bin/.
+projects: ${DIST} ${TAR_IMAGE}/bin ${TAR_IMAGE}/command ${TAR_IMAGE}/lib ${VERSION_FILE}
+	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS) dist) && cp $$x/gen/* ${TAR_IMAGE}/lib/.; done
+	cp script/bin/* ${TAR_IMAGE}/bin/.
+	cp script/command/* ${TAR_IMAGE}/command/.
 
 browser: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
 	(cd browser && ${MAKE} $(MFLAGS) VERSION=${VERSION})

@@ -25,6 +25,8 @@
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLDIR" Name="bolt">
           <Directory Id="bin" Name="bin" />
+          <Directory Id="lib" Name="lib" />
+          <Directory Id="command" Name="command" />
         </Directory>
       </Directory>
     </Directory>
@@ -39,53 +41,20 @@
     </DirectoryRef>
 
     <DirectoryRef Id="bin">
-      <Component Id="bolt.bat" Guid="AF46BCC6-3128-4B88-8894-22A2BF4301C1">
-        <File Id="bolt.bat" Source="bin/bolt.bat" KeyPath="yes" />
+      <Component Id="bin_bolt.bat" Guid="D09F4A8A-39C5-11E2-9C04-0026BB5B376C">
+        <File Id="bin_bolt.bat" Source="bin/bolt.bat" KeyPath="yes" />
       </Component>
-      <Component Id="bolt.js" Guid="F3E53CDE-3925-11E2-891D-0026BB5B376C">
-        <File Id="bolt.js" Source="bin/bolt.js" KeyPath="yes" />
+      <Component Id="bin_bolt.js" Guid="D8E8E840-39C5-11E2-B42A-0026BB5B376C">
+        <File Id="bin_bolt.js" Source="bin/bolt.js" KeyPath="yes" />
       </Component>
-      <Component Id="bolt_build.js" Guid="DB02BFB8-3919-11E2-8FB1-0026BB5B376C">
-        <File Id="bolt_build.js" Source="bin/bolt-build.js" KeyPath="yes" />
+      <Component Id="bin_jsc.bat" Guid="DDEDCA54-39C5-11E2-9B4C-0026BB5B376C">
+        <File Id="bin_jsc.bat" Source="bin/jsc.bat" KeyPath="yes" />
       </Component>
-      <Component Id="bolt_init.js" Guid="E2E3F6CA-3919-11E2-80D6-0026BB5B376C">
-        <File Id="bolt_init.js" Source="bin/bolt-init.js" KeyPath="yes" />
+      <Component Id="bin_jsc.js" Guid="E26DE9D8-39C5-11E2-B389-0026BB5B376C">
+        <File Id="bin_jsc.js" Source="bin/jsc.js" KeyPath="yes" />
       </Component>
-      <Component Id="bolt_test.js" Guid="47EC55D6-E74D-4120-8E41-392E3885FB41">
-        <File Id="bolt_test.js" Source="bin/bolt-test.js" KeyPath="yes" />
-      </Component>
-      <Component Id="compiler.js" Guid="0A34E602-D23F-4703-82AA-1C5B431E85D8">
-        <File Id="compiler.js" Source="bin/compiler.js" KeyPath="yes" />
-      </Component>
-      <Component Id="inline.js" Guid="5A419044-9941-42B4-977F-BFF13186DAE9">
-        <File Id="inline.js" Source="bin/inline.js" KeyPath="yes" />
-      </Component>
-      <Component Id="inline.js.post" Guid="FF26AEDB-4701-4D75-8D26-6408EB662CB5">
-        <File Id="inline.js.post" Source="bin/inline.js.post" KeyPath="yes" />
-      </Component>
-      <Component Id="inline.js.pre" Guid="0C455BE4-4105-439B-8DAB-30432B9A7DA7">
-        <File Id="inline.js.pre" Source="bin/inline.js.pre" KeyPath="yes" />
-      </Component>
-      <Component Id="jsc.bat" Guid="96DD0F1A-0AA5-4F99-A754-9D18DD3E5BDB">
-        <File Id="jsc.bat" Source="bin/jsc.bat" KeyPath="yes" />
-      </Component>
-      <Component Id="jsc.js" Guid="1E78258E-0548-4A2D-A00E-36FF760E0A35">
-        <File Id="jsc.js" Source="bin/jsc.js" KeyPath="yes" />
-      </Component>
-      <Component Id="kernel.js" Guid="69A44717-A7CF-44F3-BCC5-E76F58FF8F0D">
-        <File Id="kernel.js" Source="bin/kernel.js" KeyPath="yes" />
-      </Component>
-      <Component Id="loader.js" Guid="35A66404-9D9F-4966-8EDA-FF0098A031E7">
-        <File Id="loader.js" Source="bin/loader.js" KeyPath="yes" />
-      </Component>
-      <Component Id="module.js" Guid="D9597956-9601-43A2-8E4F-011971FB9325">
-        <File Id="module.js" Source="bin/module.js" KeyPath="yes" />
-      </Component>
-      <Component Id="test.js" Guid="FADD566B-7610-42A9-B7F7-5D2428FF2328">
-        <File Id="test.js" Source="bin/test.js" KeyPath="yes" />
-      </Component>
-      <Component Id="version" Guid="F82E5781-0B93-4197-84B3-A1F5CF12CFDC">
-        <File Id="version" Source="bin/version" KeyPath="yes" />
+      <Component Id="bin_version" Guid="E6730FD6-39C5-11E2-B3AD-0026BB5B376C">
+        <File Id="bin_version" Source="bin/version" KeyPath="yes" />
       </Component>
       <Component Id="UpdatePath" Guid="8C908A19-0C4F-41C3-A2BF-963B8A076D1D">
         <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes" />
@@ -93,26 +62,65 @@
       </Component>
     </DirectoryRef>
 
+    <DirectoryRef Id="lib">
+      <Component Id="lib_compiler.js" Guid="F1C283B2-39C5-11E2-87F0-0026BB5B376C">
+        <File Id="lib_compiler.js" Source="lib/compiler.js" KeyPath="yes" />
+      </Component>
+      <Component Id="lib_inline.js" Guid="F581FC9E-39C5-11E2-9378-0026BB5B376C">
+        <File Id="lib_inline.js" Source="lib/inline.js" KeyPath="yes" />
+      </Component>
+      <Component Id="lib_inline.js.post" Guid="FA83D528-39C5-11E2-A2B1-0026BB5B376C">
+        <File Id="lib_inline.js.post" Source="lib/inline.js.post" KeyPath="yes" />
+      </Component>
+      <Component Id="lib_inline.js.pre" Guid="FED81F9E-39C5-11E2-AE1B-0026BB5B376C">
+        <File Id="lib_inline.js.pre" Source="lib/inline.js.pre" KeyPath="yes" />
+      </Component>
+      <Component Id="lib_kernel.js" Guid="03439E14-39C6-11E2-A2BB-0026BB5B376C">
+        <File Id="lib_kernel.js" Source="lib/kernel.js" KeyPath="yes" />
+      </Component>
+      <Component Id="lib_loader.js" Guid="07DCAA1A-39C6-11E2-91F1-0026BB5B376C">
+        <File Id="lib_loader.js" Source="lib/loader.js" KeyPath="yes" />
+      </Component>
+      <Component Id="lib_module.js" Guid="0C10EC0E-39C6-11E2-8707-0026BB5B376C">
+        <File Id="lib_module.js" Source="lib/module.js" KeyPath="yes" />
+      </Component>
+      <Component Id="lib_test.js" Guid="10186B10-39C6-11E2-8448-0026BB5B376C">
+        <File Id="lib_test.js" Source="lib/test.js" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="command">
+      <Component Id="command_build.js" Guid="1CCCC612-39C6-11E2-81CD-0026BB5B376C">
+        <File Id="command_build.js" Source="command/build.js" KeyPath="yes" />
+      </Component>
+      <Component Id="command_init.js" Guid="21578ECE-39C6-11E2-B2FF-0026BB5B376C">
+        <File Id="command_init.js" Source="command/init.js" KeyPath="yes" />
+      </Component>
+      <Component Id="command_test.js" Guid="2539F0A4-39C6-11E2-8902-0026BB5B376C">
+        <File Id="command_test.js" Source="command/test.js" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
     <Feature Id="bolt" Level="1">
       <ComponentRef Id="LICENSE" />
       <ComponentRef Id="README.md" />
-      <ComponentRef Id="bolt.bat" />
-      <ComponentRef Id="bolt.js" />
-      <ComponentRef Id="bolt_build.js" />
-      <ComponentRef Id="bolt_init.js" />
-      <ComponentRef Id="bolt_test.js" />
-      <ComponentRef Id="compiler.js" />
-      <ComponentRef Id="inline.js" />
-      <ComponentRef Id="inline.js.post" />
-      <ComponentRef Id="inline.js.pre" />
-      <ComponentRef Id="jsc.bat" />
-      <ComponentRef Id="jsc.js" />
-      <ComponentRef Id="kernel.js" />
-      <ComponentRef Id="loader.js" />
-      <ComponentRef Id="module.js" />
-      <ComponentRef Id="test.js" />
-      <ComponentRef Id="version" />
+      <ComponentRef Id="bin_bolt.bat" />
+      <ComponentRef Id="bin_bolt.js" />
+      <ComponentRef Id="bin_jsc.bat" />
+      <ComponentRef Id="bin_jsc.js" />
+      <ComponentRef Id="bin_version" />
       <ComponentRef Id="UpdatePath" />
+      <ComponentRef Id="lib_compiler.js" />
+      <ComponentRef Id="lib_inline.js" />
+      <ComponentRef Id="lib_inline.js.post" />
+      <ComponentRef Id="lib_inline.js.pre" />
+      <ComponentRef Id="lib_kernel.js" />
+      <ComponentRef Id="lib_loader.js" />
+      <ComponentRef Id="lib_module.js" />
+      <ComponentRef Id="lib_test.js" />
+      <ComponentRef Id="command_build.js" />
+      <ComponentRef Id="command_init.js" />
+      <ComponentRef Id="command_test.js" />
     </Feature>
   </Product>
 </Wix>

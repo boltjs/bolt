@@ -80,10 +80,10 @@ module.exports = function (help_mode) {
   });
 
 
-  require('./kernel');
-  require('./loader');
-  require('./module');
-  require('./test');
+  require('./../lib/kernel');
+  require('./../lib/loader');
+  require('./../lib/module');
+  require('./../lib/test');
 
   var runner = ephox.bolt.test.run.runner;
   var reporter = ephox.bolt.test.report.logger.create(verbose === 'true');

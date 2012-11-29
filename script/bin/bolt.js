@@ -77,4 +77,4 @@ if (mode === 'help') {
   }
 }
 
-require('./bolt-' + mode)(help_mode);
+require('./../command/' + mode)(help_mode);

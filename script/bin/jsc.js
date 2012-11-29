@@ -101,10 +101,10 @@ while (process.argv.length > 0 && process.argv[0][0] === '-') {
 }
 
 
-require('./kernel');
-require('./loader');
-require('./module');
-require('./compiler');
+require('./../lib/kernel');
+require('./../lib/loader');
+require('./../lib/module');
+require('./../lib/compiler');
 
 var path = require('path');
 var fs = require('fs');
