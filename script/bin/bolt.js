@@ -1,11 +1,16 @@
+var fs = require('fs');
+var path = require('path');
+
+var modes = fs.readdirSync(path.join(__dirname, '../command')).map(function (mode) {
+  return path.basename(mode, '.js');
+});
+
 var usage = function () {
   return 'usage: bolt [-h|--help] [-V|--version]\n' +
          '    or bolt MODE [<args>]\n' +
          '\n' +
          'modes:\n' +
-         '  init\n' +
-         '  build\n' +
-         '  test\n' +
+         '  ' + modes.join('\n  ') + '\n' +
          '  help\n' +
          '\n' +
          'For usage/help on a specific mode, use:\n' +
@@ -41,8 +46,6 @@ if (process.argv.length < 1)
 var mode = process.argv[0];
 process.argv.shift();
 
-var fs = require('fs');
-
 switch (mode) {
   case '-h':
   case '--help':
@@ -52,13 +55,11 @@ switch (mode) {
   case '--version':
     console.log('bolt ' + version());
     process.exit();
-  case 'init':
-  case 'build':
-  case 'test':
   case 'help':
     break;
   default:
-    fail_usage(1, 'invalid mode [' + mode + '], must be one of init|build|test|help');
+    if (modes.indexOf(mode) === -1)
+      fail_usage(1, 'invalid mode [' + mode + '], must be one of ' + modes.join('|') + '|help');
 }
 
 
@@ -67,14 +68,8 @@ var help_mode = false;
 if (mode === 'help') {
   help_mode = true;
   mode = process.argv[0];
-  switch (mode) {
-    case 'init':
-    case 'build':
-    case 'test':
-      break;
-    default:
-      fail(2, 'help requires argument: bolt help MODE, where MODE is one of init|build|test');
-  }
+  if (modes.indexOf(mode) === -1)
+    fail(2, 'help requires argument: bolt help MODE, where MODE is one of ' + modes.join('|'));
 }
 
 require('./../command/' + mode)(help_mode);
