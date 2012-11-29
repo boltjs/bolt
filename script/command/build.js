@@ -1,8 +1,10 @@
 var usage = function () {
   return 'usage: bolt build [-c|--config CONFIG_JS] [-o|--output OUTPUT_DIR]\n' +
-         '                  [-s|--src SRC_DIR] [-i|--inline]\n' +
+         '                  [-s|--src SRC_DIR] [-i|--inline] [-b|--build-version]\n' +
          '                  [-n|--invoke-main MAIN_MODULE] [-r|--register] [-m|--modules]\n' +
          '                  [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]\n' +
+         '                  [-p|--project PROJECT_FILE] [--name NAME] [--package]\n' +
+         '                  [--version-module MODULE_ID]\n' +
          '\n' +
          'options:\n' +
          '  -c|--config CONFIG_JS          override bolt configuration file.\n' +

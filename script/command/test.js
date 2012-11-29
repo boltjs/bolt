@@ -1,5 +1,5 @@
 var usage = function () {
-  return 'usage: bolt test [-v|--verbose] CONFIG TEST ...\n' +
+  return 'usage: bolt test [-v|--verbose] [-p|--project PROJECT_FILE] [CONFIG_JS TEST ...]\n' +
          '\n' +
          'arguments:\n' +
          '  CONFIG                   The bolt configuration file to be used for tests\n' +

@@ -1,5 +1,6 @@
 var usage = function () {
-  return 'usage: bolt init [-c|--config CONFIG_DIR]\n' +
+  return 'usage: bolt init [-c|--config CONFIG_JS BOOTSTRAP_JS] [--version-module MODULE_ID] [-p|--project PROJECT_FILE]\n' +
+         '                  ' +
          '\n' +
          'options:\n' +
          '  -c|--config CONFIG_DIR          override bolt configuration directory\n' +
