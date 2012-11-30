@@ -1,0 +1,3 @@
+To run the tests, from the project directory:
+
+  (cd src/Bolt && python -m test.all_test)

@@ -1,0 +1,23 @@
+The `bolt plugin` provides highlighting for several aspects of the development process. It is important to know that although these highlights are not infallible, they can be considerably useful if their limitations are understood.
+
+Unused Imports
+==============
+
+If the `injection` for a given `plasma` is not used anywhere within the module body, then the `dependency` for that plasma will be given a faint outline. This is to inform the user that the current module does not actually use that particular import. Due to the freedom of execution permitted by JavaScript, this may be intentional on the user's part. All `unused imports` can be removed from the module immediately by executing the `Optimise Imports` command.
+
+
+Incorrect Imports
+=================
+
+Due to a variety of reasons, some plasmas referred to by a module may not actually exist in the locations specified by the `nests` for the project. If the plugin identifies this during its analysis, it will place a dark highlight on the offending modules. In some situations, this just means that the `nest` configuration for the project is incorrect, or that the dependencies have not yet been copied across to the project. In other situations, it may be an indicator that one of the dependencies has moved since the project was last used. If an import is both unused and incorrect, the incorrect marking will be take precedence.
+
+Missing Imports
+===============
+
+A less reliable but incredibly useful feature of the plugin, is the ability to highlight potentially missing imports. The `Missing Imports` concept is predicated on the fact that **all** Module names **and only** Module names **start** with a **capital letter**. The process will attempt to flag any capitalised word that exists in the code which does not have a matching `injection`. There are some situations where this doesn't work, however, and it is important to remember that it is a simplified approach designed to catch most use cases.
+
+
+Incorrect Module Definition
+============================
+
+Lastly, the highlighting engine can identify when the definition given to a module does not match its file location. Once again, this uses the project nests to identify what possible locations would be acceptable given the namespace of the module. An incorrect module definition is often a sign that a file has moved into a different package, but has not had its namespace updated.

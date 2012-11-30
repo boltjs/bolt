@@ -1,0 +1,54 @@
+{
+  "project": "lightning",
+  "pages": [
+    { 
+      "name": "templates",
+      "content": "templates.json"
+    },
+
+    {
+      "name": "plasmas",
+      "content": "plasmas.json"
+    },
+
+    {
+      "name": "settings",
+      "content": "settings.json"
+    },
+
+    {
+      "name": "api",
+      "content": "api.json"
+    },
+
+    {
+      "name": "commands",
+      "content": "commands.json"
+    },
+
+    {
+      "name": "tests",
+      "content": "tests.json"
+    },
+
+    {
+      "name": "ui",
+      "content": "ui.json"
+    },
+
+    {
+      "name": "datatypes",
+      "content": "datatypes.json"
+    },
+
+    {
+      "name": "nests",
+      "content": "nests.json"
+    },
+
+    { 
+      "name": "highlighting",
+      "content": "highlighting.json"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+
+
+
+
+
+
+
+
+
+
+Delete Import:
+  ui.read.x.plasmas -> (String, String)
+  core.read.plasmas = [Plasma]
+  ui.read.selection.spot -> Spot 
+  core.query.spot -> Option Plasma
+  core.list.remove -> [Plasma]
+  ui.write.plasmas ...
+
+Optimise imports:
+  ui.read.x.plasmas -> (String, String)
+  ui.read.text.spots -> [Spot]
+  core.read.plasmas -> [Plasma]
+  core.analyse.unused -> [Plasma]
+  core.list.remove -> [Plasma]
+  ui.write.plasmas ...
+
+Goto module:
+  ui.read.selection.spot -> Spot
+  core.query.spot -> Option [Plasma]
+  lookup.files.inj -> [Filename]
+  lookup.files.dep -> [Filename]
+  ui.browse.options -> String
+  ui.show.file ...
+
+Add import:
+  ui.read.selection.spot -> Spot
+  lookup.deps.inj -> [Dependency]
+  ui.browse.options -> String
+  ui.read.x.plasmas -> (String, String)
+  core.read.plasmas -> [Plasma]
+  core.list.add -> [Plasma]
+  ui.write.plasmas ...
+
+Highlight missing:
+  ui.read.x.plasmas -> (String, String)
+  ui.read.text.spots -> [Spot]
+  core.read.plasmas -> [Plasma]
+  core.analyse.missing -> [Spot]
+  ui.write.regions.spots -> [Region]
+  ui.write.highlight ...
+
+Highlight incorrect:
+  ui.read.x.plasmas -> (String, String)
+  core.read.plasmas -> [Plasma]
+  lookup.files.dependency -> [Filename]
+  shell.files.exists -> Boolean
+  ui.read.regions.dep -> [Region]
+  ui.write.highlight ...
+
+New module:
+  context.package -> Package
+
+
+
+
+
+
+
+
+
+

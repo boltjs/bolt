@@ -1,0 +1,167 @@
+bolt.analyse.analyser
+  [ X ] missing (plasma_list, spot_list)
+  [ X ] unused (plasma_list, spot_list)
+
+[ X ] bolt.chain
+
+bolt.extract.zipper
+  [ X ] combine(dependencies, injections)
+
+bolt.inject.includers
+  [ X ] same_plasma(x, y)
+  [ X ] incorporate(plasmas, plasma)
+  [ X ] expunge(plasmas, plasma)
+
+bolt.inject.formats
+  [ X ] depends(deps)
+  [ X ] injects(injs)
+
+bolt.inject.plasmas
+  [ X ] inject(view, edit, plasmas)
+  [ X ] incorporate(plasmas, plasma)
+  [ X ] expunge(plasmas, plasma)
+
+bolt.shell.command_runner
+  [ X ] run(window, command)
+  [ X ] run_and_block(command)
+
+bolt.shell.find_runner
+  [ X ] list(directory, name_pattern)
+  [ X ] custom(command)
+  [ X ] exists(directory, candidates)
+
+bolt.shell.rumple
+  [ X ] go(window, directory, filename, template, vars)
+
+bolt.util.sorter 
+  [ X ] sort(imports)
+
+bolt.extract.spots
+  [ X ] Spot
+
+bolt.core.plasma
+  [ X ] Plasma, constants.
+
+bolt.extract.regions
+  [ X ] section(view, begin, end)
+  [ X ] dependencies(view)
+  [ X ] injections(view)
+  [ X ] in_dependencies(view)
+
+bolt.core.selection
+  [ X ] word(view)
+  [ X ] point(view)
+  [ X ] line(view)
+
+bolt.extract.plasmas
+  [ X ] extract(view)
+  [ X ] all_dependencies(view)
+  [ X ] all_injections(view)
+
+bolt.extract.csv
+  [ X ] parse_region(view, region)
+  [ X ] parse(values)
+
+bolt.relocate.identify
+  [ X ] find_dependency(injection, plasma_list)
+  [ X ] finder(f, plasma_list)
+
+bolt.core.finder
+  [ X ] plasmas(project_directory, selected_word)
+
+bolt.core.browse
+  [ X ] choose_plasma(view, word, on_choose)
+
+bolt.core.finder
+  [ X ] plasmas(project_directory, selected_word)
+
+bolt.core.layout
+  [ X ] mapper_hierarchy(location)
+  [ X ] mapper_flat(location)
+  [ X ] sources(settings)
+
+
+bolt.util.stringutils
+  [ X ] find_enclosing(text, cursor, encloser)
+
+============================================================================
+
+[ - ] bolt.context.context_info
+[ - ] bolt.context.structures
+
+
+
+bolt.core.module_search
+  [ - ] dependency(view, token)
+  [ - ] dependency_from_file(filename, token)
+
+bolt.core.plasma_manager
+  [ - ] insert_plasma(view, edit, plasma)
+  [ - ] remove_plasma(view, edit, plasma)
+
+bot.core.selection
+  [ - ] special_plasma(word)
+
+bolt.extract.regions
+  [ - ] by_dependency(view, dependency)
+
+bolt.extract.spots
+  [ - ] extract(view)
+
+bolt.live.highlight
+  [ - ] BoltView
+  [ - ] HighlightLists
+  [ - ] highlight_live(bolt_view, on_highlights)
+  [ - ] run_on_thread(view, on_success, on_error, on_thread)
+
+bolt.live.ui
+  [ - ] Flagged
+  [ - ] FlagRegion
+  [ - ] clear_regions(view)
+  [ - ] highlight_regions(view, result)
+  [ - ] find_regions(view, highlights)
+
+bolt.location.gps
+  [ - ] locate(sidebar_path)
+
+bolt.locate.node
+  [ - ] Node
+
+bolt.relocate.identify
+  [ - ] find_current_dependency(view)
+  [ - ] find_current_plasma(view, plasma_list)
+
+bolt.scope.scoper
+  [ - ] isBoltModule(view)
+
+
+bolt.thread.general
+  [ - ] GeneralThread
+
+bolt.thread.wrap
+  [ - ] run_thread(f, interval, done, on_error)
+
+bolt.ui
+  [ - ] Keys
+  [ - ] Main Menu
+  [ - ] Sidebar
+
+bolt.util.settings
+  [ - ] settings()
+
+
+
+
+
+---------------------------------
+bolt.util.fileutils
+  XXX find_open_file(view) XXX
+
+
+bot.core.token
+  XXX find_source_with_pred(settings, pred)
+  XXX find_source(settings, location)
+  XXX path(settings, dependency, location)
+  XXX pattern(settings, injection, location)
+  XXX dependency(settings, filename)
+  XXX candidates(settings, dependency)

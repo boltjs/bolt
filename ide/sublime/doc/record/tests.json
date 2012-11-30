@@ -1,0 +1,1 @@
+from the `Bolt` directory, python -m test.all_test
