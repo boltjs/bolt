@@ -23,7 +23,7 @@ MFLAGS = -s
 
 default: clean projects
 
-dist: ${TAR} ${WXS} ${BUILD_MSI}
+dist: clean ${TAR} ${WXS} ${BUILD_MSI}
 
 ${VERSION_FILE}: ${TAR_IMAGE}
 	echo ${VERSION} > ${VERSION_FILE}
