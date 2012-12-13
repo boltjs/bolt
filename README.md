@@ -1,5 +1,7 @@
 # Bolt
 
+[![Build Status](https://travis-ci.org/boltjs/bolt.png)](https://travis-ci.org/boltjs/bolt)
+
 Bolt is a javascript module system, inspired by, but at this
 point (intentionally) not compatible with the AMD specification.
 Bolt consists of a runtime framework, compiler and testing tools.
