@@ -19,11 +19,13 @@ VERSION_FILE = ${TAR_IMAGE}/bin/version
 DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin ${INSTALLER}
 MFLAGS = -s
 
-.PHONY: clean dist projects browser
+.PHONY: clean dist distwindows projects browser
 
 default: clean projects
 
-dist: clean ${TAR} ${WXS} ${BUILD_MSI}
+dist: clean ${TAR} 
+
+distwindows: ${TAR} ${WXS} ${BUILD_MSI}
 
 ${VERSION_FILE}: ${TAR_IMAGE}
 	echo ${VERSION} > ${VERSION_FILE}
