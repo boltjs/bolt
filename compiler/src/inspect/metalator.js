@@ -31,7 +31,7 @@ compiler.inspect.metalator = def(
       return JSON.parse(json);
     };
 
-    var amdmodules = function (file) {
+    var boltmodules = function (file) {
       guard(file);
       var all = inspect(file);
       return ar.filter(all, function (id) {
@@ -43,14 +43,14 @@ compiler.inspect.metalator = def(
       if (!hasMetadata(file))
         error.die('no meta-data found for file, "' + file + '", can only link compile output');
       var defines = inspect(file);
-      return {file: file, defines: defines};
+      return { file: file, defines: defines };
     };
 
     return {
       render: render,
       hasMetadata: hasMetadata,
       inspect: inspect,
-      amdmodules: amdmodules,
+      boltmodules: boltmodules,
       spec: spec
     };
   }

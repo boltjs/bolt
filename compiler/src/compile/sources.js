@@ -2,12 +2,12 @@ compiler.compile.sources = def(
   [
     ephox.bolt.kernel.fp.array,
     compiler.modulator.globalator,
-    compiler.modulator.amd,
+    compiler.modulator.bolt,
     compiler.minibolt.minibolt,
     compiler.tools.error
   ],
 
-  function (ar, globalator, amd, minibolt, error) {
+  function (ar, globalator, bolt, minibolt, error) {
     var build = function (configuration, callback) {
       var modulatorids = ar.map(configuration.types, function (spec) {
         return spec.compiler
@@ -18,7 +18,10 @@ compiler.compile.sources = def(
         ar.each(configuration.types, function (spec, i) {
           types[spec.type] = modules[i];
         });
-        types.amd = amd;
+        types.bolt = bolt;
+        // TODO: 'amd' is maintained for backwards compatibility, will be
+        // removed at some point.
+        types.amd = bolt;
 
         var sources = [ globalator.create() ];
 

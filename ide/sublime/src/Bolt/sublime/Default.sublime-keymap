@@ -1,0 +1,10 @@
+[
+  { "keys": ["alt+enter"], "command": "import_plasma" },
+  { "keys": ["ctrl+alt+enter"], "command": "import_custom_plasma" },
+  { "keys": ["shift+enter"], "command": "goto_module" },
+  { "keys": ["ctrl+alt+h"], "command": "toggle_highlight" },
+  { "keys": ["ctrl+alt+o"], "command": "optimise_plasmas" },
+  { "keys": ["alt+delete"], "command": "remove_plasma" },
+  { "keys": ["shift+f7"], "command": "find_usages_current" },
+  { "keys": ["ctrl+shift+f7"], "command": "find_usages_selection" }
+]

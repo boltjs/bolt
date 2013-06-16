@@ -1,0 +1,8 @@
+{
+    "components" : ["src", "lib"],
+    "hierarchy": ["src/main/js", "src/demo/js", "src/test/js/module", "src/js", "demo/js", "test/js/module"],
+    "flat" : ["lib/run/depend", "lib/test", "lib/demo"],
+
+    "bolt.live.highlight": false,
+    "bolt.live.highlight.rate": 20000
+}

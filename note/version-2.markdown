@@ -15,6 +15,6 @@ New concepts
             always be satisfiable by the highest <patch>-<build> number available.
 
  - repository: A store of packages. A repository would be a list of packages, each package would
-               contain a version.json that lists all versions of the package. Each version or a
+               contain a version.json that lists all versions of the package. Each version of a
                package is described by a package.json. Will have a default format, potentially
                overridable by a function passed into repository details in config file.

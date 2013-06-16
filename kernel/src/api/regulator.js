@@ -59,7 +59,7 @@ kernel.api.regulator = def(
 
       var determinetype = function (id) {
         var index = id.indexOf('!');
-        return index === -1 ? 'amd' : id.substring(0, index);
+        return index === -1 ? 'bolt' : id.substring(0, index);
       };
 
       return {

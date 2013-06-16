@@ -1,0 +1,78 @@
+Nests
+=====
+
+A Nest maintains information about possible locations and pathing routes for modules in your project. It is quite complicated.
+
+    Nest(base: String, pattern: String -> String, dep: String -> String, path: String -> String)
+
+base
+----
+
+The `base` simply points to the root location of modules for this type of nest. It is a file path which is relative to the project root.
+
+pattern
+-------
+
+The `pattern` function takes in the name of an `injection` and outputs the filename pattern that such a module would have for this nest. This does not include the path and will most likely contain wildcards. Note, this pattern is just sent through to the shell command `find`, so initial wildcards are not necessary.
+
+dep
+-------
+
+The `dep` function takes in a filename and generates what the `dependency` of that filename would be for this nest.
+
+path
+-------
+
+The `path` function takes in a `dependency` and (considering the base) generates the full location that such a module would have in this nest if it existed. It is important to note that it already prepends `base` to its result.
+
+
+Examples
+========
+
+For a flat-level nest, the values might be:
+
+    base -> lib
+    pattern('Secret') -> project.*.Secret.js
+    dep('lib/project.xxy.Secret.js') -> project.xxy.Secret
+    path('project.xxy.Secret') -> 'lib/project.xxy.Secret.js'
+
+For a more hierarchical nest, the values might be:
+
+    base -> src
+    pattern('Secret') -> Secret.js // remember initial wildcards are not necessary because we are using find.
+    dep('src/project/xxy/Secret.js') -> project.xxy.Secret
+    path('project.xxy.Secret') -> src/project/xxy/Secret.js
+
+
+Process
+========
+
+Correct configuration of the nests in your project is vital for most of the features of the `bolt plugin` to behave as expected. This is a summary of the usages of nests:
+
+Goto Modules
+-------------
+
+Goto Modules works by identifying possible file paths based on a given `dependency`. It uses the `path` property of a nest to enumerate all possible paths given the nests known by the project. It then filters out any of the candidates file paths which do not exist.
+
+
+Finding Usages
+---------------
+
+Finding Usages works by running a `grep` over all of the files in the nest `base` locations trying to find a specified `dependency`. The only property from a nest it uses is `base`.
+
+Managing Imports
+-----------------
+
+Importing modules requires identifying a potential module to import based on an `injection` (e.g. Secret). Each nest is searched with all possible matches being compiled into one list from which the user can select. The matching criteria requires use of `base`, `pattern`, and `dep`. The `base` value states where to start the search, the `pattern` value is applied to the `injection` in order to identify what to search for, and the `dep` value is used on the resulting file to determine the corresponding `dependency` value.
+
+
+Flagging Incorrect Imports
+---------------------------
+
+Flagging Incorrect Imports works in a similar way to `Goto Modules`. It relies on the same properties of nests and simply flags any dependency which has no valid candidates. Due to the nature of several predefined bolt modulators, any dependencies with a ! character are ignored (e.g. global!document).
+
+
+Flagging Incorrect Module Definition
+---------------------------
+
+Nests are also used to determine the relationship between the location of a module and its namespace. The flagging process applies `dep` to the current filename and ensures that at least one relevant nest matches. The relevant nests are identified by checking the absolute path of the file versus the `base` locations.

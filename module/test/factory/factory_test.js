@@ -17,12 +17,12 @@ require('../include/include');
 //  configs: ['strings'],
 //  modulators: [
 //    modulator('js', 'asfa', [
-//      source('amd', '.....')
+//      source('bolt', '.....')
 //    ])
 //  ],
 //  sources: [
 //    source('mock'),
-//    source('amd', '....')
+//    source('bolt', '....')
 //  ]
 //});
 //

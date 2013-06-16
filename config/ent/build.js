@@ -1,5 +1,5 @@
 var p = Ent.Project.create('bolt', 'external');
-p.setVersion(1, 2, 0);
+p.setVersion(1, 3, 1);
 
 function getVersionString() {
     var v = p.version;

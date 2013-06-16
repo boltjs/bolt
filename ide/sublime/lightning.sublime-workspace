@@ -1,0 +1,215 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 348.0,
+		"selected_items":
+		[
+			[
+				"package ",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Add Repository"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/dev/work/lightning/src/Bolt/bolt.sublime-settings",
+		"/home/dev/work/lightning/doc/record/index.markdown",
+		"/home/dev/work/lightning/src/Bolt/api/command/templates.py",
+		"/home/dev/work/lightning/src/Bolt/core/template/engine.py",
+		"/home/dev/work/lightning/src/Bolt/api/template/templater.py",
+		"/home/dev/work/lightning/src/Bolt/core/template/templates.py",
+		"/home/dev/work/lightning/src/Bolt/core/template/__init__.py",
+		"/home/dev/work/lightning/src/Bolt/test/all_test.py",
+		"/home/dev/work/lightning/doc/record/api.json",
+		"/home/dev/work/lightning/src/Bolt/test/templates_test.py",
+		"/home/dev/work/lightning/src/Bolt/sublime/Side Bar.sublime-menu",
+		"/home/dev/work/lightning/src/Bolt/lookup/package.py",
+		"/home/dev/work/lightning/src/Bolt/test/lookup_test.py",
+		"/home/dev/work/lightning/src/Bolt/lookup/node.py",
+		"/home/dev/work/lightning/src/Bolt/shell/tools/rumple.py",
+		"/home/dev/work/lightning/doc/record/config.json",
+		"/home/dev/work/lightning/doc/record/commands.json",
+		"/home/dev/work/lightning/doc/record/settings.json",
+		"/home/dev/work/lightning/doc/record/ui.json",
+		"/home/dev/work/lightning/doc/record/readview.json",
+		"/home/dev/work/lightning/doc/record/plasmas.json",
+		"/home/dev/work/lightning/doc/record/templates.json",
+		"/home/dev/work/lightning/doc/record/datatypes.json",
+		"/home/dev/work/lightning/doc/record/nests.json",
+		"/home/dev/work/lightning/doc/record/highlighting.json",
+		"/home/dev/work/lightning/doc/record/tests.json",
+		"/home/dev/work/lightning/src/Bolt/api/inspect/highlighting.py",
+		"/home/dev/work/lightning/src/Bolt/api/command/bolt_listener.py",
+		"/home/dev/work/lightning/src/Bolt/api/inspect/optimise.py",
+		"/home/dev/work/lightning/src/Bolt/api/plasma/goto.py",
+		"/home/dev/work/lightning/src/Bolt/api/plasma/manage.py",
+		"/home/dev/work/lightning/src/Bolt/api/plasma/open.py",
+		"/home/dev/work/lightning/src/Bolt/api/plasma/usages.py",
+		"/home/dev/work/lightning/src/Bolt/api/template/rumple.py",
+		"/home/dev/work/lightning/src/Bolt/core/analyse/analyse.py",
+		"/home/dev/work/lightning/src/Bolt/core/plasma/list.py",
+		"/home/dev/work/lightning/src/Bolt/core/query/plasma.py",
+		"/home/dev/work/lightning/src/Bolt/core/read/read.py",
+		"/home/dev/work/lightning/src/Bolt/lookup/file_type.py",
+		"/home/dev/work/lightning/src/Bolt/lookup/files.py",
+		"/home/dev/work/lightning/src/Bolt/lookup/project.py",
+		"/home/dev/work/lightning/src/Bolt/shell/api/commands.py",
+		"/home/dev/work/lightning/src/Bolt/shell/files/exists.py",
+		"/home/dev/work/lightning/src/Bolt/shell/files/find.py",
+		"/home/dev/work/lightning/src/Bolt/shell/files/grep.py",
+		"/home/dev/work/lightning/src/Bolt/ui/chain/chain.py",
+		"/home/dev/work/lightning/src/Bolt/ui/query/regions.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/file.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/plasma_selection.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/regions.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/selection.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/settings.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/spots.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/text.py",
+		"/home/dev/work/lightning/src/Bolt/ui/read/x.py",
+		"/home/dev/work/lightning/src/Bolt/ui/show/browse.py",
+		"/home/dev/work/lightning/src/Bolt/ui/show/file.py",
+		"/home/dev/work/lightning/src/Bolt/ui/write/highlight.py",
+		"/home/dev/work/lightning/src/Bolt/ui/write/write.py",
+		"/home/dev/work/lightning/src/Bolt/util/array.py",
+		"/home/dev/work/lightning/src/Bolt/test/structs_test.py",
+		"/home/dev/.xmonad/xmonad.hs"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/home/dev/work/lightning/src/"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"from_dir",
+			"ephox",
+			"FIX",
+			"file_js_template",
+			"file_test_js_template",
+			"rumple",
+			"basic",
+			"    \n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 259.0,
+	"status_bar_visible": true
+}

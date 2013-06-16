@@ -19,7 +19,7 @@ var instantiate = function (id) {
   for (var i = 0; i < dependencies.length; ++i)
     instances.push(dem(dependencies[i]));
   defs[id].instance = definition.apply(null, instances);
-  if (defs[id] === undefined)
+  if (defs[id].instance === undefined)
      throw 'required module [' + id + '] could not be defined (definition function returned undefined)';
 };
 

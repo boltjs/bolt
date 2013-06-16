@@ -7,7 +7,7 @@ MODULES = \
 	${SRC}/async/map.js \
 	${SRC}/async/piggybacker.js \
 	${SRC}/modulator/globalator.js \
-	${SRC}/modulator/amd.js \
+	${SRC}/modulator/bolt.js \
 	${SRC}/module/stratifier.js \
 	${SRC}/module/analyser.js \
 	${SRC}/module/fetcher.js \

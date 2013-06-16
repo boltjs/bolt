@@ -7,8 +7,8 @@
     "module.name.Three"
   ],
   "dependencies": [
-    { "name": "thing-i-depend-on", "version": "<major>.<minor>", "path": "http://repositories-r-us/bolt"},
-    { "name": "other-thing-i-depend-on", "version": "<major>.<minor>", "path": "http://repositories-r-us/bolt"},
-    { "name": "special-thing-i-depend-on", "version": "<major>.<minor>", "path": "http://blah-blah/bolt"}
+    { "name": "thing-i-depend-on", "version": "<major>.<minor>", "path": "http://repositories-r-us/bolt" },
+    { "name": "other-thing-i-depend-on", "version": "<major>.<minor>", "path": "http://repositories-r-us/bolt" },
+    { "name": "special-thing-i-depend-on", "version": "<major>.<minor>", "path": "http://blah-blah/bolt" }
   ]
 }

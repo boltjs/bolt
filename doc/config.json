@@ -1,0 +1,33 @@
+{
+  "project": "Bolt",
+  "pages": [
+    {
+      "name": "Five Minute Quick Start",
+      "content": "Five-Minute-Quick-Start.markdown"
+    },
+    {
+      "name": "Modes of Operation",
+      "content": "Modes-of-Operation.markdown"
+    },
+    {
+      "name": "Modules",
+      "content": "Modules.markdown"
+    },
+    {
+      "name": "Configuration",
+      "content": "Configuration.markdown"
+    },
+    {
+      "name": "Runtime API",
+      "content": "Runtime-API.markdown"
+    },
+    {
+      "name": "Compilation",
+      "content": "Compilation.markdown"
+    },
+    {
+      "name": "Testing",
+      "content": "Testing.markdown"
+    }
+  ]
+}

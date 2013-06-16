@@ -1,0 +1,65 @@
+Plasmas (Imports)
+=======
+
+In the `bolt plugin`, the dependencies of a particular module a referred to as `plasmas`. A plasma is defined by two concepts:
+
+* **dependency** the `namespace` of a referenced module (e.g. `project.xxy.Secret`). These will appear in a list after the module definition.
+* **injection** the identifier used within the module to refer to that module (e.g. `Secret`). These appear in the main module function invocation as arguments.
+
+Example:
+
+
+    define('project.xxy.Main', 
+
+      [
+        'project.xxy.Secret', // dependencies
+        'project.xxy.SecretB'
+      ],
+
+      function (Secret, SecretB) { // injections
+
+        ...
+
+      }
+    );
+
+One of the primary objectives of the `bolt plugin` is to make the handling of `plasmas` (import management) as hassle-free as possible. Therefore, it provides the following functionality. Note, that correct configuration of `nests` is vital for this functionality to operate effectively.
+
+
+
+Import Module at Cursor
+-----------------------
+
+Based on any **capitalised** word found at the cursor, attempt to find a matching Module in the project based on the `nest` specifications. If more than one candidate is found, allow the user to choose.
+
+Import Module by Name
+---------------------
+
+Based on a supplied **capitalised** word, attempt to find a matching Module in the project based on the `nest` specifications. If more than one candidate is found, allow the user to choose.
+
+Remove Module at Cursor
+--------------
+
+For the plasma identified by the cursor in either the body of the module (via its `injection`) or its dependencies, remove it from the plasma list.
+
+Optimise Imports
+----------------
+
+Remove any plasma from the plasma list which has been identified as unused. That is, remove all plasmas with injections that do not occur within the module body.
+
+
+Goto Module
+-----------
+
+For the plasma identified by the cursor in either the body of the module (via its `injection`) or its dependencies, open up the corresponding module file. If there is more than one, let the user choose.
+
+
+Find Usages of Current Module
+-----------------------------
+
+For the current module, provide a list of other files in the project which have it in their plasma list. Allow the user to navigate to any file they press ENTER on.
+
+Find Usages of Module at Cursor
+-------------------------------
+
+For the plasma identified by the cursor in either the body of the module (via its `injection`) or its dependencies, provide a list of other files in the project which have it in their plasma list. Allow the user to navigate to any file they press ENTER on.

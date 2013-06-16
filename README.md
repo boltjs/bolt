@@ -15,7 +15,7 @@ Bolt is open source under a [BSD style license](https://raw.github.com/ephox/bol
 
 ## Dependencies
 
-Bolt relies on node.js > 0.6 which can be obtained from [http://nodejs.org](http://nodejs.org/#download)
+Bolt relies on node.js v0.8+ which can be obtained from [http://nodejs.org](http://nodejs.org/#download)
 or your systems package manager.
 
 ## Distribution

@@ -13,7 +13,7 @@ test.run.config = def(
       var sourcer = specs.source(testpath);
       obj.each(replacements, function (i, o) {
         var name = path.basename(o);
-        var source = sourcer('amd', i, path.dirname(o), mapper.constant(name));
+        var source = sourcer('bolt', i, path.dirname(o), mapper.constant(name));
         r.push(source);
       });
 
