@@ -13,8 +13,3 @@ class InsertBoltModuleTemplateCommand(sublime_plugin.WindowCommand):
 class InsertBoltTestTemplateCommand(sublime_plugin.WindowCommand):
     def run(self, paths, template):
         templater.bolt_test(self.window.active_view(), paths[0])
-
-
-class InsertBoltUiTemplateCommand(sublime_plugin.WindowCommand):
-    def run(self, paths, template):
-        templater.bolt_ui(self.window.active_view(), paths[0])

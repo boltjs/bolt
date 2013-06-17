@@ -1,8 +1,7 @@
 [
-    { "caption": "Bolt", "children": 
+    { "caption": "Bolt (Open)", "children": 
         [
           { "command": "insert_bolt_module_template", "args": { "template": "bolt_module_template", "paths": [] }, "caption": "Bolt Module", "mnemonic": "B" },
-          { "command": "insert_bolt_ui_template", "args": { "template": "bolt_ui_template", "paths": [] }, "caption": "Bolt Ui Module" },
           { "command": "insert_bolt_test_template", "args": { "template": "bolt_test_template", "paths": [] }, "caption": "Bolt Test" }
         ] 
     }

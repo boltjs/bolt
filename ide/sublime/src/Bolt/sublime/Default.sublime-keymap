@@ -6,5 +6,6 @@
   { "keys": ["ctrl+alt+o"], "command": "optimise_plasmas" },
   { "keys": ["alt+delete"], "command": "remove_plasma" },
   { "keys": ["shift+f7"], "command": "find_usages_current" },
-  { "keys": ["ctrl+shift+f7"], "command": "find_usages_selection" }
+  { "keys": ["ctrl+shift+f7"], "command": "find_usages_selection" },
+  { "keys": ["f5"], "command": "next_highlight" }
 ]

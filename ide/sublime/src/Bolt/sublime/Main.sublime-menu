@@ -1,8 +1,8 @@
 [
    {
-      "caption": "Bolt (beta)",
+      "caption": "Bolt (open)",
       "mnemonic": "B",
-      "id": "bolt",
+      "id": "bolt_open",
       "children":
       [
           { "command": "import_plasma", "caption": "Import" },
@@ -12,7 +12,8 @@
           { "command": "remove_plasma", "caption": "Remove Import" },
           { "command": "toggle_highlight", "caption": "Toggle Highlighting", "mnemonic": "h", "checkbox": true },
           { "command": "find_usages_current", "caption": "Find Usages" },
-          { "command": "find_usages_selection", "caption": "Find Selection Usages" }
+          { "command": "find_usages_selection", "caption": "Find Selection Usages" },
+          { "command": "next_highlight", "caption": "Next Highlight" }
       ]
   }
 ]

@@ -4,20 +4,19 @@ from structs.nest import *
 from structs import flat, hier
 
 
-# FIX: ephox is hard-coded in for hierarchical
 class TestStructPackage(unittest.TestCase):
     def test(self):
         f = flat.nu('/lib/run')
         self.assertEqual('/lib/run', f.base)
-        self.assertEqual('ephox.*.Word.js', f.pattern('Word'))
-        self.assertEqual('ephox.cat.Cat', f.dep('lib/ephox.cat.Cat.js'))
-        self.assertEqual('/lib/run/ephox.dog.Dog.js', f.path('ephox.dog.Dog'))
+        self.assertEqual('*.Word.js', f.pattern('Word'))
+        self.assertEqual('bolt.cat.Cat', f.dep('lib/run/bolt.cat.Cat.js'))
+        self.assertEqual('/lib/run/bolt.dog.Dog.js', f.path('bolt.dog.Dog'))
 
-        h = hier.nu('src/main')
-        self.assertEqual('src/main', h.base)
+        h = hier.nu('src/main/js')
+        self.assertEqual('src/main/js', h.base)
         self.assertEqual('Word.js', h.pattern('Word'))
-        self.assertEqual('ephox.dog.Dog', h.dep('src/main/ephox/dog/Dog.js'))
-        self.assertEqual('src/main/ephox/cat/Cat.js', h.path('ephox.cat.Cat'))
+        self.assertEqual('bolt.dog.Dog', h.dep('src/main/js/bolt/dog/Dog.js'))
+        self.assertEqual('src/main/js/bolt/cat/Cat.js', h.path('bolt.cat.Cat'))
 
 
 if __name__ == '__main__':

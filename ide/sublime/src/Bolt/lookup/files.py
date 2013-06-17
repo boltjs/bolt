@@ -5,7 +5,7 @@ from core.query import plasma as query_plasma
 
 
 def file_by_dep(base, plasma, nests):
-    candidates = map(lambda x: base + '/' + x.path(plasma.dep), nests)
+    candidates = map(lambda n: base + '/' + n.path(plasma.dep), nests)
     return exists.check(candidates)
 
 
