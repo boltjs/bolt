@@ -1,0 +1,6 @@
+NAME = bolt
+MODULES = \
+	../kernel/gen/kernel.js \
+	../loader/gen/loader.js \
+	../module/gen/module.js \
+	${SRC}/bootstrap.js

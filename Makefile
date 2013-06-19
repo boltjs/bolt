@@ -6,6 +6,7 @@ PROJECTS= \
 	loader \
 	kernel \
 	inline \
+	bootstrap \
 	compiler
 GEN = gen
 DIST = ${GEN}/dist

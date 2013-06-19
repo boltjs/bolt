@@ -1,10 +1,11 @@
 module.bootstrap.configloader = def(
   [
     module.util.locator,
-    module.reader.browser
+    module.reader.browser,
+    module.reader.direct
   ],
 
-  function (locator, browser) {
+  function (locator, browser, direct) {
     var create = function (file) {
       var script = locator.locate();
       return function (done) {
@@ -12,8 +13,18 @@ module.bootstrap.configloader = def(
       };
     };
 
+    var page = function (file) {
+      return function (done) {
+        browser.read('./', file, done);
+      };
+    };
+
+    var empty = direct.create({});
+
     return {
-      create: create
+      create: create,
+      page: page,
+      empty: empty
     };
   }
 );
