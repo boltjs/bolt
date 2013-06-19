@@ -42,9 +42,10 @@ compiler.modulator.bolt = def(
           }
         };
 
-        var load = function (define) {
+        var load = function (define, done) {
           var loader = metalator.hasMetadata(file) ? loadcompiled : loadmodule;
           loader(define);
+          done();
         };
 
         return {

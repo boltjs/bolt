@@ -7,6 +7,7 @@ MODULES = \
 	${SRC}/util/path.js \
 	${SRC}/util/locator.js \
 	${SRC}/util/pather.js \
+	${SRC}/modulator/library.js \
 	${SRC}/modulator/modulators.js \
 	${SRC}/config/builtins.js \
 	${SRC}/config/specs.js \

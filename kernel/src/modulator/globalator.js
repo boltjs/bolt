@@ -1,20 +1,10 @@
 kernel.modulator.globalator = def(
   [
+    kernel.util.globals
   ],
 
-  function () {
+  function (globals) {
     var create = function () {
-      // FIX pull out
-      var resolve = function (name, scope) {
-        var parts = name.split('.');
-        var r = scope;
-        for (var i = 0; i < parts.length && r !== undefined; ++i)
-          r = r[parts[i]];
-        return r;
-      };
-
-      var global = Function('return this')();
-
       var can = function (id) {
         return id.indexOf('global!') === 0;
       };
@@ -23,7 +13,7 @@ kernel.modulator.globalator = def(
         var name = id.substring('global!'.length);
 
         var load = function (onsuccess, onfailure) {
-          var instance = resolve(name, global);
+          var instance = globals.resolve(name);
           if (instance !== undefined) {
             define(id, [], function () { return instance; });
             onsuccess();
