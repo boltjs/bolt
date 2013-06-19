@@ -16,7 +16,7 @@ compiler.modulator.library = def(
         return '';
       };
 
-      var def = function () {
+      var definition = function () {
         if (initialization.define)
           return String(initialization.define);
         if (initialization.exports)
@@ -54,7 +54,7 @@ compiler.modulator.library = def(
           return function () {
             var file = content !== undefined ? content : io.read(url);
             return file + '\n' +
-              'ephox.bolt.module.api.define("' + id + '", [], ' + def() + ');';
+              'ephox.bolt.module.api.define("' + id + '", [], ' + definition() + ');';
           };
         };
 

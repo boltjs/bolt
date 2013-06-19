@@ -8,7 +8,7 @@ module.modulator.library = def(
   function (fn, globals, path) {
     var create = function (loader, pather, namespace, ref, initialization) {
 
-      var def = function () {
+      var definition = function () {
         if (initialization.define)
           return initialization.define;
         if (initialization.exports)
@@ -18,7 +18,7 @@ module.modulator.library = def(
 
       var wrapdefine = function (id, onsuccess, define) {
         return function () {
-          define(id, [], def);
+          define(id, [], definition());
           onsuccess();
         };
       };
