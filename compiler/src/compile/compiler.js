@@ -36,7 +36,7 @@ compiler.compile.compiler = def(
 
         load(sources, id, function () {
           if (modules[id] === undefined)
-            error.die('Configuration error: module [' + id + '] was not loaded from expected source');
+            error.die('Configuration error: module [' + id + '] could not be loaded, check module id.');
           done();
         });
       };
@@ -45,7 +45,7 @@ compiler.compile.compiler = def(
         if (ids.length > 0)
           loader(ids.shift(), function () {
             return loadAll(loader, ids, done);
-          })
+          });
         else
           done();
       };
@@ -55,7 +55,7 @@ compiler.compile.compiler = def(
         if (results.load.length > 0)
           loadAll(loader, results.load, function () {
             analyseAll(loader, ids, done);
-          })
+          });
         else
           done();
       };
