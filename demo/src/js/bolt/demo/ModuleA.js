@@ -4,7 +4,7 @@ define(
   [
     'bolt.demo.ModuleB',
     'bolt.demo.ModuleC',
-    '$'
+    'JQuery'
   ],
 
   function (ModuleB, ModuleC, $) {
