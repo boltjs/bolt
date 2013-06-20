@@ -3,10 +3,11 @@ define(
 
   [
     'bolt.demo.ModuleB',
-    'bolt.demo.ModuleC'
+    'bolt.demo.ModuleC',
+    'JQuery'
   ],
 
-  function (ModuleB, ModuleC) {
+  function (ModuleB, ModuleC, $) {
     return 'a';
   }
 );

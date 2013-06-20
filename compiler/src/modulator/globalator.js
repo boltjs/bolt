@@ -15,8 +15,9 @@ compiler.modulator.globalator = def(
           return 'ephox.bolt.module.api.define("' + id + '", [], function () { return ' + globalid + '; });';
         };
 
-        var load = function (define) {
+        var load = function (define, done) {
           define(id, []);
+          done();
         };
 
         return {

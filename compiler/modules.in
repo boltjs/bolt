@@ -11,6 +11,7 @@ MODULES = \
 	${SRC}/generator/inline.js \
 	${SRC}/modulator/bolt.js \
 	${SRC}/modulator/globalator.js \
+	${SRC}/modulator/library.js \
 	${SRC}/compile/renderer.js \
 	${SRC}/compile/sources.js \
 	${SRC}/compile/compiler.js \
@@ -26,4 +27,3 @@ DISTFILES= \
 	../inline/gen/inline.js \
 	../inline/gen/inline.js.pre \
 	../inline/gen/inline.js.post
-

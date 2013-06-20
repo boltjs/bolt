@@ -1,11 +1,1 @@
-*~
-/dist
-*.iws
-.idea/workspace.xml
-/lib
 /gen
-/dependency
-/components
-/scratch
-/local
-/repo

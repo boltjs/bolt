@@ -15,9 +15,21 @@ module.util.path = def(
       return normalized.substring(end + 1);
     };
 
+    var startsWith = function (str, prefix) {
+      return str.indexOf(prefix) === 0;
+    };
+
+    var isAbsolute = function (path) {
+      return startsWith(path, "//") ||
+        startsWith(path, "http://") ||
+        startsWith(path, "https://");
+    };
+
     return {
       basename: basename,
-      dirname: dirname
+      dirname: dirname,
+      startsWith: startsWith,
+      isAbsolute: isAbsolute
     };
   }
 );

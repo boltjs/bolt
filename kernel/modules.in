@@ -4,6 +4,7 @@ MODULES = \
 	${SRC}/fp/array.js \
 	${SRC}/fp/object.js \
 	${SRC}/fp/functions.js \
+	${SRC}/util/globals.js \
 	${SRC}/async/map.js \
 	${SRC}/async/piggybacker.js \
 	${SRC}/modulator/globalator.js \
