@@ -1,6 +1,5 @@
 (function () {
   var obj = ephox.bolt.kernel.fp.object;
-  var obj = ephox.bolt.kernel.fp.object;
   var api = ephox.bolt.module.api;
   var builtins = ephox.bolt.module.config.builtins.browser;
   var install = ephox.bolt.module.bootstrap.install;
@@ -10,10 +9,9 @@
 
   var withAttr = function (attr, f, otherwise) {
     var scripts = document.getElementsByTagName('script');
-    for (var i = 0; i < scripts.length; ++i)
-      if (scripts[i].hasAttribute(attr))
-        return f(scripts[i].getAttribute(attr));
-    return otherwise();
+    var last = scripts[scripts.length - 1];
+    return last && last.hasAttribute(attr)) ?
+      f(last.getAttribute(attr)) : otherwise();
   };
 
   var withConfig = function (f, otherwise) {
