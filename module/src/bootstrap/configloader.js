@@ -6,10 +6,10 @@ module.bootstrap.configloader = def(
   ],
 
   function (locator, browser, direct) {
-    var create = function (file) {
-      var script = locator.locate();
+    var script = function (file) {
+      var src = locator.locate();
       return function (done) {
-        browser.read(script, file, done);
+        browser.read(src, file, done);
       };
     };
 
@@ -22,7 +22,7 @@ module.bootstrap.configloader = def(
     var empty = direct.create({});
 
     return {
-      create: create,
+      script: script,
       page: page,
       empty: empty
     };

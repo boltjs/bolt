@@ -37,11 +37,11 @@
   install.install(reader, builtins, transport, script);
 
   withMain(function (main) {
-    ephox.bolt.module.api.main(main);
+    api.main(main);
   }, function () {})
 
   var register = withGlobals(function (globals) {
-    return globals !== "false";
+    return globals !== 'false';
   }, function () {
     return true;
   });

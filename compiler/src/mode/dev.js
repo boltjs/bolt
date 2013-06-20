@@ -14,7 +14,7 @@ compiler.mode.dev = def(
         '  var api = ephox.bolt.module.api;\n' +
         '  var builtins = ephox.bolt.module.config.builtins.browser;\n' +
         '  var install = ephox.bolt.module.bootstrap.install;\n' +
-        '  var reader = ephox.bolt.module.bootstrap.configloader.create("' + relative + '");\n' +
+        '  var reader = ephox.bolt.module.bootstrap.configloader.script("' + relative + '");\n' +
         '  var transport = ephox.bolt.loader.transporter.xhr.request;\n' +
         '  var script = ephox.bolt.loader.api.scripttag.load;\n' +
         '  install.install(reader, builtins, transport, script);\n' +
