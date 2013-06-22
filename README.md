@@ -10,7 +10,6 @@ The general philosophy is quick, clean and easy.
 
 Bolt is open source under a [BSD style license](https://raw.github.com/ephox/bolt/master/LICENCE).
 
-
 # Getting Bolt
 
 ## Dependencies
@@ -46,7 +45,14 @@ make
 The distribution tar can then be found in gen/dist/bolt-local.tar.gz, or unpacked in
 gen/image/bolt-local.
 
-
 # Getting Started
 
 Checkout the [github wiki](https://github.com/ephox/bolt/wiki/Home) for some basic documentation on getting started.
+
+### Provenance
+
+Bolt was initially developed to support products at [Ephox](http://ephox.com).
+
+The library was open-sourced under a [BSD License](https://github.com/boltjs/bolt/blob/master/LICENSE), drawing users, support and improvements from a number of contributors.
+
+The initial developers have since left the employment of Ephox and now maintain this fork `boltjs/bolt`.
