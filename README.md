@@ -57,6 +57,15 @@ make browser dist
 
 ```
 
+### Development
+
+To push a release:
+
+```
+make release
+
+```
+
 ### Provenance
 
 Bolt was initially developed to support products at [Ephox](http://ephox.com).
