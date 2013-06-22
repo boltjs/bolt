@@ -7,6 +7,7 @@ PROJECTS= \
 	kernel \
 	inline \
 	bootstrap \
+	karma \
 	compiler
 GEN = gen
 DIST = ${GEN}/dist
@@ -23,17 +24,23 @@ RELEASE_BUILD_FILE = config/release/build
 MFLAGS = -s
 
 
-.PHONY: clean dist distwindows projects browser
+.PHONY: clean dist distwindows projects browser release
 
 default: clean projects
 
 dist: clean ${TAR}
 
-release:
+release: clean
 	expr `cat ${RELEASE_BUILD_FILE}` + 1 > ${RELEASE_BUILD_FILE} && \
 	git commit -m "[release] Bump build number." ${RELEASE_BUILD_FILE} && \
 	git push origin master && \
-	${MAKE} ${MFLAGS} dist VERSION=`cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`
+	$(eval V = `cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`)
+	${MAKE} ${MFLAGS} dist VERSION=${V}
+	[ ! -d gen/dist.boltjs.io ] || rm -rf gen/dist.boltjs.io
+	(cd gen && git clone git@github.com:boltjs/dist.boltjs.io.git)
+	mkdir -p gen/dist.boltjs.io/${V}
+	cp gen/dist/bolt-${V}.tar.gz gen/image/bolt-${V}/lib/bolt.js gen/image/bolt-${V}/lib/bolt-karma.js gen/dist.boltjs.io/${V}/.
+	(cd gen/dist.boltjs.io && git add . && git commit -m "[release] ${V}" && git push origin master)
 
 distwindows: ${TAR} ${WXS} ${BUILD_MSI}
 
@@ -49,7 +56,7 @@ browser: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
 	(cd browser && ${MAKE} $(MFLAGS) VERSION=${VERSION})
 	cp -r browser/gen/image/bolt-browser-${VERSION} ${TAR_IMAGE}
 
-${TAR}: projects browser
+${TAR}: projects
 	cp LICENSE README.md ${TAR_IMAGE}/.
 	tar cfz ${TAR} -C ${GEN}/image .
 
