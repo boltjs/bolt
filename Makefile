@@ -18,13 +18,22 @@ WXS = ${INSTALLER}/${MODULE}.wxs
 BUILD_MSI = ${INSTALLER}/build_msi.bat
 VERSION_FILE = ${TAR_IMAGE}/bin/version
 DIRECTORIES = ${GEN} ${GEN}/tmp ${DIST} ${TAR_IMAGE} ${TAR_IMAGE}/bin ${TAR_IMAGE}/command ${TAR_IMAGE}/lib ${INSTALLER}
+RELEASE_VERSION_FILE = config/release/version
+RELEASE_BUILD_FILE = config/release/build
 MFLAGS = -s
+
 
 .PHONY: clean dist distwindows projects browser
 
 default: clean projects
 
-dist: clean ${TAR} 
+dist: clean ${TAR}
+
+release:
+	expr `cat ${RELEASE_BUILD_FILE}` + 1 > ${RELEASE_BUILD_FILE} && \
+	git commit -m "Bump build number." ${RELEASE_BUILD_FILE} && \
+	git push origin master && \
+	${MAKE} ${MFLAGS} dist VERSION=`cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`
 
 distwindows: ${TAR} ${WXS} ${BUILD_MSI}
 
