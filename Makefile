@@ -40,10 +40,10 @@ release: clean
 	(cd gen && git clone git@github.com:boltjs/dist.boltjs.io.git)
 	mkdir -p gen/dist.boltjs.io/${V}
 	cp gen/dist/bolt-${V}.tar.gz gen/image/bolt-${V}/lib/bolt.js gen/image/bolt-${V}/lib/bolt-karma.js gen/dist.boltjs.io/${V}/.
-	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git add .
-	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git commit -m "[release] ${V}"
-	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git push origin master
-	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git push -f origin master:gh-pages
+	git --work-tree gen/dist.boltjs.io --git-dir gen/dist.boltjs.io/.git add .
+	git --work-tree gen/dist.boltjs.io --git-dir gen/dist.boltjs.io/.git commit -m "[release] ${V}"
+	git --work-tree gen/dist.boltjs.io --git-dir gen/dist.boltjs.io/.git push origin master
+	git --work-tree gen/dist.boltjs.io --git-dir gen/dist.boltjs.io/.git push -f origin master:gh-pages
 
 
 distwindows: ${TAR} ${WXS} ${BUILD_MSI}
