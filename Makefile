@@ -31,7 +31,7 @@ dist: clean ${TAR}
 
 release:
 	expr `cat ${RELEASE_BUILD_FILE}` + 1 > ${RELEASE_BUILD_FILE} && \
-	git commit -m "Bump build number." ${RELEASE_BUILD_FILE} && \
+	git commit -m "[release] Bump build number." ${RELEASE_BUILD_FILE} && \
 	git push origin master && \
 	${MAKE} ${MFLAGS} dist VERSION=`cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`
 
