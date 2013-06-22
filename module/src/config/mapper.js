@@ -11,6 +11,11 @@ module.config.mapper = def(
       return id.replace(/\./g, '/');
     };
 
+    var namespace = function (name) {
+      var idx = name.lastIndexOf('.');
+      return idx !== -1 ? name.slice(0, idx) + '/' + name.slice(idx + 1) : name;
+    };
+
     var constant = function (name) {
       return function () {
         return name;
@@ -20,6 +25,7 @@ module.config.mapper = def(
     return {
       flat: flat,
       hierarchical: hierarchical,
+      namespace: namespace,
       constant: constant
     };
   }

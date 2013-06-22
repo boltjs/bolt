@@ -1,5 +1,4 @@
 require("../../lib/framework/assert.js");
-require("../../lib/loader/loader.js");
-require("../../lib/kernel/kernel.js");
+require("../../../kernel/gen/kernel.js");
+require("../../../loader/gen/loader.js");
 require("../../gen/module.js");
-

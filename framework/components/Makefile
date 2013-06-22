@@ -14,7 +14,7 @@ ASSERT = ${LIB}/framework/assert.js
 
 default: dist test
 
-dist: ${RELEASE} ${DISTFILES}
+dist: test ${RELEASE} ${DISTFILES}
 	if [ ! -z "${DISTFILES}" ]; then cp ${DISTFILES} ${DIST}; fi
 
 clean:
