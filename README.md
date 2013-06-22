@@ -1,4 +1,4 @@
-# Bolt
+## Bolt
 
 [![Build Status](https://travis-ci.org/boltjs/bolt.png)](https://travis-ci.org/boltjs/bolt)
 
@@ -8,46 +8,54 @@ Bolt consists of a runtime framework, compiler and testing tools.
 
 The general philosophy is quick, clean and easy.
 
-Bolt is open source under a [BSD style license](https://raw.github.com/ephox/bolt/master/LICENCE).
+Bolt is open source under a [BSD style license](https://github.com/boltjs/bolt/blob/master/LICENSE).
+
+
+## Documentation
+
+* [User Docs](http://boltjs.io)
+* [Example](https://github.com/boltjs/bolt/tree/master/demo)
+
 
 # Getting Bolt
+
+* Latest release: <http://dist.boltjs.io/1.4.0.4/bolt-1.4.0.4.tar.gz>
+* Runtime script: <http://dist.boltjs.io/1.4.0.4/bolt.js>
+* Karma test adapter: <http://dist.boltjs.io/1.4.0.4/bolt-karma.js>
+
+```shell
+cd install-dir
+curl http://dist.boltjs.io/1.4.0.4/bolt-1.4.0.4.tar.gz | tar xfz -
+sudo ln -s `pwd`/bolt-*/bin/bolt /usr/local/bin/bolt
+```
 
 ## Dependencies
 
 Bolt relies on node.js v0.8+ which can be obtained from [http://nodejs.org](http://nodejs.org/#download)
 or your systems package manager.
 
-## Distribution
-
-The latest release tar can be obtained from <https://github.com/ephox/bolt/downloads>.
-
-To start using bolt, unpack the tar and put bolt on the path. For example:
-
-<pre>
-tar xfz bolt-*.tar.gz
-sudo ln -s `pwd`/bolt-*/bin/bolt /usr/local/bin/bolt
-sudo ln -s `pwd`/bolt-*/bin/jsc /usr/local/bin/jsc
-</pre>
-
+If you want to run bolt test with karma, you will also obviously need to install karma: `npm install -g karma`
 
 ## Source
 
-Bolt is split into several repositories to assist in structuring the code, however you can
-build bolt by just cloning this repository and running make. This will pull down the
-required git repositories and produce a local build.
+Bolt is arranged into several modules. All modules can be built and tested _very quickly_ with:
 
-<pre>
-git clone https://github.com/ephox/bolt.git
+```shell
+git clone https://github.com/boltjs/bolt.git
 cd bolt
 make
-</pre>
 
+```
 The distribution tar can then be found in gen/dist/bolt-local.tar.gz, or unpacked in
 gen/image/bolt-local.
 
-# Getting Started
+If you want to build the `bolt-browser` tool:
 
-Checkout the [github wiki](https://github.com/ephox/bolt/wiki/Home) for some basic documentation on getting started.
+```shell
+make browser # or, include in distribution with
+make browser dist
+
+```
 
 ### Provenance
 
