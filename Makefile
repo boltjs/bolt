@@ -33,14 +33,18 @@ dist: clean ${TAR}
 release: clean
 	expr `cat ${RELEASE_BUILD_FILE}` + 1 > ${RELEASE_BUILD_FILE} && \
 	git commit -m "[release] Bump build number." ${RELEASE_BUILD_FILE} && \
-	git push origin master && \
+	git push origin master
 	$(eval V = `cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`)
 	${MAKE} ${MFLAGS} dist VERSION=${V}
 	[ ! -d gen/dist.boltjs.io ] || rm -rf gen/dist.boltjs.io
 	(cd gen && git clone git@github.com:boltjs/dist.boltjs.io.git)
 	mkdir -p gen/dist.boltjs.io/${V}
 	cp gen/dist/bolt-${V}.tar.gz gen/image/bolt-${V}/lib/bolt.js gen/image/bolt-${V}/lib/bolt-karma.js gen/dist.boltjs.io/${V}/.
-	(cd gen/dist.boltjs.io && git add . && git commit -m "[release] ${V}" && git push origin master)
+	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git add .
+	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git commit -m "[release] ${V}"
+	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git push origin master
+	git --work-tree gen/dist/boltjs.io --git-dir gen/dist/boltjs.io/.git push -f origin master:gh-pages
+
 
 distwindows: ${TAR} ${WXS} ${BUILD_MSI}
 
