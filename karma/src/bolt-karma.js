@@ -38,6 +38,7 @@ var reporter = (function () {
     };
 
     var fail = function (error) {
+      con
       var result = {
         id: testcase + "#" + name,
         description: testcase + "#" + name,
@@ -45,7 +46,7 @@ var reporter = (function () {
         success: false,
         skipped: 0,
         time: new Date().getTime() - start,
-        log: [error]
+        log: [errors.clean(error)]
       };
       karma.result(result);
     };
