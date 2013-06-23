@@ -12,16 +12,15 @@ ASSERT = ${LIB}/framework/assert.js
 
 .PHONY: default clean test dist
 
-default: dist test
+default: test
 
-dist: test ${RELEASE} ${DISTFILES}
+dist: ${RELEASE} ${DISTFILES}
 	if [ ! -z "${DISTFILES}" ]; then cp ${DISTFILES} ${DIST}; fi
 
 clean:
 	rm -rf ./${DIST}
 
-test: ${RELEASE} ${DISTFILES} ${ASSERT}
-	if [ ! -z "${DISTFILES}" ]; then mkdir -p lib;	cp ${DISTFILES} lib/.; fi
+test: dist ${ASSERT}
 	if [ ! -z "${MODULES}" ] && [ -d "${TEST}" ]; then find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo $$test; node $$test'; fi
 
 ${DIST}:
@@ -36,7 +35,7 @@ ${ASSERT}: ../framework/components/assert.js
 	cp ../framework/components/assert.js lib/framework
 
 ${DISTFILES}:
-	cd `echo $@ | xargs dirname | xargs dirname` && ${MAKE} $(MFLAGS)
+	cd `echo $@ | xargs dirname | xargs dirname` && ${MAKE} $(MFLAGS) dist
 
 ${RELEASE}: ${DIST} ${MODULES} ${DEPENDENCIES} ${PRELUDE} modules.in
 	if [ ! -z "${MODULES}" ]; then ( \
