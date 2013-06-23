@@ -34,7 +34,7 @@ sudo ln -s `pwd`/bolt-*/bin/bolt /usr/local/bin/bolt
 Bolt relies on node.js v0.8+ which can be obtained from [http://nodejs.org](http://nodejs.org/#download)
 or your systems package manager.
 
-If you want to run bolt test with karma, you will also obviously need to install karma: `npm install -g karma`
+If you want to run bolt test with karma, you will also obviously need to install karma: `npm install -g karma`.
 
 ## Source
 
@@ -44,8 +44,8 @@ Bolt is arranged into several modules. All modules can be built and tested _very
 git clone https://github.com/boltjs/bolt.git
 cd bolt
 make
-
 ```
+
 The distribution tar can then be found in gen/dist/bolt-local.tar.gz, or unpacked in
 gen/image/bolt-local.
 
@@ -54,19 +54,17 @@ If you want to build the `bolt-browser` tool:
 ```shell
 make browser # or, include in distribution with
 make browser dist
-
 ```
 
 ### Development
 
 To push a release:
 
-```
+```shell
 make release
-
 ```
 
-### Provenance
+## Provenance
 
 Bolt was initially developed to support products at [Ephox](http://ephox.com).
 
