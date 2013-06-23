@@ -9,9 +9,9 @@ module.modulator.library = def(
   function (ar, fn, globals, path) {
     var create = function (loader, pather, namespace, ref, initialization) {
       var exports = function (name) {
-        var obj = globals.resolve(initialization.exports);
+        var obj = globals.resolve(name);
         if (initialization.cleanup === true)
-          globals.remove(initialization.exports);
+          globals.remove(name);
         return obj;
       };
 
@@ -26,7 +26,7 @@ module.modulator.library = def(
           return function () {
             var obj = {};
             ar.each(initialization.exportsAll, function(name) {
-              obj[exports] = exports(name);
+              obj[name] = exports(name);
             });
             return obj;
           };
