@@ -2,7 +2,7 @@
   "name": "boltjs",
   "preferGlobal": true,
   "version": "__VERSION__",
-  "author": "BoltJS <dev@boltjs.io>",
+  "author": "boltjs <dev@boltjs.io>",
   "description": "Bolt module system.",
   "contributors": [
     "Mark Hibberd <mark@hibberd.id.au>",
