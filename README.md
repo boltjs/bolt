@@ -29,6 +29,12 @@ curl http://dist.boltjs.io/1.4.0.4/bolt-1.4.0.4.tar.gz | tar xfz -
 sudo ln -s `pwd`/bolt-*/bin/bolt /usr/local/bin/bolt
 ```
 
+Or via npm:
+
+```
+npm install -g boltjs
+```
+
 ## Dependencies
 
 Bolt relies on node.js v0.8+ which can be obtained from [http://nodejs.org](http://nodejs.org/#download)
