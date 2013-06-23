@@ -1,4 +1,8 @@
-NAME = karma
-MODULES =
-DISTFILES = \
-	${SRC}/bolt-karma.js 
+NAME = bolt-karma
+MODULES = \
+	../kernel/gen/kernel.js \
+	../loader/gen/loader.js \
+	../module/gen/module.js \
+	../module/gen/test.js \
+	${SRC}/bolt-karma.js
+DISTFILES =
