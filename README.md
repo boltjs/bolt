@@ -19,13 +19,13 @@ Bolt is open source under a [BSD style license](https://github.com/boltjs/bolt/b
 
 ## Getting Bolt
 
-* Latest release: <http://dist.boltjs.io/1.4.0.4/bolt-1.4.0.4.tar.gz>
-* Runtime script: <http://dist.boltjs.io/1.4.0.4/bolt.js>
-* Karma test adapter: <http://dist.boltjs.io/1.4.0.4/bolt-karma.js>
+* Latest release: <http://dist.boltjs.io/1.4.1.1/bolt-1.4.1.1.tar.gz>
+* Runtime script: <http://dist.boltjs.io/1.4.1.1/bolt.js>
+* Karma test adapter: <http://dist.boltjs.io/1.4.1.1/bolt-karma.js>
 
 ```shell
 cd install-dir
-curl http://dist.boltjs.io/1.4.0.4/bolt-1.4.0.4.tar.gz | tar xfz -
+curl http://dist.boltjs.io/1.4.1.1/bolt-1.4.1.1.tar.gz | tar xfz -
 sudo ln -s `pwd`/bolt-*/bin/bolt /usr/local/bin/bolt
 ```
 
