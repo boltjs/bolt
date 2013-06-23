@@ -3,10 +3,11 @@ compiler.modulator.library = def(
     compiler.inspect.metalator,
     compiler.tools.io,
     compiler.tools.error,
+    ephox.bolt.loader.transporter.commonjs,
     ephox.bolt.module.util.path
   ],
 
-  function (metalator, io, error, path) {
+  function (metalator, io, error, transport, path) {
     var create = function (pather, namespace, ref, initialization) {
       var can = function (id) {
         return id === namespace;
@@ -24,47 +25,25 @@ compiler.modulator.library = def(
         return 'function () { return null; }';
       };
 
-      var local = function (url, done) {
-        return done(io.read(url));
-      };
-
-      var remote = function (url, done) {
-        var req = path.startsWith(url, "//") ? 'http:' + url : url;
-        require('http').get(req, function (res) {
-          var body = '';
-          res.on('data', function (chunk) {
-            body += chunk.toString();
-          });
-          res.on('end', function () {
-            done(body);
-          });
-        })
-      };
-
-      var fetch = function (url, done) {
-        return path.isAbsolute(ref) ? remote(url, done) : local(url, done)
-      };
-
       var get = function (id) {
         var isRemote = path.isAbsolute(ref)
         var url = isRemote ? ref + '.js' : pather(ref) + '.js';
-        var content = undefined;
+        var content = '';
 
         var include = function (isRemote, path) {
           return function () {
-            var file = content !== undefined ? content : io.read(url);
-            return file + '\n' +
+            return content + '\n' +
               'ephox.bolt.module.api.define("' + id + '", [], ' + definition() + ');';
           };
         };
 
         var load = function (define, done) {
-          fetch(url, function (result) {
+          transporter(url, function (result) {
             var deps = initialization.compile !== false && initialization.depends ? initialization.depends : [];
             content = result;
             define(id, deps);
             done();
-          });
+          }, error.die);
         };
 
         var render = initialization.compile !== false ? include(url) : nothing;
@@ -75,7 +54,6 @@ compiler.modulator.library = def(
           render: render,
           load: load
         };
-        return get(id);
       };
 
       return {

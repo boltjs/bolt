@@ -28,7 +28,7 @@ var reporter = (function () {
       var result = {
         id: testcase + "#" + name,
         description: testcase + "#" + name,
-        suite: [],
+        suite: [testcase + "#" + name],
         success: true,
         skipped: 0,
         time: new Date().getTime() - start,
@@ -37,15 +37,15 @@ var reporter = (function () {
       karma.result(result);
     };
 
-    var fail = function () {
+    var fail = function (error) {
       var result = {
         id: testcase + "#" + name,
         description: testcase + "#" + name,
-        suite: [],
+        suite: [testcase + "#" + name],
         success: false,
         skipped: 0,
         time: new Date().getTime() - start,
-        log: []
+        log: [error]
       };
       karma.result(result);
     };
