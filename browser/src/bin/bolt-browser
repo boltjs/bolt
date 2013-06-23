@@ -1,4 +1,0 @@
-#!/bin/sh
-
-browser=`(readlink "$0" || printf "%s" "$0") | xargs dirname | xargs dirname`
-exec java -cp "$browser/lib/*" com.ephox.bolt.browser.cli.Browser -r "$browser" "$@"

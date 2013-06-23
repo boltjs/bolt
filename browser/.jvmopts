@@ -1,3 +1,0 @@
--Xmx512M
--Xms512M
--XX:MaxPermSize=64M

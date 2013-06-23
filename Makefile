@@ -24,7 +24,7 @@ RELEASE_BUILD_FILE = config/release/build
 MFLAGS = -s
 
 
-.PHONY: clean dist distwindows projects browser release
+.PHONY: clean dist distwindows projects release
 
 default: clean projects
 
@@ -39,10 +39,6 @@ projects: ${DIST} ${TAR_IMAGE}/bin ${TAR_IMAGE}/command ${TAR_IMAGE}/lib ${VERSI
 	for x in ${PROJECTS}; do (cd $$x && ${MAKE} $(MFLAGS)) && cp $$x/gen/* ${TAR_IMAGE}/lib/.; done
 	cp script/bin/* ${TAR_IMAGE}/bin/.
 	cp script/command/* ${TAR_IMAGE}/command/.
-
-browser: ${DIST} ${TAR_IMAGE}/bin ${VERSION_FILE}
-	(cd browser && ${MAKE} $(MFLAGS) VERSION=${VERSION})
-	cp -r browser/gen/image/bolt-browser-${VERSION} ${TAR_IMAGE}
 
 ${TAR}: projects
 	cp LICENSE README.md ${TAR_IMAGE}/.
