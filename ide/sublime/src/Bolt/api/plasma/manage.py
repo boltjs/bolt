@@ -38,7 +38,7 @@ def _plasma_writer(view, edit):
 def _import_plasmas(view, read_view, token, done):
     init_plasmas = core_read.plasmas(read_view.ptext)
     existing = query_plasma.by_inj(init_plasmas, token)
-    if (existing == None):
+    if (existing is None):
         def importer(dep):
             chosen = Plasma(dep, token)
             plasmas = plist.add(init_plasmas, chosen)
@@ -48,8 +48,8 @@ def _import_plasmas(view, read_view, token, done):
         browse.list_if_needed(view, candidates, importer)
 
 
-UNDERSCORE = Plasma('ephox.wrap.Underscore', '_')
-JQUERY = Plasma('ephox.wrap.JQuery', '$')
+UNDERSCORE = Plasma('bolt.wrap.Underscore', '_')
+JQUERY = Plasma('bolt.wrap.JQuery', '$')
 
 SPECIAL_PLASMAS = [UNDERSCORE, JQUERY]
 

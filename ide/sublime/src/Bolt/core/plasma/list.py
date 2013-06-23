@@ -25,13 +25,13 @@ def combine(deps, injs):
 
 def sort(plasmas):
     def order(x, y):
-        if x.dep in ["ephox.wrap.Underscore", "ephox.wrap._"]:
+        if x.dep in ["bolt.wrap.Underscore", "bolt.wrap._"]:
             return -1
-        elif y.dep in ["ephox.wrap.Underscore", "ephox.wrap._"]:
+        elif y.dep in ["bolt.wrap.Underscore", "bolt.wrap._"]:
             return 1
-        elif x.dep == "ephox.wrap.JQuery":
+        elif x.dep == "bolt.wrap.JQuery":
             return -1
-        elif y.dep == "ephox.wrap.JQuery":
+        elif y.dep == "bolt.wrap.JQuery":
             return 1
         else:
             return cmp(x.dep, y.dep)

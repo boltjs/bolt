@@ -8,7 +8,7 @@ def nu(base):
         return re.sub("(?P<directory>.*)/(?P<filename>.*?)\.js$", "\g<filename>", filename)    
     
     def pattern(word):
-        return 'ephox.*.' + word + '.js'
+        return '*.' + word + '.js'
 
     def path(d):
         return base + '/' + d + '.js'

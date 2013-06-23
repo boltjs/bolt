@@ -9,7 +9,7 @@ def plasma_eq(x, y):
     return x.dep == y.dep
 
 
-UNDERSCORE = Plasma('ephox.wrap.Underscore', '_')
-JQUERY = Plasma('ephox.wrap.JQuery', '$')
+UNDERSCORE = Plasma('bolt.wrap.Underscore', '_')
+JQUERY = Plasma('bolt.wrap.JQuery', '$')
 
 SPECIAL_PLASMAS = [UNDERSCORE, JQUERY]

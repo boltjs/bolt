@@ -20,20 +20,20 @@ class TestString(unittest.TestCase):
             )
 
         check(
-            "ephox.wrap.Underscore",
-            " for x in 'ephox.wrap.Underscore' do stuff.",
+            "bolt.wrap.Underscore",
+            " for x in 'bolt.wrap.Underscore' do stuff.",
             20, "'"
         )
 
         check(
             '',
-            ' for x in ephox.wrap.Underscore do stuff',
+            ' for x in bolt.wrap.Underscore do stuff',
             20, "'"
         )
 
         check(
             '',
-            ' for x in \' ephox.wrap.Underscore do stuff',
+            ' for x in \' bolt.wrap.Underscore do stuff',
             20, "'"
         )
 

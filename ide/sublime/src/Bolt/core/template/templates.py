@@ -27,37 +27,8 @@ def find_template(template):
   }
 );"""
 
-    bolt_ui_template = """define(
-  '$package.$name',
-
-  [
-    'ephox.sugar.api.Element',
-    'ephox.sugar.api.Remove'
-  ],
-
-  function (Element, Remove) {
-    return function () {
-      var container = Element.fromTag('div');
-
-      var element = function () {
-        return container;
-      };
-
-      var destroy = function () {
-        Remove.remove(container);
-      };
-
-      return {
-        element: element,
-        destroy: destroy
-      };
-    };
-  }
-);"""
-
     _templates = dict({
       'bolt_module_template': bolt_module_template,
-      'bolt_test_template': bolt_test_template,
-      'bolt_ui_template': bolt_ui_template
+      'bolt_test_template': bolt_test_template
     })
     return Template(_templates[template]) if template in _templates else Template('')
