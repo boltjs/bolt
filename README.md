@@ -17,7 +17,7 @@ Bolt is open source under a [BSD style license](https://github.com/boltjs/bolt/b
 * [Example](https://github.com/boltjs/bolt/tree/master/demo)
 
 
-# Getting Bolt
+## Getting Bolt
 
 * Latest release: <http://dist.boltjs.io/1.4.0.4/bolt-1.4.0.4.tar.gz>
 * Runtime script: <http://dist.boltjs.io/1.4.0.4/bolt.js>
@@ -49,7 +49,7 @@ make
 The distribution tar can then be found in gen/dist/bolt-local.tar.gz, or unpacked in
 gen/image/bolt-local.
 
-If you want to build the `bolt-browser` tool:
+If you want to build the `bolt browser` tool:
 
 ```shell
 make browser # or, include in distribution with
