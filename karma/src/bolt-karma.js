@@ -38,7 +38,6 @@ var reporter = (function () {
     };
 
     var fail = function (error) {
-      con
       var result = {
         id: testcase + "#" + name,
         description: testcase + "#" + name,
