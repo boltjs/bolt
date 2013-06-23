@@ -10,7 +10,7 @@
   var withAttr = function (attr, f, otherwise) {
     var scripts = document.getElementsByTagName('script');
     var last = scripts[scripts.length - 1];
-    return last && last.hasAttribute(attr)) ?
+    return last && last.hasAttribute(attr) ?
       f(last.getAttribute(attr)) : otherwise();
   };
 
