@@ -56,7 +56,7 @@ make browser # or, include in distribution with
 make browser dist
 ```
 
-### Development
+## Development
 
 To push a release:
 
