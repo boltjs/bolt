@@ -15,6 +15,7 @@ TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
 INSTALLER = ${GEN}/installer
 CONFIG_WXS = config/wix/${MODULE}.wxs
+CONFIG_NPM = config/npm/package.json
 WXS = ${INSTALLER}/${MODULE}.wxs
 BUILD_MSI = ${INSTALLER}/build_msi.bat
 VERSION_FILE = ${TAR_IMAGE}/bin/version
@@ -40,7 +41,10 @@ projects: ${DIST} ${TAR_IMAGE}/bin ${TAR_IMAGE}/command ${TAR_IMAGE}/lib ${VERSI
 	cp script/bin/* ${TAR_IMAGE}/bin/.
 	cp script/command/* ${TAR_IMAGE}/command/.
 
-${TAR}: projects
+${TAR_IMAGE}/package.json:
+	sed 's/__VERSION__/${VERSION}/g' ${CONFIG_NPM} > $@
+
+${TAR}: projects ${TAR_IMAGE}/package.json
 	cp LICENSE README.md ${TAR_IMAGE}/.
 	tar cfz ${TAR} -C ${GEN}/image .
 

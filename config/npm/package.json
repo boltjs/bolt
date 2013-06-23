@@ -1,0 +1,31 @@
+{
+  "name": "boltjs",
+  "preferGlobal": true,
+  "version": "__VERSION__",
+  "author": "mark@hibberd.id.au",
+  "description": "Bolt module tool.",
+  "contributors": [
+  ],
+  "bin": {
+    "bolt": "./bin/bolt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boltjs/bolt.git"
+  },
+  "keywords": [
+    "module",
+    "bolt"
+  ],
+  "dependencies" : {
+  },
+  "analyze": false,
+  "devDependencies": {
+  },
+  "bundledDependencies": [
+  ],
+  "license": "BSD3",
+  "engines": {
+    "node": ">=0.8"
+  }
+}
