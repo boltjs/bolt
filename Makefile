@@ -21,11 +21,11 @@ DIST = ${GEN}/dist
 
 TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
-TAR_IMAGE_DIR = ${TAR_IMAGE}
 TAR_VERSION = ${TAR_IMAGE}/bin/version
 TAR_NPM = ${TAR_IMAGE}/package.json
 TAR_NPM = ${TAR_IMAGE}/package.json
 
+RELEASE_DIR = ${TAR_IMAGE}
 RELEASE_FILES = LICENSE LICENSE.ephox CONTRIBUTORS COPYING README.md
 
 CONFIG_NPM = config/npm/package.json
@@ -38,16 +38,34 @@ PUBLISH_DIR = ${GEN}/dist.boltjs.io/${VERSION}
 PUBLISH_GIT = git --work-tree ${PUBLISH_REPO} --git-dir ${PUBLISH_REPO}/.git
 PUBLISH_ARTIFACTS = ${TAR} ${TAR_IMAGE}/lib/bolt.js ${TAR_IMAGE}/lib/bolt-karma.js
 
-DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE_DIR}
+DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE}
 
-.PHONY: clean dist publish release ${PUBLISH_REPO} ${PROJECTS}}
+.PHONY: clean dist publish release ${PROJECTS} ${RELEASE_DIR} ${PUBLISH_DIR} ${PUBLISH_REPO}
 
-default: clean ${TAR_IMAGE}
-
-dist: ${TAR}
+default: clean ${RELEASE_DIR}
 
 clean: ${PROJECTS_CLEAN}
 	rm -rf ./${GEN}
+
+dist: ${TAR}
+
+release: clean
+	if [ `npm whoami` != boltjs ]; then \
+		echo 'Register  machine for release. Please use - User: "boltjs", Email: "dev@boltjs.io"' ; \
+		npm adduser ; \
+	fi
+	expr `cat ${RELEASE_BUILD_FILE}` + 1 > ${RELEASE_BUILD_FILE}
+	git commit -m "[release] Bump build number." ${RELEASE_BUILD_FILE}
+	git push origin master
+	${MAKE} ${MFLAGS} publish VERSION=`cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`
+
+publish: dist ${PUBLISH_REPO} ${PUBLISH_DIR}
+	cp ${PUBLISH_ARTIFACTS} ${PUBLISH_DIR}
+	${PUBLISH_GIT} add .
+	${PUBLISH_GIT} commit -m "[release] ${V}"
+	${PUBLISH_GIT}  push origin master
+	${PUBLISH_GIT}  push -f origin master:gh-pages
+	npm publish gen/image/bolt-${V}
 
 ${PROJECTS}:
 	cd $@ && ${MAKE} ${MFLAGS} test
@@ -70,27 +88,9 @@ ${TAR}: ${TAR_IMAGE} ${DIST}
 ${DIRECTORIES}:
 	mkdir -p $@
 
-release: clean
-	if [ `npm whoami` != boltjs ]; then \
-		echo 'Register  machine for release. Please use - User: "boltjs", Email: "dev@boltjs.io"' \
-		npm adduser \
-	fi
-	expr `cat ${RELEASE_BUILD_FILE}` + 1 > ${RELEASE_BUILD_FILE}
-	git commit -m "[release] Bump build number." ${RELEASE_BUILD_FILE}
-	git push origin master
-	${MAKE} ${MFLAGS} publish VERSION=`cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`
-
 ${PUBLISH_REPO}:
 	[ ! -d gen/dist.boltjs.io ] || rm -rf gen/dist.boltjs.io
 	git clone ${PUBLISH_REPO_URL} ${PUBLISH_REPO}
 
 ${PUBLISH_DIR}: ${PUBLISH_REPO}
 	mkdir -p $@
-
-publish: dist ${PUBLISH_REPO} ${PUBLISH_DIR}
-	cp ${PUBLISH_ARTIFACTS} ${PUBLISH_DIR}
-	${PUBLISH_GIT} add .
-	${PUBLISH_GIT} commit -m "[release] ${V}"
-	${PUBLISH_GIT}  push origin master
-	${PUBLISH_GIT}  push -f origin master:gh-pages
-	npm publish gen/image/bolt-${V}
