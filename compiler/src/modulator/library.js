@@ -38,7 +38,7 @@ compiler.modulator.library = def(
         };
 
         var load = function (define, done) {
-          transporter(url, function (result) {
+          transporter.read(url, function (result) {
             var deps = initialization.compile !== false && initialization.depends ? initialization.depends : [];
             content = result;
             define(id, deps);
