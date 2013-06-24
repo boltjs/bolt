@@ -1,5 +1,5 @@
-#MFLAGS = -s
-#MAKEFLAGS = ${MFLAGS}
+MFLAGS = -s
+MAKEFLAGS = ${MFLAGS}
 
 MODULE = bolt
 VERSION = local
