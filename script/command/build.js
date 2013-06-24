@@ -258,7 +258,7 @@ module.exports = function (help_mode) {
 
   var bolt_modules = function () {
     if (!fs.existsSync(src_dir) || !fs.statSync(src_dir).isDirectory())
-      fail(1, config_js + ' does not exist or is not a directory');
+      fail(1, src_dir + ' does not exist or is not a directory');
 
     if (generate_modules) {
       var module_dir = path.join(output_dir, 'module');
