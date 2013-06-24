@@ -7,7 +7,7 @@ compiler.modulator.library = def(
     ephox.bolt.module.util.path
   ],
 
-  function (metalator, io, error, transport, path) {
+  function (metalator, io, error, transporter, path) {
     var create = function (pather, namespace, ref, initialization) {
       var can = function (id) {
         return id === namespace;
