@@ -56,10 +56,10 @@ artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${RELEASE_DIR} ${
 	cp ${PROJECTS_DIR}/script/command/* ${RELEASE_DIR}/command/.
 
 release: clean
-	expr `cat ${RELEASE_BUILD_FILE}` + 1 > ${RELEASE_BUILD_FILE}
-	git commit -m "[release] Bump build number." ${RELEASE_BUILD_FILE}
+	expr `cat ${CONFIG_BUILD}` + 1 > ${CONFIG_BUILD}
+	git commit -m "[release] Bump build number." ${CONFIG_BUILD}
 	git push origin master
-	${MAKE} ${MFLAGS} publish VERSION=`cat ${RELEASE_VERSION_FILE}`.`cat ${RELEASE_BUILD_FILE}`
+	${MAKE} ${MFLAGS} publish VERSION=`cat ${CONFIG_VERSION}`.`cat ${CONFIG_BUILD}`
 
 publish: npm-register artifacts ${TAR} ${RELEASE_DIR} ${PUBLISH_REPO} ${PUBLISH_DIR}
 	cp ${PUBLISH_ARTIFACTS} ${PUBLISH_DIR}
