@@ -1,5 +1,5 @@
-MFLAGS = -s
-MAKEFLAGS = ${MFLAGS}
+#MFLAGS = -s
+#MAKEFLAGS = ${MFLAGS}
 
 MODULE = bolt
 VERSION = local
@@ -14,7 +14,7 @@ PROJECTS= \
 	karma \
 	compiler
 
-PROJECT_DIR = projects
+PROJECTS_DIR = projects
 
 GEN = gen
 DIST = ${GEN}/dist
@@ -38,20 +38,20 @@ PUBLISH_DIR = ${GEN}/dist.boltjs.io/${VERSION}
 PUBLISH_GIT = git --work-tree ${PUBLISH_REPO} --git-dir ${PUBLISH_REPO}/.git
 PUBLISH_ARTIFACTS = ${TAR} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-karma.js
 
-DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE} ${RELEASE_DIR}
+DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE} ${RELEASE_DIR} ${RELEASE_DIR}/bin ${RELEASE_BIN/lib ${RELEASE_DIR}/command
 
 .PHONY: clean dist artifacts publish npm-register release ${PROJECTS} ${RELEASE_DIR} ${PUBLISH_DIR} ${PUBLISH_REPO}
 
-default: clean ${RELEASE_DIR}
+default: clean artifacts
 
 clean: ${PROJECTS_CLEAN}
 	rm -rf ./${GEN}
 
 dist: ${TAR}
 
-artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${RELEASE_DIR} ${STATIC_ARTIFACTS}
-	cp ${STATIC_ARTIFACTS} ${RELEASE_DIR}
-	cp ${PROJECTS_DIR}/*/gen/*.js ${RELEASE_DIR}/lib/.
+artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACTS} ${RELEASE_DIR} ${RELEASE_DIR}/bin ${RELEASE_BIN/lib ${RELEASE_DIR}/command
+	cp ${STATIC_ARTIFACTS} ${RELEASE_DIR}/.
+	for x in ${PROJECTS}; do cp ${PROJECTS_DIR}/$$x/gen/*.js ${RELEASE_DIR}/lib/. ; done
 	cp ${PROJECTS_DIR}/script/bin/* ${RELEASE_DIR}/bin/.
 	cp ${PROJECTS_DIR}/script/command/* ${RELEASE_DIR}/command/.
 
@@ -76,12 +76,12 @@ npm-register:
 	fi
 
 ${PROJECTS}:
-	cd $@ && ${MAKE} ${MFLAGS} test
+	cd ${PROJECTS_DIR}/$@ && ${MAKE} ${MFLAGS} test
 
 ${RELEASE_NPM}: ${RELEASE_DIR}
 	sed 's/__VERSION__/${VERSION}/g' ${CONFIG_NPM} > $@
 
-${RELEASE_VERSION}: ${RELEASE_DIR}
+${RELEASE_VERSION}: ${RELEASE_DIR}/bin
 	echo ${VERSION} > $@
 
 ${TAR}: artifacts ${DIST}
