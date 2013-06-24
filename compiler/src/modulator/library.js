@@ -7,7 +7,7 @@ compiler.modulator.library = def(
     ephox.bolt.module.util.path
   ],
 
-  function (metalator, io, error, transporter, path) {
+  function (metalator, io, error, commonjs, path) {
     var create = function (pather, namespace, ref, initialization) {
       var can = function (id) {
         return id === namespace;
@@ -38,7 +38,7 @@ compiler.modulator.library = def(
         };
 
         var load = function (define, done) {
-          transporter.read(url, function (result) {
+          commonjs.read(url, function (result) {
             var deps = initialization.compile !== false && initialization.depends ? initialization.depends : [];
             content = result;
             define(id, deps);
