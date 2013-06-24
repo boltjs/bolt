@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/boltjs/bolt.png)](https://travis-ci.org/boltjs/bolt)
 
 Bolt is a javascript module system, inspired by, but at this
-point (intentionally) not compatible with the AMD specification.
+point (intentionally) not compatible with the
+[AMD specification](https://github.com/amdjs/amdjs-api/wiki/AMD).
 Bolt consists of a runtime framework, compiler and testing tools.
 
 The general philosophy is quick, clean and easy.
@@ -40,7 +41,8 @@ npm install -g boltjs
 Bolt relies on node.js v0.8+ which can be obtained from [http://nodejs.org](http://nodejs.org/#download)
 or your system's package manager.
 
-If you want to run bolt test with karma, you will also need to install karma: `npm install -g karma`.
+If you want to run bolt test with [karma](http://karma-runner.github.io), you will also
+need to install karma: `npm install -g karma`.
 
 ## Source
 
