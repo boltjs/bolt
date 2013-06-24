@@ -9,7 +9,8 @@
     "Marli Oshlack <marli@oshlack.com>"
   ],
   "bin": {
-    "bolt": "./bin/bolt"
+    "bolt": "./bin/bolt.js",
+    "jsc": "./bin/jsc.js"
   },
   "repository": {
     "type": "git",
