@@ -21,7 +21,7 @@ RELEASE_BUILD_FILE = config/release/build
 MFLAGS = -s
 
 
-.PHONY: clean dist projects release
+.PHONY: clean dist projects release release-prep
 
 default: clean projects
 
@@ -67,3 +67,12 @@ release: clean
 	git --work-tree gen/dist.boltjs.io --git-dir gen/dist.boltjs.io/.git commit -m "[release] ${V}"
 	git --work-tree gen/dist.boltjs.io --git-dir gen/dist.boltjs.io/.git push origin master
 	git --work-tree gen/dist.boltjs.io --git-dir gen/dist.boltjs.io/.git push -f origin master:gh-pages
+	npm publish gen/image/bolt-${V}
+
+
+#
+# Once off tasks to prepare a new machine for publishing
+#
+release-prep:
+	@echo 'Registring machine for release. Please use, User: "boltjs", Email: "dev@boltjs.io"'
+	npm adduser

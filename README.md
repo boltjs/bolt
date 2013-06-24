@@ -59,11 +59,18 @@ gen/image/bolt-local.
 
 ## Development
 
+If you have never pushed a release before, run:
+
+```shell
+make release-prep
+```
+
 To push a release:
 
 ```shell
 make release
 ```
+
 
 ## Provenance
 
