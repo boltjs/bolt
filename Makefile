@@ -71,7 +71,7 @@ publish: npm-register artifacts ${TAR} ${RELEASE_DIR} ${PUBLISH_REPO} ${PUBLISH_
 
 npm-register:
 	if [ `npm whoami` != boltjs ]; then \
-		echo 'Register  machine for release. Please use - User: "boltjs", Email: "dev@boltjs.io"' ; \
+		echo 'Register machine for release. Please use - User: "boltjs", Email: "dev@boltjs.io"' ; \
 		npm adduser ; \
 	fi
 
