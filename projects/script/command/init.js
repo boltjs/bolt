@@ -73,6 +73,6 @@ module.exports = function (help_mode) {
   files.forEach(function (file) {
     var config = config_dir + '/' + file;
     var bootstrap = config_dir + '/bootstrap-' + file;
-    ephox.bolt.compiler.mode.dev.run(config, bootstrap);
+    bolt.compiler.mode.Dev.run(config, bootstrap);
   });
 };

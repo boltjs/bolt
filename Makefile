@@ -5,10 +5,10 @@ MODULE = bolt
 VERSION = local
 
 PROJECTS= \
-	test \
-	module \
 	loader \
 	kernel \
+	module \
+	test \
 	inline \
 	bootstrap \
 	karma \

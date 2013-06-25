@@ -1,11 +1,10 @@
 (function () {
-  var obj = ephox.bolt.kernel.fp.object;
-  var api = ephox.bolt.module.api;
-  var builtins = ephox.bolt.module.config.builtins.browser;
-  var install = ephox.bolt.module.bootstrap.install;
-  var transport = ephox.bolt.loader.transporter.xhr.request;
-  var script = ephox.bolt.loader.api.scripttag.load;
-  var configloader = ephox.bolt.module.bootstrap.configloader;
+  var Obj = bolt.kernel.fp.Obj;
+  var Install = bolt.module.bootstrap.Install;
+  var Builtins = bolt.module.config.Builtins;
+  var Xhr = bolt.loader.transporter.Xhr;
+  var ScriptTag = bolt.loader.api.ScriptTag;
+  var Configloader = bolt.module.bootstrap.Configloader;
 
   var withAttr = function (attr, f, otherwise) {
     var scripts = document.getElementsByTagName('script');
@@ -27,15 +26,15 @@
   };
 
   var reader = withConfig(function (path) {
-    return configloader.page(path);
+    return Configloader.page(path);
   }, function () {
-    return configloader.empty;
+    return Configloader.empty;
   });
 
-  install.install(reader, builtins, transport, script);
+  Install.install(reader, Builtins.browser, Xhr.request, ScriptTag.load);
 
   withMain(function (main) {
-    api.main(main);
+    bolt.module.api.main(main);
   }, function () {})
 
   var register = withGlobals(function (globals) {
@@ -45,5 +44,5 @@
   });
 
   if (register)
-    obj.merge(window, api);
+    Obj.merge(window, bolt.module.api);
 })();

@@ -1,6 +1,6 @@
 require("../include/include.js");
 
-var renderer = ephox.bolt.compiler.compile.renderer;
+var Renderer = bolt.compiler.compile.Renderer;
 
 var constant = function (s) {
   return function () {
@@ -54,7 +54,7 @@ var partial_render = {
 
 var expected = "cba";
 var render = function (data) {
-  var x = renderer.render(ids, modules, data);
+  var x = Renderer.render(ids, modules, data);
   return x.replace(/\n/g, '');
 };
 

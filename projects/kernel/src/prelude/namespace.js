@@ -1,7 +1,7 @@
-var kernel = bolt.kernel = bolt.kernel || {};
-kernel.api = kernel.api || {};
-kernel.async = kernel.api || {};
-kernel.fp = kernel.fp || {};
-kernel.modulator = kernel.modulator || {};
-kernel.module = kernel.module || {};
-kernel.util = kernel.util || {};
+bolt.kernel = {};
+bolt.kernel.api = {};
+bolt.kernel.async = {};
+bolt.kernel.fp = {};
+bolt.kernel.modulator = {};
+bolt.kernel.module = {};
+bolt.kernel.util = {};

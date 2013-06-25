@@ -1,4 +1,4 @@
-var test = bolt.test = bolt.test || {};
-test.report = test.report || {};
-test.run = test.run || {};
-test.assert = test.assert || {};
+bolt.test = {};
+bolt.test.report = {};
+bolt.test.run = {};
+bolt.test.assert = {};

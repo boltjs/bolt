@@ -1,3 +1,3 @@
 (function () {
-  if (this.ephox)
-    var old = this.ephox.bolt;
+  if (this.bolt)
+    var old = this.bolt;

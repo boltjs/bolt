@@ -85,11 +85,12 @@ module.exports = function (help_mode) {
   require('./../lib/module');
   require('./../lib/test');
 
-  var runner = ephox.bolt.test.run.runner;
-  var reporter = ephox.bolt.test.report.logger.create(verbose === 'true');
-  var fn = ephox.bolt.kernel.fp.functions;
-  var node = ephox.bolt.module.reader.node;
-  var reader = fn.curry(node.read, process.cwd() + '/.', config);
+  var Func = bolt.kernel.fp.Func;
+  var Node = bolt.module.reader.Node;
+  var Runner = bolt.test.run.Runner;
 
-  runner.run(reporter, reader, tests);
+  var reporter = bolt.test.report.Logger.create(verbose === 'true');
+  var reader = Func.curry(Node.read, process.cwd() + '/.', config);
+
+  Runner.run(reporter, reader, tests);
 };

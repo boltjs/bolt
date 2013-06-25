@@ -125,7 +125,7 @@ var dev = function () {
       fail_usage(1, 'invalid number of arguments for jsc dev [' + process.argv.length + ']');
   }
 
-  ephox.bolt.compiler.mode.dev.run(config_js, bootstrap);
+  bolt.compiler.mode.Dev.run(config_js, bootstrap);
 };
 
 var compile = function () {
@@ -134,14 +134,14 @@ var compile = function () {
 
   var files = process.argv.slice(0, -1);
   var target = process.argv[process.argv.length - 1];
-  ephox.bolt.compiler.mode.compile.run(config_js, files, target);
+  bolt.compiler.mode.Compile.run(config_js, files, target);
 };
 
 var identify = function () {
   if (process.argv.length !== 1)
     fail_usage(1, 'invalid number of arguments for jsc identify [' + process.argv.length + ']');
 
-  var id = ephox.bolt.compiler.mode.identify.run(process.argv[0]);
+  var id = bolt.compiler.mode.Identify.run(process.argv[0]);
   console.log(id);
 };
 
@@ -151,7 +151,7 @@ var inline = function () {
 
   var files = process.argv.slice(0, -1);
   var target = process.argv[process.argv.length - 1];
-  ephox.bolt.compiler.mode.inline.run(config_js, files, target, register_modules, main);
+  bolt.compiler.mode.Inline.run(config_js, files, target, register_modules, main);
 };
 
 var link = function () {
@@ -160,7 +160,7 @@ var link = function () {
 
   var files = process.argv.slice(0, -1);
   var target = process.argv[process.argv.length - 1];
-  ephox.bolt.compiler.mode.link.run(config_js, files, target);
+  bolt.compiler.mode.Link.run(config_js, files, target);
 };
 
 

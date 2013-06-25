@@ -4,19 +4,19 @@ var tests = Object.keys(__karma__.files).filter(function (file) {
       return /Test\.js$/.test(file);
 });
 
-var install = ephox.bolt.module.bootstrap.install;
-var load = ephox.bolt.loader.transporter.xhr.request;
-var loadscript = ephox.bolt.loader.api.scripttag.load;
-var builtins = ephox.bolt.module.config.builtins.browser;
-var browser = ephox.bolt.module.reader.browser;
-var timer = ephox.bolt.test.report.timer;
-var accumulator = ephox.bolt.test.run.accumulator;
-var test = ephox.bolt.test.run.test;
-var wrapper = ephox.bolt.test.run.wrapper;
-var errors = ephox.bolt.test.report.errors;
-var source = ephox.bolt.module.config.specs.source('/base/');
-var mapper = ephox.bolt.module.config.mapper;
-var fn = ephox.bolt.kernel.fp.functions;
+var install = bolt.module.bootstrap.Install;
+var load = bolt.loader.transporter.Xhr.request;
+var loadscript = bolt.loader.api.Scripttag.load;
+var builtins = bolt.module.config.Builtins.browser;
+var browser = bolt.module.reader.Browser;
+var timer = bolt.test.report.Timer;
+var accumulator = bolt.test.run.Accumulator;
+var test = bolt.test.run.Test;
+var wrapper = bolt.test.run.Wrapper;
+var errors = bolt.test.report.Errors;
+var source = bolt.module.config.Specs.source('/base/');
+var mapper = bolt.module.config.Mapper;
+var fn = bolt.kernel.fp.Func;
 var reader = fn.curry(browser.read, '/base/', './config/bolt/test.js');
 var karma = __karma__;
 

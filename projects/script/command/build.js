@@ -203,18 +203,18 @@ module.exports = function (help_mode) {
   var bolt_build_inline = function (file, name) {
     mkdirp(path.join(output_dir, 'inline'));
     var target = path.join(output_dir, 'inline', name + '.js');
-    ephox.bolt.compiler.mode.inline.run(config_js, [ file ], target, register_modules, main);
+    bolt.compiler.mode.Inline.run(config_js, [ file ], target, register_modules, main);
   };
 
   var bolt_build_entry_point = function (done) {
     mkdirp(path.join(output_dir, 'compile'));
 
     var process = function (file) {
-      var id = ephox.bolt.compiler.mode.identify.run(file);
+      var id = bolt.compiler.mode.Identify.run(file);
       var target = path.join(output_dir, 'compile', id + '.js');
       targets.push(target);  // So that things can be linked together later
 
-      ephox.bolt.compiler.mode.compile.run(config_js, [ file ], target, function () {
+      bolt.compiler.mode.Compile.run(config_js, [ file ], target, function () {
         if (generate_inline)
           bolt_build_inline(target, id);
         next();
@@ -237,7 +237,7 @@ module.exports = function (help_mode) {
       var target = path.join(output_dir, 'compile', group + '.js');
       targets.push(target);  // So that things can be linked together later
 
-      ephox.bolt.compiler.mode.compile.run(config_js, entry_groups[group], target, function () {
+      bolt.compiler.mode.Compile.run(config_js, entry_groups[group], target, function () {
         if (generate_inline)
           bolt_build_inline(target, group);
         next();
@@ -253,7 +253,7 @@ module.exports = function (help_mode) {
 
   var bolt_link = function () {
     var link_output = path.join(output_dir, 'compile/bootstrap.js');
-    ephox.bolt.compiler.mode.link.run(config_js, targets, link_output);
+    bolt.compiler.mode.Link.run(config_js, targets, link_output);
   };
 
   var bolt_modules = function () {
@@ -264,7 +264,7 @@ module.exports = function (help_mode) {
       var module_dir = path.join(output_dir, 'module');
       mkdirp(module_dir);
       walk(src_dir, function (file) {
-        var name = ephox.bolt.compiler.mode.identify.run(file);
+        var name = bolt.compiler.mode.Identify.run(file);
         fs.writeFileSync(path.join(module_dir, name + '.js'), fs.readFileSync(file));
       });
     }

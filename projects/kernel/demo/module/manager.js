@@ -7,7 +7,7 @@ runDemo('Manager - Hello world', function () {
 
   var regulate = function () {
     var load = function (onsuccess, onerror) {
-      define('ephox.bolt.demo.hello', [], function () {
+      define('bolt.demo.hello', [], function () {
           return { greeting: 'hello world!' };
         }
       );
@@ -17,16 +17,16 @@ runDemo('Manager - Hello world', function () {
   };
 
   var regulator = {
-    can: function (id) { return id === 'ephox.bolt.demo.hello'; },
+    can: function (id) { return id === 'bolt.demo.hello'; },
     regulate: regulate
   };
 
-  var kernel = ephox.bolt.kernel.api.config.configure(regulator, onerror);
+  var kernel = bolt.kernel.api.config.configure(regulator, onerror);
 
   window.define = kernel.define;
   window.require = kernel.require;
 
-  require(['ephox.bolt.demo.hello'], function (hello) {
+  require(['bolt.demo.hello'], function (hello) {
     pass(result, hello.greeting);
   });
 });

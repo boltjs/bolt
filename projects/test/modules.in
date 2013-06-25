@@ -1,14 +1,14 @@
 NAME = test
 MODULES = \
 	${SRC}/prelude/namespace.js \
-	${SRC}/report/timer.js \
-	${SRC}/report/namer.js \
-	${SRC}/report/errors.js \
-	${SRC}/report/logger.js \
-	${SRC}/assert/compare.js \
-	${SRC}/assert/assert.js \
-	${SRC}/run/accumulator.js \
-	${SRC}/run/wrapper.js \
-	${SRC}/run/config.js \
-	${SRC}/run/test.js \
-	${SRC}/run/runner.js
+	${SRC}/report/Timer.js \
+	${SRC}/report/Namer.js \
+	${SRC}/report/Errors.js \
+	${SRC}/report/Logger.js \
+	${SRC}/assert/Compare.js \
+	${SRC}/assert/Assert.js \
+	${SRC}/run/Accumulator.js \
+	${SRC}/run/Wrapper.js \
+	${SRC}/run/Config.js \
+	${SRC}/run/Test.js \
+	${SRC}/run/Runner.js

@@ -52,9 +52,9 @@ var req = function (ids, callback) {
   callback.apply(null, callback);
 };
 
-var ephox = this.ephox || {};
+var bolt = this.bolt || {};
 
-ephox.bolt = {
+bolt = {
   module: {
     api: {
       define: def,
@@ -63,4 +63,3 @@ ephox.bolt = {
     }
   }
 };
-

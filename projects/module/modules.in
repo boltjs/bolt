@@ -1,24 +1,24 @@
 NAME = module
 MODULES = \
 	${SRC}/prelude/namespace.js \
-	${SRC}/error/error.js \
-	${SRC}/config/mapper.js \
-	${SRC}/api/api.js \
-	${SRC}/util/path.js \
-	${SRC}/util/locator.js \
-	${SRC}/util/pather.js \
-	${SRC}/modulator/library.js \
-	${SRC}/modulator/modulators.js \
-	${SRC}/config/builtins.js \
-	${SRC}/config/specs.js \
-	${SRC}/reader/bouncing.js \
-	${SRC}/reader/browser.js \
-	${SRC}/reader/node.js \
-	${SRC}/reader/direct.js \
-	${SRC}/bootstrap/configloader.js \
-	${SRC}/bootstrap/deferred.js \
-	${SRC}/bootstrap/main.js \
-	${SRC}/bootstrap/install.js
+	${SRC}/error/Error.js \
+	${SRC}/config/Mapper.js \
+	${SRC}/api/Api.js \
+	${SRC}/util/Path.js \
+	${SRC}/util/Locator.js \
+	${SRC}/util/Pather.js \
+	${SRC}/modulator/Library.js \
+	${SRC}/modulator/Modulators.js \
+	${SRC}/config/Builtins.js \
+	${SRC}/config/Specs.js \
+	${SRC}/reader/Bouncing.js \
+	${SRC}/reader/Browser.js \
+	${SRC}/reader/Node.js \
+	${SRC}/reader/Direct.js \
+	${SRC}/bootstrap/Configloader.js \
+	${SRC}/bootstrap/Deferred.js \
+	${SRC}/bootstrap/Main.js \
+	${SRC}/bootstrap/Install.js
 DISTFILES = \
 	../kernel/gen/kernel.js \
 	../loader/gen/loader.js

@@ -1,19 +1,19 @@
 NAME = kernel
 MODULES = \
 	${SRC}/prelude/namespace.js \
-	${SRC}/fp/array.js \
-	${SRC}/fp/object.js \
-	${SRC}/fp/functions.js \
-	${SRC}/util/globals.js \
-	${SRC}/async/map.js \
-	${SRC}/async/piggybacker.js \
-	${SRC}/modulator/globalator.js \
-	${SRC}/modulator/bolt.js \
-	${SRC}/module/stratifier.js \
-	${SRC}/module/analyser.js \
-	${SRC}/module/fetcher.js \
-	${SRC}/module/loader.js \
-	${SRC}/module/manager.js \
-	${SRC}/api/sources.js \
-	${SRC}/api/regulator.js \
-	${SRC}/api/config.js
+	${SRC}/fp/Arr.js \
+	${SRC}/fp/Obj.js \
+	${SRC}/fp/Func.js \
+	${SRC}/util/Globals.js \
+	${SRC}/async/Map.js \
+	${SRC}/async/Piggybacker.js \
+	${SRC}/modulator/Globalator.js \
+	${SRC}/modulator/Bolt.js \
+	${SRC}/module/Stratifier.js \
+	${SRC}/module/Analyser.js \
+	${SRC}/module/Fetcher.js \
+	${SRC}/module/Loader.js \
+	${SRC}/module/Manager.js \
+	${SRC}/api/Sources.js \
+	${SRC}/api/Regulator.js \
+	${SRC}/api/Config.js

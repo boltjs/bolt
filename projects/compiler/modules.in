@@ -1,25 +1,25 @@
 NAME = compiler
 MODULES = \
 	${SRC}/prelude/namespace.js \
-	${SRC}/tools/error.js \
-	${SRC}/tools/io.js \
-	${SRC}/tools/files.js \
-	${SRC}/minibolt/minibolt.js \
-	${SRC}/inspect/metalator.js \
-	${SRC}/inspect/identifier.js \
-	${SRC}/generator/bootstrap.js \
-	${SRC}/generator/inline.js \
-	${SRC}/modulator/bolt.js \
-	${SRC}/modulator/globalator.js \
-	${SRC}/modulator/library.js \
-	${SRC}/compile/renderer.js \
-	${SRC}/compile/sources.js \
-	${SRC}/compile/compiler.js \
-	${SRC}/mode/compile.js \
-	${SRC}/mode/identify.js \
-	${SRC}/mode/inline.js \
-	${SRC}/mode/link.js \
-	${SRC}/mode/dev.js
+	${SRC}/tools/Error.js \
+	${SRC}/tools/Io.js \
+	${SRC}/tools/Files.js \
+	${SRC}/minibolt/Minibolt.js \
+	${SRC}/inspect/Metalator.js \
+	${SRC}/inspect/Identifier.js \
+	${SRC}/generator/Bootstrap.js \
+	${SRC}/generator/Inline.js \
+	${SRC}/modulator/Bolt.js \
+	${SRC}/modulator/Globalator.js \
+	${SRC}/modulator/Library.js \
+	${SRC}/compile/Renderer.js \
+	${SRC}/compile/Sources.js \
+	${SRC}/compile/Compiler.js \
+	${SRC}/mode/Compile.js \
+	${SRC}/mode/Identify.js \
+	${SRC}/mode/Inline.js \
+	${SRC}/mode/Link.js \
+	${SRC}/mode/Dev.js
 DISTFILES= \
 	../kernel/gen/kernel.js \
 	../loader/gen/loader.js \

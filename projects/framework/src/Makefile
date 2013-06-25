@@ -1,6 +1,7 @@
 include modules.in
 
 MFLAGS = -s
+MAKEFLAGS = ${MFLAGS}
 
 SRC = src
 LIB = lib
@@ -21,7 +22,7 @@ clean:
 	rm -rf ./${DIST}
 
 test: dist ${ASSERT}
-	if [ ! -z "${MODULES}" ] && [ -d "${TEST}" ]; then find ${TEST} -type f -name \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo $$test; node $$test'; fi
+	if [ ! -z "${MODULES}" ] && [ -d "${TEST}" ]; then find ${TEST} -type f -iname \*test.js -print0 | xargs -0 -n 1 sh -c 'test=$$0; echo $$test; node $$test'; fi
 
 ${DIST}:
 	mkdir -p $@
