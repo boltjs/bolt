@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var usage = function () {
   return 'usage: jsc dev      [-c|--config CONFIG_JS] [BOOTSTRAP_TARGET]\n' +
          '    or jsc compile  [-c|--config CONFIG_JS] MODULE_FILE ... COMPILE_TARGET\n' +
