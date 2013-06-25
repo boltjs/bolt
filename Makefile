@@ -51,7 +51,7 @@ dist: ${TAR}
 
 artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACTS} ${RELEASE_DIR}/bin ${RELEASE_DIR}/lib ${RELEASE_DIR}/command
 	cp ${STATIC_ARTIFACTS} ${RELEASE_DIR}/.
-	for x in ${PROJECTS}; do cp ${PROJECTS_DIR}/$$x/gen/*.js ${RELEASE_DIR}/lib/. ; done
+	for x in ${PROJECTS}; do cp ${PROJECTS_DIR}/$$x/gen/* ${RELEASE_DIR}/lib/. ; done
 	cp ${PROJECTS_DIR}/script/bin/* ${RELEASE_DIR}/bin/.
 	cp ${PROJECTS_DIR}/script/command/* ${RELEASE_DIR}/command/.
 
