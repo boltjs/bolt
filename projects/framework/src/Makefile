@@ -26,13 +26,13 @@ test: dist ${ASSERT}
 ${DIST}:
 	mkdir -p $@
 
-${PRELUDE}: ../framework/components/prelude.js
+${PRELUDE}: ../framework/src/prelude.js
 	mkdir -p lib/framework
-	cp ../framework/components/prelude.js lib/framework
+	cp ../framework/src/prelude.js lib/framework
 
-${ASSERT}: ../framework/components/assert.js
+${ASSERT}: ../framework/src/assert.js
 	mkdir -p lib/framework
-	cp ../framework/components/assert.js lib/framework
+	cp ../framework/src/assert.js lib/framework
 
 ${DISTFILES}:
 	cd `echo $@ | xargs dirname | xargs dirname` && ${MAKE} $(MFLAGS) dist
