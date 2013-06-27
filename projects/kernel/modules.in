@@ -4,6 +4,7 @@ MODULES = \
 	${SRC}/fp/Arr.js \
 	${SRC}/fp/Obj.js \
 	${SRC}/fp/Func.js \
+	${SRC}/util/Path.js \
 	${SRC}/util/Globals.js \
 	${SRC}/async/Map.js \
 	${SRC}/async/Piggybacker.js \

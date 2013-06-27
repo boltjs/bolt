@@ -34,7 +34,7 @@ CONFIG_BUILD = config/release/build
 
 PUBLISH_REPO_URL = git@github.com:boltjs/dist.boltjs.io.git
 PUBLISH_REPO = ${GEN}/dist.boltjs.io
-PUBLISH_DIR = ${GEN}/dist.boltjs.io/${VERSION}
+PUBLISH_DIR = ${PUBLISH_REPO}/${VERSION}
 PUBLISH_GIT = git --work-tree ${PUBLISH_REPO} --git-dir ${PUBLISH_REPO}/.git
 PUBLISH_ARTIFACTS = ${TAR} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-karma.js
 
@@ -91,7 +91,7 @@ ${DIRECTORIES}:
 	mkdir -p $@
 
 ${PUBLISH_REPO}:
-	[ ! -d gen/dist.boltjs.io ] || rm -rf gen/dist.boltjs.io
+	[ ! -d ${PUBLISH_REPO} ] || rm -rf ${PUBLISH_REPO}
 	git clone ${PUBLISH_REPO_URL} ${PUBLISH_REPO}
 
 ${PUBLISH_DIR}: ${PUBLISH_REPO}

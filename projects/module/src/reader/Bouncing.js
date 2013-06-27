@@ -50,6 +50,7 @@ bolt.module.reader.Bouncing = def(
       var configure = function (configuration) {
         result = configuration;
       };
+
       try {
         eval(payload);
       } catch (e) {

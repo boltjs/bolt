@@ -1,12 +1,12 @@
 bolt.test.run.Config = def(
   [
     bolt.kernel.fp.Obj,
+    bolt.kernel.util.Path,
     bolt.module.config.Mapper,
-    bolt.module.config.Specs,
-    bolt.module.util.Path
+    bolt.module.config.Specs
   ],
 
-  function (Obj, Mapper, Specs, Path) {
+  function (Obj, Path, Mapper, Specs) {
     var sources = function (testfile, replacements) {
       var r = [];
       var testpath = Path.dirname(testfile);

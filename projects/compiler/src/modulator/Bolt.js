@@ -1,13 +1,14 @@
 bolt.compiler.modulator.Bolt = def(
   [
     bolt.compiler.inspect.Metalator,
-    bolt.compiler.tools.Io,
-    bolt.compiler.tools.Error
+    bolt.compiler.tools.Error,
+    bolt.kernel.util.Path,
+    bolt.loader.transporter.Commonjs
   ],
 
   // FIX cleanup after compiled/bolt unify
-  function (Metalator, Io, Error) {
-    var create = function (pather, namespace, path, idTransformer) {
+  function (Metalator, Error, Path, Commonjs) {
+    var create = function (pather, namespace, ref, idTransformer) {
 
       var wrap = function (s) {
         return '(function (define, require, demand) {\n' +
@@ -20,15 +21,16 @@ bolt.compiler.modulator.Bolt = def(
       };
 
       var get = function (id) {
-        var file = pather(path) + "/" + idTransformer(id) + '.js';
-        var content = Io.lazyread(file);
+        var path = Path.isAbsolute(ref) ? ref : pather(ref);
+        var url = path + "/" + idTransformer(id) + '.js';
+        var content = '';
 
         var render = function () {
-          return Metalator.hasMetadata(file) ? content() : wrap(content());
+          return Metalator.hasMetadata(content) ? content : wrap(content);
         };
 
         var loadcompiled = function (define) {
-          var ids = Metalator.inspect(file);
+          var ids = Metalator.inspect(content);
           ids.forEach(function (id) {
             define(id, []);
           });
@@ -36,20 +38,23 @@ bolt.compiler.modulator.Bolt = def(
 
         var loadmodule = function (define /* eval scope */) {
           try {
-            eval(content());
+            eval(content);
           } catch (e) {
             Error.die('Could not evaluate file: ' + file + ', error: ' + e);
           }
         };
 
         var load = function (define, done) {
-          var loader = Metalator.hasMetadata(file) ? loadcompiled : loadmodule;
-          loader(define);
-          done();
+          Commonjs.read(url, function (result) {
+            content = result;
+            var loader = Metalator.hasMetadata(content) ? loadcompiled : loadmodule;
+            loader(define);
+            done();
+          }, Error.die);
         };
 
         return {
-          url: file,
+          url: url,
           serial: false,
           render: render,
           load: load

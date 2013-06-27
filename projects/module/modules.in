@@ -4,7 +4,6 @@ MODULES = \
 	${SRC}/error/Error.js \
 	${SRC}/config/Mapper.js \
 	${SRC}/api/Api.js \
-	${SRC}/util/Path.js \
 	${SRC}/util/Locator.js \
 	${SRC}/util/Pather.js \
 	${SRC}/modulator/Library.js \
