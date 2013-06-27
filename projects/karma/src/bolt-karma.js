@@ -6,7 +6,7 @@ var tests = Object.keys(__karma__.files).filter(function (file) {
 
 var install = bolt.module.bootstrap.Install;
 var load = bolt.loader.transporter.Xhr.request;
-var loadscript = bolt.loader.api.Scripttag.load;
+var loadscript = bolt.loader.api.ScriptTag.load;
 var builtins = bolt.module.config.Builtins.browser;
 var browser = bolt.module.reader.Browser;
 var timer = bolt.test.report.Timer;

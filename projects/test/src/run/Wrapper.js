@@ -6,7 +6,7 @@ bolt.test.run.Wrapper = def(
   function (Assert) {
     var global = Function('return this;')();
 
-    global.assert = assert;
+    global.assert = Assert;
 
     var sync = function (reporter, testfile, name, f, next) {
       global.define = bolt.module.api.define;
