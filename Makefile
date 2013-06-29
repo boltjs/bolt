@@ -54,6 +54,7 @@ artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACT
 	for x in ${PROJECTS}; do cp ${PROJECTS_DIR}/$$x/gen/* ${RELEASE_DIR}/lib/. ; done
 	cp ${PROJECTS_DIR}/script/bin/* ${RELEASE_DIR}/bin/.
 	cp ${PROJECTS_DIR}/script/command/* ${RELEASE_DIR}/command/.
+	cp ${PROJECTS_DIR}/script/lib/* ${RELEASE_DIR}/lib/.
 
 release: clean
 	expr `cat ${CONFIG_BUILD}` + 1 > ${CONFIG_BUILD}

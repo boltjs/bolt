@@ -202,29 +202,17 @@ module.exports = function (help_mode) {
     });
   };
 
-  var read_project_json = function (project_json) {
-    if (fs.existsSync(project_json) && fs.statSync(project_json).isFile()) {
-      try {
-        return JSON.parse(fs.readFileSync(project_json));
-      } catch (e) {
-        fail(1, 'could not read project configuration from [' + project_json + ']: ' + e);
-      }
-    }
-    return {};
-  };
-
   require('./../lib/kernel');
   require('./../lib/loader');
   require('./../lib/module');
   require('./../lib/compiler');
-
+  var project_json_reader = require('./../lib/project-json-reader');
   var Globals = bolt.kernel.util.Globals;
 
-
-  if (project_json !== null && (!fs.existsSync(project_json) || !fs.statSync(project_json).isFile()))
+  if (project_json && (!fs.existsSync(project_json) || !fs.statSync(project_json).isFile()))
     fail(1, project_json + ' does not exist or is not a file');
 
-  var config = read_project_json(project_json || 'project.json');
+  var config = project_json_reader.read(project_json || 'project.json');
 
   config_js = config_js || Globals.resolve('build.config', config) || 'config/bolt/prod.js';
   src_dir = src_dir || Globals.resolve('src', config) || 'src/js';
