@@ -19,7 +19,7 @@ bolt.compiler.modulator.Library = def(
         if (initialization.define)
           return String(initialization.define);
         if (initialization.exports)
-          return 'function () { return ' + initialization.exports + '; };'
+          return 'function () { return ' + initialization.exports + '; }'
         return 'function () { return null; }';
       };
 
