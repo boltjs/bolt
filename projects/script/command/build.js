@@ -202,15 +202,6 @@ module.exports = function (help_mode) {
     });
   };
 
-  // resolve a path like 'a.b.c.d' in a nested object scope
-  var resolve = function (name, scope) {
-    var parts = name.split('.');
-    var r = scope;
-    for (var i = 0; i < parts.length && r !== undefined; ++i)
-      r = r[parts[i]];
-    return r;
-  };
-
   var read_project_json = function (project_json) {
     if (fs.existsSync(project_json) && fs.statSync(project_json).isFile()) {
       try {
@@ -222,26 +213,29 @@ module.exports = function (help_mode) {
     return {};
   };
 
+  require('./../lib/kernel');
+  require('./../lib/loader');
+  require('./../lib/module');
+  require('./../lib/compiler');
+
+  var Globals = bolt.kernel.util.Globals;
+
+
   if (project_json !== null && (!fs.existsSync(project_json) || !fs.statSync(project_json).isFile()))
     fail(1, project_json + ' does not exist or is not a file');
 
   var config = read_project_json(project_json || 'project.json');
 
-  config_js = config_js || resolve('build.config', config) || 'config/bolt/prod.js';
-  src_dir = src_dir || resolve('src', config) || 'src/js';
-  output_dir = output_dir || resolve('output', config) || 'gen/bolt';
-  inline_main = inline_main || resolve('build.inline-main', config);
-  inline_register = inline_register === true || resolve('build.inline-register', config) === true;
-  entry_points = entry_points || resolve('build.entry-points', config) || [];
-  entry_groups = entry_groups || resolve('build.entry-groups', config) || {};
+  config_js = config_js || Globals.resolve('build.config', config) || 'config/bolt/prod.js';
+  src_dir = src_dir || Globals.resolve('src', config) || 'src/js';
+  output_dir = output_dir || Globals.resolve('output', config) || 'gen/bolt';
+  inline_main = inline_main || Globals.resolve('build.inline-main', config);
+  inline_register = inline_register === true || Globals.resolve('build.inline-register', config) === true;
+  entry_points = entry_points || Globals.resolve('build.entry-points', config) || [];
+  entry_groups = entry_groups || Globals.resolve('build.entry-groups', config) || {};
 
   var generate_inline = inline_main !== undefined || inline_register;
 
-
-  require('./../lib/kernel');
-  require('./../lib/loader');
-  require('./../lib/module');
-  require('./../lib/compiler');
 
   var targets = [];
 
