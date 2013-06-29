@@ -84,7 +84,7 @@ module.exports = function (help_mode) {
   var config_js = null;
   var src_dir = null;
   var output_dir = null;
-  var generate_modules = false;
+  var generate_modules = null;
   var inline_main = null;
   var inline_register = null;
   var entry_points = null;
@@ -229,8 +229,9 @@ module.exports = function (help_mode) {
   config_js = config_js || Globals.resolve('build.config', config) || 'config/bolt/prod.js';
   src_dir = src_dir || Globals.resolve('src', config) || 'src/js';
   output_dir = output_dir || Globals.resolve('output', config) || 'gen/bolt';
+  generate_modules = generate_modules || Globals.resolve('build.flat-modules', config) === true;
   inline_main = inline_main || Globals.resolve('build.inline-main', config);
-  inline_register = inline_register === true || Globals.resolve('build.inline-register', config) === true;
+  inline_register = inline_register || Globals.resolve('build.inline-register', config) === true;
   entry_points = entry_points || Globals.resolve('build.entry-points', config) || [];
   entry_groups = entry_groups || Globals.resolve('build.entry-groups', config) || {};
 
