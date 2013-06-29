@@ -1,26 +1,30 @@
 var usage = function () {
-  return 'usage: bolt build [-c|--config CONFIG_JS] [-o|--output OUTPUT_DIR]\n' +
-         '                  [-s|--src SRC_DIR] [-i|--inline]\n' +
-         '                  [-n|--invoke-main MAIN_MODULE] [-r|--register] [-m|--modules]\n' +
+  return 'usage: bolt build [-p|--project PROJECT_JSON ...] [-c|--config CONFIG_JS]\n' +
+         '                  [-s|--src SRC_DIR] [-o|--output OUTPUT_DIR] [-m|--modules]\n' +
+         '                  [-n|--inline-main MAIN_MODULE] [-r|--inline-register]\n' +
          '                  [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]\n' +
          '\n' +
          'options:\n' +
+         '  -p|--project PROJECT_JSON      override project configuration file. This json\n' +
+         '                                 configuration file format allows defaults to be\n' +
+         '                                 specified for all bolt command line arguments.\n' +
+         '                                   default: project.json\n' +
          '  -c|--config CONFIG_JS          override bolt configuration file.\n' +
          '                                   default: config/bolt/prod.js\n' +
+         '  -s|--src SRC_DIR               override source directory.\n' +
+         '                                   default: src/js\n' +
          '  -o|--output OUTPUT_DIR         override build output directory. Compiled\n' +
          '                                 output will be located at $OUTPUT_DIR/compile,\n' +
          '                                 inline output at $OUTPUT_DIR/inline, modules at\n' +
          '                                 $OUTPUT_DIR/module.\n' +
-         '                                   default: scratch/main/js\n' +
-         '  -s|--src SRC_DIR               override source directory.\n' +
-         '                                   default: src/main/js\n' +
-         '  -i|--inline                    enable generation of inline scripts (only\n' +
-         '                                 produces output in conjunction with -e or -g).\n' +
-         '  -n|--invoke-main MAIN_MODULE   specify a main module for inline scripts.\n' +
-         '  -r|--register                  register modules in a global namespace for\n' +
-         '                                 inline scripts. Defaults to true unless -n is\n' +
-         '                                 specified.\n' +
+         '                                   default: gen/bolt\n' +
          '  -m|--modules                   enable generation of flat module files.\n' +
+         '  -n|--inline-main MAIN_MODULE   generate an inline script with a specified main\n' +
+         '                                 module (only produces output in conjunction\n' +
+         '                                 with -e or -g).\n' +
+         '  -r|--inline-register           generate an inline script that registers\n' +
+         '                                 modules in a global namespace (only produces\n' +
+         '                                 output in conjunction with -e or -g).\n' +
          '  -e|--entry-points FILE ...     specify a set of entry points. A compiled\n' +
          '                                 output will be will be generated for each entry\n' +
          '                                 point. Multiple -e flags may be specified.\n' +
@@ -33,29 +37,28 @@ var usage = function () {
          '  Produce a bolt build for a top level application. A compiled file will be\n' +
          '  generated for each Main module in this example.\n' +
          '\n' +
-         '    bolt build -e src/main/js/**/*Main.js\n' +
+         '    bolt build -e src/js/**/*Main.js\n' +
          '\n' +
          '\n' +
          '  Produce a bolt build for a top level library. A self-contained script\n' +
          '  registering all modules globally in their namespace will be produced.\n' +
          '\n' +
-         '    bolt build -i -g example src/main/js/**/api/*.js\n' +
+         '    bolt build -r -g example src/js/**/api/*.js\n' +
          '\n' +
          '\n' +
          '  Produce a bolt build for a general purpose library. In this build we only want\n' +
          '  modules to be produced, no compiled output.\n' +
          '\n' +
-         '    bolt build -m src/main/js\n' +
+         '    bolt build -m src/js\n' +
          '\n' +
          '\n' +
          'note:\n' +
          '  Examples assume use of a shell with "**" glob support. This means either zsh\n' +
          '  or bash 4.x with `shopt -s globstar` set. If you are an insolent mac user with\n' +
-         '  a default bash 3.x, this tool strongly recommends you upgrade (although\n' +
-         '  defenestration of said mac is also a valid option).\n' +
+         '  a default bash 3.x, this tool strongly recommends you upgrade.\n' +
          '\n' +
-         '  If you become desperate something like $(find src/test/js/atomic -name \*.js)\n' +
-         '  could be used as a substitute.\n';
+         '  If you become desperate something like $(find test/js/atomic -name \*.js) could\n' +
+         '  be used as a substitute.\n';
 }
 
 var fail_usage = function (code, message) {
@@ -77,15 +80,15 @@ module.exports = function (help_mode) {
     process.exit();
   }
 
-  var config_js = 'config/bolt/prod.js';
-  var output_dir = 'scratch/main/js';
-  var src_dir = 'src/main/js';
-  var generate_inline = false;
-  var generate_modules = false;
-  var register_modules = false;
-  var main = undefined;
-  var entry_points = [];
-  var entry_groups = {};
+  var project_json = null;
+  var config_js = null;
+  var src_dir = null;
+  var output_dir = null;
+  var generate_modules = null;
+  var inline_main = null;
+  var inline_register = null;
+  var entry_points = null;
+  var entry_groups = null;
 
   var path = require('path');
   var fs = require('fs');
@@ -95,18 +98,18 @@ module.exports = function (help_mode) {
     process.argv.shift();
 
     switch (flag) {
+      case '-p':
+      case '--project':
+        if (process.argv.length < 1)
+          fail_usage(1, flag + ' requires an argument to be specified');
+        project_json = process.argv[0];
+        process.argv.shift();
+        break;
       case '-c':
       case '--config':
         if (process.argv.length < 1)
           fail_usage(1, flag + ' requires an argument to be specified');
         config_js = process.argv[0];
-        process.argv.shift();
-        break;
-      case '-o':
-      case '--output':
-        if (process.argv.length < 1)
-          fail_usage(1, flag + ' requires an argument to be specified');
-        output_dir = process.argv[0];
         process.argv.shift();
         break;
       case '-s':
@@ -116,24 +119,27 @@ module.exports = function (help_mode) {
         src_dir = process.argv[0];
         process.argv.shift();
         break;
-      case '-n':
-      case '--invoke-main':
+      case '-o':
+      case '--output':
         if (process.argv.length < 1)
           fail_usage(1, flag + ' requires an argument to be specified');
-      main = process.argv[0];
-      process.argv.shift();
-        break;
-      case '-r':
-      case '--register':
-        register_modules = true;
-        break;
-      case '-i':
-      case '--inline':
-        generate_inline = true;
+        output_dir = process.argv[0];
+        process.argv.shift();
         break;
       case '-m':
       case '--modules':
         generate_modules = true;
+        break;
+      case '-n':
+      case '--inline-main':
+        if (process.argv.length < 1)
+          fail_usage(1, flag + ' requires an argument to be specified');
+        inline_main = process.argv[0];
+        process.argv.shift();
+        break;
+      case '-r':
+      case '--inline-register':
+        inline_register = true;
         break;
       case '-e':
       case '--entry-points':
@@ -145,6 +151,8 @@ module.exports = function (help_mode) {
           process.argv.shift();
           if (!fs.existsSync(entry) || !fs.statSync(entry).isFile())
             fail(1, 'specified file for entry point not found [' + entry + ']');
+
+          if (entry_points === null) entry_points = [];
           entry_points.push(entry);
         }
         break;
@@ -156,6 +164,8 @@ module.exports = function (help_mode) {
         process.argv.shift();
         if (name.indexOf('/') !== -1)
           fail(1, 'entry group name must not contain special characters');
+
+        if (entry_groups === null) entry_groups = {};
         entry_groups[name] = [];
 
         while (process.argv.length > 0 && process.argv[0][0] !== '-') {
@@ -192,18 +202,48 @@ module.exports = function (help_mode) {
     });
   };
 
+  var read_project_json = function (project_json) {
+    if (fs.existsSync(project_json) && fs.statSync(project_json).isFile()) {
+      try {
+        return JSON.parse(fs.readFileSync(project_json));
+      } catch (e) {
+        fail(1, 'could not read project configuration from [' + project_json + ']: ' + e);
+      }
+    }
+    return {};
+  };
 
   require('./../lib/kernel');
   require('./../lib/loader');
   require('./../lib/module');
   require('./../lib/compiler');
 
+  var Globals = bolt.kernel.util.Globals;
+
+
+  if (project_json !== null && (!fs.existsSync(project_json) || !fs.statSync(project_json).isFile()))
+    fail(1, project_json + ' does not exist or is not a file');
+
+  var config = read_project_json(project_json || 'project.json');
+
+  config_js = config_js || Globals.resolve('build.config', config) || 'config/bolt/prod.js';
+  src_dir = src_dir || Globals.resolve('src', config) || 'src/js';
+  output_dir = output_dir || Globals.resolve('output', config) || 'gen/bolt';
+  generate_modules = generate_modules || Globals.resolve('build.flat-modules', config) === true;
+  inline_main = inline_main || Globals.resolve('build.inline-main', config);
+  inline_register = inline_register || Globals.resolve('build.inline-register', config) === true;
+  entry_points = entry_points || Globals.resolve('build.entry-points', config) || [];
+  entry_groups = entry_groups || Globals.resolve('build.entry-groups', config) || {};
+
+  var generate_inline = inline_main !== undefined || inline_register;
+
+
   var targets = [];
 
   var bolt_build_inline = function (file, name) {
     mkdirp(path.join(output_dir, 'inline'));
     var target = path.join(output_dir, 'inline', name + '.js');
-    bolt.compiler.mode.Inline.run(config_js, [ file ], target, register_modules, main);
+    bolt.compiler.mode.Inline.run(config_js, [ file ], target, inline_register, inline_main);
   };
 
   var bolt_build_entry_point = function (done) {

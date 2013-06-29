@@ -10,8 +10,9 @@
   },
   "build": {
     "config": "config/bolt/prod.js",
-    "main-module": "example.main.HookMeUpScotty",
-    "register-globals": false,
+    "flat-modules": true,
+    "inline-main": "example.main.HookMeUpScotty",
+    "inline-register": false,
     "entry-points": [ "example.data.for.the.win.Main" ],
     "entry-groups": { "fred": [ "example.special.Snowflake" ] }
   },
