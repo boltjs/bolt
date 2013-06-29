@@ -57,9 +57,9 @@ artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACT
 
 release: clean
 	expr `cat ${CONFIG_BUILD}` + 1 > ${CONFIG_BUILD}
-	git commit -m "[release] Bump build number." ${CONFIG_BUILD}
+	git commit -m "[release] Bump build number [`cat ${CONFIG_VERSION}`-`cat ${CONFIG_BUILD}`]." ${CONFIG_BUILD}
 	git push origin master
-	${MAKE} ${MFLAGS} publish VERSION=`cat ${CONFIG_VERSION}`.`cat ${CONFIG_BUILD}`
+	${MAKE} ${MFLAGS} publish VERSION=`cat ${CONFIG_VERSION}`-`cat ${CONFIG_BUILD}`
 
 publish: npm-register artifacts ${TAR} ${RELEASE_DIR} ${PUBLISH_REPO} ${PUBLISH_DIR}
 	cp ${PUBLISH_ARTIFACTS} ${PUBLISH_DIR}
