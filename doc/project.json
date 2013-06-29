@@ -10,6 +10,7 @@
   },
   "build": {
     "config": "config/bolt/prod.js",
+    "flat-modules": true,
     "inline-main": "example.main.HookMeUpScotty",
     "inline-register": false,
     "entry-points": [ "example.data.for.the.win.Main" ],
