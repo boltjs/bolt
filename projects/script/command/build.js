@@ -1,11 +1,11 @@
 var usage = function () {
-  return 'usage: bolt build [-p|--project PROJECT_JSON ...] [-c|--config CONFIG_JS]\n' +
+  return 'usage: bolt build [-p|--project PROJECT_FILE] [-c|--config CONFIG_JS]\n' +
          '                  [-s|--src SRC_DIR] [-o|--output OUTPUT_DIR] [-m|--modules]\n' +
          '                  [-n|--inline-main MAIN_MODULE] [-r|--inline-register]\n' +
          '                  [-e|--entry-points FILE ...] [-g|--entry-group NAME FILE ...]\n' +
          '\n' +
          'options:\n' +
-         '  -p|--project PROJECT_JSON      override project configuration file. This json\n' +
+         '  -p|--project PROJECT_FILE      override project configuration file. This json\n' +
          '                                 configuration file format allows defaults to be\n' +
          '                                 specified for all bolt command line arguments.\n' +
          '                                   default: project.json\n' +
@@ -80,7 +80,7 @@ module.exports = function (help_mode) {
     process.exit();
   }
 
-  var project_json = null;
+  var project_file = null;
   var config_js = null;
   var src_dir = null;
   var output_dir = null;
@@ -102,7 +102,7 @@ module.exports = function (help_mode) {
       case '--project':
         if (process.argv.length < 1)
           fail_usage(1, flag + ' requires an argument to be specified');
-        project_json = process.argv[0];
+        project_file = process.argv[0];
         process.argv.shift();
         break;
       case '-c':
@@ -206,13 +206,13 @@ module.exports = function (help_mode) {
   require('./../lib/loader');
   require('./../lib/module');
   require('./../lib/compiler');
-  var project_json_reader = require('./../lib/project-json-reader');
+  var project_file_reader = require('./../lib/project-file-reader');
   var Globals = bolt.kernel.util.Globals;
 
-  if (project_json && (!fs.existsSync(project_json) || !fs.statSync(project_json).isFile()))
-    fail(1, project_json + ' does not exist or is not a file');
+  if (project_file && (!fs.existsSync(project_file) || !fs.statSync(project_file).isFile()))
+    fail(1, project_file + ' does not exist or is not a file');
 
-  var config = project_json_reader.read(project_json || 'project.json');
+  var config = project_file_reader.read(project_file || 'project.json', fail);
 
   config_js = config_js || Globals.resolve('build.config', config) || 'config/bolt/prod.js';
   src_dir = src_dir || Globals.resolve('src', config) || 'src/js';

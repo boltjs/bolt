@@ -17,14 +17,14 @@
     "entry-groups": { "fred": [ "example.special.Snowflake" ] }
   },
   "test": {
-    "atomic": {
+    "node": {
       "verbose": true,
-      "config": "config/bolt/atomic.js",
-      "files": [ "test/js/atomic/**/*.js" ]
+      "config": "config/bolt/node-test.js",
+      "tests": [ "test/js/node/**/*.js" ]
     },
     "browser": {
-      "config": "config/bolt/browser.js",
-      "files": [ "test/js/browser/**/*.js" ]
+      "config": "config/bolt/browser-test.js",
+      "tests": [ "test/js/browser/**/*.js" ]
     }
   },
   "publish": {
