@@ -91,7 +91,7 @@ module.exports = function (help_mode) {
   var entry_groups = null;
 
   var path = require('path');
-  var fs = require('fs');
+  var files = require('./../lib/files');
 
   while (process.argv.length > 0 && process.argv[0][0] === '-') {
     var flag = process.argv[0];
@@ -149,7 +149,7 @@ module.exports = function (help_mode) {
         while (process.argv.length > 0 && process.argv[0][0] !== '-') {
           var entry = process.argv[0];
           process.argv.shift();
-          if (!fs.existsSync(entry) || !fs.statSync(entry).isFile())
+          if (!files.isFile(entry))
             fail(1, 'specified file for entry point not found [' + entry + ']');
 
           if (entry_points === null) entry_points = [];
@@ -171,7 +171,7 @@ module.exports = function (help_mode) {
         while (process.argv.length > 0 && process.argv[0][0] !== '-') {
           var file = process.argv[0];
           process.argv.shift();
-          if (!fs.existsSync(file) || !fs.statSync(file).isFile())
+          if (!files.isFile(file))
             fail(1, 'specified file for entry group not found [' + file + ']');
           entry_groups[name].push(file);
         }
@@ -183,25 +183,6 @@ module.exports = function (help_mode) {
     }
   }
 
-  // nodejs doesn't have an mkdir -p equivalent
-  var mkdirp = function (dir) {
-    dir = path.resolve(dir);
-    if (!fs.existsSync(dir)) {
-      mkdirp(path.dirname(dir));
-      fs.mkdirSync(dir);
-    }
-  };
-
-  // walk a directory tree
-  var walk = function (root, processor) {
-    var files = fs.readdirSync(root);
-    files.forEach(function (file) {
-      var filepath = path.join(root, file);
-      fs.statSync(filepath).isDirectory() ?
-        walk(filepath, processor) : processor(filepath);
-    });
-  };
-
   require('./../lib/base');
   require('./../lib/kernel');
   require('./../lib/loader');
@@ -210,7 +191,7 @@ module.exports = function (help_mode) {
   var project_file_reader = require('./../lib/project-file-reader');
   var Globals = bolt.base.util.Globals;
 
-  if (project_file && (!fs.existsSync(project_file) || !fs.statSync(project_file).isFile()))
+  if (project_file && !files.isFile(project_file))
     fail(1, project_file + ' does not exist or is not a file');
 
   var config = project_file_reader.read(project_file || 'project.json', fail);
@@ -230,13 +211,13 @@ module.exports = function (help_mode) {
   var targets = [];
 
   var bolt_build_inline = function (file, name) {
-    mkdirp(path.join(output_dir, 'inline'));
+    files.mkdirp(path.join(output_dir, 'inline'));
     var target = path.join(output_dir, 'inline', name + '.js');
     bolt.compiler.mode.Inline.run(config_js, [ file ], target, inline_register, inline_main);
   };
 
   var bolt_build_entry_point = function (done) {
-    mkdirp(path.join(output_dir, 'compile'));
+    files.mkdirp(path.join(output_dir, 'compile'));
 
     var process = function (file) {
       var id = bolt.compiler.mode.Identify.run(file);
@@ -258,7 +239,7 @@ module.exports = function (help_mode) {
   };
 
   var bolt_build_entry_group = function (done) {
-    mkdirp(path.join(output_dir, 'compile'));
+    files.mkdirp(path.join(output_dir, 'compile'));
 
     var groups = Object.keys(entry_groups);
 
@@ -286,22 +267,24 @@ module.exports = function (help_mode) {
   };
 
   var bolt_modules = function () {
-    if (!fs.existsSync(src_dir) || !fs.statSync(src_dir).isDirectory())
+    if (!files.isDirectory(src_dir))
       fail(1, src_dir + ' does not exist or is not a directory');
 
     if (generate_modules) {
       var module_dir = path.join(output_dir, 'module');
-      mkdirp(module_dir);
-      walk(src_dir, function (file) {
+      files.mkdirp(module_dir);
+      files.walk(src_dir, function (file) {
         var name = bolt.compiler.mode.Identify.run(file);
-        fs.writeFileSync(path.join(module_dir, name + '.js'), fs.readFileSync(file));
+        files.write(path.join(module_dir, name + '.js'), files.read(file));
       });
     }
   };
 
-
-  if (!fs.existsSync(config_js) || !fs.statSync(config_js).isFile())
+  if (!files.isFile(config_js))
     fail(1, config_js + ' does not exist or is not a file');
+
+  if (files.exists(output_dir))
+    files.clean(output_dir);
 
   bolt_build_entry_point(function () {
     bolt_build_entry_group(function () {
