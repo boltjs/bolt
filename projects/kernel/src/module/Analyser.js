@@ -13,7 +13,7 @@
  */
 bolt.kernel.module.Analyser = def(
   [
-    bolt.kernel.fp.Arr
+    bolt.base.fp.Arr
   ],
 
   function (Arr) {

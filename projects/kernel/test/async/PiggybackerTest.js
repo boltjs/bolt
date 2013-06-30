@@ -1,7 +1,7 @@
 require('../include/include.js');
 
 var Piggybacker = bolt.kernel.async.Piggybacker;
-var Arr = bolt.kernel.fp.Arr;
+var Arr = bolt.base.fp.Arr;
 
 var success = {};
 var successf = function (key) {

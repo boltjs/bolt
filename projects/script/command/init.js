@@ -52,6 +52,7 @@ module.exports = function (help_mode) {
   }
 
 
+  require('./../lib/base');
   require('./../lib/kernel');
   require('./../lib/loader');
   require('./../lib/module');

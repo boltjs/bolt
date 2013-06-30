@@ -1,4 +1,4 @@
-bolt.kernel.fp.Func = def(
+bolt.base.fp.Func = def(
   [
   ],
 

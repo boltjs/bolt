@@ -1,6 +1,6 @@
 bolt.compiler.compile.Sources = def(
   [
-    bolt.kernel.fp.Arr,
+    bolt.base.fp.Arr,
     bolt.compiler.modulator.Globalator,
     bolt.compiler.modulator.Bolt,
     bolt.compiler.modulator.Library,

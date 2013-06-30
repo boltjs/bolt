@@ -1,6 +1,6 @@
 require('../include/include.js');
 
-var Globals = bolt.kernel.util.Globals;
+var Globals = bolt.base.util.Globals;
 
 var blob = {
   a: {

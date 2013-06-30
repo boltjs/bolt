@@ -1,7 +1,7 @@
 require('../include/include.js');
 
 var Analyser = bolt.kernel.module.Analyser;
-var Arr = bolt.kernel.fp.Arr;
+var Arr = bolt.base.fp.Arr;
 
 var roots0 = ['A', 'B', 'C'];
 var allModulesLoaded = {

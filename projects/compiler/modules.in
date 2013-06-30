@@ -21,6 +21,7 @@ MODULES = \
 	${SRC}/mode/Link.js \
 	${SRC}/mode/Dev.js
 DISTFILES= \
+	../base/gen/base.js \
 	../kernel/gen/kernel.js \
 	../loader/gen/loader.js \
 	../module/gen/module.js \

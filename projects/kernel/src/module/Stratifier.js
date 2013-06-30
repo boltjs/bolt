@@ -1,6 +1,6 @@
 bolt.kernel.module.Stratifier = def(
   [
-    bolt.kernel.fp.Arr
+    bolt.base.fp.Arr
   ],
 
   function (Arr) {

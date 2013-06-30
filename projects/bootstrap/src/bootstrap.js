@@ -1,5 +1,5 @@
 (function () {
-  var Obj = bolt.kernel.fp.Obj;
+  var Obj = bolt.base.fp.Obj;
   var Install = bolt.module.bootstrap.Install;
   var Builtins = bolt.module.config.Builtins;
   var Xhr = bolt.loader.transporter.Xhr;

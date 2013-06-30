@@ -1,6 +1,6 @@
 bolt.module.modulator.Modulators = def(
   [
-    bolt.kernel.fp.Func,
+    bolt.base.fp.Func,
     bolt.kernel.modulator.Bolt,
     bolt.module.modulator.Library,
     bolt.loader.api.CommonjsEvaller,

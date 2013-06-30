@@ -1,6 +1,6 @@
 bolt.test.run.Accumulator = def(
   [
-    bolt.kernel.fp.Func
+    bolt.base.fp.Func
   ],
 
   function (Func) {

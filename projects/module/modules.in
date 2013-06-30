@@ -19,5 +19,6 @@ MODULES = \
 	${SRC}/bootstrap/Main.js \
 	${SRC}/bootstrap/Install.js
 DISTFILES = \
+	../base/gen/base.js \
 	../kernel/gen/kernel.js \
 	../loader/gen/loader.js

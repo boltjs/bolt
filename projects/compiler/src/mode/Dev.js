@@ -10,7 +10,7 @@ bolt.compiler.mode.Dev = def(
 
       var hookup =
         '(function () {\n' +
-        '  var Obj = bolt.kernel.fp.Obj;\n' +
+        '  var Obj = bolt.base.fp.Obj;\n' +
         '  var Builtins = bolt.module.config.Builtins;\n' +
         '  var Install = bolt.module.bootstrap.Install;\n' +
         '  var Xhr = bolt.loader.transporter.Xhr;\n' +

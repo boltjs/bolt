@@ -4,8 +4,8 @@ bolt.compiler.compile.Compiler = def(
     bolt.compiler.tools.Error,
     bolt.compiler.compile.Renderer,
     bolt.kernel.module.Analyser,
-    bolt.kernel.fp.Func,
-    bolt.kernel.fp.Obj
+    bolt.base.fp.Func,
+    bolt.base.fp.Obj
   ],
 
   function (Metalator, Error, Renderer, Analyser, Func, Obj) {

@@ -1,7 +1,7 @@
 bolt.test.assert.Compare = def(
   [
-    bolt.kernel.fp.Arr,
-    bolt.kernel.fp.Obj
+    bolt.base.fp.Arr,
+    bolt.base.fp.Obj
   ],
 
   function (Arr, Obj) {

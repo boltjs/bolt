@@ -1,7 +1,7 @@
 require('../include/include.js');
 
 var Stratifier = bolt.kernel.module.Stratifier;
-var Arr = bolt.kernel.fp.Arr;
+var Arr = bolt.base.fp.Arr;
 
 var toId = function (o) {
   return o.id;

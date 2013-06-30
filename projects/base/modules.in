@@ -1,0 +1,8 @@
+NAME = base
+MODULES = \
+	${SRC}/prelude/namespace.js \
+	${SRC}/fp/Arr.js \
+	${SRC}/fp/Obj.js \
+	${SRC}/fp/Func.js \
+	${SRC}/util/Path.js \
+	${SRC}/util/Globals.js

@@ -1,7 +1,7 @@
 bolt.kernel.api.Regulator = def(
   [
-    bolt.kernel.fp.Arr,
-    bolt.kernel.fp.Func
+    bolt.base.fp.Arr,
+    bolt.base.fp.Func
   ],
 
   function (Arr, Func) {

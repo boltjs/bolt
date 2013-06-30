@@ -5,7 +5,7 @@ bolt.compiler.mode.Compile = def(
     bolt.compiler.compile.Compiler,
     bolt.compiler.compile.Sources,
     bolt.module.reader.Node,
-    bolt.kernel.fp.Arr
+    bolt.base.fp.Arr
   ],
 
   function (Io, Identifier, Compiler, Sources, Reader, Arr) {

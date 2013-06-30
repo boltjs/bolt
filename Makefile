@@ -5,6 +5,7 @@ MODULE = bolt
 VERSION = local
 
 PROJECTS= \
+	base \
 	loader \
 	kernel \
 	module \

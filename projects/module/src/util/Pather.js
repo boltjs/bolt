@@ -1,6 +1,6 @@
 bolt.module.util.Pather = def(
   [
-    bolt.kernel.util.Path
+    bolt.base.util.Path
   ],
 
   function (Path) {

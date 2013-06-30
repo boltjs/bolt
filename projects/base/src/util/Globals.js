@@ -1,4 +1,4 @@
-bolt.kernel.util.Globals = def(
+bolt.base.util.Globals = def(
   [
   ],
 

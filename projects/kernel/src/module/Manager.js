@@ -1,7 +1,7 @@
 bolt.kernel.module.Manager = def(
   [
-    bolt.kernel.fp.Arr,
-    bolt.kernel.fp.Obj,
+    bolt.base.fp.Arr,
+    bolt.base.fp.Obj,
     bolt.kernel.module.Loader,
     bolt.kernel.module.Fetcher
   ],

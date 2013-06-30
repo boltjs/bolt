@@ -1,4 +1,4 @@
-bolt.kernel.util.Path = def(
+bolt.base.util.Path = def(
   [
   ],
 

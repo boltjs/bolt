@@ -1,7 +1,7 @@
 require('../include/include.js');
 
 var Map = bolt.kernel.async.Map;
-var Arr = bolt.kernel.fp.Arr;
+var Arr = bolt.base.fp.Arr;
 
 var doubleit = function (i) {
   return i * 2;

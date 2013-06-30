@@ -1,7 +1,7 @@
 bolt.kernel.module.Fetcher = def(
   [
-    bolt.kernel.fp.Arr,
-    bolt.kernel.fp.Func,
+    bolt.base.fp.Arr,
+    bolt.base.fp.Func,
     bolt.kernel.async.Map,
     bolt.kernel.async.Piggybacker,
     bolt.kernel.module.Stratifier

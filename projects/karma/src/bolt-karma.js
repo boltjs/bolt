@@ -16,7 +16,7 @@ var wrapper = bolt.test.run.Wrapper;
 var errors = bolt.test.report.Errors;
 var source = bolt.module.config.Specs.source('/base/');
 var mapper = bolt.module.config.Mapper;
-var fn = bolt.kernel.fp.Func;
+var fn = bolt.base.fp.Func;
 var reader = fn.curry(browser.read, '/base/', './config/bolt/test.js');
 var karma = __karma__;
 

@@ -4,7 +4,7 @@ bolt.compiler.mode.Inline = def(
     bolt.compiler.tools.Error,
     bolt.compiler.inspect.Metalator,
     bolt.compiler.generator.Inline,
-    bolt.kernel.fp.Arr
+    bolt.base.fp.Arr
   ],
 
   function (Io, Error, Metalator, Inline, Arr) {

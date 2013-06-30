@@ -1,8 +1,8 @@
 bolt.module.modulator.Library = def(
   [
-    bolt.kernel.fp.Arr,
-    bolt.kernel.util.Globals,
-    bolt.kernel.util.Path
+    bolt.base.fp.Arr,
+    bolt.base.util.Globals,
+    bolt.base.util.Path
   ],
 
   function (Arr, Globals, Path) {

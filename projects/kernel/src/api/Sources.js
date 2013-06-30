@@ -1,7 +1,7 @@
 bolt.kernel.api.Sources = def(
   [
-    bolt.kernel.fp.Arr,
-    bolt.kernel.fp.Obj,
+    bolt.base.fp.Arr,
+    bolt.base.fp.Obj,
     bolt.kernel.modulator.Globalator
   ],
 

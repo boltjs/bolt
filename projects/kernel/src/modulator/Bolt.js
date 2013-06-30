@@ -1,7 +1,7 @@
 bolt.kernel.modulator.Bolt = def(
   [
-    bolt.kernel.fp.Func,
-    bolt.kernel.util.Path
+    bolt.base.fp.Func,
+    bolt.base.util.Path
   ],
 
   function (Func, Path) {

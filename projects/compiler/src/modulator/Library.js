@@ -2,7 +2,7 @@ bolt.compiler.modulator.Library = def(
   [
     bolt.compiler.tools.Error,
     bolt.loader.transporter.Commonjs,
-    bolt.kernel.util.Path
+    bolt.base.util.Path
   ],
 
   function (Error, Commonjs, Path) {

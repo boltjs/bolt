@@ -2,7 +2,7 @@ bolt.compiler.modulator.Bolt = def(
   [
     bolt.compiler.inspect.Metalator,
     bolt.compiler.tools.Error,
-    bolt.kernel.util.Path,
+    bolt.base.util.Path,
     bolt.loader.transporter.Commonjs
   ],
 

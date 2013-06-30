@@ -1,7 +1,7 @@
 bolt.test.run.Config = def(
   [
-    bolt.kernel.fp.Obj,
-    bolt.kernel.util.Path,
+    bolt.base.fp.Obj,
+    bolt.base.util.Path,
     bolt.module.config.Mapper,
     bolt.module.config.Specs
   ],

@@ -2,7 +2,7 @@ bolt.module.reader.Browser = def(
   [
     bolt.module.error.Error,
     bolt.module.reader.Bouncing,
-    bolt.kernel.util.Path,
+    bolt.base.util.Path,
     bolt.loader.transporter.Xhr
   ],
 

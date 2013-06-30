@@ -1,6 +1,6 @@
 bolt.compiler.inspect.Metalator = def(
   [
-    bolt.kernel.fp.Arr,
+    bolt.base.fp.Arr,
     bolt.compiler.tools.Io,
     bolt.compiler.tools.Error
   ],

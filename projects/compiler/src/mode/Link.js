@@ -3,7 +3,7 @@ bolt.compiler.mode.Link = def(
     bolt.compiler.tools.Error,
     bolt.compiler.generator.Bootstrap,
     bolt.compiler.inspect.Metalator,
-    bolt.kernel.fp.Arr
+    bolt.base.fp.Arr
   ],
 
   function (Error, Bootstrap, Metalator, Arr) {
@@ -22,7 +22,7 @@ bolt.compiler.mode.Link = def(
 
       var install =
         '(function () {\n' +
-        '  var Obj = bolt.kernel.fp.Obj;\n' +
+        '  var Obj = bolt.base.fp.Obj;\n' +
         '  var Builtins = bolt.module.config.Builtins;\n' +
         '  var Install = bolt.module.bootstrap.Install;\n' +
         '  var Xhr = bolt.loader.transporter.Xhr;\n' +

@@ -1,7 +1,7 @@
 require('../include/include.js');
 
-var Obj = bolt.kernel.fp.Obj;
-var Arr = bolt.kernel.fp.Arr;
+var Obj = bolt.base.fp.Obj;
+var Arr = bolt.base.fp.Arr;
 
 var keys = [];
 var values = [];

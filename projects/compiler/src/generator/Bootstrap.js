@@ -7,7 +7,7 @@ bolt.compiler.generator.Bootstrap = def(
   function (Files, Io) {
     var generate = function (target, bonus) {
       Io.saferm(target);
-      var corefiles = Files.files(__dirname, ['kernel.js', 'loader.js', 'module.js']);
+      var corefiles = Files.files(__dirname, ['base.js', 'kernel.js', 'loader.js', 'module.js']);
       var contents =  corefiles.join('\n') + bonus;
       Io.write(target, contents);
     };

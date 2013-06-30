@@ -1,6 +1,6 @@
 bolt.module.reader.Bouncing = def(
   [
-    bolt.kernel.fp.Arr,
+    bolt.base.fp.Arr,
     bolt.module.error.Error,
     bolt.module.config.Specs
   ],

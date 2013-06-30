@@ -1,4 +1,4 @@
-bolt.kernel.fp.Obj = def(
+bolt.base.fp.Obj = def(
   [
   ],
 
