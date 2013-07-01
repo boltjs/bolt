@@ -1,0 +1,18 @@
+#!/bin/sh -eu
+
+source $(dirname $0)/../../library/assert.subr
+
+SCENARIO=karma
+
+bolt clean -o gen/bolt
+
+testing 'karma test'
+
+if [ -f "${RELEASE_DIR}/lib/bolt.js" ] && \
+      [ -f "${RELEASE_DIR}/lib/test.js" ] && \
+      [ -f "${RELEASE_DIR}/lib/bolt-karma.js" ] && \
+      type karma > /dev/null 2>&1 ; then
+    karma start config/karma/karma.conf.js --single-run
+else
+    echo "  [skipping] karma test, not configured for running karma"
+fi

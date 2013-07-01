@@ -1,14 +1,22 @@
 NAME = test
 MODULES = \
-	${SRC}/prelude/namespace.js \
 	${SRC}/report/Timer.js \
 	${SRC}/report/Namer.js \
 	${SRC}/report/Errors.js \
-	${SRC}/report/Logger.js \
+	${SRC}/report/ConsoleReporter.js \
 	${SRC}/assert/Compare.js \
 	${SRC}/assert/Assert.js \
 	${SRC}/run/Accumulator.js \
 	${SRC}/run/Wrapper.js \
 	${SRC}/run/Config.js \
 	${SRC}/run/Test.js \
+	${SRC}/run/BrowserRunner.js \
+	${SRC}/run/NodeRunner.js \
 	${SRC}/run/Runner.js
+
+WRAPPED = \
+	${WRAP}/test.js.pre \
+	../framework/src/modules.js \
+	../base/gen/dist/base.modules.js \
+	gen/dist/test.modules.js \
+	${WRAP}/test.js.post

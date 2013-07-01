@@ -1,6 +1,8 @@
-bolt.kernel.async.Map = def(
+define(
+  'bolt.kernel.async.Map',
+
   [
-    bolt.base.fp.Arr
+    'bolt.base.fp.Arr'
   ],
 
   function (Arr) {

@@ -183,27 +183,36 @@ module.exports = function (help_mode) {
     }
   }
 
-  require('./../lib/base');
-  require('./../lib/kernel');
-  require('./../lib/loader');
-  require('./../lib/module');
-  require('./../lib/compiler');
+  require('./../lib/bolt');
+  var compiler = require('./../lib/boltc');
+
   var project_file_reader = require('./../lib/project-file-reader');
-  var Globals = bolt.base.util.Globals;
 
   if (project_file && !files.isFile(project_file))
     fail(1, project_file + ' does not exist or is not a file');
 
+  var resolve = function (name, scope) {
+    var get = function (parts, scope) {
+      var r = scope;
+      for (var i = 0; i < parts.length && r !== undefined; ++i)
+        r = r[parts[i]];
+      return r;
+    };
+
+    var parts = name.split('.');
+    return get(parts, scope);
+  };
+
   var config = project_file_reader.read(project_file || 'project.json', fail);
 
-  config_js = config_js || Globals.resolve('build.config', config) || 'config/bolt/prod.js';
-  src_dir = src_dir || Globals.resolve('src', config) || 'src/js';
-  output_dir = output_dir || Globals.resolve('output', config) || 'gen/bolt';
-  generate_modules = generate_modules || Globals.resolve('build.flat-modules', config) === true;
-  inline_main = inline_main || Globals.resolve('build.inline-main', config);
-  inline_register = inline_register || Globals.resolve('build.inline-register', config) === true;
-  entry_points = entry_points || Globals.resolve('build.entry-points', config) || [];
-  entry_groups = entry_groups || Globals.resolve('build.entry-groups', config) || {};
+  config_js = config_js || resolve('build.config', config) || 'config/bolt/prod.js';
+  src_dir = src_dir || resolve('src', config) || 'src/js';
+  output_dir = output_dir || resolve('output', config) || 'gen/bolt';
+  generate_modules = generate_modules || resolve('build.flat-modules', config) === true;
+  inline_main = inline_main || resolve('build.inline-main', config);
+  inline_register = inline_register || resolve('build.inline-register', config) === true;
+  entry_points = entry_points || resolve('build.entry-points', config) || [];
+  entry_groups = entry_groups || resolve('build.entry-groups', config) || {};
 
   var generate_inline = inline_main !== undefined || inline_register;
 
@@ -213,18 +222,18 @@ module.exports = function (help_mode) {
   var bolt_build_inline = function (file, name) {
     files.mkdirp(path.join(output_dir, 'inline'));
     var target = path.join(output_dir, 'inline', name + '.js');
-    bolt.compiler.mode.Inline.run(config_js, [ file ], target, inline_register, inline_main);
+    compiler.mode.Inline.run(config_js, [ file ], target, inline_register, inline_main);
   };
 
   var bolt_build_entry_point = function (done) {
     files.mkdirp(path.join(output_dir, 'compile'));
 
     var process = function (file) {
-      var id = bolt.compiler.mode.Identify.run(file);
+      var id = compiler.mode.Identify.run(file);
       var target = path.join(output_dir, 'compile', id + '.js');
       targets.push(target);  // So that things can be linked together later
 
-      bolt.compiler.mode.Compile.run(config_js, [ file ], target, function () {
+      compiler.mode.Compile.run(config_js, [ file ], target, function () {
         if (generate_inline)
           bolt_build_inline(target, id);
         next();
@@ -247,7 +256,7 @@ module.exports = function (help_mode) {
       var target = path.join(output_dir, 'compile', group + '.js');
       targets.push(target);  // So that things can be linked together later
 
-      bolt.compiler.mode.Compile.run(config_js, entry_groups[group], target, function () {
+      compiler.mode.Compile.run(config_js, entry_groups[group], target, function () {
         if (generate_inline)
           bolt_build_inline(target, group);
         next();
@@ -263,7 +272,7 @@ module.exports = function (help_mode) {
 
   var bolt_link = function () {
     var link_output = path.join(output_dir, 'compile/bootstrap.js');
-    bolt.compiler.mode.Link.run(config_js, targets, link_output);
+    compiler.mode.Link.run(config_js, targets, link_output);
   };
 
   var bolt_modules = function () {
@@ -274,7 +283,7 @@ module.exports = function (help_mode) {
       var module_dir = path.join(output_dir, 'module');
       files.mkdirp(module_dir);
       files.walk(src_dir, function (file) {
-        var name = bolt.compiler.mode.Identify.run(file);
+        var name = compiler.mode.Identify.run(file);
         files.write(path.join(module_dir, name + '.js'), files.read(file));
       });
     }

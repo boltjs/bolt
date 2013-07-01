@@ -1,7 +1,9 @@
-bolt.loader.api.XhrInjector = def(
+define(
+  'bolt.loader.api.XhrInjector',
+
   [
-    bolt.loader.transporter.Xhr,
-    bolt.loader.executor.Injector
+    'bolt.loader.transporter.Xhr',
+    'bolt.loader.executor.Injector'
   ],
 
   function (Xhr, Injector) {

@@ -1,8 +1,10 @@
-bolt.kernel.api.Config = def(
+define(
+  'bolt.kernel.api.Config',
+
   [
-    bolt.kernel.module.Manager,
-    bolt.kernel.api.Regulator,
-    bolt.kernel.api.Sources
+    'bolt.kernel.module.Manager',
+    'bolt.kernel.api.Regulator',
+    'bolt.kernel.api.Sources'
   ],
 
   function (Manager, Regulator, Sources) {

@@ -1,4 +1,6 @@
-bolt.loader.transporter.Xhr = def(
+define(
+  'bolt.loader.transporter.Xhr',
+
   [
   ],
 

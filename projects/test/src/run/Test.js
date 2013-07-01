@@ -1,22 +1,23 @@
-bolt.test.run.Test = def(
+define(
+  'bolt.test.run.Test',
+
   [
-    bolt.module.bootstrap.Install,
-    bolt.test.run.Config
+    'bolt.test.run.Config'
   ],
 
-  function (Install, Config) {
-    var create = function (builtins, load, loadscript, reporter, reader) {
-
+  function (Config) {
+    return function (bolt, reporter, config) {
       return function (next, wrapper, testfile, name, replacements, deps, fn) {
-        var enriched = Config.enricher(reader, testfile, replacements);
-        Install.install(enriched, builtins, load, loadscript);
-        var wrapped = wrapper(reporter, testfile, name, fn, next);
-        bolt.module.api.require(deps, wrapped);
+        bolt.reconfigure({
+          configs: [
+            config
+          ],
+          sources: Config.sources(testfile, replacements)
+        });
+        Function('return this;')().define = bolt.define;
+        var wrapped = wrapper(bolt, reporter, testfile, name, fn, next);
+        bolt.require(deps, wrapped);
       };
-    };
-
-    return {
-      create: create
     };
   }
 );

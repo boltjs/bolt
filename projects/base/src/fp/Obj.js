@@ -1,4 +1,6 @@
-bolt.base.fp.Obj = def(
+define(
+  'bolt.base.fp.Obj',
+
   [
   ],
 

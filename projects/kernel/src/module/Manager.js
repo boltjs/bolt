@@ -1,9 +1,11 @@
-bolt.kernel.module.Manager = def(
+define(
+  'bolt.kernel.module.Manager',
+
   [
-    bolt.base.fp.Arr,
-    bolt.base.fp.Obj,
-    bolt.kernel.module.Loader,
-    bolt.kernel.module.Fetcher
+    'bolt.base.fp.Arr',
+    'bolt.base.fp.Obj',
+    'bolt.kernel.module.Loader',
+    'bolt.kernel.module.Fetcher'
   ],
 
   function (Arr, Obj, Loader, Fetcher) {

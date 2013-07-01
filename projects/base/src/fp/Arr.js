@@ -1,4 +1,6 @@
-bolt.base.fp.Arr = def(
+define(
+  'bolt.base.fp.Arr',
+
   [
   ],
 

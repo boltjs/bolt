@@ -1,0 +1,13 @@
+  var api = {
+    run: demand('bolt.test.run.Runner'),
+    report: {
+        ConsoleReporter: demand('bolt.test.report.ConsoleReporter')
+    }
+  }
+  demand('bolt.base.platform.Platform').run(function () {
+    module.exports = api;
+  }, function () {
+    window.bolt = window.bolt || {};
+    window.bolt.test = api;
+  });
+})();

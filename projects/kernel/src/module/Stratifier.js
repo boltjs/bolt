@@ -1,6 +1,8 @@
-bolt.kernel.module.Stratifier = def(
+define(
+  'bolt.kernel.module.Stratifier',
+
   [
-    bolt.base.fp.Arr
+    'bolt.base.fp.Arr'
   ],
 
   function (Arr) {

@@ -40,10 +40,12 @@
  *       the piggybacker DOES NOT prevent this call, and will follow
  *       the above process.
  */
-bolt.kernel.async.Piggybacker = def(
+define(
+  'bolt.kernel.async.Piggybacker',
+
   [
-    bolt.base.fp.Arr,
-    bolt.base.fp.Func
+    'bolt.base.fp.Arr',
+    'bolt.base.fp.Func'
   ],
 
   function (Arr, Func) {

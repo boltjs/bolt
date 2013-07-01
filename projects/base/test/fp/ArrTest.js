@@ -16,7 +16,7 @@ var doubleitarray = function (i) {
   return [doubleit(i)];
 };
 
-var Arr = bolt.base.fp.Arr;
+var Arr = demand('bolt.base.fp.Arr');
 
 assert(Arr.equals([1, 2, 3], [1, 2, 3]), "arrays are equal.");
 assert(!Arr.equals([1, 2, 3], [1, 2, 3, 4]), "mismatch in length of second arg is not equal");

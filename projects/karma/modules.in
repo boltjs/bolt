@@ -1,9 +1,7 @@
 NAME = bolt-karma
-MODULES = \
-	../base/gen/base.js \
-	../kernel/gen/kernel.js \
-	../loader/gen/loader.js \
-	../module/gen/module.js \
-	../test/gen/test.js \
+WRAPPED = \
+	${SRC}/bolt-karma.js.pre \
+	../framework/src/modules.js \
+	../base/gen/dist/base.modules.js \
 	${SRC}/bolt-karma.js
 DISTFILES =

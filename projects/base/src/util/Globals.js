@@ -1,4 +1,6 @@
-bolt.base.util.Globals = def(
+define(
+  'bolt.base.util.Globals',
+
   [
   ],
 

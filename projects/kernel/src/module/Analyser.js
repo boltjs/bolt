@@ -11,9 +11,11 @@
  *      satisfy the given dependency trees, or
  *   3. an array of strings that form a dependency cycle.
  */
-bolt.kernel.module.Analyser = def(
+define(
+  'bolt.kernel.module.Analyser',
+
   [
-    bolt.base.fp.Arr
+    'bolt.base.fp.Arr'
   ],
 
   function (Arr) {

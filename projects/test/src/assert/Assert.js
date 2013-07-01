@@ -1,6 +1,8 @@
-bolt.test.assert.Assert = def(
+define(
+  'bolt.test.assert.Assert',
+
   [
-    bolt.test.assert.Compare
+    'bolt.test.assert.Compare'
   ],
 
   function (Compare) {

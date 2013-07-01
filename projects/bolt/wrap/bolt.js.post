@@ -1,0 +1,2 @@
+  demand('bolt.runtime.entry.Main')();
+})();

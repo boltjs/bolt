@@ -1,4 +1,6 @@
-bolt.test.report.Timer = def(
+define(
+  'bolt.test.report.Timer',
+
   [
   ],
 

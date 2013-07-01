@@ -1,7 +1,9 @@
-bolt.loader.api.XhrEvaller = def(
+define(
+  'bolt.loader.api.XhrEvaller',
+
   [
-    bolt.loader.transporter.Xhr,
-    bolt.loader.executor.Evaller
+    'bolt.loader.transporter.Xhr',
+    'bolt.loader.executor.Evaller'
   ],
 
   function (Xhr, Evaller) {

@@ -1,6 +1,6 @@
 require('../include/include.js');
 
-var Fetcher = bolt.kernel.module.Fetcher;
+var Fetcher = demand('bolt.kernel.module.Fetcher');
 
 var onerror = function (message) {
   assert(false, 'kernel call failed: ' + message);

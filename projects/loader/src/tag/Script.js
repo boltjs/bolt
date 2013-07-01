@@ -1,4 +1,6 @@
-bolt.loader.tag.Script = def(
+define(
+  'bolt.loader.tag.Script',
+
   [
   ],
 

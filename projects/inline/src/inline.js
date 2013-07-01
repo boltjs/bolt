@@ -20,7 +20,7 @@ var instantiate = function (id) {
     instances.push(dem(dependencies[i]));
   defs[id].instance = definition.apply(null, instances);
   if (defs[id].instance === undefined)
-     throw 'required module [' + id + '] could not be defined (definition function returned undefined)';
+   throw 'required module [' + id + '] could not be defined (definition function returned undefined)';
 };
 
 var def = function (id, dependencies, definition) {
@@ -55,11 +55,7 @@ var req = function (ids, callback) {
 var bolt = this.bolt || {};
 
 bolt = {
-  module: {
-    api: {
-      define: def,
-      require: req,
-      demand: dem
-    }
-  }
+  define: def,
+  require: req,
+  demand: dem
 };
