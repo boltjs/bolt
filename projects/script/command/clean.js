@@ -11,8 +11,7 @@ var usage = function () {
          '                              directory that shall be cleaned (corresponds to\n' +
          '                              -o|--ouput for bolt build command).\n' +
          '                                default: gen/bolt\n' +
-         '  -v|--verbose                turn on verbose clean output.\n' +
-         '\n';
+         '  -v|--verbose                turn on verbose clean output.\n';
 };
 
 var fail_usage = function (code, message) {
