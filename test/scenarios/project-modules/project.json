@@ -1,0 +1,5 @@
+{
+  "build": {
+    "flat-modules": true
+  }
+}

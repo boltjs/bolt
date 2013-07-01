@@ -1,0 +1,19 @@
+#!/bin/sh -eu
+
+source $(dirname $0)/../../library/assert.subr
+
+SCENARIO=project-entry-points
+
+bolt clean
+
+testing 'build'
+
+bolt build
+
+assert_exists \
+    gen/bolt/compile/test.Main.js \
+    gen/bolt/compile/bootstrap.js
+
+assert_not_exists \
+    gen/bolt/module \
+    gen/bolt/inline

@@ -4,7 +4,7 @@ MAKEFLAGS = ${MFLAGS}
 MODULE = bolt
 VERSION = local
 
-PROJECTS= \
+PROJECTS = \
 	base \
 	loader \
 	kernel \
@@ -14,6 +14,8 @@ PROJECTS= \
 	bootstrap \
 	karma \
 	compiler
+TESTS = \
+	test/scenarios/*/run-test
 
 PROJECTS_DIR = projects
 
@@ -41,7 +43,7 @@ PUBLISH_ARTIFACTS = ${TAR} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-ka
 
 DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE} ${RELEASE_DIR} ${RELEASE_DIR}/bin ${RELEASE_DIR}/lib ${RELEASE_DIR}/command
 
-.PHONY: clean dist artifacts publish npm-register release ${PROJECTS} ${RELEASE_DIR} ${PUBLISH_DIR} ${PUBLISH_REPO}
+.PHONY: clean dist artifacts publish npm-register verify release ${PROJECTS} ${RELEASE_DIR} ${PUBLISH_DIR} ${PUBLISH_REPO}
 
 default: clean artifacts
 
@@ -57,13 +59,18 @@ artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACT
 	cp ${PROJECTS_DIR}/script/command/* ${RELEASE_DIR}/command/.
 	cp ${PROJECTS_DIR}/script/lib/* ${RELEASE_DIR}/lib/.
 
+verify: artifacts
+	for x in ${TESTS}; do \
+	    (cd `dirname $$x`; PATH="${RELEASE_DIR};$$PATH" ./run-test) || exit 1; \
+	done
+
 release: clean
 	expr `cat ${CONFIG_BUILD}` + 1 > ${CONFIG_BUILD}
 	git commit -m "[release] Bump build number [`cat ${CONFIG_VERSION}`-`cat ${CONFIG_BUILD}`]." ${CONFIG_BUILD}
 	git push origin master
 	${MAKE} ${MFLAGS} publish VERSION=`cat ${CONFIG_VERSION}`-`cat ${CONFIG_BUILD}`
 
-publish: npm-register artifacts ${TAR} ${RELEASE_DIR} ${PUBLISH_REPO} ${PUBLISH_DIR}
+publish: npm-register artifacts verify ${TAR} ${RELEASE_DIR} ${PUBLISH_REPO} ${PUBLISH_DIR}
 	cp ${PUBLISH_ARTIFACTS} ${PUBLISH_DIR}
 	${PUBLISH_GIT} add .
 	${PUBLISH_GIT} commit -m "[release] ${VERSION}"

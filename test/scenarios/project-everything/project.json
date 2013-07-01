@@ -1,0 +1,22 @@
+{
+  "build": {
+    "flat-modules": true,
+    "inline-main": "test.Main",
+    "inline-register": true,
+    "entry-groups": {
+      "test": [ "src/js/test/Main.js" ]
+    },
+    "entry-points": [ "src/js/test/Main.js" ]
+  },
+  "test": {
+    "node": {
+      "verbose": true,
+      "config": "config/bolt/node-test.js",
+      "tests": [
+        "test/node/ModuleOneTest.js",
+        "test/node/ModuleTwoTest.js",
+        "test/node/ModuleThreeTest.js"
+      ]
+    }
+  }
+}

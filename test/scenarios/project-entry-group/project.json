@@ -1,0 +1,7 @@
+{
+  "build": {
+    "entry-groups": {
+      "test": [ "src/js/test/Main.js" ]
+    }
+  }
+}

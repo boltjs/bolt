@@ -1,0 +1,74 @@
+#!/bin/sh -eu
+
+source $(dirname $0)/../../library/assert.subr
+
+SCENARIO=no-project
+
+testing 'clean'
+
+bolt clean -o gen/bolt
+
+assert_not_exists \
+    gen/bolt
+
+testing 'modules flag'
+
+bolt build -s src/js -o gen/bolt -m
+
+assert_exists \
+    gen/bolt/module/test.ModuleOne.js \
+    gen/bolt/module/test.ModuleTwo.js \
+    gen/bolt/module/test.ModuleThree.js \
+    gen/bolt/module/test.Main.js
+
+assert_not_exists \
+    gen/bolt/compile \
+    gen/bolt/inline
+
+
+testing 'clean'
+
+bolt clean -o gen/bolt
+
+assert_not_exists \
+    gen/bolt
+
+
+testing 'entry points'
+
+bolt build -s src/js -o gen/bolt -e src/js/test/Main.js
+
+assert_exists \
+    gen/bolt/compile/test.Main.js \
+    gen/bolt/compile/bootstrap.js
+
+assert_not_exists \
+    gen/bolt/module \
+    gen/bolt/inline
+
+bolt clean -o gen/bolt
+
+
+testing 'clean'
+
+bolt clean -o gen/bolt
+
+assert_not_exists \
+    gen/bolt
+
+testing 'entry group'
+
+bolt build -s src/js -o gen/bolt -g test src/js/test/Main.js
+
+assert_exists \
+    gen/bolt/compile/test.js \
+    gen/bolt/compile/bootstrap.js
+
+assert_not_exists \
+    gen/bolt/module \
+    gen/bolt/inline
+
+
+testing 'test'
+
+find test/node -name \*Test.js | xargs bolt test -v config/bolt/node-test.js

@@ -1,0 +1,8 @@
+{
+  "build": {
+    "entry-groups": {
+      "test": [ "src/js/test/Main.js" ]
+    },
+    "inline-main": "bolt.test.Main"
+  }
+}

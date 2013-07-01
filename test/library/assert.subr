@@ -1,0 +1,25 @@
+assert_exists() {
+    for f in "$@"; do
+        if [ -f "$f" ]; then
+            printf "  [passed] file exists at: %s\n" "$f"
+        else
+            printf "  [failed] file does not exist at: %s\n" "$f"
+            exit 1
+        fi
+    done
+}
+
+assert_not_exists() {
+    for f in "$@"; do
+        if [ ! -f "$f" ]; then
+            printf "  [passed] file does not exist at: %s\n" "$f"
+        else
+            printf "  [failed] file exists at: %s\n" "$f"
+            exit 1
+        fi
+    done
+}
+
+testing() {
+    echo "[${SCENARIO:?scenario not set.}:$1]"
+}

@@ -1,0 +1,13 @@
+{
+  "test": {
+    "node": {
+      "verbose": true,
+      "config": "config/bolt/node-test.js",
+      "tests": [
+        "test/node/ModuleOneTest.js",
+        "test/node/ModuleTwoTest.js",
+        "test/node/ModuleThreeTest.js"
+      ]
+    }
+  }
+}

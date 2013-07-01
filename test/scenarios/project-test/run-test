@@ -1,0 +1,11 @@
+#!/bin/sh -eu
+
+source $(dirname $0)/../../library/assert.subr
+
+SCENARIO=project-test
+
+bolt clean
+
+testing 'test'
+
+bolt test

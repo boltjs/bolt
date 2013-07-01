@@ -1,0 +1,5 @@
+{
+  "build": {
+    "entry-points": [ "src/js/test/Main.js" ]
+  }
+}
