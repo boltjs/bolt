@@ -9,5 +9,14 @@
       ],
 			"path": "."
 		}
-	]
+	],
+
+  "settings" : {
+    "bolt.project": {
+      "resources": {
+        "namespaced": ["src/js", "test/js"],
+        "external": ["underscore", "jquery"]
+      }
+    }
+  }
 }

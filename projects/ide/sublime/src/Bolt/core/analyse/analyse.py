@@ -4,10 +4,10 @@ from structs.highlight_list import *
 from structs.plasma import *
 
 
-def all(base, nests, plasmas, spots):
+def all(base, nests, plasmas, spots, external):
     unused_list = unused(plasmas, spots)
     missing_list = missing(plasmas, spots)
-    incorrect_list = incorrect(base, nests, plasmas)
+    incorrect_list = incorrect(base, nests, plasmas, external)
     return HighlightList(incorrect_list, missing_list, unused_list)
 
 
@@ -33,8 +33,8 @@ def missing(plasmas, spots):
     return filter(pred, spots)
 
 
-def incorrect(base, nests, xs):
+def incorrect(base, nests, xs, external):
     def pred(x):
         candidates = lookup_files.file_by_dep(base, x, nests)
-        return len(candidates) == 0 and "!" not in x.dep
+        return len(candidates) == 0 and "!" not in x.dep and x.dep not in external
     return filter(pred, xs)

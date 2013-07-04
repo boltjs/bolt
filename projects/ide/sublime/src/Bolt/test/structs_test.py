@@ -1,7 +1,7 @@
 import unittest
 
 from structs.nest import *
-from structs import flat, hier
+from structs import flat, hier, namespaced
 
 
 class TestStructPackage(unittest.TestCase):
@@ -17,6 +17,13 @@ class TestStructPackage(unittest.TestCase):
         self.assertEqual('Word.js', h.pattern('Word'))
         self.assertEqual('bolt.dog.Dog', h.dep('src/main/js/bolt/dog/Dog.js'))
         self.assertEqual('src/main/js/bolt/cat/Cat.js', h.path('bolt.cat.Cat'))
+
+        n = namespaced.nu('src/js')
+        self.assertEqual('src/js', n.base)
+        self.assertEqual('Word.js', n.pattern('Word'))
+        self.assertEqual('bolt.dog.Dog', n.dep('src/js/bolt.dog/Dog.js'))
+        self.assertEqual('src/js/bolt.dog/Dog.js', n.path('bolt.dog.Dog'))
+        self.assertEqual('src/js/bolt.dog.bone/Dog.js', n.path('bolt.dog.bone.Dog'))
 
 
 if __name__ == '__main__':

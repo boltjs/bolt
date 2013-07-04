@@ -104,7 +104,7 @@ def clear(view):
 def _highlighter(read_view, spots, plasmas, callback):
     def r():
         try:
-            highlights = analyse.all(read_view.base, read_view.nests, plasmas, spots)
+            highlights = analyse.all(read_view.base, read_view.nests, plasmas, spots, read_view.external)
             module_wrong = analyse.module_wrong(read_view)
             callback(highlights, module_wrong)
 

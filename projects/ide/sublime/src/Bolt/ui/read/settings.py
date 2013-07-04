@@ -1,13 +1,15 @@
 import sublime
-from structs import flat, hier
 
 
 def load_settings():
     return sublime.load_settings('bolt.sublime-settings')
 
 
-def nests():
+def get_from_lightning_settings():
     settings = load_settings()
-    hierarchy_list = map(hier.nu, settings.get('hierarchy'))
-    flat_list = map(flat.nu, settings.get('flat'))
-    return hierarchy_list + flat_list
+    resources = {'flat': settings.get('flat', []), 'hierarchy': settings.get('hierarchy', []), 'namespaced': []}
+    return {'resources': resources}
+
+
+def project_settings(view):
+    return view.settings().get('bolt.project', get_from_lightning_settings())
