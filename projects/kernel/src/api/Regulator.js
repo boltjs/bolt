@@ -1,7 +1,9 @@
-bolt.kernel.api.Regulator = def(
+define(
+  'bolt.kernel.api.Regulator',
+
   [
-    bolt.base.fp.Arr,
-    bolt.base.fp.Func
+    'bolt.base.fp.Arr',
+    'bolt.base.fp.Func'
   ],
 
   function (Arr, Func) {
@@ -26,6 +28,7 @@ bolt.kernel.api.Regulator = def(
         var r = [];
         for (var i = 0; i < ids.length; ++i) {
           var id = ids[i];
+
           var source = sources.find(id);
           if (source.notfound) {
             onerror('Could not find source for module [' +  id + ']');

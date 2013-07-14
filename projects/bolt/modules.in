@@ -1,0 +1,28 @@
+NAME = bolt
+MODULES = \
+	${SRC}/error/Error.js \
+	${SRC}/config/Mapper.js \
+	${SRC}/api/Bolt.js \
+	${SRC}/api/DeferredBolt.js \
+	${SRC}/modulator/Bolt.js \
+	${SRC}/modulator/Library.js \
+	${SRC}/profile/BrowserProfile.js \
+	${SRC}/profile/NodeProfile.js \
+	${SRC}/config/Specs.js \
+	${SRC}/reader/Bouncing.js \
+	${SRC}/reader/BrowserReader.js \
+	${SRC}/reader/NodeReader.js \
+	${SRC}/reader/Reader.js \
+	${SRC}/entry/BrowserConfig.js \
+	${SRC}/entry/NodeMain.js \
+	${SRC}/entry/BrowserMain.js \
+	${SRC}/entry/Main.js
+
+WRAPPED = \
+	${WRAP}/bolt.js.pre \
+	../framework/src/modules.js \
+	../base/gen/dist/base.modules.js \
+	../kernel/gen/dist/kernel.modules.js \
+	../loader/gen/dist/loader.modules.js \
+	gen/dist/bolt.modules.js \
+	${WRAP}/bolt.js.post

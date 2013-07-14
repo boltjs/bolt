@@ -1,6 +1,8 @@
-bolt.kernel.modulator.Globalator = def(
+define(
+  'bolt.kernel.modulator.Globalator',
+
   [
-    bolt.base.util.Globals
+    'bolt.base.util.Globals'
   ],
 
   function (Globals) {

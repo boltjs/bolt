@@ -1,6 +1,8 @@
-bolt.loader.api.ScriptTag = def(
+define(
+  'bolt.loader.api.ScriptTag',
+
   [
-    bolt.loader.tag.Script
+    'bolt.loader.tag.Script'
   ],
 
   function (Script) {

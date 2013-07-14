@@ -1,8 +1,20 @@
-bolt.base.fp.Func = def(
+define(
+  'bolt.base.fp.Func',
+
   [
   ],
 
   function () {
+    var constant = function (v) {
+      return function () {
+        return v;
+      };
+    };
+
+    var identity = function (v) {
+      return v;
+    };
+
     var curry = function (f) {
       var slice = Array.prototype.slice;
       var args = slice.call(arguments, 1);
@@ -25,6 +37,8 @@ bolt.base.fp.Func = def(
     };
 
     return {
+      constant: constant,
+      identity: identity,
       curry: curry,
       not: not,
       apply: apply

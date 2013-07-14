@@ -1,7 +1,7 @@
 require('../include/include.js');
 
-var Func = bolt.base.fp.Func;
-var Arr = bolt.base.fp.Arr;
+var Func = demand('bolt.base.fp.Func');
+var Arr = demand('bolt.base.fp.Arr');
 
 
 var something = function (a, b, c, d, e) {

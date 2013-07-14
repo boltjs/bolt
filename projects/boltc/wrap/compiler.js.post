@@ -1,0 +1,11 @@
+  // FIX flatten this structure.
+  module.exports = {
+    mode: {
+      Inline: demand('boltc.mode.Inline'),
+      Compile: demand('boltc.mode.Compile'),
+      Identify: demand('boltc.mode.Identify'),
+      Link: demand('boltc.mode.Link')
+    },
+    demand: demand
+  };
+})();

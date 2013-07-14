@@ -1,11 +1,14 @@
-bolt.kernel.api.Sources = def(
+define(
+  'bolt.kernel.api.Sources',
+
   [
-    bolt.base.fp.Arr,
-    bolt.base.fp.Obj,
-    bolt.kernel.modulator.Globalator
+    'bolt.base.fp.Arr',
+    'bolt.base.fp.Obj',
+    'bolt.base.util.Pather',
+    'bolt.kernel.modulator.Globalator'
   ],
 
-  function (Arr, Obj, Globalator) {
+  function (Arr, Obj, Pather, Globalator) {
     var create = function (builtins, configuration) {
       var data = {
         'global': { instance: Globalator }
@@ -56,7 +59,7 @@ bolt.kernel.api.Sources = def(
         Arr.each(sourcespecs, function (spec) {
           if (isResolved(spec.type)) {
             var instance = instanceOf(spec.type);
-            var source = instance.create.apply(null, spec.args);
+            var source = instance.apply(null, [ Pather(spec.relativeto) ].concat(spec.args));
             sources.push(source);
           } else
             left.push(spec);

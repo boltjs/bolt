@@ -1,10 +1,12 @@
-bolt.kernel.module.Fetcher = def(
+define(
+  'bolt.kernel.module.Fetcher',
+
   [
-    bolt.base.fp.Arr,
-    bolt.base.fp.Func,
-    bolt.kernel.async.Map,
-    bolt.kernel.async.Piggybacker,
-    bolt.kernel.module.Stratifier
+    'bolt.base.fp.Arr',
+    'bolt.base.fp.Func',
+    'bolt.kernel.async.Map',
+    'bolt.kernel.async.Piggybacker',
+    'bolt.kernel.module.Stratifier'
   ],
 
   function (Arr, Func, Map, Piggybacker, Stratifier) {

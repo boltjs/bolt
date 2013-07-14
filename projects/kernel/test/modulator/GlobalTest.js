@@ -1,6 +1,6 @@
 require('../include/include');
 
-var Globalator = bolt.kernel.modulator.Globalator;
+var Globalator = demand('bolt.kernel.modulator.Globalator');
 
 var source = Globalator.create();
 

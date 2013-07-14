@@ -1,4 +1,6 @@
-bolt.base.util.Path = def(
+define(
+  'bolt.base.util.Path',
+
   [
   ],
 

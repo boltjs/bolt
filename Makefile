@@ -8,12 +8,12 @@ PROJECTS = \
 	base \
 	loader \
 	kernel \
-	module \
+	bolt \
 	test \
 	inline \
-	bootstrap \
 	karma \
-	compiler
+	boltc
+
 TESTS = \
 	test/scenarios/*/run-test
 
@@ -21,6 +21,13 @@ PROJECTS_DIR = projects
 
 GEN = gen
 DIST = ${GEN}/dist
+
+DIST_ARTIFACTS = \
+	projects/inline/gen/dist/* \
+	projects/boltc/gen/dist/boltc.js \
+	projects/test/gen/dist/test.js \
+	projects/karma/gen/dist/bolt-karma.js \
+	projects/bolt/gen/dist/bolt.js
 
 TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image
@@ -47,21 +54,28 @@ DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE} ${RELEASE_DIR} ${RELEASE_DIR}/bin ${RE
 
 default: clean artifacts
 
-clean: ${PROJECTS_CLEAN}
+clean:
 	rm -rf ./${GEN}
+	for x in ${PROJECTS}; do \
+	    (cd projects/$$x; ${MAKE} ${MFLAGS} clean); \
+	done
+	for x in test/scenarios/*; do \
+	    rm -rf ./$$x/gen;  \
+	done
+
 
 dist: ${TAR}
 
 artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACTS} ${RELEASE_DIR}/bin ${RELEASE_DIR}/lib ${RELEASE_DIR}/command
 	cp ${STATIC_ARTIFACTS} ${RELEASE_DIR}/.
-	for x in ${PROJECTS}; do cp ${PROJECTS_DIR}/$$x/gen/* ${RELEASE_DIR}/lib/. ; done
+	cp ${DIST_ARTIFACTS} ${RELEASE_DIR}/lib/.
 	cp ${PROJECTS_DIR}/script/bin/* ${RELEASE_DIR}/bin/.
 	cp ${PROJECTS_DIR}/script/command/* ${RELEASE_DIR}/command/.
 	cp ${PROJECTS_DIR}/script/lib/* ${RELEASE_DIR}/lib/.
 
 verify: artifacts
 	for x in ${TESTS}; do \
-	    (cd `dirname $$x`; PATH="${RELEASE_DIR};$$PATH" ./run-test) || exit 1; \
+	    (cd `dirname $$x`; export RELEASE_DIR="../../../${RELEASE_DIR}"; PATH="../../../${RELEASE_DIR};$$PATH" ./run-test) || exit 1; \
 	done
 
 release: clean

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
 var usage = function () {
-  return 'usage: jsc dev      [-c|--config CONFIG_JS] [BOOTSTRAP_TARGET]\n' +
-         '    or jsc compile  [-c|--config CONFIG_JS] MODULE_FILE ... COMPILE_TARGET\n' +
+  return 'usage: jsc compile  [-c|--config CONFIG_JS] MODULE_FILE ... COMPILE_TARGET\n' +
          '    or jsc identify MODULE_FILE\n' +
          '    or jsc inline   [-c|--config CONFIG_JS] [-n|--invoke-main MAIN_MODULE]\n' +
          '                    [-r|--register] COMPILE_FILE ... LINK_TARGET\n' +
@@ -10,9 +9,6 @@ var usage = function () {
          '    or jsc help\n' +
          '\n' +
          'arguments:\n' +
-         '  BOOTSTRAP_TARGET file to generate for running in dev mode, this defaults\n' +
-         '                   to a file called bootstrap.js in the same directory as\n' +
-         '                   CONFIG_JS\n' +
          '  MODULE_FILE      file containing an uncompiled module\n' +
          '  COMPILE_TARGET   file to generate when compiling, will contain the set of\n' +
          '                   modules and their dependencies\n' +
@@ -51,7 +47,6 @@ var mode = process.argv[0];
 process.argv.shift();
 
 switch (mode) {
-  case 'dev':
   case 'compile':
   case 'identify':
   case 'inline':
@@ -59,7 +54,7 @@ switch (mode) {
   case 'help':
     break;
   default:
-    fail_usage(1, 'invalid mode [' + mode + '], must be one of dev|compile|identify|inline|link|help');
+    fail_usage(1, 'invalid mode [' + mode + '], must be one of compile|identify|inline|link|help');
 }
 
 if (mode === 'help') {
@@ -103,30 +98,11 @@ while (process.argv.length > 0 && process.argv[0][0] === '-') {
 }
 
 
-require('./../lib/kernel');
-require('./../lib/loader');
-require('./../lib/module');
-require('./../lib/compiler');
+require('./../lib/bolt');
+require('./../lib/boltc');
 
 var path = require('path');
 var fs = require('fs');
-
-
-var dev = function () {
-  var bootstrap = '';
-  switch (process.argv.length) {
-    case 0:
-      bootstrap = path.dirname(config_js) + '/bootstrap.js';
-      break;
-    case 1:
-      bootstrap = process.argv[0];
-      break;
-    default:
-      fail_usage(1, 'invalid number of arguments for jsc dev [' + process.argv.length + ']');
-  }
-
-  bolt.compiler.mode.Dev.run(config_js, bootstrap);
-};
 
 var compile = function () {
   if (process.argv.length < 2)
@@ -134,14 +110,14 @@ var compile = function () {
 
   var files = process.argv.slice(0, -1);
   var target = process.argv[process.argv.length - 1];
-  bolt.compiler.mode.Compile.run(config_js, files, target);
+  boltc.mode.Compile.run(config_js, files, target);
 };
 
 var identify = function () {
   if (process.argv.length !== 1)
     fail_usage(1, 'invalid number of arguments for jsc identify [' + process.argv.length + ']');
 
-  var id = bolt.compiler.mode.Identify.run(process.argv[0]);
+  var id = boltc.mode.Identify.run(process.argv[0]);
   console.log(id);
 };
 
@@ -151,7 +127,7 @@ var inline = function () {
 
   var files = process.argv.slice(0, -1);
   var target = process.argv[process.argv.length - 1];
-  bolt.compiler.mode.Inline.run(config_js, files, target, register_modules, main);
+  boltc.mode.Inline.run(config_js, files, target, register_modules, main);
 };
 
 var link = function () {
@@ -160,7 +136,7 @@ var link = function () {
 
   var files = process.argv.slice(0, -1);
   var target = process.argv[process.argv.length - 1];
-  bolt.compiler.mode.Link.run(config_js, files, target);
+  boltc.mode.Link.run(config_js, files, target);
 };
 
 

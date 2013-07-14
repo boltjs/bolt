@@ -1,3 +1,4 @@
-require("../../lib/framework/assert.js");
-require("../../../base/gen/base.js");
-require("../../gen/loader.js");
+require('../../../framework/src/assert.js');
+require('../../../framework/src/modules-global.js');
+require('../../../base/gen/dist/base.modules.js');
+require('../../gen/dist/loader.modules.js');

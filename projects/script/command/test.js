@@ -81,25 +81,30 @@ module.exports = function (help_mode) {
 
   var fs = require('fs');
 
-  require('./../lib/base');
-  require('./../lib/kernel');
-  require('./../lib/loader');
-  require('./../lib/module');
-  require('./../lib/test');
-
   var project_file_reader = require('./../lib/project-file-reader');
-  var Globals = bolt.base.util.Globals;
 
   if (project_file && (!fs.existsSync(project_file) || !fs.statSync(project_file).isFile()))
     fail(1, project_file + ' does not exist or is not a file');
 
   var config = project_file_reader.read(project_file || 'project.json', fail);
 
-  verbose = verbose || Globals.resolve('test.node.verbose', config) === true;
+  var resolve = function (name, scope) {
+    var get = function (parts, scope) {
+      var r = scope;
+      for (var i = 0; i < parts.length && r !== undefined; ++i)
+        r = r[parts[i]];
+      return r;
+    };
+
+    var parts = name.split('.');
+    return get(parts, scope);
+  };
+
+  verbose = verbose || resolve('test.node.verbose', config) === true;
   var config_js = process.argv.length > 0 ? config_js = process.argv.shift() :
-      Globals.resolve('test.node.config', config);
+      resolve('test.node.config', config);
   var tests = process.argv.length > 0 ? process.argv.slice(0) :
-      Globals.resolve('test.node.tests', config) || [];
+      resolve('test.node.tests', config) || [];
 
   if (!config_js || tests.length === 0)
     fail_usage(1, 'Not enough arguments, must specify configuration and at least one test file.');
@@ -112,9 +117,6 @@ module.exports = function (help_mode) {
       fail(20, 'Could not find test file [' + file + ']');
   });
 
-
-  var reporter = bolt.test.report.Logger.create(verbose);
-  var reader = bolt.base.fp.Func.curry(bolt.module.reader.Node.read, process.cwd() + '/.', config_js);
-
-  bolt.test.run.Runner.run(reporter, reader, tests);
+  var test = require('./../lib/test');
+  test.run(config_js, tests, test.report.ConsoleReporter(verbose));
 };

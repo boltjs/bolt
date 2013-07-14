@@ -1,6 +1,8 @@
-bolt.loader.executor.Injector = def(
+define(
+  'bolt.loader.executor.Injector',
+
   [
-    bolt.loader.tag.Script
+    'bolt.loader.tag.Script'
   ],
 
   function (Script) {

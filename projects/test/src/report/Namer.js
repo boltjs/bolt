@@ -1,4 +1,6 @@
-bolt.test.report.Namer = def(
+define(
+  'bolt.test.report.Namer',
+
   [
   ],
 

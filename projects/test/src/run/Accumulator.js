@@ -1,6 +1,8 @@
-bolt.test.run.Accumulator = def(
+define(
+  'bolt.test.run.Accumulator',
+
   [
-    bolt.base.fp.Func
+    'bolt.base.fp.Func'
   ],
 
   function (Func) {

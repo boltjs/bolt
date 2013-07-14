@@ -1,13 +1,13 @@
 var blueprints = [];
 
-global.define =  function (id, deps) {
+global.testdefine =  function (id, deps) {
   blueprints.push({ id: id, deps: deps });
 };
 
 require("../include/include.js");
 
 
-var Evaller = bolt.loader.executor.Evaller;
+var Evaller = demand('bolt.loader.executor.Evaller');
 
 Evaller.execute(
   "true",
@@ -22,7 +22,7 @@ Evaller.execute(
 );
 
 Evaller.execute(
-  "define('mth', ['marli'], function () {});",
+  "testdefine('mth', ['marli'], function () {});",
   function () { assert(blueprints.length === 1 && blueprints[0].id === "mth", "define is called"); },
   function (error) { assert(false, "define is called: " + error); }
 );

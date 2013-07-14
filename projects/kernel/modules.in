@@ -1,10 +1,8 @@
 NAME = kernel
 MODULES = \
-	${SRC}/prelude/namespace.js \
 	${SRC}/async/Map.js \
 	${SRC}/async/Piggybacker.js \
 	${SRC}/modulator/Globalator.js \
-	${SRC}/modulator/Bolt.js \
 	${SRC}/module/Stratifier.js \
 	${SRC}/module/Analyser.js \
 	${SRC}/module/Fetcher.js \

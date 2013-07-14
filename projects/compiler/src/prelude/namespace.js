@@ -1,9 +1,0 @@
-bolt.compiler = {};
-bolt.compiler.bootstrap = {};
-bolt.compiler.compile = {};
-bolt.compiler.inspect = {};
-bolt.compiler.generator = {};
-bolt.compiler.minibolt = {};
-bolt.compiler.mode = {};
-bolt.compiler.modulator = {};
-bolt.compiler.tools = {};

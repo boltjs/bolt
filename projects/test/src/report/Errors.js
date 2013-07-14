@@ -1,4 +1,6 @@
-bolt.test.report.Errors = def(
+define(
+  'bolt.test.report.Errors',
+
   [
   ],
 
@@ -20,9 +22,7 @@ bolt.test.report.Errors = def(
       if (!e.stack)
         return '';
       var lines = e.stack.split('\n').filter(function (line) {
-        return line.indexOf('at') !== -1 &&
-          !(line.indexOf('/kernel.js') !== -1 ||
-            line.indexOf('/test.js') !== -1);
+        return line.indexOf('at') !== -1 && line.indexOf('/bolt.js') === -1;
       });
       return '\n' + lines.join('\n');
     };

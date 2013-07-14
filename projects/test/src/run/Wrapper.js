@@ -1,6 +1,8 @@
-bolt.test.run.Wrapper = def(
+define(
+  'bolt.test.run.Wrapper',
+
   [
-    bolt.test.assert.Assert
+    'bolt.test.assert.Assert'
   ],
 
   function (Assert) {
@@ -8,10 +10,10 @@ bolt.test.run.Wrapper = def(
 
     global.assert = Assert;
 
-    var sync = function (reporter, testfile, name, f, next) {
-      global.define = bolt.module.api.define;
-      global.require = bolt.module.api.require;
-      global.demand = bolt.module.api.demand;
+    var sync = function (bolt, reporter, testfile, name, f, next) {
+      global.define = bolt.define;
+      global.require = bolt.require;
+      global.demand = bolt.demand;
 
       return function (/* arguments */) {
         var testcase = reporter.test(testfile, name);
@@ -29,10 +31,10 @@ bolt.test.run.Wrapper = def(
       };
     };
 
-    var async = function (reporter, testfile, name, f, next) {
-      global.define = bolt.module.api.define;
-      global.require = bolt.module.api.require;
-      global.demand = bolt.module.api.demand;
+    var async = function (bolt, reporter, testfile, name, f, next) {
+      global.define = bolt.define;
+      global.require = bolt.require;
+      global.demand = bolt.demand;
 
       return function (/* arguments */) {
         var testcase = reporter.test(testfile, name);

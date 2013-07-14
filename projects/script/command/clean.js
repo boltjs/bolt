@@ -70,18 +70,26 @@ module.exports = function (help_mode) {
 
   var files = require('./../lib/files');
 
-  // FIX clean this up and de-duplicate argument/config processing in commands.
+  var resolve = function (name, scope) {
+    var get = function (parts, scope) {
+      var r = scope;
+      for (var i = 0; i < parts.length && r !== undefined; ++i)
+        r = r[parts[i]];
+      return r;
+    };
 
-  require('./../lib/base');
+    var parts = name.split('.');
+    return get(parts, scope);
+  };
+
   var project_file_reader = require('./../lib/project-file-reader');
-  var Globals = bolt.base.util.Globals;
 
   if (project_file && !files.isFile(project_file))
     fail(1, project_file + ' does not exist or is not a file');
 
   var config = project_file_reader.read(project_file || 'project.json', fail);
 
-  output_dir = output_dir || Globals.resolve('output', config) || 'gen/bolt';
+  output_dir = output_dir || resolve('output', config) || 'gen/bolt';
 
   if (verbose)
     console.log('cleaning: ', output_dir);
