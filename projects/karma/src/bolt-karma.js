@@ -44,7 +44,8 @@
       karma.complete({
         coverage: window.__coverage__
       });
-      karma.start();
+      // start does not exist in debug mode
+      karma.start && karma.start();
     };
 
     return {
