@@ -22,6 +22,13 @@ define(
           return String(initialization.define);
         if (initialization.exports)
           return 'function () { return ' + initialization.exports + '; }';
+        if (initialization.exportsAll) {
+          var obj = {};
+          Arr.each(initialization.exportsAll, function (name) {
+            obj[name] = exports(name);
+          });
+          return 'function () { return ' + JSON.stringify(obj) + '; }';
+        }
         return 'function () { return null; }';
       };
 
