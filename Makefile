@@ -46,7 +46,7 @@ PUBLISH_REPO_URL = git@github.com:boltjs/dist.boltjs.io.git
 PUBLISH_REPO = ${GEN}/dist.boltjs.io
 PUBLISH_DIR = ${PUBLISH_REPO}/${VERSION}
 PUBLISH_GIT = git --work-tree ${PUBLISH_REPO} --git-dir ${PUBLISH_REPO}/.git
-PUBLISH_ARTIFACTS = ${TAR} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-karma.js
+PUBLISH_ARTIFACTS = ${TAR} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-karma.js ${RELEASE_DIR}/lib/test.js
 
 DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE} ${RELEASE_DIR} ${RELEASE_DIR}/bin ${RELEASE_DIR}/lib ${RELEASE_DIR}/command
 
