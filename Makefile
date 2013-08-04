@@ -75,7 +75,7 @@ artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACT
 
 verify: artifacts
 	for x in ${TESTS}; do \
-	    (cd `dirname $$x`; export RELEASE_DIR="../../../${RELEASE_DIR}"; PATH="../../../${RELEASE_DIR};$$PATH" ./run-test) || exit 1; \
+	    (cd `dirname $$x`; export RELEASE_DIR="../../../${RELEASE_DIR}"; PATH="../../../${RELEASE_DIR}/bin:$$PATH" ./run-test) || exit 1; \
 	done
 
 release: clean
