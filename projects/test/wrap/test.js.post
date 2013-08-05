@@ -1,7 +1,8 @@
   var api = {
     run: demand('bolt.test.run.Runner'),
     report: {
-        ConsoleReporter: demand('bolt.test.report.ConsoleReporter')
+        ConsoleReporter: demand('bolt.test.report.ConsoleReporter'),
+        Errors: demand('bolt.test.report.Errors')
     }
   }
   demand('bolt.base.platform.Platform').run(function () {

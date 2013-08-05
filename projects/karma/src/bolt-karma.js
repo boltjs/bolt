@@ -1,6 +1,8 @@
   karma.loaded = function() {};
 
   var reporter = (function () {
+
+
     var summary = function (total) {
       karma.info({total: total})
     };
@@ -29,7 +31,7 @@
           success: false,
           skipped: 0,
           time: new Date().getTime() - start,
-          log: [errors.clean(error)]
+          log: [bolt.test.report.Errors.clean(error)]
         };
         karma.result(result);
       };
