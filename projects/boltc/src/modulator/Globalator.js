@@ -14,7 +14,7 @@ define(
         var globalid = id.substring('global!'.length);
 
         var render = function () {
-          return 'bolt.module.api.define("' + id + '", [], function () { return ' + globalid + '; });';
+          return 'bolt.define("' + id + '", [], function () { return ' + globalid + '; });';
         };
 
         var load = function (define, done) {

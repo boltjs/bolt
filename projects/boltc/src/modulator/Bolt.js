@@ -15,7 +15,7 @@ define(
       var wrap = function (s) {
         return '(function (define, require, demand) {\n' +
           s + '\n' +
-         '})(bolt.module.api.define, bolt.module.api.require, bolt.module.api.demand);\n';
+         '})(bolt.define, bolt.require, bolt.demand);\n';
       };
 
       var can = function (id) {

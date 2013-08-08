@@ -40,7 +40,7 @@ define(
         var include = function (isRemote, path) {
           return function () {
             return content + '\n' +
-              'bolt.module.api.define("' + id + '", [], ' + definition() + ');';
+              'bolt.define("' + id + '", [], ' + definition() + ');';
           };
         };
 
