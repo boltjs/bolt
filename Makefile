@@ -12,7 +12,8 @@ PROJECTS = \
 	test \
 	inline \
 	karma \
-	boltc
+	boltc \
+	ide/sublime
 
 TESTS = \
 	test/scenarios/*/run-test
@@ -31,6 +32,8 @@ DIST_ARTIFACTS = \
 
 TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image
+
+SUBLIME_TAR = projects/ide/sublime/gen/dist/*.tar.gz
 
 STATIC_ARTIFACTS = LICENSE LICENSE.ephox CONTRIBUTORS COPYING README.md
 
@@ -108,7 +111,8 @@ ${RELEASE_VERSION}: ${RELEASE_DIR}/bin
 	echo ${VERSION} > $@
 
 ${TAR}: artifacts ${DIST}
-	tar cfz ${TAR} -C ${TAR_IMAGE} .
+	tar cfz ${TAR} -C ${TAR_IMAGE} ${MODULE}-${VERSION}
+	cp ${SUBLIME_TAR} ${DIST}
 
 ${DIRECTORIES}:
 	mkdir -p $@
