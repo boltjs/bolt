@@ -4,15 +4,21 @@ MAKEFLAGS = ${MFLAGS}
 MODULE = bolt-sublime
 VERSION = local
 
+PACKAGE_NAME = Bolt
+
 SRC = src
 
 GEN = gen
 DIST = ${GEN}/dist
 
-ZIP = ${DIST}/${MODULE}-${VERSION}.sublime-package
-ZIP_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
+TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
+TAR_IMAGE = ${GEN}/package
 
-DIRECTORIES = ${GEN} ${DIST}
+PACKAGE_DIR = ${TAR_IMAGE}/${MODULE}-${VERSION}
+PACKAGE = ${PACKAGE_DIR}/${PACKAGE_NAME}.sublime-package
+PACKAGE_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
+
+DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE} ${PACKAGE_DIR}
 
 .PHONY: clean dist test
 
@@ -21,7 +27,7 @@ default: clean dist test
 clean:
 	rm -rf ./${GEN}
 
-dist: ${ZIP}
+dist: ${TAR}
 
 test:
 	(cd src/Bolt && python -m test.all_test)
@@ -29,9 +35,12 @@ test:
 ${DIRECTORIES}:
 	mkdir -p $@
 
-${ZIP_IMAGE}:
+${TAR}: ${DIST} ${PACKAGE}
+	tar cfz $@ -C ${TAR_IMAGE} .
+
+${PACKAGE_IMAGE}:
 	mkdir -p $@
 	cp -R ${SRC}/* $@
 
-${ZIP}: ${DIST} ${ZIP_IMAGE}
-	(cd ${ZIP_IMAGE} && zip -q ../../../$@ -r .)
+${PACKAGE}: ${PACKAGE_DIR} ${PACKAGE_IMAGE}
+	(cd ${PACKAGE_IMAGE} && zip -q ../../../$@ -r .)
