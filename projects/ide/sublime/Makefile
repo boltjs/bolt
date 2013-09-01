@@ -1,24 +1,37 @@
+MFLAGS = -s
+MAKEFLAGS = ${MFLAGS}
+
+MODULE = bolt-sublime
+VERSION = local
+
 SRC = src
 
-SCRATCH = scratch
-SCRATCH_ZIP = ${SCRATCH}/zip
-SCRATCH_DIST = ${SCRATCH}/dist
+GEN = gen
+DIST = ${GEN}/dist
 
-DEPLOY = dist/deploy
+ZIP = ${DIST}/${MODULE}-${VERSION}.sublime-package
+ZIP_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
 
-ZIP = ${SCRATCH_DIST}/Bolt.sublime-package
+DIRECTORIES = ${GEN} ${DIST}
 
-.PHONY: clean dist 
+.PHONY: clean dist test
 
-default: clean dist
+default: clean dist test
 
 clean:
-	rm -rf ./${SCRATCH}
+	rm -rf ./${GEN}
 
-${SCRATCH}:
-	mkdir -p $@ ${SCRATCH_ZIP} ${SCRATCH_DIST}
+dist: ${ZIP}
 
-dist: ${SCRATCH}
-	cp -R ${SRC}/* ${SCRATCH_ZIP} && \
-	(cd ${SCRATCH_ZIP} && zip -q ../../${ZIP} -r .)
+test:
+	(cd src/Bolt && python -m test.all_test)
 
+${DIRECTORIES}:
+	mkdir -p $@
+
+${ZIP_IMAGE}:
+	mkdir -p $@
+	cp -R ${SRC}/* $@
+
+${ZIP}: ${DIST} ${ZIP_IMAGE}
+	(cd ${ZIP_IMAGE} && zip -q ../../../$@ -r .)
