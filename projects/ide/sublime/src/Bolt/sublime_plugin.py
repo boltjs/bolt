@@ -1,1 +1,0 @@
-/home/dev/Sublime Text 2/sublime_plugin.py
