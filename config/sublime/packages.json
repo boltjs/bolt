@@ -1,0 +1,21 @@
+{
+	"schema_version": "2.0",
+	"packages": [
+		{
+			"name": "Bolt",
+			"description": "Bolt module system plugin for Sublime Text",
+			"author": "boltjs <dev@boltjs.io>",
+			"homepage": "http://boltjs.io",
+			"issues": "https://github.com/boltjs/bolt/issues",
+			"readme": "https://github.com/boltjs/bolt/blob/master/README.md",
+			"releases": [
+				{
+					"sublime_text": "<3000",					
+					"version": "__CHANNEL_VERSION__",
+					"url": "http://dist.boltjs.io/__VERSION__/bolt-__VERSION__.sublime-package",
+					"date": "__DATE__"
+				}
+			]
+		}
+	]
+}

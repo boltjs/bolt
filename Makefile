@@ -42,6 +42,7 @@ RELEASE_NPM = ${RELEASE_DIR}/package.json
 RELEASE_VERSION = ${RELEASE_DIR}/bin/version
 
 CONFIG_NPM = config/npm/package.json
+CONFIG_SUBLIME = config/sublime/packages.json
 CONFIG_VERSION = config/release/version
 CONFIG_BUILD = config/release/build
 
@@ -50,6 +51,8 @@ PUBLISH_REPO = ${GEN}/dist.boltjs.io
 PUBLISH_DIR = ${PUBLISH_REPO}/${VERSION}
 PUBLISH_GIT = git --work-tree ${PUBLISH_REPO} --git-dir ${PUBLISH_REPO}/.git
 PUBLISH_ARTIFACTS = ${TAR} ${SUBLIME_PACKAGE} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-karma.js ${RELEASE_DIR}/lib/test.js
+
+RELEASE_SUBLIME = ${PUBLISH_REPO}/packages.json
 
 DIRECTORIES = ${GEN} ${DIST} ${TAR_IMAGE} ${RELEASE_DIR} ${RELEASE_DIR}/bin ${RELEASE_DIR}/lib ${RELEASE_DIR}/command
 
@@ -87,7 +90,7 @@ release: clean
 	git push origin master
 	${MAKE} ${MFLAGS} publish VERSION=`cat ${CONFIG_VERSION}`-`cat ${CONFIG_BUILD}`
 
-publish: npm-register artifacts verify ${TAR} ${RELEASE_DIR} ${PUBLISH_REPO} ${PUBLISH_DIR}
+publish: npm-register artifacts verify ${TAR} ${RELEASE_DIR} ${PUBLISH_REPO} ${PUBLISH_DIR} ${RELEASE_SUBLIME}
 	cp ${PUBLISH_ARTIFACTS} ${PUBLISH_DIR}
 	${PUBLISH_GIT} add .
 	${PUBLISH_GIT} commit -m "[release] ${VERSION}"
@@ -109,6 +112,11 @@ ${RELEASE_NPM}: ${RELEASE_DIR}
 
 ${RELEASE_VERSION}: ${RELEASE_DIR}/bin
 	echo ${VERSION} > $@
+
+${RELEASE_SUBLIME}: ${PUBLISH_REPO}
+	DATE=`date -u "+%Y-%m-%d %H:%M:%S"` && \
+	CHANNEL_VERSION=`cat ${CONFIG_VERSION}``cat ${CONFIG_BUILD} | xargs printf "%03d\n"` && \
+	sed -e 's/__VERSION__/${VERSION}/g' -e "s/__DATE__/$$DATE/g" -e "s/__CHANNEL_VERSION__/$$CHANNEL_VERSION/g" ${CONFIG_SUBLIME} > $@
 
 ${TAR}: artifacts ${DIST}
 	tar cfz ${TAR} -C ${TAR_IMAGE} ${MODULE}-${VERSION}
