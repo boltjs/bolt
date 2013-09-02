@@ -34,6 +34,7 @@ TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image
 
 SUBLIME_TAR = projects/ide/sublime/gen/dist/*.tar.gz
+SUBLIME_ZIP = projects/ide/sublime/gen/dist/*.zip
 
 STATIC_ARTIFACTS = LICENSE LICENSE.ephox CONTRIBUTORS COPYING README.md
 
@@ -112,7 +113,7 @@ ${RELEASE_VERSION}: ${RELEASE_DIR}/bin
 
 ${TAR}: artifacts ${DIST}
 	tar cfz ${TAR} -C ${TAR_IMAGE} ${MODULE}-${VERSION}
-	cp ${SUBLIME_TAR} ${DIST}
+	cp ${SUBLIME_TAR} ${SUBLIME_ZIP} ${DIST}
 
 ${DIRECTORIES}:
 	mkdir -p $@

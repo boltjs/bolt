@@ -8,6 +8,7 @@ SRC = src
 GEN = gen
 DIST = ${GEN}/dist
 
+ZIP = ${DIST}/${MODULE}-channel-${VERSION}.zip
 TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/package
 
@@ -25,7 +26,7 @@ default: clean test
 clean:
 	rm -rf ./${GEN}
 
-dist: ${TAR}
+dist: ${TAR} ${ZIP}
 
 test: dist ${PACKAGE_IMAGE}
 	(cd ${PACKAGE_IMAGE}/Bolt && python -m test.all_test)
@@ -35,6 +36,9 @@ ${DIRECTORIES}:
 
 ${TAR}: ${DIST} ${PACKAGE}
 	tar cfz $@ -C ${TAR_IMAGE} .
+
+${ZIP}: ${DIST} ${PACKAGE_IMAGE}
+	(cd ${PACKAGE_IMAGE} && zip -q ../../../$@ -r .)
 
 ${PACKAGE_IMAGE}:
 	mkdir -p $@
