@@ -1,15 +1,14 @@
 MFLAGS = -s
 MAKEFLAGS = ${MFLAGS}
 
-MODULE = bolt
-VERSION = local
+MODULE = Bolt
 
 SRC = src
 GEN = gen
 DIST = ${GEN}/dist
 
-PACKAGE = ${DIST}/${MODULE}-${VERSION}.sublime-package
-PACKAGE_IMAGE = ${GEN}/image/${MODULE}-${VERSION}
+PACKAGE = ${DIST}/${MODULE}.sublime-package
+PACKAGE_IMAGE = ${GEN}/image
 
 DIRECTORIES = ${GEN} ${DIST}
 
@@ -23,7 +22,7 @@ clean:
 dist: ${PACKAGE}
 
 test: dist ${PACKAGE_IMAGE}
-	(cd ${PACKAGE_IMAGE}/Bolt && python -B -m test.all_test)
+	(cd ${PACKAGE_IMAGE}/${MODULE} && python -B -m test.all_test)
 
 ${DIRECTORIES}:
 	mkdir -p $@
@@ -33,4 +32,4 @@ ${PACKAGE_IMAGE}:
 	cp -R ${SRC}/* $@
 
 ${PACKAGE}: ${DIST} ${PACKAGE_IMAGE}
-	(cd ${PACKAGE_IMAGE} && zip -q ../../../$@ -r .)
+	(cd ${PACKAGE_IMAGE} && zip -q ../../$@ -r .)

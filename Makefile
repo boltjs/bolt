@@ -33,7 +33,8 @@ DIST_ARTIFACTS = \
 TAR = ${DIST}/${MODULE}-${VERSION}.tar.gz
 TAR_IMAGE = ${GEN}/image
 
-SUBLIME_PACKAGE = projects/ide/sublime/gen/dist/*.sublime-package
+SUBLIME_PACKAGE = projects/ide/sublime/gen/dist/Bolt.sublime-package
+SUBLIME_DIST = ${DIST}/${MODULE}-${VERSION}.sublime-package
 
 STATIC_ARTIFACTS = LICENSE LICENSE.ephox CONTRIBUTORS COPYING README.md
 
@@ -50,7 +51,7 @@ PUBLISH_REPO_URL = git@github.com:boltjs/dist.boltjs.io.git
 PUBLISH_REPO = ${GEN}/dist.boltjs.io
 PUBLISH_DIR = ${PUBLISH_REPO}/${VERSION}
 PUBLISH_GIT = git --work-tree ${PUBLISH_REPO} --git-dir ${PUBLISH_REPO}/.git
-PUBLISH_ARTIFACTS = ${TAR} ${SUBLIME_PACKAGE} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-karma.js ${RELEASE_DIR}/lib/test.js
+PUBLISH_ARTIFACTS = ${TAR} ${SUBLIME_DIST} ${RELEASE_DIR}/lib/bolt.js ${RELEASE_DIR}/lib/bolt-karma.js ${RELEASE_DIR}/lib/test.js
 
 RELEASE_SUBLIME = ${PUBLISH_REPO}/packages.json
 
@@ -70,7 +71,7 @@ clean:
 	done
 
 
-dist: ${TAR}
+dist: ${TAR} ${SUBLIME_DIST}
 
 artifacts: clean ${PROJECTS} ${RELEASE_NPM} ${RELEASE_VERSION} ${STATIC_ARTIFACTS} ${RELEASE_DIR}/bin ${RELEASE_DIR}/lib ${RELEASE_DIR}/command
 	cp ${STATIC_ARTIFACTS} ${RELEASE_DIR}/.
@@ -120,7 +121,9 @@ ${RELEASE_SUBLIME}: ${PUBLISH_REPO}
 
 ${TAR}: artifacts ${DIST}
 	tar cfz ${TAR} -C ${TAR_IMAGE} ${MODULE}-${VERSION}
-	cp ${SUBLIME_PACKAGE} ${DIST}
+
+${SUBLIME_DIST}: ${DIST}
+	cp ${SUBLIME_PACKAGE} $@
 
 ${DIRECTORIES}:
 	mkdir -p $@
