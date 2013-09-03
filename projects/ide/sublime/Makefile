@@ -23,7 +23,7 @@ clean:
 dist: ${PACKAGE}
 
 test: dist ${PACKAGE_IMAGE}
-	(cd ${PACKAGE_IMAGE}/Bolt && python -m test.all_test)
+	(cd ${PACKAGE_IMAGE}/Bolt && python -B -m test.all_test)
 
 ${DIRECTORIES}:
 	mkdir -p $@

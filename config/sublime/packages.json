@@ -4,7 +4,7 @@
 		{
 			"name": "Bolt",
 			"description": "Sublime Text integration for the bolt module system.",
-			"author": "boltjs <dev@boltjs.io>",
+			"author": "boltjs",
 			"homepage": "http://boltjs.io",
 			"issues": "https://github.com/boltjs/bolt/issues",
 			"readme": "https://raw.github.com/boltjs/bolt/master/README.md",
